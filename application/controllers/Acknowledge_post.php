@@ -29,15 +29,21 @@ class Acknowledge_post extends CI_Controller{
     {   
         if(isset($_POST) && count($_POST) > 0)     
         {   
+            $this->load->library('session');
+            
+            // Sets session variable and loads closest 5 events
+           
+
             $params = array(
+				'rin' =>  $this->session->userdata('rin'),
+				'announcement_id' => $this->input->post('announcementid')
             );
             
             $acknowledge_post_id = $this->Acknowledge_post_model->add_acknowledge_post($params);
-            redirect('acknowledge_post/index');
+            redirect('announcement/view');
         }
         else
         {            
-            $data['_view'] = 'acknowledge_post/add';
             $this->load->view('layouts/main',$data);
         }
     }  
@@ -69,6 +75,14 @@ class Acknowledge_post extends CI_Controller{
         else
             show_error('The acknowledge_post you are trying to edit does not exist.');
     } 
+    
+    /*
+     * Returns the number of posts with a given uid
+     */
+    function get_acknowledge_count($announcement_id)
+    {
+        return $this->Acknowledge_post_model->get_acknowledge_post_count($announcement_id);
+    }
 
     /*
      * Deleting acknowledge_post

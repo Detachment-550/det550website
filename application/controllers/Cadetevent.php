@@ -29,15 +29,30 @@ class Cadetevent extends CI_Controller{
     {   
         if(isset($_POST) && count($_POST) > 0)     
         {   
+            if($this->input->post('type') === "pt")
+            {
+                $pt = 1;
+                $llab = 0;
+            }
+            else if($this->input->post('type') === "llab")
+            {
+                $pt = 0;
+                $llab = 1;
+            }
+            else
+            {
+                $pt = 0;
+                $llab = 0;
+            }
             $params = array(
 				'name' => $this->input->post('name'),
 				'date' => $this->input->post('date'),
-				'pt' => $this->input->post('pt'),
-				'llab' => $this->input->post('llab'),
+				'pt' => $pt,
+				'llab' => $llab,
             );
             
             $cadetevent_id = $this->Cadetevent_model->add_cadetevent($params);
-            redirect('cadetevent/index');
+            redirect('attendance/view');
         }
         else
         {            

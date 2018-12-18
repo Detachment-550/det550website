@@ -21,6 +21,20 @@ class Attendance extends CI_Controller{
         $data['_view'] = 'attendance/index';
         $this->load->view('layouts/main',$data);
     }
+    
+    /*
+     * Loads a view for the event page.
+     */
+    function view()
+    {
+        $data['title'] = 'Cadet Events';
+        $this->load->model('cadetevent_model');
+        $data['events'] =  $this->cadetevent_model->get_all_cadetevents();
+        // Loads the home page 
+        $this->load->view('templates/header', $data);
+        $this->load->view('pages/attendance.php');
+        $this->load->view('templates/footer');   
+    }
 
     /*
      * Adding a new attendance

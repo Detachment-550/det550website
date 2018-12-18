@@ -16,7 +16,7 @@ class Attendance_model extends CI_Model
      */
     function get_attendance($rin)
     {
-        return $this->db->get_where('attendance',array('rin'=>$rin))->row_array();
+        return $this->db->get_where('attendance',array('rin'=>$rin))->result_array();
     }
         
     /*

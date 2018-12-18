@@ -30,9 +30,9 @@ class Announcement_model extends CI_Model
     /*
      * Get all announcement
      */
-    function get_all_announcement()
+    function get_all_announcements()
     {
-        $this->db->order_by('uid', 'desc');
+        $this->db->order_by('date', 'desc');
         return $this->db->get('announcement')->result_array();
     }
         

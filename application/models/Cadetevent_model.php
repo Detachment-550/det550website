@@ -20,6 +20,16 @@ class Cadetevent_model extends CI_Model
     }
     
     /*
+     * Gets total of a given event.
+     */
+    function get_event_total($event)
+    {
+        $this->db->from('cadetEvent');
+        $query = $this->db->where($event, 1);
+        return $query->count_all_results();
+    }
+    
+    /*
      * Gets 5 closest cadetevents by date
      */
     function get_last_five_events()
@@ -30,10 +40,9 @@ class Cadetevent_model extends CI_Model
     /*
      * Get all cadetevent
      */
-    function get_all_cadetevent()
+    function get_all_cadetevents()
     {
-        $this->db->order_by('eventID', 'desc');
-        return $this->db->get('cadetEvent')->result_array();
+        return $this->db->query('SELECT * FROM cadetEvent ORDER BY ABS( DATEDIFF( cadetEvent.date, NOW() ) )')->result_array();
     }
         
     /*

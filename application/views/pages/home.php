@@ -56,55 +56,9 @@
   		</div>
   		<div class="card-body">
         <h5 class="card-title">Leadership Labs</h5>
-            <?php 
-//                        $sql = "SELECT * FROM cadetEvent WHERE llab = 1";
-//                        $stmt = $mysqli->prepare($sql);
-//                        $stmt->execute();
-//                        $result = $stmt->get_result();
-//                        $sum = mysqli_num_rows($result);
-//            
-//                        $sql = "SELECT * FROM attendance, cadetEvent WHERE attendance.eventid = cadetEvent.eventID AND rin = ? AND llab = 1";
-//                        $stmt = $mysqli->prepare($sql);
-//                        $stmt->bind_param("i", $_SESSION['rin']);
-//                        $stmt->execute();
-//                        $result = $stmt->get_result();
-//                        $attend = mysqli_num_rows($result);
-//                            
-//                        if($sum != 0)
-//                        {
-//                           $perc = number_format( (($attend / $sum) * 100), 2 ); 
-//                        }
-//                        else
-//                        {
-//                            $perc = 100;
-//                        }       
-            ?>
-    		<p class="card-text">Attendance: <?php //echo $perc; ?>%</p>
+    		<p class="card-text">Attendance: <?php echo $llabperc; ?>%</p>
         <h5 class="card-title">PT</h5>
-            <?php 
-//                        $sql = "SELECT * FROM cadetEvent WHERE pt = 1";
-//                        $stmt = $mysqli->prepare($sql);
-//                        $stmt->execute();
-//                        $result = $stmt->get_result();
-//                        $sum = mysqli_num_rows($result);
-//            
-//                        $sql = "SELECT * FROM attendance, cadetEvent WHERE attendance.eventid = cadetEvent.eventID AND rin = ? AND pt = 1";
-//                        $stmt = $mysqli->prepare($sql);
-//                        $stmt->bind_param("i", $_SESSION['rin']);
-//                        $stmt->execute();
-//                        $result = $stmt->get_result();
-//                        $attend = mysqli_num_rows($result);
-//                            
-//                        if($sum != 0)
-//                        {
-//                           $perc = number_format( (($attend / $sum) * 100), 2 ); 
-//                        }
-//                        else
-//                        {
-//                            $perc = 100;
-//                        }   
-                         ?>
-        <p class="card-text">Attendance: <?php // echo $perc; ?>%</p>
+        <p class="card-text">Attendance: <?php echo $ptperc; ?>%</p>
     		<a href="attendance.php" class="btn btn-sm btn-primary">View</a>
   		</div>
       </div>

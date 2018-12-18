@@ -14,13 +14,13 @@ class Cadet extends CI_Controller{
     /*
      * Listing of cadet
      */
-    function index()
-    {
-        $data['cadet'] = $this->Cadet_model->get_all_cadet();
-        
-        $data['_view'] = 'cadet/index';
-        $this->load->view('layouts/main',$data);
-    }
+//    function index()
+//    {
+//        $data['cadet'] = $this->Cadet_model->get_all_cadet();
+//        
+//        $data['_view'] = 'cadet/index';
+//        $this->load->view('layouts/main',$data);
+//    }
 
     /*
      * Adding a new cadet
@@ -111,18 +111,60 @@ class Cadet extends CI_Controller{
     /*
      * Deleting cadet
      */
-    function remove($rin)
+//    function remove($rin)
+//    {
+//        $cadet = $this->Cadet_model->get_cadet($rin);
+//
+//        // check if the cadet exists before trying to delete it
+//        if(isset($cadet['rin']))
+//        {
+//            $this->Cadet_model->delete_cadet($rin);
+//            redirect('cadet/index');
+//        }
+//        else
+//            show_error('The cadet you are trying to delete does not exist.');
+//    }
+    
+    /*
+     * Shows cadet's profile.
+     */
+    function profile()
     {
-        $cadet = $this->Cadet_model->get_cadet($rin);
-
-        // check if the cadet exists before trying to delete it
-        if(isset($cadet['rin']))
+        $this->load->library('session');
+        
+        $data['title'] = 'Profile Page';
+        
+        // Looks for profile picture
+        $files = glob("../../../images/*.{jpg,png,jpeg}", GLOB_BRACE);
+        $found = false;
+        foreach($files as $file)
         {
-            $this->Cadet_model->delete_cadet($rin);
-            redirect('cadet/index');
+            $info = pathinfo($file);
+            if($info['filename'] == $_SESSION['rin'])
+            {
+                $data['picture'] = $file; 
+                $found = true;
+            }
+        }
+        if(!$found)
+        {
+            $data['picture'] = "../../../images/default.jpeg";
+        }
+        
+        $data['cadet'] = $this->Cadet_model->get_cadet($this->session->userdata('rin'));
+        
+        if(strpos($data['cadet']['rank'], "AS") !== false || strpos($data['cadet']['rank'], "None") !== false)
+        {
+            $data['heading'] = "Cadet " . $data['cadet']['lastName'];
         }
         else
-            show_error('The cadet you are trying to delete does not exist.');
+        {
+            $data['heading'] = $data['cadet']['rank'] . " " . $data['cadet']['lastName'];
+        } 
+        
+        $this->load->view('templates/header', $data);
+        $this->load->view('pages/myprofile.php');
+        $this->load->view('templates/footer');    
     }
     
     /*
@@ -142,23 +184,83 @@ class Cadet extends CI_Controller{
             $this->load->library('session');
             $this->load->model('cadetevent_model');
             $this->load->model('announcement_model');
-
+            $this->load->model('attendance_model');
+            
             // Sets session variable and loads closest 5 events
             $this->session->set_userdata('login', true);
+            $this->session->set_userdata('rin', $this->input->post('rin'));
+
             $data['events'] =  $this->cadetevent_model->get_last_five_events();
             $data['announcements'] =  $this->announcement_model->get_last_five_announcements();
             
+            // Gets pt and llab attendance percentage 
+            $attendance = $this->attendance_model->get_attendance($this->session->userdata('rin'));
+            $pt = 0;
+            $llab = 0;
+            $ptSum = $this->cadetevent_model->get_event_total('pt');
+            $llabSum = $this->cadetevent_model->get_event_total('llab');
+            foreach( $attendance as $attend )
+            {
+                $temp = $this->cadetevent_model->get_cadetevent($attend['eventid']);
+                if( $temp['pt'] === '1' )
+                {
+                    $pt += 1;
+                }
+                else if( $temp['llab'] === '1' )
+                {
+                    $llab += 1;
+                }
+            }
+            $data['ptperc'] = ($pt / $ptSum) * 100;
+            $data['llabperc'] =  ($llab / $llabSum) * 100;
+            $this->session->set_userdata('ptperc', $data['ptperc']);
+            $this->session->set_userdata('llabperc', $data['llabperc']);
+
+            // Loads the home page 
             $this->load->view('templates/header', $data);
             $this->load->view('pages/home.php');
             $this->load->view('templates/footer');            
         }
         else
         {
-            $this->load->view('templates/header', $data);
             $this->load->view('pages/login.php');
             $this->load->view('templates/footer');
-        }
+        }   
+    }
+    
+    /*
+     * Shows cadet's home page.
+     */
+    function home()
+    {
+        $data['title'] = "Home";
+        $this->load->library('session');
+        $this->load->model('cadetevent_model');
+        $this->load->model('announcement_model');
+        $data['ptperc'] = $this->session->userdata('ptperc');
+        $data['llabperc'] = $this->session->userdata('llabperc');
+        $data['events'] =  $this->cadetevent_model->get_last_five_events();
+        $data['announcements'] =  $this->announcement_model->get_last_five_announcements();
         
+        // Loads the home page 
+        $this->load->view('templates/header', $data);
+        $this->load->view('pages/home.php');
+        $this->load->view('templates/footer');            
+    }
+    
+    /*
+     * Logs user out of website.
+     */
+    function logout()
+    {
+        $this->load->library('session');
+        $data['title'] = 'Login Page';
+        $this->session->unset_userdata('login');
+        $this->session->unset_userdata('rin');
+        $this->session->unset_userdata('ptperc');
+        $this->session->unset_userdata('llabperc');
+        $this->load->view('pages/login.php');
+        $this->load->view('templates/footer');
     }
     
 }

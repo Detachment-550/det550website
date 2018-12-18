@@ -23,6 +23,26 @@ class Announcement extends CI_Controller{
     }
 
     /*
+     * Shows the annoucement page.
+     */
+    function view()
+    {
+        $data['title'] = 'Announcements';
+        $this->load->model('announcement_model');
+        $this->load->model('cadet_model');
+        $this->load->model('acknowledge_post_model');
+
+        $data['announcements'] =  $this->announcement_model->get_all_announcements();
+        $data['cadets'] = $this->cadet_model->get_all_cadets();
+        $data['ackposts'] = $this->acknowledge_post_model->get_all_acknowledge_posts();
+
+        // Loads the home page 
+        $this->load->view('templates/header', $data);
+        $this->load->view('pages/announcements.php');
+        $this->load->view('templates/footer');   
+    }
+    
+    /*
      * Adding a new announcement
      */
     function add()

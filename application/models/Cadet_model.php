@@ -22,9 +22,9 @@ class Cadet_model extends CI_Model
     /*
      * Get all cadet
      */
-    function get_all_cadet()
+    function get_all_cadets()
     {
-        $this->db->order_by('rin', 'desc');
+        $this->db->order_by('lastName', 'desc');
         return $this->db->get('cadet')->result_array();
     }
         
