@@ -21,6 +21,21 @@ class Announcement extends CI_Controller{
         $data['_view'] = 'announcement/index';
         $this->load->view('layouts/main',$data);
     }
+    
+    function make()
+    {
+        $data['title'] = 'Make an Announcement';
+        $this->load->model('announcement_model');
+        $this->load->model('cadetgroup_model');
+
+        $data['announcements'] =  $this->announcement_model->get_all_announcements();
+        $data['groups'] = $this->cadetgroup_model->get_all_groups();
+
+        // Loads the home page 
+        $this->load->view('templates/header', $data);
+        $this->load->view('pages/makepost.php');
+        $this->load->view('templates/footer');  
+    }
 
     /*
      * Shows the annoucement page.

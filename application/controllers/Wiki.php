@@ -8,18 +8,20 @@ class Wiki extends CI_Controller{
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Wiki_model');
+        $this->load->model('wiki_model');
     } 
 
     /*
      * Listing of wiki
      */
-    function index()
+    function view()
     {
-        $data['wiki'] = $this->Wiki_model->get_all_wiki();
-        
-        $data['_view'] = 'wiki/index';
-        $this->load->view('layouts/main',$data);
+        $data['title'] = 'Detachment Wiki';
+        $data['wikis'] = $this->wiki_model->get_all_wikis();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('pages/wikihome.php');
+        $this->load->view('templates/footer'); 
     }
 
     /*
@@ -46,43 +48,60 @@ class Wiki extends CI_Controller{
     /*
      * Editing a wiki
      */
-    function edit($name)
-    {   
-        // check if the wiki exists before trying to edit it
-        $data['wiki'] = $this->Wiki_model->get_wiki($name);
-        
-        if(isset($data['wiki']['name']))
+    function edit()
+    {       
+        if( $this->input->post('wiki') !== null )
         {
-            if(isset($_POST) && count($_POST) > 0)     
-            {   
-                $params = array(
-					'body' => $this->input->post('body'),
-                );
+            $data['title'] = 'Edit Detachment Wiki';
+            
+            $data['wiki'] = $this->wiki_model->get_wiki($this->input->post('wiki'));
 
-                $this->Wiki_model->update_wiki($name,$params);            
-                redirect('wiki/index');
-            }
-            else
-            {
-                $data['_view'] = 'wiki/edit';
-                $this->load->view('layouts/main',$data);
-            }
+            $this->load->view('templates/header', $data);
+            $this->load->view('pages/editwiki.php');
+            $this->load->view('templates/footer'); 
         }
         else
+        {
             show_error('The wiki you are trying to edit does not exist.');
+        }
     } 
+    
+    /*
+     * Saves changes made to the wiki.
+     */
+    function save()
+    {
+        if( $this->input->post('modifiedwiki') !== null )
+        {
+            $params = array(
+                'body' => $this->input->post('savewiki'),
+            );
+            
+            $this->wiki_model->update_wiki($this->input->post('modifiedwiki'), $params);
+
+            $data['wikis'] = $this->wiki_model->get_all_wikis();
+            
+            $this->load->view('templates/header', $data);
+            $this->load->view('pages/wikihome.php');
+            $this->load->view('templates/footer'); 
+        }
+        else
+        {
+            show_error('The wiki you are trying to edit does not exist.');
+        }
+    }
 
     /*
      * Deleting wiki
      */
-    function remove($name)
+    function remove($id)
     {
-        $wiki = $this->Wiki_model->get_wiki($name);
+        $wiki = $this->Wiki_model->get_wiki($id);
 
         // check if the wiki exists before trying to delete it
-        if(isset($wiki['name']))
+        if(isset($wiki['id']))
         {
-            $this->Wiki_model->delete_wiki($name);
+            $this->Wiki_model->delete_wiki($id);
             redirect('wiki/index');
         }
         else

@@ -211,15 +211,12 @@ class Cadet extends CI_Controller{
                     $llab += 1;
                 }
             }
-            $data['ptperc'] = ($pt / $ptSum) * 100;
-            $data['llabperc'] =  ($llab / $llabSum) * 100;
+            $data['ptperc'] = number_format(($pt / $ptSum) * 100, 2);
+            $data['llabperc'] =  number_format(($llab / $llabSum) * 100, 2);
             $this->session->set_userdata('ptperc', $data['ptperc']);
             $this->session->set_userdata('llabperc', $data['llabperc']);
 
-            // Loads the home page 
-            $this->load->view('templates/header', $data);
-            $this->load->view('pages/home.php');
-            $this->load->view('templates/footer');            
+            redirect('cadet/home');
         }
         else
         {

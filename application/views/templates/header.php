@@ -55,11 +55,15 @@
             <button class="dropdown-item" style="background-color:transparent;border:none;cursor:pointer;" type="submit">Announcements</button>
         </form>          
             <?php echo form_open('cadetdirectory/view'); ?>
-                <button type="submit" class="dropdown-item" style="background-color:transparent;border:none;cursor:pointer;">Directory</button>
-            </form>
+            <button type="submit" class="dropdown-item" style="background-color:transparent;border:none;cursor:pointer;">Directory</button>
+        </form>
           <a class="dropdown-item" href="https://rpi.account.box.com/login">Media/Documents</a>
-          <a class="dropdown-item" href="wikihome.php">Documentation</a>
-          <a class="dropdown-item" href="sendemail.php">Send Email</a>
+            <?php echo form_open('wiki/view'); ?>
+            <button type="submit" class="dropdown-item" style="background-color:transparent;border:none;cursor:pointer;">Documentation</button>
+        </form>            
+            <?php echo form_open('email/view'); ?>
+            <button type="submit" class="dropdown-item" style="background-color:transparent;border:none;cursor:pointer;">Send Email</button>
+        </form>
           <?php 
 //            if(isset($_SESSION["rin"])){
 //              $sql = "SELECT admin FROM cadet WHERE rin = (?)";

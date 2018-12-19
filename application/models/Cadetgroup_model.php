@@ -14,7 +14,7 @@ class Cadetgroup_model extends CI_Model
     /*
      * Get cadetgroup by id
      */
-    function get_cadetgroup($id)
+    function get_group($id)
     {
         return $this->db->get_where('cadetGroup',array('id'=>$id))->row_array();
     }
@@ -22,7 +22,7 @@ class Cadetgroup_model extends CI_Model
     /*
      * Get all cadetgroup
      */
-    function get_all_cadetgroup()
+    function get_all_groups()
     {
         $this->db->order_by('id', 'desc');
         return $this->db->get('cadetGroup')->result_array();
@@ -31,7 +31,7 @@ class Cadetgroup_model extends CI_Model
     /*
      * function to add new cadetgroup
      */
-    function add_cadetgroup($params)
+    function add_group($params)
     {
         $this->db->insert('cadetGroup',$params);
         return $this->db->insert_id();
@@ -40,7 +40,7 @@ class Cadetgroup_model extends CI_Model
     /*
      * function to update cadetgroup
      */
-    function update_cadetgroup($id,$params)
+    function update_group($id,$params)
     {
         $this->db->where('id',$id);
         return $this->db->update('cadetGroup',$params);
@@ -49,7 +49,7 @@ class Cadetgroup_model extends CI_Model
     /*
      * function to delete cadetgroup
      */
-    function delete_cadetgroup($id)
+    function delete_group($id)
     {
         return $this->db->delete('cadetGroup',array('id'=>$id));
     }

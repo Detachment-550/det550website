@@ -14,17 +14,17 @@ class Wiki_model extends CI_Model
     /*
      * Get wiki by name
      */
-    function get_wiki($name)
+    function get_wiki($id)
     {
-        return $this->db->get_where('wiki',array('name'=>$name))->row_array();
+        return $this->db->get_where('wiki',array('id'=>$id))->row_array();
     }
         
     /*
      * Get all wiki
      */
-    function get_all_wiki()
+    function get_all_wikis()
     {
-        $this->db->order_by('name', 'desc');
+        $this->db->order_by('name', 'asc');
         return $this->db->get('wiki')->result_array();
     }
         
@@ -40,17 +40,17 @@ class Wiki_model extends CI_Model
     /*
      * function to update wiki
      */
-    function update_wiki($name,$params)
+    function update_wiki($id,$params)
     {
-        $this->db->where('name',$name);
+        $this->db->where('id',$id);
         return $this->db->update('wiki',$params);
     }
     
     /*
      * function to delete wiki
      */
-    function delete_wiki($name)
+    function delete_wiki($id)
     {
-        return $this->db->delete('wiki',array('name'=>$name));
+        return $this->db->delete('wiki',array('id'=>$id));
     }
 }
