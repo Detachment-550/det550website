@@ -64,48 +64,55 @@ class Cadet extends CI_Controller{
     /*
      * Editing a cadet
      */
-    function edit($rin)
+    function edit()
     {   
-        // check if the cadet exists before trying to edit it
-        $data['cadet'] = $this->Cadet_model->get_cadet($rin);
+        $data['title'] = 'Edit Profile';
         
-        if(isset($data['cadet']['rin']))
-        {
-            if(isset($_POST) && count($_POST) > 0)     
-            {   
-                $params = array(
-					'admin' => $this->input->post('admin'),
-					'password' => $this->input->post('password'),
-					'firstName' => $this->input->post('firstName'),
-					'rank' => $this->input->post('rank'),
-					'primaryEmail' => $this->input->post('primaryEmail'),
-					'secondaryEmail' => $this->input->post('secondaryEmail'),
-					'primaryPhone' => $this->input->post('primaryPhone'),
-					'secondaryPhone' => $this->input->post('secondaryPhone'),
-					'flight' => $this->input->post('flight'),
-					'position' => $this->input->post('position'),
-					'groupMe' => $this->input->post('groupMe'),
-					'middleName' => $this->input->post('middleName'),
-					'lastName' => $this->input->post('lastName'),
-					'rfid' => $this->input->post('rfid'),
-					'major' => $this->input->post('major'),
-					'bio' => $this->input->post('bio'),
-					'AFGoals' => $this->input->post('AFGoals'),
-					'awards' => $this->input->post('awards'),
-					'PGoals' => $this->input->post('PGoals'),
-                );
-
-                $this->Cadet_model->update_cadet($rin,$params);            
-                redirect('cadet/index');
-            }
-            else
-            {
-                $data['_view'] = 'cadet/edit';
-                $this->load->view('layouts/main',$data);
-            }
-        }
-        else
-            show_error('The cadet you are trying to edit does not exist.');
+        $this->load->view('templates/header', $data);
+        $this->load->view('pages/editProfile.php');
+        $this->load->view('templates/footer'); 
+        
+        
+//        // check if the cadet exists before trying to edit it
+//        $data['cadet'] = $this->Cadet_model->get_cadet($rin);
+//        
+//        if(isset($data['cadet']['rin']))
+//        {
+//            if(isset($_POST) && count($_POST) > 0)     
+//            {   
+//                $params = array(
+//					'admin' => $this->input->post('admin'),
+//					'password' => $this->input->post('password'),
+//					'firstName' => $this->input->post('firstName'),
+//					'rank' => $this->input->post('rank'),
+//					'primaryEmail' => $this->input->post('primaryEmail'),
+//					'secondaryEmail' => $this->input->post('secondaryEmail'),
+//					'primaryPhone' => $this->input->post('primaryPhone'),
+//					'secondaryPhone' => $this->input->post('secondaryPhone'),
+//					'flight' => $this->input->post('flight'),
+//					'position' => $this->input->post('position'),
+//					'groupMe' => $this->input->post('groupMe'),
+//					'middleName' => $this->input->post('middleName'),
+//					'lastName' => $this->input->post('lastName'),
+//					'rfid' => $this->input->post('rfid'),
+//					'major' => $this->input->post('major'),
+//					'bio' => $this->input->post('bio'),
+//					'AFGoals' => $this->input->post('AFGoals'),
+//					'awards' => $this->input->post('awards'),
+//					'PGoals' => $this->input->post('PGoals'),
+//                );
+//
+//                $this->Cadet_model->update_cadet($rin,$params);            
+//                redirect('cadet/index');
+//            }
+//            else
+//            {
+//                $data['_view'] = 'cadet/edit';
+//                $this->load->view('layouts/main',$data);
+//            }
+//        }
+//        else
+//            show_error('The cadet you are trying to edit does not exist.');
     } 
 
     /*
@@ -162,8 +169,11 @@ class Cadet extends CI_Controller{
             $data['heading'] = $data['cadet']['rank'] . " " . $data['cadet']['lastName'];
         } 
         
+        // Allows user to see edit profile button
+        $data['myprofile'] = true;
+        
         $this->load->view('templates/header', $data);
-        $this->load->view('pages/myprofile.php');
+        $this->load->view('pages/profile.php');
         $this->load->view('templates/footer');    
     }
     

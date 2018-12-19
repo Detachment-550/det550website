@@ -17,4 +17,46 @@ class Cadetdirectory extends CI_Controller{
         $this->load->view('templates/footer'); 
     }
     
+    /*
+     * Shows another cadet's profile.
+     */
+    function profile()
+    {        
+        $data['title'] = 'Profile Page';
+        
+        // Looks for profile picture
+        $files = glob("../../../images/*.{jpg,png,jpeg}", GLOB_BRACE);
+        $found = false;
+        foreach($files as $file)
+        {
+            $info = pathinfo($file);
+            if($info['filename'] == $this->input->post('rin'))
+            {
+                $data['picture'] = $file; 
+                $found = true;
+            }
+        }
+        if(!$found)
+        {
+            $data['picture'] = "../../../images/default.jpeg";
+        }
+        
+        $data['cadet'] = $this->Cadet_model->get_cadet($this->input->post('rin'));
+        
+        if(strpos($data['cadet']['rank'], "AS") !== false || strpos($data['cadet']['rank'], "None") !== false)
+        {
+            $data['heading'] = "Cadet " . $data['cadet']['lastName'];
+        }
+        else
+        {
+            $data['heading'] = $data['cadet']['rank'] . " " . $data['cadet']['lastName'];
+        } 
+        
+        $data['myprofile'] = false;
+        
+        $this->load->view('templates/header', $data);
+        $this->load->view('pages/profile.php');
+        $this->load->view('templates/footer');   
+    }
+    
 }

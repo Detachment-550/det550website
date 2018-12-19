@@ -35,7 +35,14 @@
             <strong>Position: </strong> <?php echo $cadet['position']; ?><br>
             <strong>Major: </strong> <?php echo $cadet['major']; ?><br>
             </p>
-            <a class="btn btn-primary" role="button" href="editprofile.php">Edit Page</a>
+              <?php
+                if( $myprofile === true)
+                {
+                    echo form_open('cadet/edit');
+                    echo "<button class='btn btn-primary' role='button' href='editprofile.php'>Edit Page</button></form>";
+                }
+              ?>
+            
           </div>
           </div>
         </div>

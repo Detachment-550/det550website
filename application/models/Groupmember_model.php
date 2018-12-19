@@ -14,18 +14,17 @@ class Groupmember_model extends CI_Model
     /*
      * Get groupmember by 
      */
-    function get_groupmember($)
+    function get_groupmember( $rin )
     {
-        return $this->db->get_where('groupMember',array(''=>$))->row_array();
+        return $this->db->get_where('groupMember',array('rin'=>$rin))->row_array();
     }
         
     /*
-     * Get all groupmember
+     * Get all groupmembers of a given group
      */
-    function get_all_groupmember()
+    function get_all_groupmembers( $id )
     {
-        $this->db->order_by('', 'desc');
-        return $this->db->get('groupMember')->result_array();
+        return $this->db->get_where('groupMember',array('groupID'=>$id))->result_array();
     }
         
     /*
@@ -40,17 +39,17 @@ class Groupmember_model extends CI_Model
     /*
      * function to update groupmember
      */
-    function update_groupmember($,$params)
+    function update_groupmember($id,$params)
     {
-        $this->db->where('',$);
+        $this->db->where('groupID',$id);
         return $this->db->update('groupMember',$params);
     }
     
     /*
      * function to delete groupmember
      */
-    function delete_groupmember($)
+    function delete_groupmember($rin, $id)
     {
-        return $this->db->delete('groupMember',array(''=>$));
+        return $this->db->delete('groupMember',array('rin'=>$rin, 'groupID'=>$id));
     }
 }

@@ -22,7 +22,7 @@
         <div class="col-6">
             <div class="card" style="margin: auto;padding: 10px;">
                 <h5 class="card-title">Create an Event</h5>
-                <form action="/index.php/cadetevent/add" method="post">
+                    <?php echo form_open('cadetevent/add'); ?>
                     <label for=title><b>Title: </b></label><br><input class="form-control" type="text" name="name"/><br>
                     <label for=date><b>Date: </b></label><br><input class="form-control" type="datetime-local" name="date"/><br>
                     <label for=mandatory><b>Event Type: </b></label><br>
@@ -35,8 +35,8 @@
           <div class="col-6">
     	    <div class="card" style="margin: auto;width: 100%;padding: 10px;">
     			<h5 class="card-title"> Select Event</h5>
-    			<form action="attendance.php" method="post">
-    			<select class="form-control" name="eventSelect">
+                <?php echo form_open('attendance/attendees'); ?>
+    			<select class="form-control" name="event">
     				<?php
     				foreach($events as $event) 
                     {
@@ -44,8 +44,7 @@
     				}
     				?>
     			</select><br>
-    			<button class="btn btn-sm btn-primary" type="submit" value="Submit" name="selectevent">View Attendees</button><br><br>
-          <input class="btn btn-sm btn-primary" type="submit" name="Export" value="Export to Excel"/>
+    			<button class="btn btn-sm btn-primary" type="submit" value="submit" name="selectevent">View Attendees</button><br><br>
     			</form>
 
     

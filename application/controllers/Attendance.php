@@ -30,6 +30,7 @@ class Attendance extends CI_Controller{
         $data['title'] = 'Cadet Events';
         $this->load->model('cadetevent_model');
         $data['events'] =  $this->cadetevent_model->get_all_cadetevents();
+        
         // Loads the home page 
         $this->load->view('templates/header', $data);
         $this->load->view('pages/attendance.php');
@@ -57,6 +58,31 @@ class Attendance extends CI_Controller{
             $this->load->view('layouts/main',$data);
         }
     }  
+    
+    /*
+     *
+     */
+    function attendees()
+    {
+        if( $this->input->post('event') !== null )
+        {
+            $data['title'] = 'Cadet Attendance';
+            $this->load->model('attendance_model');
+            $this->load->model('cadetevent_model');
+
+            $data['attendees'] =  $this->attendance_model->get_attendance( $this->input->post('event') );
+            $data['event'] =  $this->cadetevent_model->get_cadetevent( $this->input->post('event') );
+
+            // Loads the home page 
+            $this->load->view('templates/header', $data);
+            $this->load->view('pages/viewattendees.php');
+            $this->load->view('templates/footer'); 
+        }
+        else
+        {
+            show_error('You must select an event to view the attendees of that event.');
+        }
+    }
 
     /*
      * Editing a attendance

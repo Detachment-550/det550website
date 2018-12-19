@@ -1,7 +1,7 @@
 <body>
   <div class="jumbotron container-fluid">
 	<h1 class="display-4"> Announcements </h1><br>
-    <?php echo form_open('announcement/make'); ?>
+    <?php echo form_open('announcement/create'); ?>
           	<button class="btn btn-primary" href="makepost.php" type="submit">Make an Announcement</button><br><br>
       </form>
     <div class='card'>
@@ -25,9 +25,9 @@
 		echo "<p class='card-text'>Posted by: " . $firstName . ' ' . $lastName . "</p>";
 
 		// Make a button to read and understand post
-		echo '<form class="acknowledge" action="/index.php/acknowledge_post/add" method="post">';
+        echo form_open('acknowledge_post/add');
         echo "<input type='text' value='" . $announcement['uid'] . "' style='display:none;' name='announcementid'/>";
-		echo '<button class="btn btn-sm btn-primary" type="submit" name="' . $announcement['uid'] . '" style="float:left;">Read and Understood</button></form>';
+		echo "<button class='btn btn-sm btn-primary' type='submit' name='" . $announcement['uid'] . "' style='float:left;'>Read and Understood</button></form>";
         
         // Count of people who have read post
         $count = 0;
@@ -42,7 +42,7 @@
 		// Print out the number of people that have read and understood the post
 		// When it is clicked it prints out the list of people that have
 		echo '<form action="announcements.php" method="post">';
-		echo '<input type="submit" name="' . $announcement['uid'] . 'second' . '" value="'. $count .'"/></form>';
+		echo '<input type="submit" name="' . $announcement['uid'] . '" value="'. $count .'"/></form>';
 
         // TODO: Make it work so you can see who acknowledged the post
 //		$setstr = $announcement['uid'] . 'second';

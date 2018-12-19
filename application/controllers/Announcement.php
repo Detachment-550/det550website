@@ -22,7 +22,88 @@ class Announcement extends CI_Controller{
         $this->load->view('layouts/main',$data);
     }
     
-    function make()
+    /*
+     * Sends the announcement.
+     */
+    function post()
+    {
+        $this->load->helper('form');
+        
+        if( $this->input->post('title') != null && $this->input->post('description') != null && $this->input->post('subject') != null)
+        {
+            // Goes to each selected group and sends announcement as email
+            if( $this->input->post('groups') !== null )
+            {
+                // Encrypts the email
+                $this->load->library('encryption');
+
+                // Load email library
+                $this->load->library('email');
+
+                // SMTP & mail configuration
+                $config = array(
+                    'protocol'  => 'smtp',
+                    'smtp_host' => 'ssl://smtp.googlemail.com',
+                    'smtp_port' => 465,
+                    'smtp_user' => 'afrotcdet550@gmail.com',
+                    'smtp_pass' => 'silverfalcons550',
+                    'mailtype'  => 'html',
+                    'charset'   => 'utf-8'
+                );
+
+                $this->email->initialize($config);
+                $this->email->set_mailtype("html");
+                $this->email->set_newline("\r\n");
+
+                $this->load->model('groupmember_model');
+                $this->load->model('cadet_model');
+
+                $recipients = array();
+                
+                foreach( $this->input->post('groups') as $group )
+                {
+                    $data['members'] =  $this->groupmember_model->get_all_groupmembers( $group );
+                    foreach( $data['members'] as $member )
+                    {
+                        $cadet = $this->cadet_model->get_cadet( $member['rin'] );
+                        $recipients[] = $cadet['primaryEmail'];
+                    }
+                }
+                
+                $this->email->bcc($recipients);
+                $this->email->from('noreply@detachment550.org','MyWebsite');
+                $this->email->subject($this->input->post('subject'));
+                $this->email->message($this->input->post('body'));
+
+                // Send email
+                $this->email->send();
+            }
+            
+            $this->load->model('announcement_model');
+            $this->load->library('session');
+        
+            $params = array(
+                'title'     => $this->input->post('title'),
+                'subject'   => $this->input->post('subject'),
+                'body'      => $this->input->post('description'),
+                'createdBy' => $this->session->userdata('rin')
+            );
+            
+            $this->announcement_model->add_announcement( $params );
+            
+            // Goes back to announcement create page
+            redirect('announcement/create');
+        }
+        else
+        {
+            show_error("The post you are trying to make doesn't have a title/subject/description.");
+        }
+    }
+    
+    /*
+     * Allows a user to create an announcement.
+     */
+    function create()
     {
         $data['title'] = 'Make an Announcement';
         $this->load->model('announcement_model');
