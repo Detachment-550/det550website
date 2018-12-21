@@ -8,7 +8,16 @@ class Attendance extends CI_Controller{
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Attendance_model');
+        $this->load->library('session'); 
+        
+        if( $this->session->userdata('login') === true )
+        {
+            $this->load->model('Attendance_model');
+        }
+        else
+        {
+            redirect('login/view');
+        }
     } 
 
     /*

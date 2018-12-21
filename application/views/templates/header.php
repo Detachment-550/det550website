@@ -21,10 +21,6 @@
 <!-- include libraries(jQuery, bootstrap) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-  
-<!-- include summernote css/js -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
 </head>
 
 <body>
@@ -65,20 +61,10 @@
             <button type="submit" class="dropdown-item" style="background-color:transparent;border:none;cursor:pointer;">Send Email</button>
         </form>
           <?php 
-//            if(isset($_SESSION["rin"])){
-//              $sql = "SELECT admin FROM cadet WHERE rin = (?)";
-//              $stmt = $mysqli->prepare($sql);
-//              if(!($stmt->bind_param( "i", $_SESSION["rin"] )))
-//              {
-//                echo "Prepared statement bind failed!";
-//              }
-//              $stmt->execute();
-//              $result = $stmt->get_result();
-//              $row = $result->fetch_assoc();    
-//              if($row['admin'] === 1) {
-//                echo "<a class=\"dropdown-item\" href=\"admin.php\">Admin</a>";
-//              }
-//            }
+                if( $admin === true )
+                {
+                    echo "<a class='dropdown-item' href='admin.php'>Admin</a>";
+                }
           ?>
           </div>
           </li>

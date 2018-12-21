@@ -8,7 +8,16 @@ class Cadet extends CI_Controller{
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Cadet_model');
+        $this->load->library('session'); 
+        
+        if( $this->session->userdata('login') === true )
+        {
+            $this->load->model('Cadet_model');
+        }
+        else
+        {
+            redirect('login/view');
+        }
     } 
 
     /*
@@ -22,6 +31,45 @@ class Cadet extends CI_Controller{
 //        $this->load->view('layouts/main',$data);
 //    }
 
+    
+    /*
+     * Changes a cadet's password.
+     */
+    function changepassword()
+    {
+        $cadet = $this->Cadet_model->get_cadet($this->session->userdata('rin'));
+        
+        $password = $cadet['password'];
+        if(isset($_POST) && $_POST > 0)
+        {
+            if(password_verify( $this->input->post('oldpass'), $password ))
+            {
+                if($this->input->post('newpass') === $this->input->post('verpass'))
+                {
+                    $params = array(
+					   'password' => password_hash( $this->input->post('newpass'), PASSWORD_DEFAULT )
+                    );
+
+                    $this->Cadet_model->update_cadet($this->session->userdata('rin'),$params);            
+                    redirect('cadet/edit');
+                }
+                else
+                {
+                    show_error('The two passwords you entered do not match.');
+                }
+            }
+            else
+            {
+                show_error('The password you provided does not match you current password.');
+            }
+        }
+        else
+        {
+            redirect('cadet/edit');
+        }
+    }
+    
+    
     /*
      * Adding a new cadet
      */
@@ -60,6 +108,212 @@ class Cadet extends CI_Controller{
             $this->load->view('layouts/main',$data);
         }
     }  
+    
+    /*
+     * Saves a cadet's awards
+     */
+    function saveawards()
+    {
+        $data['title'] = 'Edit Profile';
+
+        // check if the cadet exists before trying to edit it
+        $data['cadet'] = $this->Cadet_model->get_cadet($this->session->userdata('rin'));
+        
+        if(isset($data['cadet']['rin']))
+        {
+            if(isset($_POST) && count($_POST) > 0)     
+            {   
+                $params = array(
+					'awards' => $this->input->post('awards')
+                );
+
+                $this->Cadet_model->update_cadet($this->session->userdata('rin'),$params);            
+                redirect('cadet/edit');
+            }
+            else
+            {
+                show_error('There was no information given to save in your bio.');
+            }
+        }
+        else
+        {
+            show_error('The cadet you are trying to edit does not exist.');
+        } 
+    }
+    
+    
+    /*
+     * Saves a cadet's personal goals
+     */
+    function savepgoals()
+    {
+        $data['title'] = 'Edit Profile';
+
+        // check if the cadet exists before trying to edit it
+        $data['cadet'] = $this->Cadet_model->get_cadet($this->session->userdata('rin'));
+        
+        if(isset($data['cadet']['rin']))
+        {
+            if(isset($_POST) && count($_POST) > 0)     
+            {   
+                $params = array(
+					'PGoals' => $this->input->post('pgoals')
+                );
+
+                $this->Cadet_model->update_cadet($this->session->userdata('rin'),$params);            
+                redirect('cadet/edit');
+            }
+            else
+            {
+                show_error('There was no information given to save in your bio.');
+            }
+        }
+        else
+        {
+            show_error('The cadet you are trying to edit does not exist.');
+        } 
+    }
+    
+    
+    /*
+     * Saves a cadet's afgoals
+     */
+    function saveafgoals()
+    {
+        $data['title'] = 'Edit Profile';
+
+        // check if the cadet exists before trying to edit it
+        $data['cadet'] = $this->Cadet_model->get_cadet($this->session->userdata('rin'));
+        
+        if(isset($data['cadet']['rin']))
+        {
+            if(isset($_POST) && count($_POST) > 0)     
+            {   
+                $params = array(
+					'AFGoals' => $this->input->post('afgoals')
+                );
+
+                $this->Cadet_model->update_cadet($this->session->userdata('rin'),$params);            
+                redirect('cadet/edit');
+            }
+            else
+            {
+                show_error('There was no information given to save in your bio.');
+            }
+        }
+        else
+        {
+            show_error('The cadet you are trying to edit does not exist.');
+        } 
+    }
+    
+    /*
+     * Saves a cadet's bio
+     */
+    function savebio()
+    {
+        $data['title'] = 'Edit Profile';
+
+        // check if the cadet exists before trying to edit it
+        $data['cadet'] = $this->Cadet_model->get_cadet($this->session->userdata('rin'));
+        
+        if(isset($data['cadet']['rin']))
+        {
+            if(isset($_POST) && count($_POST) > 0)     
+            {   
+                $params = array(
+					'bio' => $this->input->post('bio')
+                );
+
+                $this->Cadet_model->update_cadet($this->session->userdata('rin'),$params);            
+                redirect('cadet/edit');
+            }
+            else
+            {
+                show_error('There was no information given to save in your bio.');
+            }
+        }
+        else
+        {
+            show_error('The cadet you are trying to edit does not exist.');
+        } 
+    }
+    
+    /*
+     * Saves a cadet's profile picture.
+     */ 
+    function profilepicture()
+    {
+        $this->load->library('upload');
+
+        $this->load->helper(array('form', 'url'));
+
+        // check if the cadet exists before trying to edit it
+        $data['cadet'] = $this->Cadet_model->get_cadet($this->session->userdata('rin'));
+        
+        $config['upload_path']      = '../../../images/';
+        $config['allowed_types']    = 'gif|jpg|png';
+        $config['max_size']         = 100;
+        $config['max_width']        = 1024;
+        $config['max_height']       = 768;
+        $config['file_name']        = $data['cadet']['rin'];
+
+        
+        $this->load->library('upload', $config);
+
+        if ( ! $this->upload->do_upload('profilepicture'))
+        {
+//            $error = array('error' => $this->upload->display_errors());
+//
+//            $this->load->view('templates/header', $error);
+//            $this->load->view('pages/editProfile.php');
+//            $this->load->view('templates/footer'); 
+        }
+        else
+        {
+            redirect('cadet/profile');
+        }
+    }
+    
+    /*
+     * Save changes.
+     */ 
+    function savegeninfo()
+    {
+        $data['title'] = 'Edit Profile';
+
+        // check if the cadet exists before trying to edit it
+        $data['cadet'] = $this->Cadet_model->get_cadet($this->session->userdata('rin'));
+        
+        if(isset($data['cadet']['rin']))
+        {
+            if(isset($_POST) && count($_POST) > 0)     
+            {   
+                $params = array(
+					'firstName' => $this->input->post('firstName'),
+					'primaryEmail' => $this->input->post('pemail'),
+					'secondaryEmail' => $this->input->post('semail'),
+					'primaryPhone' => $this->input->post('pphone'),
+					'secondaryPhone' => $this->input->post('sphone'),
+					'position' => $this->input->post('position'),
+					'groupMe' => $this->input->post('groupme'),
+					'major' => $this->input->post('major')
+                );
+
+                $this->Cadet_model->update_cadet($this->session->userdata('rin'),$params);            
+                redirect('cadet/edit');
+            }
+            else
+            {
+                show_error('The cadet you are trying to edit does not exist.');
+
+            }
+        }
+        else
+        {
+            show_error('The cadet you are trying to edit does not exist.');
+        } 
+    }
 
     /*
      * Editing a cadet
@@ -67,52 +321,12 @@ class Cadet extends CI_Controller{
     function edit()
     {   
         $data['title'] = 'Edit Profile';
-        
+        $data['cadet'] = $data['cadet'] = $this->Cadet_model->get_cadet($this->session->userdata('rin'));
+        $data['admin'] = $this->session->userdata('admin');
+
         $this->load->view('templates/header', $data);
         $this->load->view('pages/editProfile.php');
         $this->load->view('templates/footer'); 
-        
-        
-//        // check if the cadet exists before trying to edit it
-//        $data['cadet'] = $this->Cadet_model->get_cadet($rin);
-//        
-//        if(isset($data['cadet']['rin']))
-//        {
-//            if(isset($_POST) && count($_POST) > 0)     
-//            {   
-//                $params = array(
-//					'admin' => $this->input->post('admin'),
-//					'password' => $this->input->post('password'),
-//					'firstName' => $this->input->post('firstName'),
-//					'rank' => $this->input->post('rank'),
-//					'primaryEmail' => $this->input->post('primaryEmail'),
-//					'secondaryEmail' => $this->input->post('secondaryEmail'),
-//					'primaryPhone' => $this->input->post('primaryPhone'),
-//					'secondaryPhone' => $this->input->post('secondaryPhone'),
-//					'flight' => $this->input->post('flight'),
-//					'position' => $this->input->post('position'),
-//					'groupMe' => $this->input->post('groupMe'),
-//					'middleName' => $this->input->post('middleName'),
-//					'lastName' => $this->input->post('lastName'),
-//					'rfid' => $this->input->post('rfid'),
-//					'major' => $this->input->post('major'),
-//					'bio' => $this->input->post('bio'),
-//					'AFGoals' => $this->input->post('AFGoals'),
-//					'awards' => $this->input->post('awards'),
-//					'PGoals' => $this->input->post('PGoals'),
-//                );
-//
-//                $this->Cadet_model->update_cadet($rin,$params);            
-//                redirect('cadet/index');
-//            }
-//            else
-//            {
-//                $data['_view'] = 'cadet/edit';
-//                $this->load->view('layouts/main',$data);
-//            }
-//        }
-//        else
-//            show_error('The cadet you are trying to edit does not exist.');
     } 
 
     /*
@@ -136,10 +350,9 @@ class Cadet extends CI_Controller{
      * Shows cadet's profile.
      */
     function profile()
-    {
-        $this->load->library('session');
-        
+    {        
         $data['title'] = 'Profile Page';
+        $data['admin'] = $this->session->userdata('admin');
         
         // Looks for profile picture
         $files = glob("../../../images/*.{jpg,png,jpeg}", GLOB_BRACE);
@@ -177,63 +390,6 @@ class Cadet extends CI_Controller{
         $this->load->view('templates/footer');    
     }
     
-    /*
-     * Makes sure cadet is authroized to login.
-     */
-    function login()
-    {
-        $cadet = $this->Cadet_model->get_cadet($this->input->post('rin'));
-        
-        $this->load->helper('form');
-        $this->load->library('form_validation');
-
-        $data['title'] = 'Login Page';
-
-        if($this->input->post('psw') !== null && password_verify($this->input->post('psw'), $cadet['password']))
-        {
-            $this->load->library('session');
-            $this->load->model('cadetevent_model');
-            $this->load->model('announcement_model');
-            $this->load->model('attendance_model');
-            
-            // Sets session variable and loads closest 5 events
-            $this->session->set_userdata('login', true);
-            $this->session->set_userdata('rin', $this->input->post('rin'));
-
-            $data['events'] =  $this->cadetevent_model->get_last_five_events();
-            $data['announcements'] =  $this->announcement_model->get_last_five_announcements();
-            
-            // Gets pt and llab attendance percentage 
-            $attendance = $this->attendance_model->get_attendance($this->session->userdata('rin'));
-            $pt = 0;
-            $llab = 0;
-            $ptSum = $this->cadetevent_model->get_event_total('pt');
-            $llabSum = $this->cadetevent_model->get_event_total('llab');
-            foreach( $attendance as $attend )
-            {
-                $temp = $this->cadetevent_model->get_cadetevent($attend['eventid']);
-                if( $temp['pt'] === '1' )
-                {
-                    $pt += 1;
-                }
-                else if( $temp['llab'] === '1' )
-                {
-                    $llab += 1;
-                }
-            }
-            $data['ptperc'] = number_format(($pt / $ptSum) * 100, 2);
-            $data['llabperc'] =  number_format(($llab / $llabSum) * 100, 2);
-            $this->session->set_userdata('ptperc', $data['ptperc']);
-            $this->session->set_userdata('llabperc', $data['llabperc']);
-
-            redirect('cadet/home');
-        }
-        else
-        {
-            $this->load->view('pages/login.php');
-            $this->load->view('templates/footer');
-        }   
-    }
     
     /*
      * Shows cadet's home page.
@@ -241,14 +397,14 @@ class Cadet extends CI_Controller{
     function home()
     {
         $data['title'] = "Home";
-        $this->load->library('session');
         $this->load->model('cadetevent_model');
         $this->load->model('announcement_model');
         $data['ptperc'] = $this->session->userdata('ptperc');
         $data['llabperc'] = $this->session->userdata('llabperc');
         $data['events'] =  $this->cadetevent_model->get_last_five_events();
         $data['announcements'] =  $this->announcement_model->get_last_five_announcements();
-        
+        $data['admin'] = $this->session->userdata('admin');
+
         // Loads the home page 
         $this->load->view('templates/header', $data);
         $this->load->view('pages/home.php');
@@ -260,12 +416,13 @@ class Cadet extends CI_Controller{
      */
     function logout()
     {
-        $this->load->library('session');
         $data['title'] = 'Login Page';
         $this->session->unset_userdata('login');
         $this->session->unset_userdata('rin');
         $this->session->unset_userdata('ptperc');
         $this->session->unset_userdata('llabperc');
+        $this->session->unset_userdata('admin');
+
         $this->load->view('pages/login.php');
         $this->load->view('templates/footer');
     }

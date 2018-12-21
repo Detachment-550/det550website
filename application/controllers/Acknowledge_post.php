@@ -8,7 +8,17 @@ class Acknowledge_post extends CI_Controller{
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Acknowledge_post_model');
+        $this->load->library('session'); 
+        
+        if( $this->session->userdata('login') === true )
+        {
+            $data['admin'] = $this->session->userdata('admin');
+            $this->load->model('Acknowledge_post_model');
+        }
+        else
+        {
+            redirect('login/view');
+        }
     } 
 
     /*

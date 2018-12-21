@@ -8,7 +8,16 @@ class Cadetevent extends CI_Controller{
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Cadetevent_model');
+        $this->load->library('session'); 
+        
+        if( $this->session->userdata('login') === true )
+        {
+            $this->load->model('Cadetevent_model');
+        }
+        else
+        {
+            redirect('login/view');
+        }
     } 
 
     /*

@@ -4,7 +4,16 @@ class Cadetdirectory extends CI_Controller{
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Cadet_model');
+        $this->load->library('session'); 
+        
+        if( $this->session->userdata('login') === true )
+        {
+            $this->load->model('Cadet_model');
+        }
+        else
+        {
+            redirect('login/view');
+        }
     } 
 
     function view()
