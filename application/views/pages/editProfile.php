@@ -70,7 +70,9 @@
             <button class="btn btn-sm btn-primary" type="submit" name="updatepass">Change Password</button>
           </form><br>
             
-        <a href="securityquestion.php" class="btn btn-sm btn-primary">Modify Security Question</a>
+            <?php echo form_open('cadet/security'); ?>
+            <button type="submit" class="btn btn-sm btn-primary">Modify Security Question</button>
+          </form>
         </div>
       </div>
     </div>

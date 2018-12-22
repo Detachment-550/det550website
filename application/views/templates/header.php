@@ -1,15 +1,3 @@
-<?php
-//require_once('./assets/inc/dbinfo.php');
-//require_once('./assets/objects/cadet.php');
-//session_start();
-
-// Checks to see if user is already logged in
-//if ( isset($_SESSION['login']) && $_SESSION['login'] )
-//{
-//    $cadet = new cadet( $_SESSION["rin"], $mysqli );
-//}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,16 +42,12 @@
             <button type="submit" class="dropdown-item" style="background-color:transparent;border:none;cursor:pointer;">Directory</button>
         </form>
           <a class="dropdown-item" href="https://rpi.account.box.com/login">Media/Documents</a>
-            <?php echo form_open('wiki/view'); ?>
-            <button type="submit" class="dropdown-item" style="background-color:transparent;border:none;cursor:pointer;">Documentation</button>
-        </form>            
-            <?php echo form_open('email/view'); ?>
-            <button type="submit" class="dropdown-item" style="background-color:transparent;border:none;cursor:pointer;">Send Email</button>
-        </form>
+        <a class='dropdown-item' href='/index.php/wiki/view'>Documentation</a>
+        <a class='dropdown-item' href='/index.php/email/view'>Send Email</a>
           <?php 
                 if( $admin === true )
                 {
-                    echo "<a class='dropdown-item' href='admin.php'>Admin</a>";
+                    echo "<a class='dropdown-item' href='/index.php/admin/view'>Admin</a>";
                 }
           ?>
           </div>

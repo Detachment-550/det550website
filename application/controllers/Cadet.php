@@ -31,6 +31,38 @@ class Cadet extends CI_Controller{
 //        $this->load->view('layouts/main',$data);
 //    }
 
+    /*
+     * Saves response to security question
+     */
+    function saveanswer()
+    {
+        if( $this->input->post('question') !== null && $this->input->post('answer') !== null )
+        {
+            $params = array(
+                'question' => $this->input->post('question'),
+                'answer' => $this->input->post('answer')
+            );
+
+            $this->Cadet_model->update_cadet($this->session->userdata('rin'),$params);            
+            redirect('cadet/edit');        
+        }
+        else
+        {
+            show_error('You must provide a question and answer to set your security question.');
+        }
+    }
+    
+    /*
+     * Shows the view of setting a cadet's security question.
+     */
+    function security()
+    {
+        $data['title'] = 'Security Question';
+        $data['cadet'] = $this->Cadet_model->get_cadet($this->input->post('rin'));
+        $this->load->view('templates/header', $data);
+        $this->load->view('pages/securityquestion.php');
+        $this->load->view('templates/footer');     
+    }
     
     /*
      * Changes a cadet's password.
@@ -76,36 +108,34 @@ class Cadet extends CI_Controller{
     function add()
     {   
         if(isset($_POST) && count($_POST) > 0)     
-        {   
-            $params = array(
-				'admin' => $this->input->post('admin'),
-				'password' => $this->input->post('password'),
-				'firstName' => $this->input->post('firstName'),
-				'rank' => $this->input->post('rank'),
-				'primaryEmail' => $this->input->post('primaryEmail'),
-				'secondaryEmail' => $this->input->post('secondaryEmail'),
-				'primaryPhone' => $this->input->post('primaryPhone'),
-				'secondaryPhone' => $this->input->post('secondaryPhone'),
-				'flight' => $this->input->post('flight'),
-				'position' => $this->input->post('position'),
-				'groupMe' => $this->input->post('groupMe'),
-				'middleName' => $this->input->post('middleName'),
-				'lastName' => $this->input->post('lastName'),
-				'rfid' => $this->input->post('rfid'),
-				'major' => $this->input->post('major'),
-				'bio' => $this->input->post('bio'),
-				'AFGoals' => $this->input->post('AFGoals'),
-				'awards' => $this->input->post('awards'),
-				'PGoals' => $this->input->post('PGoals'),
-            );
+        {            
+            if( $this->input->post('password') !== $this->input->post('confpassword') )
+            {
+               $params = array(
+                    'admin' => $this->input->post('admin'),
+                    'password' => $this->input->post('password'),
+                    'firstName' => $this->input->post('firstName'),
+                    'rank' => $this->input->post('rank'),
+                    'primaryEmail' => $this->input->post('primaryEmail'),
+                    'flight' => $this->input->post('flight'),
+                    'lastName' => $this->input->post('lastName'),
+                    'rfid' => $this->input->post('rfid'),
+                    'question' => $this->input->post('question'),
+                    'answer' => $this->input->post('answer')
+                ); 
             
-            $cadet_id = $this->Cadet_model->add_cadet($params);
-            redirect('cadet/index');
+                $cadet_id = $this->Cadet_model->add_cadet($params);
+
+                redirect('admin/view');
+            }
+            else
+            {
+                show_error('Passwords do not match');
+            }
         }
         else
         {            
-            $data['_view'] = 'cadet/add';
-            $this->load->view('layouts/main',$data);
+            show_error('The cadet you are trying to edit does not exist. Or improper information to add cadet was given.');
         }
     }  
     
@@ -328,23 +358,6 @@ class Cadet extends CI_Controller{
         $this->load->view('pages/editProfile.php');
         $this->load->view('templates/footer'); 
     } 
-
-    /*
-     * Deleting cadet
-     */
-//    function remove($rin)
-//    {
-//        $cadet = $this->Cadet_model->get_cadet($rin);
-//
-//        // check if the cadet exists before trying to delete it
-//        if(isset($cadet['rin']))
-//        {
-//            $this->Cadet_model->delete_cadet($rin);
-//            redirect('cadet/index');
-//        }
-//        else
-//            show_error('The cadet you are trying to delete does not exist.');
-//    }
     
     /*
      * Shows cadet's profile.
@@ -399,12 +412,34 @@ class Cadet extends CI_Controller{
         $data['title'] = "Home";
         $this->load->model('cadetevent_model');
         $this->load->model('announcement_model');
+        $this->load->model('attendance_model');
         $data['ptperc'] = $this->session->userdata('ptperc');
         $data['llabperc'] = $this->session->userdata('llabperc');
         $data['events'] =  $this->cadetevent_model->get_last_five_events();
         $data['announcements'] =  $this->announcement_model->get_last_five_announcements();
         $data['admin'] = $this->session->userdata('admin');
 
+        // Gets pt and llab attendance percentage 
+        $attendance = $this->attendance_model->get_attendance($this->session->userdata('rin'));
+        $pt = 0;
+        $llab = 0;
+        $ptSum = $this->cadetevent_model->get_event_total('pt');
+        $llabSum = $this->cadetevent_model->get_event_total('llab');
+        foreach( $attendance as $attend )
+        {
+            $temp = $this->cadetevent_model->get_cadetevent($attend['eventid']);
+            if( $temp['pt'] === '1' )
+            {
+                $pt += 1;
+            }
+            else if( $temp['llab'] === '1' )
+            {
+                $llab += 1;
+            }
+        }
+        $data['ptperc'] = number_format(($pt / $ptSum) * 100, 2);
+        $data['llabperc'] =  number_format(($llab / $llabSum) * 100, 2);
+        
         // Loads the home page 
         $this->load->view('templates/header', $data);
         $this->load->view('pages/home.php');

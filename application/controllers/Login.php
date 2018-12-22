@@ -35,7 +35,7 @@ class Login extends CI_Controller {
             $this->session->set_userdata('rin', $this->input->post('rin'));
             
             // Checks if user is an admin or not
-            if( $cadet['admin'] === 1 )
+            if( $cadet['admin'] == 1 )
             {
                 $this->session->set_userdata('admin', true);
             }
@@ -45,31 +45,6 @@ class Login extends CI_Controller {
             }
             
             $data['admin'] = $this->session->userdata('admin');
-            $data['events'] =  $this->cadetevent_model->get_last_five_events();
-            $data['announcements'] =  $this->announcement_model->get_last_five_announcements();
-            
-            // Gets pt and llab attendance percentage 
-            $attendance = $this->attendance_model->get_attendance($this->session->userdata('rin'));
-            $pt = 0;
-            $llab = 0;
-            $ptSum = $this->cadetevent_model->get_event_total('pt');
-            $llabSum = $this->cadetevent_model->get_event_total('llab');
-            foreach( $attendance as $attend )
-            {
-                $temp = $this->cadetevent_model->get_cadetevent($attend['eventid']);
-                if( $temp['pt'] === '1' )
-                {
-                    $pt += 1;
-                }
-                else if( $temp['llab'] === '1' )
-                {
-                    $llab += 1;
-                }
-            }
-            $data['ptperc'] = number_format(($pt / $ptSum) * 100, 2);
-            $data['llabperc'] =  number_format(($llab / $llabSum) * 100, 2);
-            $this->session->set_userdata('ptperc', $data['ptperc']);
-            $this->session->set_userdata('llabperc', $data['llabperc']);
             
             redirect('cadet/home');
         }
@@ -97,12 +72,14 @@ class Login extends CI_Controller {
      */
     function question()
     {
-        $data['title'] = 'Security Question';
         if(isset($_POST) && $_POST > 0)
         {
             $this->load->model('Cadet_model');
+            
+            $data['title'] = 'Security Question';
             $data['cadet'] = $this->Cadet_model->get_cadet($this->input->post('rin'));
-        
+            $data['rin'] = $this->input->post('rin');
+            
             $this->load->view('pages/passwordreset.php', $data);
             $this->load->view('templates/footer');
         }

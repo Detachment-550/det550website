@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
-    <title>Home</title>
+    <title><?php echo $title; ?></title>
     <link href='https://fonts.googleapis.com/css?family=Cabin' rel='stylesheet'>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -15,10 +15,10 @@
     <h1 class="display-4">Security Question</h1>
     <div style="width:90%;display:block;margin-left:auto;margin-right:auto;" class="card" id="Edit Groups">
       <div class="card-body">
-        
+
       <?php echo form_open('login/resetpass'); ?>
       <h4>Security Question:</h4>
-            RIN: <input type='text' style='hidden:true;' name='rin' id='rin' value='<?php echo $cadet['rin']; ?>' readonly><br><br>
+            RIN: <input type='text' name='rin' id='rin' value='<?php echo $cadet['rin']; ?>' readonly><br><br>
             <?php echo $cadet['question']; ?>
             <br><br><h4 class='card-text'>Response:</h4>
           
