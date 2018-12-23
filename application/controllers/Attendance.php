@@ -46,30 +46,71 @@ class Attendance extends CI_Controller{
         $this->load->view('templates/footer');   
     }
 
+    // TODO: Fix duplicate entry bug
     /*
      * Adding a new attendance
      */
     function add()
     {   
-        if(isset($_POST) && count($_POST) > 0)     
-        {   
-            $params = array(
-				'excused_absence' => $this->input->post('excused_absence'),
-				'time' => $this->input->post('time'),
-            );
-            
-            $attendance_id = $this->Attendance_model->add_attendance($params);
-            redirect('attendance/index');
+        if( $this->input->post('rfid') !== null )
+        {
+            $this->load->model('cadet_model');
+            $data['cadet'] = $this->cadet_model->find_cadet( $this->input->post('rfid') );
+            if(isset($data['cadet']['rin']))
+            {
+                if(isset($_POST) && count($_POST) > 0)     
+                {   
+                    $params = array(
+                        'rin' => $data['cadet']['rin'],
+                        'eventid' => $this->input->post('event'),
+                    );
+
+                    $attendance_id = $this->Attendance_model->add_attendance( $params );
+
+                    redirect('cadetevent/view');
+                }
+                else
+                {            
+                    show_error("There was no input given.");
+                }
+            }
+            else
+            {
+                echo 'This ID card does not match any cadet. Click <a href="connectrfid.php">here</a> to connect this card to a cadet.';
+            }        
         }
-        else
-        {            
-            $data['_view'] = 'attendance/add';
-            $this->load->view('layouts/main',$data);
+        else if( $this->input->post('rin') !== null )
+        {
+            // TODO: Set attendance for given rin
+            $this->load->model('cadet_model');
+            $data['cadet'] = $this->cadet_model->get_cadet( $this->input->post('rin') );
+            if(isset($data['cadet']['rin']))
+            {
+                if(isset($_POST) && count($_POST) > 0)     
+                {   
+                    $params = array(
+                        'rin' => $data['cadet']['rin'],
+                        'eventid' => $this->input->post('event'),
+                    );
+
+                    $attendance_id = $this->Attendance_model->add_attendance( $params );
+
+                    redirect('cadetevent/view');
+                }
+                else
+                {            
+                    show_error("There was no input given.");
+                }
+            }
+            else
+            {
+                echo 'This ID card does not match any cadet. Click <a href="connectrfid.php">here</a> to connect this card to a cadet.';
+            }        
         }
     }  
     
     /*
-     *
+     * Gets list of attendees for a given event. 
      */
     function attendees()
     {
@@ -122,6 +163,7 @@ class Attendance extends CI_Controller{
         else
             show_error('The attendance you are trying to edit does not exist.');
     } 
+    
 
     /*
      * Deleting attendance

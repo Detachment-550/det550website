@@ -169,6 +169,20 @@ class Login extends CI_Controller {
             show_error( "The email you provided does not match the primary email we have on record for " . $cadet['firstName'] . " " . $cadet['lastName'] );
         }
     }
+    
+    /*
+     * Logs user out of website.
+     */
+    function logout()
+    {
+        $this->load->library('session');
+        $data['title'] = 'Login Page';
+        
+        $this->session->sess_destroy();
+
+        $this->load->view('pages/login.php');
+        $this->load->view('templates/footer');
+    }
 }
 
 ?>

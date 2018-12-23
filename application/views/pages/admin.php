@@ -235,7 +235,7 @@
         <div id="makeuser" class="card">  
           <div id="memWrapper" class="card-body">
             <h5 id="memHeader" class="card-title">Remove User</h5>
-            <?php echo form_open('cadet/delete'); ?>
+            <?php echo form_open('cadet/remove'); ?>
                     <select name="remove" size="10" style="width:80%;">
                       <?php           
                         foreach($cadets as $cadet)
@@ -251,19 +251,16 @@
 
         <div class="card">
           <div class="card-body">
-            <form action="<?php // echo $_SERVER['PHP_SELF']; ?>" method="POST"  name="changecadet">
             <h5 class="card-title">Modify User Info</h5>
-            <strong>Select Cadet</strong><br>
-            <select name="modifycadet" size="10" style="width:80%;margin:auto">
-                <?php 
-//                  $stmt = $mysqli->prepare("SELECT * FROM cadet");
-//                  $stmt->execute();
-//                  $result = $stmt->get_result();
-//                  while ($row = $result->fetch_assoc())
-//                  {
-//                    echo "<option value='" . $row['rin'] . "'>" . $row['firstName'] . " " . $row['lastName'] . "</option><br>";
-//                  }
-                ?>
+          <?php echo form_open('cadet/modify'); ?> 
+            <strong>Select User</strong><br>
+            <select name="modify" size="10" style="width:80%;margin:auto">
+              <?php           
+                foreach($cadets as $cadet)
+                {
+                    echo "<option value='" . $cadet['rin'] . "'>" . $cadet['firstName'] . " " . $cadet['lastName'] . "</option>";
+                }
+              ?>
                 <br>
             </select><br></br>
             Administrative Privileges:<br>
@@ -327,30 +324,40 @@
           <div class="card">  
             <div class="card-body">
               <h5 class="card-title">Additional Admin Links</h5>
-              <a class="btn btn-sm btn-primary" href="attend.php">Set Event Attendance</a><br></br>
-              <a class="btn btn-sm btn-primary" href="addgroup.php">Create/Modify Group</a><br></br>
+                <h6 class="card-title">Select Event</h6>
+                    <?php echo form_open('cadetevent/view'); ?>
+                        <select name="event">
+                            <?php
+                                foreach( $events as $event )
+                                {
+                                    echo "<option value='" . $event['eventID'] . "'>" . $event['name'] . "</option>";
+                                }
+                            ?>
+                        </select><br><br>
+                        <button class="btn btn-sm btn-primary" type="submit">Set Event Attendance</button>
+                </form><br><br>
+              <a class="btn btn-sm btn-primary" href="/index.php/cadetgroup/view">Create/Modify Group</a><br></br>
 
-                <form action="admin.php" method="post">
-                  <select name="deleteEvent">
+                <?php echo form_open('cadetevent/remove'); ?>
+                  <select name="event">
                     <?php
-//                      $query = "SELECT name, date, eventID FROM cadetEvent;";
-//                      $result = $mysqli->query($query);
-//                      while ($row = $result->fetch_assoc()) {
-//                        echo '<option value="'.$row['eventID'].'">'.$row['name'].' '.$row['date'].'</option>';
-//                      }
+                        foreach($events as $event)
+                        {
+                            echo "<option value='" . $event['eventID']."'>" . $event['name'] . " " . $event['date'] . "</option>";
+                        }
+                      
                     ?>
                   </select><br></br>
                   <button class="btn btn-sm btn-primary" type="submit" name="devent">Delete Event</button>
                 </form><br>
 
-                <form action="admin.php" method="post">
-                  <select name="deleteAnnouncement">
+                <?php echo form_open('announcement/remove'); ?>
+                  <select name="announcement">
                     <?php
-//                      $query = "SELECT title, uid, date FROM announcement;";
-//                      $result = $mysqli->query($query);
-//                      while ($row = $result->fetch_assoc()) {
-//                        echo '<option value="'.$row['uid'].'">'.$row['title'].' '.$row['date'].'</option>';
-//                      }
+                        foreach($announcements as $announcement)
+                        {
+                            echo "<option value='" . $announcement['uid'] . "'>" . $announcement['title'] . " " . $announcement['date'] . "</option>";
+                        }
                     ?>
                   </select><br></br>
                 <button class="btn btn-sm btn-primary" type="submit" name="dannouncement">Delete Announcement</button>

@@ -18,7 +18,7 @@ class Cadetgroup_model extends CI_Model
     {
         return $this->db->get_where('cadetGroup',array('id'=>$id))->row_array();
     }
-        
+            
     /*
      * Get all cadetgroup
      */

@@ -103,43 +103,6 @@ class Cadet extends CI_Controller{
     
     
     /*
-     * Adding a new cadet
-     */
-    function add()
-    {   
-        if(isset($_POST) && count($_POST) > 0)     
-        {            
-            if( $this->input->post('password') !== $this->input->post('confpassword') )
-            {
-               $params = array(
-                    'admin' => $this->input->post('admin'),
-                    'password' => $this->input->post('password'),
-                    'firstName' => $this->input->post('firstName'),
-                    'rank' => $this->input->post('rank'),
-                    'primaryEmail' => $this->input->post('primaryEmail'),
-                    'flight' => $this->input->post('flight'),
-                    'lastName' => $this->input->post('lastName'),
-                    'rfid' => $this->input->post('rfid'),
-                    'question' => $this->input->post('question'),
-                    'answer' => $this->input->post('answer')
-                ); 
-            
-                $cadet_id = $this->Cadet_model->add_cadet($params);
-
-                redirect('admin/view');
-            }
-            else
-            {
-                show_error('Passwords do not match');
-            }
-        }
-        else
-        {            
-            show_error('The cadet you are trying to edit does not exist. Or improper information to add cadet was given.');
-        }
-    }  
-    
-    /*
      * Saves a cadet's awards
      */
     function saveawards()
@@ -428,11 +391,11 @@ class Cadet extends CI_Controller{
         foreach( $attendance as $attend )
         {
             $temp = $this->cadetevent_model->get_cadetevent($attend['eventid']);
-            if( $temp['pt'] === '1' )
+            if( $temp['pt'] === 1 )
             {
                 $pt += 1;
             }
-            else if( $temp['llab'] === '1' )
+            else if( $temp['llab'] === 1 )
             {
                 $llab += 1;
             }
@@ -447,19 +410,153 @@ class Cadet extends CI_Controller{
     }
     
     /*
-     * Logs user out of website.
+     * Deleting cadet
      */
-    function logout()
+    function remove()
     {
-        $data['title'] = 'Login Page';
-        $this->session->unset_userdata('login');
-        $this->session->unset_userdata('rin');
-        $this->session->unset_userdata('ptperc');
-        $this->session->unset_userdata('llabperc');
-        $this->session->unset_userdata('admin');
+        if( $this->session->userdata('admin') === true )
+        {
+            $data['admin'] = $this->session->userdata('admin');
+            $this->load->model('Cadet_model');            
+            $cadet = $this->Cadet_model->get_cadet($this->input->post('remove'));
 
-        $this->load->view('pages/login.php');
-        $this->load->view('templates/footer');
+            // check if the cadet exists before trying to delete it
+            if(isset($cadet['rin']))
+            {
+                $this->Cadet_model->delete_cadet($this->input->post('remove'));
+                redirect('admin/view');
+            }
+            else
+            {
+                show_error('The cadet you are trying to delete does not exist.');
+            }
+        }
     }
     
+    
+    /*
+     * Saves response to security question
+     */
+    function modify()
+    {
+        if( $this->session->userdata('admin') === true )
+        {
+            if( $this->input->post('admin') !== null && $this->input->post('rank') !== null && $this->input->post('flight') !== null )
+            {
+                $params = array(
+                    'admin' => $this->input->post('admin'),
+                    'rank' => $this->input->post('rank'),
+                    'flight' => $this->input->post('flight')
+                );
+
+                $this->Cadet_model->update_cadet($this->input->post('modify'),$params);            
+                redirect('cadet/view');        
+            }
+            else
+            {
+                show_error('You must provide a question and answer to set your security question.');
+            }
+        }
+    }
+    
+    /*
+     * Adding a new cadet
+     */
+    function add()
+    {   
+        if( $this->session->userdata('admin') === true )
+        {
+            if(isset($_POST) && count($_POST) > 0)     
+            {            
+                if( $this->input->post('password') !== $this->input->post('confpassword') )
+                {
+                   $params = array(
+                        'admin' => $this->input->post('admin'),
+                        'password' => $this->input->post('password'),
+                        'firstName' => $this->input->post('firstName'),
+                        'rank' => $this->input->post('rank'),
+                        'primaryEmail' => $this->input->post('primaryEmail'),
+                        'flight' => $this->input->post('flight'),
+                        'lastName' => $this->input->post('lastName'),
+                        'rfid' => $this->input->post('rfid'),
+                        'question' => $this->input->post('question'),
+                        'answer' => $this->input->post('answer')
+                    ); 
+
+                    $cadet_id = $this->Cadet_model->add_cadet($params);
+
+                    redirect('cadet/view');
+                }
+                else
+                {
+                    show_error('Passwords do not match');
+                }
+            }
+            else
+            {            
+                show_error('The cadet you are trying to edit does not exist. Or improper information to add cadet was given.');
+            }
+        }
+    }  
+    
+    /*
+     * Shows the admin page.
+     */
+    function view()
+    {
+        if( $this->session->userdata('admin') === true )
+        {
+            $data['title'] = 'Admin Page';
+            $this->load->model('Cadetevent_model');
+            $this->load->model('Announcement_model');
+
+            $data['cadets'] = $this->Cadet_model->get_all_cadets();
+            $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
+            $data['announcements'] = $this->Announcement_model->get_all_announcements();
+            
+            $this->load->view('templates/header', $data);
+            $this->load->view('pages/admin.php');
+            $this->load->view('templates/footer'); 
+        }
+        else
+        {
+            redirect('cadet/home');
+        }
+    }
+    
+    /*
+     * Shows page to connect rfid to a cadet.
+     */
+    function changerfid()
+    {
+        $data['title'] = 'Add RFID';
+        
+        $this->load->view('templates/header', $data);
+        $this->load->view('pages/rfid.php');
+        $this->load->view('templates/footer'); 
+    }
+    
+    /*
+     * Saves the rfid to a given cadet based off of a rin.
+     */
+    function saverfid()
+    {
+        if( $this->input->post('rin') !== null && $this->input->post('rfid') !== null )
+        {
+            $cadetrin = trim($this->input->post('rin'));
+            $cadetrfid = trim($this->input->post('rfid'));
+
+            $params = array(
+                'rfid' => $cadetrfid
+            );
+
+            $this->Cadet_model->update_cadet($cadetrin, $params);
+            
+            redirect('cadet/view');
+        }
+        else
+        {
+            show_error("You must enter both a valid RIN and scan the ID card.");
+        }
+    }
 }

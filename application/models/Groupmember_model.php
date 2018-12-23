@@ -18,6 +18,26 @@ class Groupmember_model extends CI_Model
     {
         return $this->db->get_where('groupMember',array('rin'=>$rin))->row_array();
     }
+    
+    /*
+     * Returns true if cadet is in group and false otherwise.
+     */
+    function in_group( $id, $rin )
+    {
+        $this->db->from('groupMember');
+        $this->db->where('rin', $rin);
+        $this->db->where('groupID', $id);
+        $query = $this->db->get();
+        
+        if($query->num_rows() > 0)
+        {
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
+    }
         
     /*
      * Get all groupmembers of a given group

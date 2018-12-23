@@ -24,8 +24,16 @@ class Cadet_model extends CI_Model
      */
     function get_all_cadets()
     {
-        $this->db->order_by('lastName', 'desc');
+        $this->db->order_by('lastName', 'asc');
         return $this->db->get('cadet')->result_array();
+    }
+    
+    /*
+     * Looks for cadet based of given RFID input.
+     */
+    function find_cadet($rfid)
+    {
+        return $this->db->get_where('cadet',array('rfid'=>$rfid))->row_array();
     }
         
     /*

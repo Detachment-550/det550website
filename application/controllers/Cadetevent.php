@@ -19,6 +19,17 @@ class Cadetevent extends CI_Controller{
             redirect('login/view');
         }
     } 
+    
+    function view()
+    {
+        $data['title'] = 'Set Attendance';
+        $data['event'] =  $this->Cadetevent_model->get_cadetevent( $this->input->post('event') );        
+        
+        // Loads the home page 
+        $this->load->view('templates/header', $data);
+        $this->load->view('pages/attend.php');
+        $this->load->view('templates/footer');   
+    }
 
     /*
      * Listing of cadetevent
@@ -105,15 +116,15 @@ class Cadetevent extends CI_Controller{
     /*
      * Deleting cadetevent
      */
-    function remove($eventID)
+    function remove()
     {
-        $cadetevent = $this->Cadetevent_model->get_cadetevent($eventID);
+        $cadetevent = $this->Cadetevent_model->get_cadetevent($this->input->post('event'));
 
         // check if the cadetevent exists before trying to delete it
         if(isset($cadetevent['eventID']))
         {
-            $this->Cadetevent_model->delete_cadetevent($eventID);
-            redirect('cadetevent/index');
+            $this->Cadetevent_model->delete_cadetevent($this->input->post('event'));
+            redirect('cadet/view');
         }
         else
             show_error('The cadetevent you are trying to delete does not exist.');

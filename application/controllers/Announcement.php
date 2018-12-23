@@ -208,15 +208,15 @@ class Announcement extends CI_Controller{
     /*
      * Deleting announcement
      */
-    function remove($uid)
+    function remove()
     {
-        $announcement = $this->Announcement_model->get_announcement($uid);
+        $announcement = $this->Announcement_model->get_announcement($this->input->post('announcement'));
 
         // check if the announcement exists before trying to delete it
         if(isset($announcement['uid']))
         {
-            $this->Announcement_model->delete_announcement($uid);
-            redirect('announcement/index');
+            $this->Announcement_model->delete_announcement($this->input->post('announcement'));
+            redirect('cadet/view');
         }
         else
             show_error('The announcement you are trying to delete does not exist.');

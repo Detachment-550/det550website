@@ -21,11 +21,25 @@ class Cadetgroup extends CI_Controller{
     } 
 
     /*
+     * Shows page to modify and create groups.
+     */
+    function view()
+    {
+        $data['title'] = 'Create/Modify Group';
+        $data['groups'] = $this->Cadetgroup_model->get_all_groups();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('pages/addgroup.php');
+        $this->load->view('templates/footer'); 
+    }
+    
+    
+    /*
      * Listing of cadetgroup
      */
     function index()
     {
-        $data['cadetgroup'] = $this->Cadetgroup_model->get_all_cadetgroup();
+        $data['cadetgroup'] = $this->Cadetgroup_model->get_all_cadetgroups();
         
         $data['_view'] = 'cadetgroup/index';
         $this->load->view('layouts/main',$data);
@@ -42,15 +56,173 @@ class Cadetgroup extends CI_Controller{
 				'label' => $this->input->post('label'),
             );
             
-            $cadetgroup_id = $this->Cadetgroup_model->add_cadetgroup($params);
-            redirect('cadetgroup/index');
+            $cadetgroup_id = $this->Cadetgroup_model->add_group($params);
+            redirect('cadetgroup/view');
         }
         else
         {            
-            $data['_view'] = 'cadetgroup/add';
-            $this->load->view('layouts/main',$data);
+            show_error("No input given!");
         }
     }  
+    
+    /*
+     * Selects a group to be modified.
+     */
+    function modify()
+    {   
+        if(isset($_POST) && count($_POST) > 0)     
+        {   
+            $this->load->model('Cadet_model');
+            $this->load->model('Groupmember_model');
+
+            $data['curgroup'] = $this->input->post('group');
+            $data['groupname'] = $this->Cadetgroup_model->get_group($this->input->post('group'));
+            $data['title'] = 'Create/Modify Group';
+            $data['groups'] = $this->Cadetgroup_model->get_all_groups();
+            
+            // Finds each group member 
+            $cadets = $this->Cadet_model->get_all_cadets();
+            $members = array();
+            $nonmembers = array();
+            foreach( $cadets as $cadet )
+            {
+                if( $this->Groupmember_model->in_group( $data['curgroup'], $cadet['rin'] ) )
+                {
+                    // Cadet is in group
+                    $members[] = $cadet;
+                }
+                else
+                {
+                    // Cadet is not in group
+                    $nonmembers[] = $cadet;
+                }
+            }
+            $data['members'] = $members;
+            $data['nonmembers'] = $nonmembers;
+            
+            $this->load->view('templates/header', $data);
+            $this->load->view('pages/addgroup.php');
+            $this->load->view('templates/footer');         
+        }
+        else
+        {            
+            show_error("No input given!");
+        }
+    }  
+    
+    /*
+     * Adds cadet's to a group.
+     */
+    function addmembers()
+    {
+        $this->load->model('Groupmember_model');
+        $this->load->model('Cadet_model');
+
+        $cadets = $this->input->post('cadets');
+        $group = $this->input->post('group');
+        
+        if( $cadets !== null && $group !== null )
+        {
+            foreach( $cadets as $cadet )
+            {
+                $params = array(
+                    'groupID' => $group,
+                    'rin' => $cadet
+
+                );
+            
+                $cadetgroup_id = $this->Groupmember_model->add_groupmember($params);
+                
+            }
+            
+            $data['title'] = 'Create/Modify Group';
+            $data['groups'] = $this->Cadetgroup_model->get_all_groups();
+            
+            // Finds each group member 
+            $cadets = $this->Cadet_model->get_all_cadets();
+            $members = array();
+            $nonmembers = array();
+            foreach( $cadets as $cadet )
+            {
+                if( $this->Groupmember_model->in_group( $group, $cadet['rin'] ) )
+                {
+                    // Cadet is in group
+                    $members[] = $cadet;
+                }
+                else
+                {
+                    // Cadet is not in group
+                    $nonmembers[] = $cadet;
+                }
+            }
+            $data['members'] = $members;
+            $data['nonmembers'] = $nonmembers;
+            $data['curgroup'] = $group;
+            $data['groupname'] = $this->Cadetgroup_model->get_group($group);
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('pages/addgroup.php');
+            $this->load->view('templates/footer');  
+        }
+        else
+        {
+            show_error("You must select at least one cadet to be added to the group. Also you must select a group.");
+        }
+    }
+    
+
+    /*
+     * Removes cadet's from a group.
+     */
+    function removemembers()
+    {
+        $this->load->model('Groupmember_model');
+        $this->load->model('Cadet_model');
+
+        $cadets = $this->input->post('cadets');
+        $group = $this->input->post('group');
+        
+        if( $cadets !== null && $group !== null )
+        {
+            foreach( $cadets as $cadet )
+            {
+                $cadetgroup_id = $this->Groupmember_model->delete_groupmember($cadet, $group);
+            }
+            
+            $data['title'] = 'Create/Modify Group';
+            $data['groups'] = $this->Cadetgroup_model->get_all_groups();
+            
+            // Finds each group member 
+            $cadets = $this->Cadet_model->get_all_cadets();
+            $members = array();
+            $nonmembers = array();
+            foreach( $cadets as $cadet )
+            {
+                if( $this->Groupmember_model->in_group( $group, $cadet['rin'] ) )
+                {
+                    // Cadet is in group
+                    $members[] = $cadet;
+                }
+                else
+                {
+                    // Cadet is not in group
+                    $nonmembers[] = $cadet;
+                }
+            }
+            $data['members'] = $members;
+            $data['nonmembers'] = $nonmembers;
+            $data['curgroup'] = $group;
+            $data['groupname'] = $this->Cadetgroup_model->get_group($group);
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('pages/addgroup.php');
+            $this->load->view('templates/footer');  
+        }
+        else
+        {
+            show_error("You must select at least one cadet to be added to the group. Also you must select a group.");
+        }
+    }
 
     /*
      * Editing a cadetgroup
@@ -68,7 +240,7 @@ class Cadetgroup extends CI_Controller{
 					'label' => $this->input->post('label'),
                 );
 
-                $this->Cadetgroup_model->update_cadetgroup($id,$params);            
+                $this->Cadetgroup_model->update_group($id,$params);            
                 redirect('cadetgroup/index');
             }
             else
@@ -86,12 +258,12 @@ class Cadetgroup extends CI_Controller{
      */
     function remove($id)
     {
-        $cadetgroup = $this->Cadetgroup_model->get_cadetgroup($id);
+        $cadetgroup = $this->Cadetgroup_model->get_group($id);
 
         // check if the cadetgroup exists before trying to delete it
         if(isset($cadetgroup['id']))
         {
-            $this->Cadetgroup_model->delete_cadetgroup($id);
+            $this->Cadetgroup_model->delete_group($id);
             redirect('cadetgroup/index');
         }
         else
