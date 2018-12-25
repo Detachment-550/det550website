@@ -5,7 +5,7 @@ class Login extends CI_Controller {
     {
         $data['title'] = 'Login';
 
-        $this->load->view('pages/login.php');
+        $this->load->view('pages/login.php', $data);
         $this->load->view('templates/footer');
     }
     
@@ -180,7 +180,7 @@ class Login extends CI_Controller {
         
         $this->session->sess_destroy();
 
-        $this->load->view('pages/login.php');
+        $this->load->view('pages/login.php', $data);
         $this->load->view('templates/footer');
     }
 }

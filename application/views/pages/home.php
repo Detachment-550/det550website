@@ -1,5 +1,5 @@
 <head>
-    <title>Home</title>
+    <title><?php echo $title; ?></title>
     <link rel="stylesheet" type="text/css" href="../../../css/home.css">
 </head>
 
@@ -14,10 +14,12 @@
 <?php 
     foreach( $events as $event )
     {
-        echo "<div class=\"card-body\">";
-        echo "<h5 class=\"card-title\">" . $event['name'] . "</h5>";
-        echo "<p class=\"card-text\">" . $event['date'] . "</p>";
-        echo "<a href='attendance.php?eventid=" . $event['eventID'] . "' class=\"btn btn-sm btn-primary\">View</a></div>";
+        echo form_open('attendance/attendees');      
+        echo "<div class='card-body'>";
+        echo "<h5 class='card-title'>" . $event['name'] . "</h5>";
+        echo "<p class='card-text'>" . $event['date'] . "</p>";
+        echo "<input type='text' name='event' value '" . $event['eventID'] . "' style='display:none;'>";
+        echo "<button type='submit' class='btn btn-sm btn-primary'>View</button></div></form>";
 
     } 
 ?>
@@ -50,7 +52,7 @@
                     <p class="card-text">Attendance: <?php echo $llabperc; ?>%</p>
                     <h5 class="card-title">PT</h5>
                     <p class="card-text">Attendance: <?php echo $ptperc; ?>%</p>
-                    <a href="attendance.php" class="btn btn-sm btn-primary">View</a>
+                    <a href="/index.php/attendance/view" class="btn btn-sm btn-primary">View</a>
                 </div>
             </div>
         </div>

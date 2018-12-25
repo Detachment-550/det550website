@@ -8,7 +8,7 @@
     <div id="left">
       <div class="card">
         <div class="card-body">
-            <?php echo form_open_multipart('cadet/profilepicture'); ?>
+            <?php echo form_open_multipart('cadet/uploadpic'); ?>
             <p><strong>Profile Picture: </strong></p><input type="file" name="profilepicture"><br><br>
             <button class="btn btn-sm btn-primary" type="submit" name="submit">Upload Picture</button><br><br>
             </form>

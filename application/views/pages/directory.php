@@ -12,59 +12,58 @@
     }
 }
 </style>
-
-<?php // TODO: Re-add search feature for cadet's major and fix view funciton on profile cards ?>
-<!--
 <div class="jumbotron container-fluid">
     <h1 class="display-4"> Detachment Directory </h1><br>
-      <?php // echo form_open('cadetdirectory/show'); ?>
+      <?php echo form_open('cadetdirectory/major'); ?>
         <select class="form-control" name="showcadets">
--->
 <?php
-//$result = $mysqli->query("SELECT major FROM cadet");
-//$options = array();
-//while($row = $result->fetch_assoc()) 
-//{
-//    if(!in_array($row['major'], $options) && strcmp("", $row['major']) != 0)
-//    {
-//       array_push($options, $row['major']);
-//    } 
-//}
+    if(strcmp("all", $selected) == 0 )
+    {
+        echo "<option selected value='all'>All</option>";
+    }
+    else
+    {
+        echo "<option value='all'>All</option>";
+    }
+    foreach( $majors as $major )
+    {
+        if( strcmp($major->major, "") != 0 && strcmp($major->major, $selected) == 0 )
+        {
+            echo "<option selected value='" . $major->major . "'>" . $major->major . "</option>";
+        }
+        else if( strcmp($major->major, "") != 0 )
+        {
+            echo "<option value='" . $major->major . "'>" . $major->major . "</option>";
+        }
+    }
 ?>
-        <!-- <option value="all"  selected>All</option>'; -->
-<?php
-//foreach( $options as $option )
-//{
-//    // If option was selected makes it appear in dropdown as selected
-//    if($_POST['showcadets'] == $option)
-//    {
-//        echo '<option selected value="' . $option . '">'. $option . '</option>'; 
-//    }
-//    else
-//    {
-//        echo '<option value="' . $option . '">'. $option . '</option>'; 
-//    }
-//}
-?>
-<!--
         </select><br>
         <button class="btn btn-sm btn-primary" type="submit" value="Submit" name="submit">Show Cadets</button><br><br>
     </form>
--->
 
     
 <?php
+$images = scandir("./images");
 foreach( $cadets as $cadet )
 {
-  if(file_exists("../../../images/". $cadet['rin'] . ".jpg"))
+    if( in_array($cadet['rin'] . ".jpg", $images) )
     {
-      $file = "../../../images/". $cadet['rin'] . ".jpg";
+        $file = "../../../images/" . $cadet['rin'] . ".jpg";
     }
-  else
+    else if( in_array($cadet['rin'] . ".png", $images) )
     {
-      $file = "../../../images/default.jpeg";
+        $file = "../../../images/" . $cadet['rin'] . ".png";
     }
-    echo "<div class=\"card\" style=\"display:inline-block;text-align:center;\">";
+    else if( in_array($cadet['rin'] . ".jpeg", $images) )
+    {
+        $file = "../../../images/" . $cadet['rin'] . ".jpeg";
+    }
+    else
+    {
+        $file = "../../../images/default.jpeg";
+    }
+    
+    echo "<div class='card' style='display:inline-block;text-align:center;'>";
     
     // This needs to be fixed with cadet's picture
     echo "  <img class='img-fluid' style='padding:5px;height:200px;width:200px;' src='" . $file . "' alt='Cadet Profile Picture'>";

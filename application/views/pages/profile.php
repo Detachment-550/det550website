@@ -1,5 +1,5 @@
 <head>
-  <title>My Profile</title>
+  <title><?php echo $title; ?></title>
 </head>
 <style>
 /* Styles for mobile */
@@ -24,8 +24,7 @@
       <div class="row">
         <div class="col-4">
           <div class="card">
-            <img class="card-img-top" alt="Profile picture" src='
-            <?php echo $picture; ?>' >
+            <img class="card-img-top" alt="Profile picture" src='../../../images/<?php echo $picture; ?>' >
           <div class="card-body">
             <p class="card-text">
             <strong>Contact Information: </strong><br>

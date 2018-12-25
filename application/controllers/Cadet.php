@@ -13,6 +13,7 @@ class Cadet extends CI_Controller{
         if( $this->session->userdata('login') === true )
         {
             $this->load->model('Cadet_model');
+            $data['admin'] = $this->session->userdata('admin');
         }
         else
         {
@@ -235,37 +236,39 @@ class Cadet extends CI_Controller{
     /*
      * Saves a cadet's profile picture.
      */ 
-    function profilepicture()
+    function uploadpic()
     {
-        $this->load->library('upload');
-
-        $this->load->helper(array('form', 'url'));
-
         // check if the cadet exists before trying to edit it
         $data['cadet'] = $this->Cadet_model->get_cadet($this->session->userdata('rin'));
         
-        $config['upload_path']      = '../../../images/';
-        $config['allowed_types']    = 'gif|jpg|png';
-        $config['max_size']         = 100;
-        $config['max_width']        = 1024;
-        $config['max_height']       = 768;
+        
+        
+        // TODO: Account for max file sizes
+        $config['upload_path']      = './images/';
+        $config['allowed_types']    = 'jpeg|jpg|png';
+        $config['max_size']         = 100000;
+        $config['max_width']        = 20000;
+        $config['max_height']       = 20000;
         $config['file_name']        = $data['cadet']['rin'];
 
+        // If old profile picture exists delete it
+        if( file_exists("./images/" . $data['cadet']['rin'] . ".png") || file_exists("./images/" . $data['cadet']['rin'] . ".jpg") || file_exists("./images/" . $data['cadet']['rin'] . ".jpeg"))
+        {
+            unlink("./images/" . $data['cadet']['rin'] . ".png");
+        }
         
+        // Uploads image
         $this->load->library('upload', $config);
-
-        if ( ! $this->upload->do_upload('profilepicture'))
+        if( !$this->upload->do_upload('profilepicture') ) 
         {
-//            $error = array('error' => $this->upload->display_errors());
-//
-//            $this->load->view('templates/header', $error);
-//            $this->load->view('pages/editProfile.php');
-//            $this->load->view('templates/footer'); 
+            $error = array('error' => $this->upload->display_errors()); 
+            redirect('cadet/edit');
         }
-        else
-        {
-            redirect('cadet/profile');
-        }
+        else 
+        { 
+            $data = array('upload_data' => $this->upload->data()); 
+            redirect('cadet/edit');
+        } 
     }
     
     /*
@@ -315,7 +318,6 @@ class Cadet extends CI_Controller{
     {   
         $data['title'] = 'Edit Profile';
         $data['cadet'] = $data['cadet'] = $this->Cadet_model->get_cadet($this->session->userdata('rin'));
-        $data['admin'] = $this->session->userdata('admin');
 
         $this->load->view('templates/header', $data);
         $this->load->view('pages/editProfile.php');
@@ -331,20 +333,21 @@ class Cadet extends CI_Controller{
         $data['admin'] = $this->session->userdata('admin');
         
         // Looks for profile picture
-        $files = glob("../../../images/*.{jpg,png,jpeg}", GLOB_BRACE);
+        $files = array_diff(scandir("./images"), array('.', '..'));
         $found = false;
+        $data['files'] = $files;
         foreach($files as $file)
         {
             $info = pathinfo($file);
             if($info['filename'] == $_SESSION['rin'])
             {
-                $data['picture'] = $file; 
+                $data['picture'] = $info['basename']; 
                 $found = true;
             }
         }
         if(!$found)
         {
-            $data['picture'] = "../../../images/default.jpeg";
+            $data['picture'] = "/images/default.jpeg";
         }
         
         $data['cadet'] = $this->Cadet_model->get_cadet($this->session->userdata('rin'));

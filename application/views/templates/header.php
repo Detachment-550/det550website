@@ -20,22 +20,22 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-            <a href="/index.php/cadet/home" class="nav-link" type="submit">Home</a>
+            <a href="/index.php/cadet/home" class="nav-link">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/index.php/cadet/profile" type="submit">Profile</a>
+            <a class="nav-link" href="/index.php/cadet/profile">Profile</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> More</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/index.php/attendance/view" type="submit">Events</a>
-            <a class="dropdown-item" href="/index.php/announcement/view" type="submit">Announcements</a>
-            <a type="submit" class="dropdown-item" href="/index.php/cadetdirectory/view">Directory</a>
+            <a class="dropdown-item" href="/index.php/attendance/view">Events</a>
+            <a class="dropdown-item" href="/index.php/announcement/view">Announcements</a>
+            <a class="dropdown-item" href="/index.php/cadetdirectory/view">Directory</a>
             <a class="dropdown-item" href="https://rpi.account.box.com/login">Media/Documents</a>
             <a class="dropdown-item" href="/index.php/wiki/view">Documentation</a>
             <a class='dropdown-item' href='/index.php/email/view'>Send Email</a>
           <?php 
-                if( isset($admin) && $admin === true )
+                if( isset($_SESSION['admin']) && $_SESSION['admin'] === true )
                 {
                     echo "<a class='dropdown-item' href='/index.php/cadet/view'>Admin</a>";
                 }
@@ -43,7 +43,7 @@
           </div>
           </li>
           <li class="nav-item">
-            <a href="/index.php/login/logout" class="nav-link" type="submit">Log Out</a>
+            <a href="/index.php/login/logout" class="nav-link">Log Out</a>
           </li>          
       </ul>
     </div>

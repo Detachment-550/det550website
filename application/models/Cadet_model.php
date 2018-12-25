@@ -29,6 +29,30 @@ class Cadet_model extends CI_Model
     }
     
     /*
+     * Selects all the majors from the database.
+     */
+    function get_major($major)
+    {
+        $this->db->from('cadet');
+        $this->db->where("major", $major);
+        $query = $this->db->get();
+        
+        return $query->result_array();
+    }
+    
+    /*
+     * Selects all the majors from the database.
+     */
+    function get_all_majors()
+    {
+        $this->db->from('cadet');
+        $this->db->group_by("major");
+        $query = $this->db->get();
+        
+        return $query->result();
+    }
+    
+    /*
      * Looks for cadet based of given RFID input.
      */
     function find_cadet($rfid)

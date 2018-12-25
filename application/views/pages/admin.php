@@ -1,97 +1,4 @@
-<?php
-//include('./assets/inc/header.php');
-//
-//if ( !isset($_SESSION['login']) || !$_SESSION['login'] )
-//{
-//    header('Location: index.php');
-//}
-//
-//if( $cadet->getAdmin() != 1 )
-//{
-//    header('Location: home.php');
-//}
-//
-//if(isset($_POST['modifycadet']))
-//{
-//    $updatequery = 'UPDATE cadet SET flight = ?, rank = ?, admin = ? WHERE rin = ?';
-//    $stmt = $mysqli->prepare($updatequery);
-//    $stmt->bind_param("ssii", $_POST['flight'], $_POST['rank'], $_POST['admin'], $_POST['modifycadet']);
-//    $stmt->execute();
-//    $stmt->close();
-//}
-//
-//if(isset($_POST['submit']))
-//{
-//    $smt = $mysqli->prepare("DELETE FROM cadet WHERE rin = ?");
-//    $smt->bind_param( "i", $_POST['remove'] );
-//    $smt->execute();
-//    $smt->close();
-//}
-//
-//// Check if the passwords are the same if there is uname, pass, pass2 and both pass and pass2 match
-//if( isset($_POST['rin']) && isset($_POST['pass']) && isset($_POST['pass2']) && passMatch())
-//{
-//    $smt = $mysqli->prepare("INSERT INTO cadet (rin, password, rank, firstName, lastName, admin, flight, primaryEmail, question, answer) VALUES (?,?,?,?,?,?,?,?,?,?)");
-//    $hash = password_hash($_POST['pass'], PASSWORD_DEFAULT);
-//    $smt->bind_param( "issssissss", $_POST['rin'], $hash, $_POST['rank'], $_POST['first'], $_POST['last'], $_POST['admin'], $_POST['flight'], $_POST['email'], $_POST['question'], $_POST['answer'] );
-//    $smt->execute();
-//    $smt->close();
-//    
-//    if (isset($_POST['rin']) && isset($_POST['newrfid'])) {
-//		$cadetrin = trim($_POST['rin']);
-//		$cadetrfid = trim($_POST['newrfid']);
-//
-//		$updatequery = 'UPDATE cadet SET rfid = ? WHERE rin = ?';
-//		$stmt = $mysqli->prepare($updatequery);
-//		$stmt->bind_param("ii", $cadetrfid, $cadetrin);
-//		$stmt->execute();
-//		$stmt->close();
-//	} else {
-//		echo '<script> alert(You must enter both a valid RIN and scan the ID card);</script>';
-//	}
-//    
-//    header('Location: admin.php');
-//}
-//
-//if (isset($_POST['dannouncement'])) {
-//    $query = "DELETE FROM announcement WHERE uid ='" . $_POST['deleteAnnouncement']."';";
-//    $stmt = $mysqli->prepare($query);
-//    $stmt->execute();
-//    $stmt->close();
-//    header('Location: admin.php');
-//}
-//
-//if (isset($_POST['devent'])) {
-//    $query = "DELETE FROM cadetEvent WHERE eventID ='" . $_POST['deleteEvent']."';";
-//    $stmt = $mysqli->prepare($query);
-//    $stmt->execute();
-//    $stmt->close();
-//    header('Location: admin.php');
-//}
-//
-//// Checks to make sure the confirmation password and actual password match
-//function passMatch()
-//{
-//    if(strcmp($_POST['pass'], $_POST['pass2']) == 0)
-//    {
-//        // Passwords matched
-//        return true;
-//    }
-//    else
-//    {
-//        // Passwords didn't match
-//        return false;
-//    }
-//}
-
-?>
-
-<head>
-    <meta charset="utf-8" />
-    <title>Admin</title>
-    <script src="assets/js/addCadet.js"></script>
-</head>
-
+<script src="../../../js/addCadet.js"></script>
 <style>
 /* Styles for mobile */
 @media (max-width: 1000px) 
@@ -119,27 +26,27 @@
             <?php echo form_open('cadet/add'); ?>
                 <div>
                   First Name:<br>
-                  <input class="form-control" type="text" name="first" size="30" id="firstName"/>
+                  <input class="form-control" type="text" name="first" size="30" id="firstName" required/>
                 </div>
                 <div>
                   Last Name:<br>
-                  <input class="form-control" type="text" name="last" size="30" id="lastName"/>
+                  <input class="form-control" type="text" name="last" size="30" id="lastName" required/>
                 </div>
                 <div>
                   RIN:<br>
-                  <input class="form-control" type="text" name="rin" size="30" id="rin"/>
+                  <input class="form-control" type="text" name="rin" size="30" id="rin" required/>
                 </div>
                 <div>
                   Email:<br>
-                  <input class="form-control" type="text" name="email" size="30" id="primaryEmail"/>
+                  <input class="form-control" type="text" name="email" size="30" id="primaryEmail" required/>
                 </div>
                 <div>
                   Password:<br>
-                  <input class="form-control" type="password" name="pass" size="30" id="password"/>
+                  <input class="form-control" type="password" name="pass" size="30" id="password" required/>
                 </div>
                 <div>
                   Confirm Password:<br>
-                  <input class="form-control" type="password" name="pass2" size="30" id="confpassword"/>
+                  <input class="form-control" type="password" name="pass2" size="30" id="confpassword" required/>
                 </div>
                 <div>
                   Administrative Privileges:<br>
@@ -219,7 +126,7 @@
 
                   </select><br>
                   Response:<br>
-                  <input type="text" style="width:100%;" name="answer" id="answer"><br>
+                  <input type="text" style="width:100%;" name="answer" id="answer" required><br>
                 </div><br>
                 <div class="clearfix">
                   <input class="btn btn-sm btn-primary" type="submit" value="Add User" />

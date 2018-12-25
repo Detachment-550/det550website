@@ -16,10 +16,36 @@ class Cadetdirectory extends CI_Controller{
         }
     } 
 
+    /*
+     * Shows all cadets based on a given major.
+     */
+    function major()
+    {
+        $data['title'] = 'Cadet Directory';
+        if( strcmp("all", $this->input->post('showcadets')) == 0 )
+        {
+            $data['cadets'] = $this->Cadet_model->get_all_cadets();
+        }
+        else
+        {
+            $data['cadets'] = $this->Cadet_model->get_major($this->input->post('showcadets'));
+        }
+        $data['majors'] = $this->Cadet_model->get_all_majors();
+        $data['selected'] = $this->input->post('showcadets');
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('pages/directory.php');
+        $this->load->view('templates/footer'); 
+    }
+    
+    /*
+     * Shows all of the cadets in the detachment.
+     */
     function view()
     {
         $data['title'] = 'Cadet Directory';
         $data['cadets'] = $this->Cadet_model->get_all_cadets();
+        $data['majors'] = $this->Cadet_model->get_all_majors();
 
         $this->load->view('templates/header', $data);
         $this->load->view('pages/directory.php');
