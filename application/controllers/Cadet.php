@@ -426,7 +426,7 @@ class Cadet extends CI_Controller{
             if(isset($cadet['rin']))
             {
                 $this->Cadet_model->delete_cadet($this->input->post('remove'));
-                redirect('admin/view');
+                redirect('cadet/view');
             }
             else
             {
