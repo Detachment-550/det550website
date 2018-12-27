@@ -16,12 +16,12 @@ class Attendance_model extends CI_Model
      */
     function get_attendance( $id )
     {
+        $this->db->select('cadetEvent.pt, cadetEvent.llab, cadet.lastName, cadetEvent.name, attendance.excused_absence, attendance.time');
         $this->db->from('attendance');
         $this->db->join('cadet', 'cadet.rin = attendance.rin');
         $this->db->join('cadetEvent', 'cadetEvent.eventID = attendance.eventid');
-        $this->db->where('attendance.eventid', $id);
+        $this->db->where('attendance.rin', $id);
         
-//        $sql = "SELECT cadet.lastName, cadetEvent.name, attendance.excused_absence, attendance.time FROM cadet, attendance, cadetEvent WHERE cadet.rin = attendance.rin AND cadetEvent.eventID = attendance.eventid AND attendance.eventid = ?";
         $query = $this->db->get();
         return $query->result_array();
     }

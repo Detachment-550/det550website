@@ -393,18 +393,17 @@ class Cadet extends CI_Controller{
         $llabSum = $this->cadetevent_model->get_event_total('llab');
         foreach( $attendance as $attend )
         {
-            $temp = $this->cadetevent_model->get_cadetevent($attend['eventid']);
-            if( $temp['pt'] === 1 )
+            if( $attend['pt'] )
             {
                 $pt += 1;
             }
-            else if( $temp['llab'] === 1 )
+            else if( $attend['llab'] )
             {
                 $llab += 1;
             }
         }
         $data['ptperc'] = number_format(($pt / $ptSum) * 100, 2);
-        $data['llabperc'] =  number_format(($llab / $llabSum) * 100, 2);
+        $data['llabperc'] = number_format(($llab / $llabSum) * 100, 2);
         
         // Loads the home page 
         $this->load->view('templates/header', $data);

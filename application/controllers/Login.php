@@ -3,6 +3,11 @@ class Login extends CI_Controller {
 
     public function view()
     {
+        $this->load->library('session');
+        if( $this->session->userdata('login') === true )
+        {
+            redirect('cadet/home');
+        }
         $data['title'] = 'Login';
 
         $this->load->view('pages/login.php', $data);
@@ -50,7 +55,7 @@ class Login extends CI_Controller {
         }
         else
         {
-            $this->load->view('pages/login.php');
+            $this->load->view('pages/login.php', $data);
             $this->load->view('templates/footer');
         }   
     }
@@ -63,7 +68,7 @@ class Login extends CI_Controller {
     {
         $data['title'] = 'Forgot Password';
         
-        $this->load->view('pages/forgotpass.php');
+        $this->load->view('pages/forgotpass.php', $data);
         $this->load->view('templates/footer');
     }
    

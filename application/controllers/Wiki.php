@@ -27,6 +27,7 @@ class Wiki extends CI_Controller{
     {
         $data['title'] = 'Detachment Wiki';
         $data['wikis'] = $this->wiki_model->get_all_wikis();
+        $data['admin'] = $this->session->userdata('admin');
 
         $this->load->view('templates/header', $data);
         $this->load->view('pages/wikihome.php');
@@ -41,16 +42,15 @@ class Wiki extends CI_Controller{
         if(isset($_POST) && count($_POST) > 0)     
         {   
             $params = array(
-				'body' => $this->input->post('body'),
+				'name' => $this->input->post('name'),
             );
             
-            $wiki_id = $this->Wiki_model->add_wiki($params);
-            redirect('wiki/index');
+            $this->wiki_model->add_wiki($params);
+            redirect('wiki/view');
         }
         else
         {            
-            $data['_view'] = 'wiki/add';
-            $this->load->view('layouts/main',$data);
+            show_error("You must give the wiki a title.");
         }
     }  
 
@@ -89,7 +89,7 @@ class Wiki extends CI_Controller{
             $this->wiki_model->update_wiki($this->input->post('modifiedwiki'), $params);
 
             $data['wikis'] = $this->wiki_model->get_all_wikis();
-            
+            $data['title'] = "Documentation";
             $this->load->view('templates/header', $data);
             $this->load->view('pages/wikihome.php');
             $this->load->view('templates/footer'); 
@@ -103,18 +103,20 @@ class Wiki extends CI_Controller{
     /*
      * Deleting wiki
      */
-    function remove($id)
+    function remove()
     {
-        $wiki = $this->Wiki_model->get_wiki($id);
+        $wiki = $this->wiki_model->get_wiki($this->input->post('wiki'));
 
         // check if the wiki exists before trying to delete it
         if(isset($wiki['id']))
         {
-            $this->Wiki_model->delete_wiki($id);
-            redirect('wiki/index');
+            $this->wiki_model->delete_wiki($this->input->post('wiki'));
+            redirect('wiki/view');
         }
         else
+        {
             show_error('The wiki you are trying to delete does not exist.');
+        }
     }
     
 }
