@@ -1,3 +1,5 @@
+<?php $this->load->helper('url'); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,30 +22,30 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-            <a href="/index.php/cadet/home" class="nav-link">Home</a>
+            <?php echo anchor('cadet/home', 'Home', 'class="nav-link"'); ?>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/index.php/cadet/profile">Profile</a>
+            <?php echo anchor('cadet/profile', 'Profile', 'class="nav-link"'); ?>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> More</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/index.php/attendance/view">Events</a>
-            <a class="dropdown-item" href="/index.php/announcement/view">Announcements</a>
-            <a class="dropdown-item" href="/index.php/cadetdirectory/view">Directory</a>
-            <a class="dropdown-item" href="https://rpi.account.box.com/login">Media/Documents</a>
-            <a class="dropdown-item" href="/index.php/wiki/view">Documentation</a>
-            <a class='dropdown-item' href='/index.php/email/view'>Send Email</a>
+            <?php echo anchor('attendance/view', 'Events', 'class="dropdown-item"'); ?>
+            <?php echo anchor('announcement/view', 'Announcements', 'class="dropdown-item"'); ?>
+            <?php echo anchor('cadetdirectory/view', 'Directory', 'class="dropdown-item"'); ?>
+            <?php echo anchor('https://rpi.account.box.com/login', 'Media/Documents', 'class="dropdown-item"') ?>
+            <?php echo anchor('wiki/view', 'Documentation', 'class="dropdown-item"'); ?>
+            <?php echo anchor('email/view', 'Send Email', 'class="dropdown-item"'); ?>
           <?php 
-                if( isset($_SESSION['admin']) && $_SESSION['admin'] === true )
+                if( $this->session->userdata('admin') !== null && $this->session->userdata('admin') === true )
                 {
-                    echo "<a class='dropdown-item' href='/index.php/cadet/view'>Admin</a>";
+                    echo anchor('cadet/view', 'Admin', 'class="dropdown-item"');
                 }
           ?>
           </div>
           </li>
           <li class="nav-item">
-            <a href="/index.php/login/logout" class="nav-link">Log Out</a>
+            <?php echo anchor('login/logout', 'Log Out', 'class="nav-link"'); ?>
           </li>          
       </ul>
     </div>
