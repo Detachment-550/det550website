@@ -1,6 +1,6 @@
 <head>
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=ij0h6vcxvcacvu1l56udgaairzb672xtq1kktiizh2cpf4fe"></script>
-    <script src="../../../js/makepost.js"></script>
+    <script src="<?php echo base_url("js/makepost.js"); ?>"></script>
 </head>
 <body> 
 	<div class="jumbotron container-fluid">
