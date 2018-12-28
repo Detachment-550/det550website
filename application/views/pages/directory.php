@@ -48,19 +48,19 @@ foreach( $cadets as $cadet )
 {
     if( in_array($cadet['rin'] . ".jpg", $images) )
     {
-        $file = "../../../images/" . $cadet['rin'] . ".jpg";
+        $file = base_url("images/" . $cadet['rin'] . ".jpg" );
     }
     else if( in_array($cadet['rin'] . ".png", $images) )
     {
-        $file = "../../../images/" . $cadet['rin'] . ".png";
+        $file = base_url("images/" . $cadet['rin'] . ".png" );
     }
     else if( in_array($cadet['rin'] . ".jpeg", $images) )
     {
-        $file = "../../../images/" . $cadet['rin'] . ".jpeg";
+        $file = base_url("images/" . $cadet['rin'] . ".jpeg" );
     }
     else
     {
-        $file = "../../../images/default.jpeg";
+        $file = base_url("images/default.jpeg");
     }
     
     echo "<div class='card' style='display:inline-block;text-align:center;'>";

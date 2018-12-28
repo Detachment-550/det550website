@@ -33,7 +33,7 @@
 <div class="card" style="margin: auto;padding: 10px;">
   <div class="card-body">
       <?php echo form_open('login/auth'); ?>
-      <img class="img-fluid" src="../../../images/default.jpeg" alt="Responsive image">
+      <img class="img-fluid" src="<?php echo base_url("images/default.jpeg"); ?>" alt="Responsive image">
       <h5 class="card-title">Please Sign In</h5>
       <label for="uname"><b>Username</b></label><br>
       <input class="form-control" type="text" placeholder="Enter RIN" name="rin" required><br>
@@ -44,6 +44,6 @@
       <button class="btn btn-sm btn-primary" type="submit" name="submit">Login</button>
       <button class="btn btn-sm btn-secondary" type="reset" name="reset">Reset</button>
     </form>
-      <br><a href='/index.php/login/forgot'>Forgot Password?</a>
+      <br><?php echo anchor('login/forgot', 'Forgot Password'); ?>
   </div>
 </div>

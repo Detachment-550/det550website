@@ -15,7 +15,7 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <img src="../../../images/default.jpeg" width="80" height="80" class="d-inline-block align-center" alt="">
+    <img src="<?php echo base_url("images/default.jpeg"); ?>" width="80" height="80" class="d-inline-block align-center" alt="">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
     </button>
