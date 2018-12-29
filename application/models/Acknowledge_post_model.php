@@ -22,9 +22,11 @@ class Acknowledge_post_model extends CI_Model
     /*
      * Checks to see if acknowledgement exists.
      */
-    function acknowledge_posts_exists($rin, $id)
+    function acknowledge_post_exists($rin, $id)
     {
-        $this->db->get_where('acknowledge_posts',array('rin'=>$rin, 'announcement_id'=>$id));
+        $this->db->from('acknowledge_posts');
+        $this->db->where('rin',$rin);
+        $this->db->where('announcement_id',$id);
         return $this->db->count_all_results();
     }
         

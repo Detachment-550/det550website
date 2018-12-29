@@ -39,17 +39,15 @@ class Acknowledge_post extends CI_Controller{
         if(isset($_POST) && count($_POST) > 0)     
         {   
             $this->load->library('session');
-
-            $params = array(
-				'rin' =>  $this->session->userdata('rin'),
-				'announcement_id' => $this->input->post('announcementid')
-            );
-            
-            $exists = $this->Acknowledge_post_model->acknowledge_posts_exists($this->session->userdata('rin'), $this->input->post('announcementid'));
-            
+                        
             // Ignores duplicate entries
-            if( $exists == 0 )
+            if( $this->Acknowledge_post_model->acknowledge_post_exists( $this->session->userdata('rin'), $this->input->post('announcementid') ) <= 0 )
             {
+                $params = array(
+                    'rin' =>  $this->session->userdata('rin'),
+                    'announcement_id' => $this->input->post('announcementid')
+                );
+                
                 $this->Acknowledge_post_model->add_acknowledge_post($params);
             }
             
