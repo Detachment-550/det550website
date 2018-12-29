@@ -38,6 +38,15 @@ class Acknowledge_post_model extends CI_Model
         $this->db->order_by('rin', 'desc');
         return $this->db->get('acknowledge_posts')->result_array();
     }
+    
+    /*
+     * Get all acknowledge_posts of a given event
+     */
+    function get_event_acknowledge_posts($id)
+    {
+        $this->db->order_by('rin', 'desc');
+        return $this->db->get_where('acknowledge_posts',array('announcement_id'=>$id))->result_array();
+    }
         
     /*
      * function to add new acknowledge_post

@@ -41,8 +41,9 @@
         
 		// Print out the number of people that have read and understood the post
 		// When it is clicked it prints out the list of people that have
-		echo '<form action="announcements.php" method="post">';
-		echo '<input type="submit" name="' . $announcement['uid'] . '" value="'. $count .'"/></form>';
+		echo form_open('acknowledge_post/view');
+        echo "<input type='text' style='display:none;' name='event' value='" . $announcement['uid'] . "'>";
+		echo '<input type="submit" name="count" value="'. $count .'"/></form>';
 
         // TODO: Make it work so you can see who acknowledged the post
 //		$setstr = $announcement['uid'] . 'second';
