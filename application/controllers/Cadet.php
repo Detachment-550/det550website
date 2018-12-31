@@ -561,4 +561,25 @@ class Cadet extends CI_Controller{
             show_error("You must enter both a valid RIN and scan the ID card.");
         }
     }
+    
+    /*
+     * Unlocks a users account
+     */
+    function unlock()
+    {
+        if( $this->input->post('cadet') !== null && $this->session->userdata('admin') === true )
+        {
+            $params = array(
+                'loginattempt' => 0
+            );
+
+            $this->Cadet_model->update_cadet($this->input->post('cadet'), $params);
+            
+            redirect('cadet/view');
+        }
+        else
+        {
+            show_error("The cadet whose account you are trying to unlock does not exist.");
+        }
+    }
 }

@@ -29,11 +29,18 @@ class Login extends CI_Controller {
 
         $data['title'] = 'Login Page';
 
-        if($this->input->post('psw') !== null && password_verify($this->input->post('psw'), $cadet['password']))
+        // Checks that the password given is correct and that the user isn't locked out of the account
+        if( ($this->input->post('psw') !== null && password_verify($this->input->post('psw'), $cadet['password'])) && $cadet['loginattempt'] < 10 )
         {
             $this->load->model('cadetevent_model');
             $this->load->model('announcement_model');
             $this->load->model('attendance_model');
+            
+            // Resets login attempts on a successful login
+            $params = array(
+                'loginattempt' => 0
+            );
+            $this->Cadet_model->update_cadet($this->input->post('rin'),$params);
             
             // Sets session variable and loads closest 5 events
             $this->session->set_userdata('login', true);
@@ -54,9 +61,29 @@ class Login extends CI_Controller {
             redirect('cadet/home');
         }
         else
-        {
-            $this->load->view('pages/login.php', $data);
-            $this->load->view('templates/footer');
+        {            
+            // Increments login attempt
+            if( $cadet['loginattempt'] < 10 )
+            {
+                $cadet['loginattempt'] += 1;
+                
+                $params = array(
+                    'loginattempt' => $cadet['loginattempt']
+                );
+
+                $this->Cadet_model->update_cadet($this->input->post('rin'),$params);
+            }  
+            
+            // If you are locked out of the account show error
+            if( $cadet['loginattempt'] >= 10 )
+            {
+                show_error("You have been locked out of your account due to 10 inccorect password entries. Please reach out to a site admin or up your chain of commend to resolve this issue.");
+            }
+            else 
+            {
+                $this->load->view('pages/login.php', $data);
+                $this->load->view('templates/footer');
+            }
         }   
     }
     

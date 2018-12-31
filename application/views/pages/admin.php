@@ -231,7 +231,7 @@
           <div class="card">  
             <div class="card-body">
               <h5 class="card-title">Additional Admin Links</h5>
-                <h6 class="card-title">Select Event</h6>
+                <h6 class="card-title">Set Event Attendance</h6>
                     <?php echo form_open('cadetevent/view'); ?>
                         <select name="event">
                             <?php
@@ -241,10 +241,10 @@
                                 }
                             ?>
                         </select><br><br>
-                        <button class="btn btn-sm btn-primary" type="submit">Set Event Attendance</button>
+                        <button class="btn btn-sm btn-primary" type="submit">Select Event</button>
                 </form><br><br>
-              <a class="btn btn-sm btn-primary" href="/index.php/cadetgroup/view">Create/Modify Group</a><br></br>
-
+              
+                <h6>Delete an Event</h6>
                 <?php echo form_open('cadetevent/remove'); ?>
                   <select name="event">
                     <?php
@@ -254,10 +254,11 @@
                         }
                       
                     ?>
-                  </select><br></br>
-                  <button class="btn btn-sm btn-primary" type="submit" name="devent">Delete Event</button>
-                </form><br>
-
+                  </select><br><br>
+                  <button class="btn btn-sm btn-primary" type="submit" name="devent">Delete</button>
+                </form><br><br>
+            
+                <h6>Delete an Announcement</h6>
                 <?php echo form_open('announcement/remove'); ?>
                   <select name="announcement">
                     <?php
@@ -266,9 +267,25 @@
                             echo "<option value='" . $announcement['uid'] . "'>" . $announcement['title'] . " " . $announcement['date'] . "</option>";
                         }
                     ?>
-                  </select><br></br>
-                <button class="btn btn-sm btn-primary" type="submit" name="dannouncement">Delete Announcement</button>
-                </form>
+                  </select><br><br>
+                <button class="btn btn-sm btn-primary" type="submit" name="dannouncement">Delete</button>
+                </form><br><br>
+
+                <h6>Unlock Cadet Account</h6>
+                <?php echo form_open('cadet/unlock'); ?>
+                    <select name="cadet" style="width:80%;">
+                      <?php           
+                        foreach($cadets as $cadet)
+                        {
+                            echo "<option value='" . $cadet['rin'] . "'>" . $cadet['firstName'] . " " . $cadet['lastName'] . "</option>";
+                        }
+                      ?>
+                    </select><br><br>
+                <button class="btn btn-sm btn-primary" type="submit" name="unlock">Unlock</button>
+                </form><br><br>
+
+                <h6>Create/Modify a Group</h6>
+              <?php echo anchor('cadetgroup/view', 'Create/Modify', 'class="btn btn-sm btn-primary"'); ?>
             </div>
           </div>
         </div>
