@@ -14,18 +14,33 @@ class Attendance_model extends CI_Model
     /*
      * Get attendance by rin
      */
-    function get_attendance( $id )
+    function get_attendance( $rin )
     {
         $this->db->select('cadetEvent.pt, cadetEvent.llab, cadet.lastName, cadetEvent.name, attendance.excused_absence, attendance.time');
         $this->db->from('attendance');
         $this->db->join('cadet', 'cadet.rin = attendance.rin');
         $this->db->join('cadetEvent', 'cadetEvent.eventID = attendance.eventid');
-        $this->db->where('attendance.rin', $id);
+        $this->db->where('attendance.rin', $rin);
         
         $query = $this->db->get();
         return $query->result_array();
     }
+      
+    /*
+     * Get attendance by event
+     */
+    function get_event_attendance( $id )
+    {
+        $this->db->select('cadetEvent.pt, cadetEvent.llab, cadet.lastName, cadetEvent.name, attendance.excused_absence, attendance.time');
+        $this->db->from('attendance');
+        $this->db->join('cadet', 'cadet.rin = attendance.rin');
+        $this->db->join('cadetEvent', 'cadetEvent.eventID = attendance.eventid');
+        $this->db->where('attendance.eventid', $id);
         
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    
     /*
      * Get all attendance
      */

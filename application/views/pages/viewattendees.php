@@ -16,10 +16,10 @@ tr:nth-child(even) {
 }
 
 .jumbotron {
-    height: -webkit-fill-available;
+    margin-bottom: 0;
 }
 </style>
-</head>
+
 <body>
 <div class="jumbotron container-fluid">
     <h2><?php echo $event['name']; ?> Attendees</h2>

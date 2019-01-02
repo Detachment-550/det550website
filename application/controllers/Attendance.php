@@ -120,8 +120,9 @@ class Attendance extends CI_Controller{
             $this->load->model('attendance_model');
             $this->load->model('cadetevent_model');
 
-            $data['attendees'] =  $this->attendance_model->get_attendance( $this->input->post('event') );
+            $data['attendees'] =  $this->attendance_model->get_event_attendance( $this->input->post('event') );
             $data['event'] =  $this->cadetevent_model->get_cadetevent( $this->input->post('event') );
+            $data['test'] = $this->input->post('event');
 
             // Loads the home page 
             $this->load->view('templates/header', $data);
