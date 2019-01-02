@@ -1,4 +1,4 @@
-<script src="../../../js/addCadet.js"></script>
+<script src='<?php echo base_url("js/addCadet.js"); ?>'></script>
 <style>
 /* Styles for mobile */
 @media (max-width: 1000px) 

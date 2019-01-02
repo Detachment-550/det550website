@@ -1,7 +1,40 @@
 <head>
-    <title><?php echo $title; ?></title>
-    <link rel="stylesheet" type="text/css" href="../../../css/home.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url("css/home.css"); ?>">
 </head>
+
+<!-- Creates the status bar for LLAB and PT percentages -->
+<style>
+    #llabpercent
+    {
+        background-color: <?php
+            if( $llabperc > 80 )
+            {
+                echo "lightgreen";
+            }
+            else 
+            {
+                echo "red";
+            }
+            ?>;
+        width: <?php echo $llabperc; ?>%;
+    }
+
+    #ptpercent
+    {
+        background-color: <?php
+            if( $ptperc > 80 )
+            {
+                echo "lightgreen";
+            }
+            else 
+            {
+                echo "red";
+            }
+            ?>;       
+        width: <?php echo $ptperc; ?>%;
+    }
+</style>
+
 
 <div class="jumbotron jumbotron-fluid">
     <h1 class="display-4"> Hello! </h1>
@@ -49,8 +82,10 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Leadership Labs</h5>
+                    <div id="llabprogress"><div id="llabpercent"></div></div>
                     <p class="card-text">Attendance: <?php echo $llabperc; ?>%</p>
                     <h5 class="card-title">PT</h5>
+                    <div id="ptprogress"><div id="ptpercent"></div></div>
                     <p class="card-text">Attendance: <?php echo $ptperc; ?>%</p>
                     <a href="/index.php/attendance/view" class="btn btn-sm btn-primary">View</a>
                 </div>
