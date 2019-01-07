@@ -51,7 +51,7 @@
         echo "<div class='card-body'>";
         echo "<h5 class='card-title'>" . $event['name'] . "</h5>";
         echo "<p class='card-text'>" . $event['date'] . "</p>";
-        echo "<input type='text' name='event' value '" . $event['eventID'] . "' style='display:none;'>";
+        echo "<input type='text' name='event' value='" . $event['eventID'] . "' style='display:none;'>";
         echo "<button type='submit' class='btn btn-sm btn-primary'>View Attendees</button></div></form>";
 
     } 
