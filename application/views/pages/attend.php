@@ -25,4 +25,4 @@
           <input class='btn btn-sm btn-primary' type='submit' value='Show All Atendees' name='show_attendance'/>
           </form><br>
       
-      <a class='btn btn-sm btn-primary' href='/index.php/cadet/changerfid'>Add Cadet ID Card</a><br><br>
+      <a class='btn btn-sm btn-primary' href="<?php echo site_url("cadet/changerfid"); ?>">Add Cadet ID Card</a><br><br>

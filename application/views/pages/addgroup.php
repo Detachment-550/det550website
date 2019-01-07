@@ -39,7 +39,15 @@
           <?php
               foreach( $groups as $group )
               {
-                  echo "<option value ='" . $group['id'] . "'>" . $group['label'] . "</option>";
+                  // Checks to see if a group was selected
+                  if( isset($groupname) && $groupname['label'] === $group['label'] )
+                  {
+                      echo "<option selected value='" . $group['id'] . "'> " . $group['label'] . "</option>";      
+                  }
+                  else
+                  {
+                      echo "<option value='" . $group['id'] . "'> " . $group['label'] . "</option>";
+                  }
               }
             ?>
           </select><br></br>
@@ -55,7 +63,19 @@
                 {
                     foreach( $nonmembers as $nonmember )
                     {
-                        echo "<input type='checkbox' name='cadets[]' value ='" . $nonmember['rin'] . "'>Cadet " . $nonmember['lastName'] . "</input><br>";
+                        // Checks to see if this is cadre or admin not a cadet
+                        if(strpos($nonmember['rank'], "AS") !== false)
+                        {
+                            echo "<input type='checkbox' name='cadets[]' value ='" . $nonmember['rin'] . "'> Cadet " . $nonmember['lastName'] . "</input><br>";
+                        }
+                        else if( strpos($nonmember['rank'], "None") !== false )
+                        {
+                            echo "<input type='checkbox' name='cadets[]' value ='" . $nonmember['rin'] . "'> " . $nonmember['firstName'] . " " . $nonmember['lastName'] . "</input><br>";
+                        }
+                        else
+                        {
+                            echo "<input type='checkbox' name='cadets[]' value ='" . $nonmember['rin'] . "'> " . $nonmember['rank'] . " " . $nonmember['lastName'] . "</input><br>";
+                        }
                     }
                 }
                 else
@@ -76,7 +96,19 @@
                 {
                     foreach( $members as $member )
                     {
-                        echo "<input type='checkbox' name='cadets[]' value ='" . $member['rin'] . "'>Cadet " . $member['lastName'] . "</input><br>";
+                        // Checks to see if this is cadre or admin not a cadet
+                        if(strpos($member['rank'], "AS") !== false)
+                        {
+                            echo "<input type='checkbox' name='cadets[]' value ='" . $member['rin'] . "'> Cadet " . $member['lastName'] . "</input><br>";
+                        }
+                        else if( strpos($member['rank'], "None") !== false )
+                        {
+                            echo "<input type='checkbox' name='cadets[]' value ='" . $member['rin'] . "'> " . $member['firstName'] . " " . $member['lastName'] . "</input><br>";
+                        }
+                        else
+                        {
+                            echo "<input type='checkbox' name='cadets[]' value ='" . $member['rin'] . "'> " . $member['rank'] . " " . $member['lastName'] . "</input><br>";
+                        }
                     }
                 }
                 else

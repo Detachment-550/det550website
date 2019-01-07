@@ -60,7 +60,7 @@ class Cadetdirectory extends CI_Controller{
         $data['title'] = 'Profile Page';
         
         // Looks for profile picture
-        $files = glob("../../../images/*.{jpg,png,jpeg}", GLOB_BRACE);
+        $files = scandir("./images");
         $found = false;
         foreach($files as $file)
         {
@@ -73,7 +73,7 @@ class Cadetdirectory extends CI_Controller{
         }
         if(!$found)
         {
-            $data['picture'] = "../../../images/default.jpeg";
+            $data['picture'] = base_url("images/default.jpeg");
         }
         
         $data['cadet'] = $this->Cadet_model->get_cadet($this->input->post('rin'));
