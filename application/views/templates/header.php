@@ -37,6 +37,7 @@
             <?php echo anchor('https://rpi.account.box.com/login', 'Media/Documents', 'class="dropdown-item"') ?>
             <?php echo anchor('wiki/view', 'Documentation', 'class="dropdown-item"'); ?>
             <?php echo anchor('email/view', 'Send Email', 'class="dropdown-item"'); ?>
+            <?php echo anchor('pages/view/wingstructure', 'Org Chart', 'class="dropdown-item"'); ?>
           <?php 
                 if( $this->session->userdata('admin') !== null && $this->session->userdata('admin') === true )
                 {
