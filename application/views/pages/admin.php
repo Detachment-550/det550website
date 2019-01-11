@@ -143,7 +143,7 @@
           <div id="memWrapper" class="card-body">
             <h5 id="memHeader" class="card-title">Remove User</h5>
             <?php echo form_open('cadet/remove'); ?>
-                    <select name="remove" size="10" style="width:80%;">
+                    <select name="remove" style="width:80%;">
                       <?php           
                         foreach($cadets as $cadet)
                         {
@@ -154,14 +154,14 @@
                     <button class="btn btn-sm btn-primary" name="submit" type="submit">Remove</button>
                 </form>
           </div>
-        </div>
+        </div><br>
 
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Modify User Info</h5>
           <?php echo form_open('cadet/modify'); ?> 
             <strong>Select User</strong><br>
-            <select name="modify" size="10" style="width:80%;margin:auto">
+            <select name="modify" style="width:80%;margin:auto">
               <?php           
                 foreach($cadets as $cadet)
                 {
@@ -169,12 +169,12 @@
                 }
               ?>
                 <br>
-            </select><br></br>
+            </select><br>
             Administrative Privileges:<br>
             <select name="admin">
               <option value="0">No</option>
               <option value="1">Yes</option>
-            </select><br></br>
+            </select><br>
             Rank:<br>
             <select name="rank">
               <option value="None">None</option>
