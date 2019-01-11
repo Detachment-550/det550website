@@ -37,7 +37,7 @@ tr:nth-child(even) {
         echo "<td>Cadet " . $attendee['lastName'] . "</td>";
         echo "<td>" . $attendee['time'] . "</td>";
         echo "<td>" . $attendee['excused_absence'] . "</td>";
-        echo "<tr>";
+        echo "</tr>";
     }
 ?>
 </div>
