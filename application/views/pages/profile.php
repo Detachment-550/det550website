@@ -1,22 +1,5 @@
-<head>
-  <title><?php echo $title; ?></title>
-</head>
-<style>
-/* Styles for mobile */
-@media (max-width: 600px) 
-{
-    .col-4, .col-8
-    {
-        -ms-flex: 100%;
-        flex: 100%;
-        max-width: 100%;
-    }
-    body
-    {
-        min-width: 400px;
-    }
-}
-</style>
+<link rel="stylesheet" type="text/css" href="<?php echo base_url("css/profile.css"); ?>">
+
 <body>
   <div class="jumbotron container-fluid">
     <h1 class="display-4"><?php echo $heading; ?></h1>
