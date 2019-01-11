@@ -16,7 +16,7 @@ tr:nth-child(even) {
 }
 
 .jumbotron {
-    height: -webkit-fill-available;
+    margin-bottom: 0;
 }
 </style>
 </head>
@@ -40,7 +40,7 @@ tr:nth-child(even) {
                 echo "<tr>";
                 echo "<td>Cadet " . $cadet['lastName'] . "</td>";
                 echo "<td>" . $ack['time'] . "</td>";
-                echo "<tr>";
+                echo "</tr>";
             }
         }
     }
