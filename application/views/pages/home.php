@@ -1,6 +1,4 @@
-<head>
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url("css/home.css"); ?>">
-</head>
+<link rel="stylesheet" type="text/css" href="<?php echo base_url("css/home.css"); ?>">
 
 <!-- Creates the status bar for LLAB and PT percentages -->
 <style>
