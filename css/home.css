@@ -1,6 +1,6 @@
 
 /* Styles for mobile */
-@media (max-width: 500px) 
+@media (max-width: 700px)
 {
     .col-4 
     {
@@ -21,7 +21,7 @@
     }
 }
 /* Styles for bigger sizes */
-@media (min-width: 500px) 
+@media (min-width: 700px)
 {
     .col-4 
     {
@@ -33,6 +33,7 @@
     .jumbotron 
     {
         margin-bottom: 0;
+        height: -webkit-fill-available;
     }
 }
 
@@ -54,3 +55,4 @@
 {
     height: 20px;
 }
+
