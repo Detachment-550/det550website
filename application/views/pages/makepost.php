@@ -19,9 +19,9 @@
 					}
 				?>
 				</select><br>
-				<p class="card-text">Title: <input class="form-control" type="text" name="title"/>
-				<p class="card-text">Subject: <input class="form-control" type="text" name="subject"/>
-				<p class="card-text">Description: <textarea class="form-control" name="description" id="body"></textarea><br>
+                <p class="card-text">Title: <input class="form-control" type="text" name="title"/></p>
+                <p class="card-text">Subject: <input class="form-control" type="text" name="subject"/></p>
+                <p class="card-text">Description: <textarea class="form-control" name="description" id="body"></textarea></p><br>
 				<input class="btn btn-sm btn-primary" type="submit" name="submit" value="submit" onclick="saveBody()"/>
 			</form>
 	</div>
