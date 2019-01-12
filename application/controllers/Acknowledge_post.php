@@ -83,7 +83,7 @@ class Acknowledge_post extends CI_Controller{
         }
         else
         {            
-            $this->load->view('layouts/main',$data);
+            $this->load->view('layouts/main');
         }
     }  
 
