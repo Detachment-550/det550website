@@ -27,4 +27,7 @@
             <textarea class="form-control" type="text" name="body" id="body"></textarea><br>
             <button class="btn btn-sm btn-primary" type="submit" name="send" onclick="sendBody()" value="Send">Send</button>
         </form><br>
+      </div>
+    </div>
+</div>
         
