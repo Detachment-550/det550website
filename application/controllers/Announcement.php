@@ -38,7 +38,7 @@ class Announcement extends CI_Controller{
     {
         $this->load->helper('form');
         
-        if( $this->input->post('title') != null && $this->input->post('description') != null && $this->input->post('subject') != null)
+        if( $this->input->post('body') != null && $this->input->post('subject') != null)
         {
             // Goes to each selected group and sends announcement as email
             if( $this->input->post('groups') !== null )
@@ -48,21 +48,6 @@ class Announcement extends CI_Controller{
 
                 // Load email library
                 $this->load->library('email');
-
-                // SMTP & mail configuration
-                $config = array(
-                    'protocol'  => 'smtp',
-                    'smtp_host' => 'ssl://smtp.googlemail.com',
-                    'smtp_port' => 465,
-                    'smtp_user' => 'afrotcdet550@gmail.com',
-                    'smtp_pass' => 'silverfalcons550',
-                    'mailtype'  => 'html',
-                    'charset'   => 'utf-8'
-                );
-
-                $this->email->initialize($config);
-                $this->email->set_mailtype("html");
-                $this->email->set_newline("\r\n");
 
                 $this->load->model('groupmember_model');
                 $this->load->model('cadet_model');
@@ -80,7 +65,7 @@ class Announcement extends CI_Controller{
                 }
                 
                 $this->email->bcc($recipients);
-                $this->email->from('noreply@detachment550.org','MyWebsite');
+                $this->email->from('noreply@detachment550.org','Air Force ROTC Detachment 550');
                 $this->email->subject($this->input->post('subject'));
                 $this->email->message($this->input->post('body'));
 

@@ -164,21 +164,6 @@ class Login extends CI_Controller {
 
             // Load email library
             $this->load->library('email');
-
-            // SMTP & mail configuration
-            $config = array(
-                'protocol'  => 'smtp',
-                'smtp_host' => 'ssl://smtp.googlemail.com',
-                'smtp_port' => 465,
-                'smtp_user' => 'afrotcdet550@gmail.com',
-                'smtp_pass' => 'silverfalcons550',
-                'mailtype'  => 'html',
-                'charset'   => 'utf-8'
-            );
-
-            $this->email->initialize($config);
-            $this->email->set_mailtype("html");
-            $this->email->set_newline("\r\n");
             
             $this->load->model('groupmember_model');
             $this->load->model('cadet_model');
@@ -187,7 +172,7 @@ class Login extends CI_Controller {
             $recipients[] = $cadet['primaryEmail'];
 
             $this->email->bcc($email);
-            $this->email->from('noreply@detachment550.org','MyWebsite');
+            $this->email->from('noreply@detachment550.org','Air Force ROTC Detachment 550');
             $this->email->subject('Password Reset');
             $this->email->message($message);
             
