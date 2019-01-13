@@ -28,7 +28,7 @@ class Batchemail extends CI_Controller{
                 $this->email->send();
 
                 // Removes scheduled email from DB after sending it
-//                $this->Batch_email_model->delete_batchemail( $email['uid'] );
+                $this->Batch_email_model->delete_batchemail( $email['uid'] );
             }
         }
     }

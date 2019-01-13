@@ -51,6 +51,7 @@ class Announcement extends CI_Controller{
 
                 $this->load->model('groupmember_model');
                 $this->load->model('cadet_model');
+                $this->load->model('batch_email_model');
 
                 $recipients = array();
                 
@@ -59,18 +60,22 @@ class Announcement extends CI_Controller{
                     $data['members'] =  $this->groupmember_model->get_all_groupmembers( $group );
                     foreach( $data['members'] as $member )
                     {
-                        $cadet = $this->cadet_model->get_cadet( $member['rin'] );
-                        $recipients[] = $cadet['primaryEmail'];
+                        // Gets the cadet who needs to be sent an email
+                        $cadetemail = $this->cadet_model->get_cadet( $member['rin'] );
+
+                        // Creates an email to be send
+                        $params = array(
+                            'day'     => date("Y-m-d"),
+                            'to'   => $cadetemail['primaryEmail'],
+                            'from'      => "afrotcdet550@gmail.com",
+                            'subject'      => $this->input->post('subject'),
+                            'message'      => $this->input->post('body'),
+                            'title' => $this->session->userdata('title')
+                        );
+                        $this->batch_email_model->add_batchemail($params);
                     }
                 }
-                
-                $this->email->bcc($recipients);
-                $this->email->from('noreply@detachment550.org','Air Force ROTC Detachment 550');
-                $this->email->subject($this->input->post('subject'));
-                $this->email->message($this->input->post('body'));
 
-                // Send email
-                $this->email->send();
             }
             
             $this->load->model('announcement_model');
