@@ -79,7 +79,7 @@ class Announcement extends CI_Controller{
             $params = array(
                 'title'     => $this->input->post('title'),
                 'subject'   => $this->input->post('subject'),
-                'body'      => $this->input->post('description'),
+                'body'      => $this->input->post('body'),
                 'createdBy' => $this->session->userdata('rin')
             );
             
