@@ -200,37 +200,5 @@ class Login extends CI_Controller {
         $this->load->view('pages/login.php', $data);
         $this->load->view('templates/footer');
     }
-    
-    
-//    // (string) $message - message to be passed to Slack
-//    // (string) $room - room in which to write the message, too
-//    // (string) $icon - You can set up custom emoji icons to use with each message
-//    function test( $room = "general", $icon = ":longbox:") 
-//    {
-//        $room = ($room) ? $room : "engineering";
-//        $data = "payload=" . json_encode(array(
-//                "channel"       =>  "#{$room}",
-//                "text"          =>  "hello",
-//                "icon_emoji"    =>  $icon
-//            ));
-//	
-//	// You can get your webhook endpoint from your Slack settings
-//        $ch = curl_init("https://hooks.slack.com/services/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");
-//        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-//        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//        $result = curl_exec($ch);
-//        curl_close($ch);
-//	
-//	// Laravel-specific log writing method
-//        // Log::info("Sent to Slack: " . $message, array('context' => 'Notifications'));
-//        return $result;
-//    }
-//    
-//    function try()
-//    {
-//        $this->load->view('pages/test.php');
-//    }
-}
 
-?>
+}
