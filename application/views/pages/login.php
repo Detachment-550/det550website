@@ -36,7 +36,7 @@
       <img class="img-fluid" src="<?php echo base_url("images/default.jpeg"); ?>" alt="Responsive image">
       <h5 class="card-title">Please Sign In</h5>
       <label for="uname"><b>Username</b></label><br>
-      <input class="form-control" type="text" placeholder="Enter RIN" name="rin" required><br>
+      <input class="form-control" type="text" placeholder="Enter RIN or email" name="user" required><br>
 
       <label for="psw"><b>Password</b></label><br>
       <input class="form-control" type="password" placeholder="Enter Password" name="psw" required><br>

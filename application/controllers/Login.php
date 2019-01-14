@@ -15,15 +15,23 @@ class Login extends CI_Controller {
     }
     
     /*
-     * Makes sure cadet is authroized to login.
+     * Makes sure cadet is authorized to login.
      */
     function auth()
     {
         $this->load->model('Cadet_model');
         $this->load->library('session');
+        $this->load->helper('email');
 
-        $cadet = $this->Cadet_model->get_cadet($this->input->post('rin'));
-        
+        if( valid_email($this->input->post('rin')) )
+        {
+            $cadet = $this->Cadet_model->get_email_cadet( $this->input->post('user') );
+        }
+        else
+        {
+            $cadet = $this->Cadet_model->get_cadet( $this->input->post('user') );
+        }
+
         $this->load->helper('form');
         $this->load->library('form_validation');
 
@@ -40,11 +48,11 @@ class Login extends CI_Controller {
             $params = array(
                 'loginattempt' => 0
             );
-            $this->Cadet_model->update_cadet($this->input->post('rin'),$params);
+            $this->Cadet_model->update_cadet($cadet['rin'],$params);
             
             // Sets session variable and loads closest 5 events
             $this->session->set_userdata('login', true);
-            $this->session->set_userdata('rin', $this->input->post('rin'));
+            $this->session->set_userdata('rin', $cadet['rin']);
             
             // Checks if user is an admin or not
             if( $cadet['admin'] == 1 )
@@ -71,13 +79,14 @@ class Login extends CI_Controller {
                     'loginattempt' => $cadet['loginattempt']
                 );
 
-                $this->Cadet_model->update_cadet($this->input->post('rin'),$params);
+                $this->Cadet_model->update_cadet( $cadet['rin'], $params );
             }  
             
             // If you are locked out of the account show error
             if( $cadet['loginattempt'] >= 10 )
             {
-                show_error("You have been locked out of your account due to 10 inccorect password entries. Please reach out to a site admin or up your chain of commend to resolve this issue.");
+                show_error("You have been locked out of your account due to 10 incorrect password entries. 
+                Please reach out to a site admin or up your chain of commend to resolve this issue.");
             }
             else 
             {
