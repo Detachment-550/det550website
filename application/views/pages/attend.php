@@ -26,3 +26,4 @@
           </form><br>
       
       <a class='btn btn-sm btn-primary' href="<?php echo site_url("cadet/changerfid"); ?>">Add Cadet ID Card</a><br><br>
+  </div>
