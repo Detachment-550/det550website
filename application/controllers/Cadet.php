@@ -379,8 +379,6 @@ class Cadet extends CI_Controller{
         $this->load->model('cadetevent_model');
         $this->load->model('announcement_model');
         $this->load->model('attendance_model');
-        $data['ptperc'] = $this->session->userdata('ptperc');
-        $data['llabperc'] = $this->session->userdata('llabperc');
         $data['events'] =  $this->cadetevent_model->get_last_five_events();
         $data['announcements'] =  $this->announcement_model->get_last_five_announcements();
         $data['admin'] = $this->session->userdata('admin');
@@ -402,9 +400,27 @@ class Cadet extends CI_Controller{
                 $llab += 1;
             }
         }
-        $data['ptperc'] = number_format(($pt / $ptSum) * 100, 2);
-        $data['llabperc'] = number_format(($llab / $llabSum) * 100, 2);
-        
+
+        // Checks to see if no pt events have occurred yet
+        if($ptSum === 0)
+        {
+            $data['ptperc'] = number_format(0, 2);
+        }
+        else
+        {
+            $data['ptperc'] = number_format(($pt / $ptSum) * 100, 2);
+        }
+
+        // Checks to see if no llab events have occurred yet
+        if($llabSum === 0)
+        {
+            $data['llabperc'] = number_format(0, 2);
+        }
+        else
+        {
+            $data['llabperc'] = number_format(($llab / $llabSum) * 100, 2);
+        }
+
         // Loads the home page 
         $this->load->view('templates/header', $data);
         $this->load->view('pages/home.php');
