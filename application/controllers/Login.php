@@ -63,7 +63,7 @@ class Login extends CI_Controller {
         else
         {            
             // Increments login attempt
-            if( $cadet['loginattempt'] < 10 )
+            if( isset($cadet['loginattempt']) && $cadet['loginattempt'] < 10 )
             {
                 $cadet['loginattempt'] += 1;
                 
