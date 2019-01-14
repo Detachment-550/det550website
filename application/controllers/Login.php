@@ -23,7 +23,7 @@ class Login extends CI_Controller {
         $this->load->library('session');
         $this->load->helper('email');
 
-        if( valid_email($this->input->post('rin')) )
+        if( valid_email($this->input->post('user')) )
         {
             $cadet = $this->Cadet_model->get_email_cadet( $this->input->post('user') );
         }
