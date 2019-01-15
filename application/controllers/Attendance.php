@@ -51,23 +51,34 @@ class Attendance extends CI_Controller{
      * Adding a new attendance
      */
     function add()
-    {   
+    {
+        $this->load->model('cadet_model');
+        $this->load->model('Cadetevent_model');
+
         if( $this->input->post('rfid') !== null )
         {
-            $this->load->model('cadet_model');
             $data['cadet'] = $this->cadet_model->find_cadet( $this->input->post('rfid') );
             if(isset($data['cadet']['rin']))
             {
                 if(isset($_POST) && count($_POST) > 0)     
-                {   
-                    $params = array(
-                        'rin' => $data['cadet']['rin'],
-                        'eventid' => $this->input->post('event'),
-                    );
+                {
+                    if( $this->Attendance_model->attendance_exists( $data['cadet']['rin'], $this->input->post('event')) === 0 )
+                    {
+                        $params = array(
+                            'rin' => $data['cadet']['rin'],
+                            'eventid' => $this->input->post('event'),
+                        );
 
-                    $attendance_id = $this->Attendance_model->add_attendance( $params );
+                        $this->Attendance_model->add_attendance( $params );
+                    }
 
-                    redirect('cadetevent/view');
+                    $data['title'] = 'Set Attendance';
+                    $data['event'] =  $this->Cadetevent_model->get_cadetevent( $this->input->post('event') );
+
+                    // Loads the home page
+                    $this->load->view('templates/header', $data);
+                    $this->load->view('pages/attend.php');
+                    $this->load->view('templates/footer');
                 }
                 else
                 {            
@@ -76,26 +87,35 @@ class Attendance extends CI_Controller{
             }
             else
             {
-                echo 'This ID card does not match any cadet. Click <a href="connectrfid.php">here</a> to connect this card to a cadet.';
+                // TODO: Fix this link
+                redirect("cadet/changerfid");
             }        
         }
         else if( $this->input->post('rin') !== null )
         {
-            // TODO: Set attendance for given rin
-            $this->load->model('cadet_model');
             $data['cadet'] = $this->cadet_model->get_cadet( $this->input->post('rin') );
+
             if(isset($data['cadet']['rin']))
             {
                 if(isset($_POST) && count($_POST) > 0)     
-                {   
-                    $params = array(
-                        'rin' => $data['cadet']['rin'],
-                        'eventid' => $this->input->post('event'),
-                    );
+                {
+                    if( $this->Attendance_model->attendance_exists( $data['cadet']['rin'], $this->input->post('event')) === 0 )
+                    {
+                        $params = array(
+                            'rin' => $data['cadet']['rin'],
+                            'eventid' => $this->input->post('event'),
+                        );
 
-                    $attendance_id = $this->Attendance_model->add_attendance( $params );
+                        $this->Attendance_model->add_attendance( $params );
+                    }
 
-                    redirect('cadetevent/view');
+                    $data['title'] = 'Set Attendance';
+                    $data['event'] =  $this->Cadetevent_model->get_cadetevent( $this->input->post('event') );
+
+                    // Loads the home page
+                    $this->load->view('templates/header', $data);
+                    $this->load->view('pages/attend.php');
+                    $this->load->view('templates/footer');
                 }
                 else
                 {            
@@ -104,7 +124,7 @@ class Attendance extends CI_Controller{
             }
             else
             {
-                echo 'This ID card does not match any cadet. Click <a href="connectrfid.php">here</a> to connect this card to a cadet.';
+                show_error("This is not a cadet. Please enter a valid RIN or create a cadet with this RIN");
             }        
         }
     }  

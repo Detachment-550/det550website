@@ -58,7 +58,19 @@ class Attendance_model extends CI_Model
         $this->db->insert('attendance',$params);
         return $this->db->insert_id();
     }
-    
+
+    /*
+     * function to update attendance
+     */
+    function attendance_exists($rin,$id)
+    {
+        $this->db->from('attendance');
+        $this->db->where('rin',$rin);
+        $this->db->where('eventid',$id);
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
     /*
      * function to update attendance
      */
