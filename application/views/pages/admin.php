@@ -26,11 +26,11 @@
             <?php echo form_open('cadet/add'); ?>
                 <div>
                   First Name:<br>
-                  <input class="form-control" type="text" name="first" size="30" id="firstName" required/>
+                  <input class="form-control" type="text" name="firstname" size="30" id="firstname" required/>
                 </div>
                 <div>
                   Last Name:<br>
-                  <input class="form-control" type="text" name="last" size="30" id="lastName" required/>
+                  <input class="form-control" type="text" name="lastname" size="30" id="lastname" required/>
                 </div>
                 <div>
                   RIN:<br>
@@ -42,11 +42,11 @@
                 </div>
                 <div>
                   Password:<br>
-                  <input class="form-control" type="password" name="pass" size="30" id="password" required/>
+                  <input class="form-control" type="password" name="password" size="30" id="password" required/>
                 </div>
                 <div>
                   Confirm Password:<br>
-                  <input class="form-control" type="password" name="pass2" size="30" id="confpassword" required/>
+                  <input class="form-control" type="password" name="confpassword" size="30" id="confpassword" required/>
                 </div>
                 <div>
                   Administrative Privileges:<br>

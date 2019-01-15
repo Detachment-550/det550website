@@ -411,7 +411,7 @@ class Cadet extends CI_Controller{
             $data['ptperc'] = number_format(($pt / $ptSum) * 100, 2);
         }
 
-        // Checks to see if no llab events have occurred yet
+        // Checks to see if no llab  events have occurred yet
         if($llabSum === 0)
         {
             $data['llabperc'] = number_format(0, 2);
@@ -486,16 +486,16 @@ class Cadet extends CI_Controller{
         {
             if(isset($_POST) && count($_POST) > 0)     
             {            
-                if( $this->input->post('password') !== $this->input->post('confpassword') )
+                if( strcmp($this->input->post('password'), $this->input->post('confpassword')) === 0 )
                 {
                    $params = array(
                         'admin' => $this->input->post('admin'),
                         'password' => $this->input->post('password'),
-                        'firstName' => $this->input->post('firstName'),
+                        'firstName' => $this->input->post('firstname'),
                         'rank' => $this->input->post('rank'),
                         'primaryEmail' => $this->input->post('primaryEmail'),
                         'flight' => $this->input->post('flight'),
-                        'lastName' => $this->input->post('lastName'),
+                        'lastName' => $this->input->post('lastname'),
                         'rfid' => $this->input->post('rfid'),
                         'question' => $this->input->post('question'),
                         'answer' => $this->input->post('answer')
