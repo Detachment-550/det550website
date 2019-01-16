@@ -4,6 +4,8 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url("css/editprofile.css"); ?>">
 </head>
 
+    <div class="jumbotron jumbotron-fluid">
+
       <div class="card">
         <div class="card-body">
             <?php echo form_open_multipart('cadet/uploadpic'); ?>
