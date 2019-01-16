@@ -118,7 +118,22 @@
           ?>
           </div><br>
           <button class="btn btn-sm btn-primary" type="submit" name="submit">Remove Members</button>
-        </form>
+        </form><br>
+
+
+          <h5 class="card-text">Remove Group</h5>
+
+          <?php echo form_open('cadetgroup/remove'); ?>
+          <select id="selectgroup" name="group">
+              <?php
+              foreach( $groups as $group )
+              {
+                  echo "<option value='" . $group['id'] . "'> " . $group['label'] . "</option>";
+              }
+              ?>
+          </select><br><br>
+          <button class="btn btn-sm btn-primary" type="submit" name="submit">Delete Group</button>
+          </form><br>
 
       </div>
     </div>
