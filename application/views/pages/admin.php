@@ -38,15 +38,7 @@
                 </div>
                 <div>
                   Email:<br>
-                  <input class="form-control" type="text" name="email" size="30" id="primaryEmail" required/>
-                </div>
-                <div>
-                  Password:<br>
-                  <input class="form-control" type="password" name="password" size="30" id="password" required/>
-                </div>
-                <div>
-                  Confirm Password:<br>
-                  <input class="form-control" type="password" name="confpassword" size="30" id="confpassword" required/>
+                  <input class="form-control" type="text" name="primaryEmail" size="30" id="primaryEmail" required/>
                 </div>
                 <div>
                   Administrative Privileges:<br>

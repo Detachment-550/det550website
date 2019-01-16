@@ -485,30 +485,54 @@ class Cadet extends CI_Controller{
         if( $this->session->userdata('admin') === true )
         {
             if(isset($_POST) && count($_POST) > 0)     
-            {            
-                if( strcmp($this->input->post('password'), $this->input->post('confpassword')) === 0 )
+            {
+                // Generates random password
+                $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+                $pass = array(); // Remember to declare $pass as an array
+                $alphaLength = strlen($alphabet) - 1; // Put the length -1 in cache
+                for ($i = 0; $i < 10; $i++)
                 {
-                   $params = array(
-                        'admin' => $this->input->post('admin'),
-                        'password' => $this->input->post('password'),
-                        'firstName' => $this->input->post('firstname'),
-                        'rank' => $this->input->post('rank'),
-                        'primaryEmail' => $this->input->post('primaryEmail'),
-                        'flight' => $this->input->post('flight'),
-                        'lastName' => $this->input->post('lastname'),
-                        'rfid' => $this->input->post('rfid'),
-                        'question' => $this->input->post('question'),
-                        'answer' => $this->input->post('answer')
-                    ); 
-
-                    $cadet_id = $this->Cadet_model->add_cadet($params);
-
-                    redirect('cadet/view');
+                    $n = rand(0, $alphaLength);
+                    $pass[] = $alphabet[$n];
                 }
-                else
-                {
-                    show_error('Passwords do not match');
-                }
+                $pass = implode($pass); // Turn the array into a string
+
+                $hash = password_hash($pass, PASSWORD_DEFAULT);
+
+                $params = array(
+                    'admin' => $this->input->post('admin'),
+                    'password' => $hash,
+                    'firstName' => $this->input->post('firstname'),
+                    'rank' => $this->input->post('rank'),
+                    'primaryEmail' => $this->input->post('primaryEmail'),
+                    'flight' => $this->input->post('flight'),
+                    'lastName' => $this->input->post('lastname'),
+                    'rfid' => $this->input->post('rfid'),
+                    'question' => $this->input->post('question'),
+                    'answer' => $this->input->post('answer')
+                );
+
+                $this->Cadet_model->add_cadet($params);
+
+                $message = "<h2>New Account Password</h2>
+                        <p>Your new account has been created! Below is your new temporary password please log on and change it as soon as possible!</p>
+                        <br><br>
+                        <p>Temporary Password: " . $pass . "</p>";
+
+                // Load email library
+                $this->load->library('email');
+                $this->load->library('encryption');
+
+                $this->email->to($this->input->post('primaryEmail'));
+                $this->email->from('noreply@detachment550.org','Air Force ROTC Detachment 550');
+                $this->email->subject('New Cadet Account');
+                $this->email->message($message);
+
+                // Send email
+                $this->email->send();
+
+                redirect('cadet/view');
+
             }
             else
             {            

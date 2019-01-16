@@ -173,12 +173,6 @@ class Login extends CI_Controller {
 
             // Load email library
             $this->load->library('email');
-            
-            $this->load->model('groupmember_model');
-            $this->load->model('cadet_model');
-
-            $recipients = array();
-            $recipients[] = $cadet['primaryEmail'];
 
             $this->email->bcc($email);
             $this->email->from('noreply@detachment550.org','Air Force ROTC Detachment 550');
