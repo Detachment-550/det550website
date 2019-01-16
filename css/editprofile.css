@@ -10,18 +10,10 @@
     margin-right: auto;
     width: 100%;
 }
-#left
-{
-    float: left;
-    width: 50%;
-    padding: 10px;
-}
 
-#right
+.card
 {
-    float: right;
-    width: 50%;
-    padding: 10px
+    margin: 10px;
 }
 
 #bottom

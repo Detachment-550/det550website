@@ -4,15 +4,18 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url("css/editprofile.css"); ?>">
 </head>
 
-  <div class="row">
-    <div id="left">
       <div class="card">
         <div class="card-body">
             <?php echo form_open_multipart('cadet/uploadpic'); ?>
             <p><strong>Profile Picture: </strong></p><input type="file" name="profilepicture"><br><br>
             <button class="btn btn-sm btn-primary" type="submit" name="submit">Upload Picture</button><br><br>
             </form>
-            <?php echo form_open('cadet/savegeninfo'); ?>
+        </div>
+      </div>
+
+    <div class="card">
+        <div class="card-body">
+            <?php echo form_open('cadet/saveprofile'); ?>
             <div>
                 <strong>Primary Email:</strong><br>
                 <input class="form-control" id="pemail" type="text" name="pemail" size="30" value="<?php echo $cadet['primaryEmail']; ?>"/>
@@ -41,69 +44,42 @@
                 <strong>Major:</strong><br>
                 <input class="form-control"type="text" name="major" size="30" value="<?php echo $cadet['major']; ?>"/>
             </div><br>
-            <button class="btn btn-sm btn-primary" type="reset">Reset</button>
-            <button class="btn btn-sm btn-primary" type="submit" name="submit">Save Changes</button>
-        </form><br>
+            <strong>Personal Goals: </strong>
+            <textarea id="pgoals" name="pgoals"><?php echo $cadet['PGoals']; ?></textarea><br>
+            <strong>Bio: </strong>
+            <textarea id="cadetbio" name="bio"><?php echo $cadet['bio']; ?></textarea><br>
+            <strong>Air Force Goals: </strong>
+            <textarea id="afgoals" name="afgoals"><?php echo $cadet['AFGoals']; ?></textarea><br>
+            <strong>Awards and Achievements: </strong>
+            <textarea id="awards" name="awards"><?php echo $cadet['awards']; ?></textarea><br>
+            <button class="btn btn-sm btn-primary" type="submit" name="submit">Update Profile</button>
+            </form><br>
       </div>
     </div>
+
+        <div class="card">
+            <div class="card-body">
+                <?php echo form_open('cadet/changepassword'); ?>
+                <h5 class="card-title">Change Password</h5>
+                <div>
+                    <strong>Old Password:</strong><br>
+                    <input class="form-control" type="password" name="oldpass" id="oldpass" size="30"/>
+                </div><br>
+                <div>
+                    <strong>New Password:</strong><br>
+                    <input class="form-control" type="text" name="newpass" id="newpass" size="30"/>
+                </div><br>
+                <div>
+                    <strong>Verify Password:</strong><br>
+                    <input class="form-control" id="verpass" type="text" name="verpass" size="30"/>
+                </div><br>
+                <button class="btn btn-sm btn-primary" type="reset">Reset</button>
+                <button class="btn btn-sm btn-primary" type="submit" name="updatepass">Change Password</button>
+                </form><br>
+
+                <?php echo form_open('cadet/security'); ?>
+                <button type="submit" class="btn btn-sm btn-primary">Modify Security Question</button>
+                </form>
+            </div>
+        </div>
   </div>
-
-
-    <div id="right">
-      <div class="card">
-        <div class="card-body">
-            <?php echo form_open('cadet/changepassword'); ?>
-            <h5 class="card-title">Change Password</h5>
-            <div>
-                <strong>Old Password:</strong><br>
-                <input class="form-control" type="password" name="oldpass" id="oldpass" size="30"/>
-            </div><br>
-            <div>
-                <strong>New Password:</strong><br>
-                <input class="form-control" type="text" name="newpass" id="newpass" size="30"/>
-            </div><br>
-            <div>
-                <strong>Verify Password:</strong><br>
-                <input class="form-control" id="verpass" type="text" name="verpass" size="30"/>
-            </div><br>
-            <button class="btn btn-sm btn-primary" type="reset">Reset</button>
-            <button class="btn btn-sm btn-primary" type="submit" name="updatepass">Change Password</button>
-          </form><br>
-            
-            <?php echo form_open('cadet/security'); ?>
-            <button type="submit" class="btn btn-sm btn-primary">Modify Security Question</button>
-          </form>
-        </div>
-      </div>
-    </div>
-    </div>
-      
-      <div id="bottom">
-      <div class="card">
-        <div class="card-body">
-            <?php echo form_open('cadet/savebio'); ?>
-                <strong>Bio: </strong>
-                <textarea id="cadetbio" name="bio"><?php echo $cadet['bio']; ?></textarea><br>
-                <button class="btn btn-sm btn-primary" type="submit">Save</button>
-            </form><br>
- 
-            <?php echo form_open('cadet/saveafgoals'); ?>
-                <strong>Air Force Goals: </strong>
-                <textarea id="afgoals" name="afgoals"><?php echo $cadet['AFGoals']; ?></textarea><br>
-                <button class="btn btn-sm btn-primary" type="submit">Save</button>
-            </form><br>
-            
-            <?php echo form_open('cadet/savepgoals'); ?>
-                <strong>Personal Goals: </strong>
-                <textarea id="pgoals" name="pgoals"><?php echo $cadet['PGoals']; ?></textarea><br>
-                <button class="btn btn-sm btn-primary" type="submit">Save</button>
-            </form><br>
-            
-            <?php echo form_open('cadet/saveawards'); ?>
-                <strong>Awards and Achievements: </strong>
-                <textarea id="awards" name="awards"><?php echo $cadet['awards']; ?></textarea><br>
-                <button class="btn btn-sm btn-primary" type="submit">Save</button>
-            </form><br>
-        </div>
-      </div>
-    </div>

@@ -101,137 +101,51 @@ class Cadet extends CI_Controller{
             redirect('cadet/edit');
         }
     }
-    
-    
+
     /*
-     * Saves a cadet's awards
+     * Updates a cadet's profile
      */
-    function saveawards()
+    function saveprofile()
     {
         $data['title'] = 'Edit Profile';
 
         // check if the cadet exists before trying to edit it
         $data['cadet'] = $this->Cadet_model->get_cadet($this->session->userdata('rin'));
-        
+
         if(isset($data['cadet']['rin']))
         {
-            if(isset($_POST) && count($_POST) > 0)     
-            {   
+            if(isset($_POST) && count($_POST) > 0)
+            {
                 $params = array(
-					'awards' => $this->input->post('awards')
+                    'awards' => $this->input->post('awards'),
+                    'PGoals' => $this->input->post('pgoals'),
+                    'AFGoals' => $this->input->post('afgoals'),
+                    'bio' => $this->input->post('bio'),
+                    'firstName' => $this->input->post('firstName'),
+                    'primaryEmail' => $this->input->post('pemail'),
+                    'secondaryEmail' => $this->input->post('semail'),
+                    'primaryPhone' => $this->input->post('pphone'),
+                    'secondaryPhone' => $this->input->post('sphone'),
+                    'position' => $this->input->post('position'),
+                    'groupMe' => $this->input->post('groupme'),
+                    'major' => $this->input->post('major')
                 );
 
-                $this->Cadet_model->update_cadet($this->session->userdata('rin'),$params);            
+                $this->Cadet_model->update_cadet($this->session->userdata('rin'),$params);
+
                 redirect('cadet/edit');
             }
             else
             {
-                show_error('There was no information given to save in your bio.');
+                show_error('There was no information given to save in your profile.');
             }
         }
         else
         {
             show_error('The cadet you are trying to edit does not exist.');
-        } 
-    }
-    
-    
-    /*
-     * Saves a cadet's personal goals
-     */
-    function savepgoals()
-    {
-        $data['title'] = 'Edit Profile';
-
-        // check if the cadet exists before trying to edit it
-        $data['cadet'] = $this->Cadet_model->get_cadet($this->session->userdata('rin'));
-        
-        if(isset($data['cadet']['rin']))
-        {
-            if(isset($_POST) && count($_POST) > 0)     
-            {   
-                $params = array(
-					'PGoals' => $this->input->post('pgoals')
-                );
-
-                $this->Cadet_model->update_cadet($this->session->userdata('rin'),$params);            
-                redirect('cadet/edit');
-            }
-            else
-            {
-                show_error('There was no information given to save in your bio.');
-            }
         }
-        else
-        {
-            show_error('The cadet you are trying to edit does not exist.');
-        } 
     }
-    
-    
-    /*
-     * Saves a cadet's afgoals
-     */
-    function saveafgoals()
-    {
-        $data['title'] = 'Edit Profile';
 
-        // check if the cadet exists before trying to edit it
-        $data['cadet'] = $this->Cadet_model->get_cadet($this->session->userdata('rin'));
-        
-        if(isset($data['cadet']['rin']))
-        {
-            if(isset($_POST) && count($_POST) > 0)     
-            {   
-                $params = array(
-					'AFGoals' => $this->input->post('afgoals')
-                );
-
-                $this->Cadet_model->update_cadet($this->session->userdata('rin'),$params);            
-                redirect('cadet/edit');
-            }
-            else
-            {
-                show_error('There was no information given to save in your bio.');
-            }
-        }
-        else
-        {
-            show_error('The cadet you are trying to edit does not exist.');
-        } 
-    }
-    
-    /*
-     * Saves a cadet's bio
-     */
-    function savebio()
-    {
-        $data['title'] = 'Edit Profile';
-
-        // check if the cadet exists before trying to edit it
-        $data['cadet'] = $this->Cadet_model->get_cadet($this->session->userdata('rin'));
-        
-        if(isset($data['cadet']['rin']))
-        {
-            if(isset($_POST) && count($_POST) > 0)     
-            {   
-                $params = array(
-					'bio' => $this->input->post('bio')
-                );
-
-                $this->Cadet_model->update_cadet($this->session->userdata('rin'),$params);            
-                redirect('cadet/edit');
-            }
-            else
-            {
-                show_error('There was no information given to save in your bio.');
-            }
-        }
-        else
-        {
-            show_error('The cadet you are trying to edit does not exist.');
-        } 
-    }
     
     /*
      * Saves a cadet's profile picture.
@@ -240,8 +154,6 @@ class Cadet extends CI_Controller{
     {
         // check if the cadet exists before trying to edit it
         $data['cadet'] = $this->Cadet_model->get_cadet($this->session->userdata('rin'));
-        
-        
         
         // TODO: Account for max file sizes
         $config['upload_path']      = './images/';
@@ -268,46 +180,6 @@ class Cadet extends CI_Controller{
         { 
             $data = array('upload_data' => $this->upload->data()); 
             redirect('cadet/edit');
-        } 
-    }
-    
-    /*
-     * Save changes.
-     */ 
-    function savegeninfo()
-    {
-        $data['title'] = 'Edit Profile';
-
-        // check if the cadet exists before trying to edit it
-        $data['cadet'] = $this->Cadet_model->get_cadet($this->session->userdata('rin'));
-        
-        if(isset($data['cadet']['rin']))
-        {
-            if(isset($_POST) && count($_POST) > 0)     
-            {   
-                $params = array(
-					'firstName' => $this->input->post('firstName'),
-					'primaryEmail' => $this->input->post('pemail'),
-					'secondaryEmail' => $this->input->post('semail'),
-					'primaryPhone' => $this->input->post('pphone'),
-					'secondaryPhone' => $this->input->post('sphone'),
-					'position' => $this->input->post('position'),
-					'groupMe' => $this->input->post('groupme'),
-					'major' => $this->input->post('major')
-                );
-
-                $this->Cadet_model->update_cadet($this->session->userdata('rin'),$params);            
-                redirect('cadet/edit');
-            }
-            else
-            {
-                show_error('The cadet you are trying to edit does not exist.');
-
-            }
-        }
-        else
-        {
-            show_error('The cadet you are trying to edit does not exist.');
         } 
     }
 
