@@ -20,8 +20,9 @@
               <?php
                 if( $myprofile === true)
                 {
+                    // TODO: Fix this and the controller to utilize url helper instead of form
                     echo form_open('cadet/edit');
-                    echo "<button class='btn btn-primary' role='button' href='editprofile.php'>Edit Page</button></form>";
+                    echo "<button class='btn btn-primary' role='button'>Edit Page</button></form>";
                 }
               ?>
             

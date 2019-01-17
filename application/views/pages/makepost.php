@@ -21,7 +21,7 @@
                 <p class="card-text">Title: <input class="form-control" type="text" name="title"/></p>
                 <p class="card-text">Subject: <input class="form-control" type="text" name="subject"/></p>
                 <p class="card-text">Description: <textarea class="form-control" name="body" id="body"></textarea></p><br>
-				<input class="btn btn-sm btn-primary" type="submit" name="submit" value="submit" onclick="saveBody()"/>
+                <button class="btn btn-sm btn-primary" type="submit" name="submit">Post Announcement</button>
 			</form>
 	</div>
 </body>

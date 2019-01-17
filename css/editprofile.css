@@ -23,3 +23,9 @@
     float: left;
     padding: 10px;
 }
+
+#profile
+{
+    height: 200px;
+    width: 200px;
+}

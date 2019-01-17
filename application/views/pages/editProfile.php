@@ -1,15 +1,15 @@
-<head>
-    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=ij0h6vcxvcacvu1l56udgaairzb672xtq1kktiizh2cpf4fe"></script>
-        <script src="<?php echo base_url("js/editProfile.js"); ?>"></script>
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url("css/editprofile.css"); ?>">
-</head>
+<script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=ij0h6vcxvcacvu1l56udgaairzb672xtq1kktiizh2cpf4fe"></script>
+<script src="<?php echo base_url("js/editProfile.js"); ?>"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo base_url("css/editprofile.css"); ?>">
 
     <div class="jumbotron jumbotron-fluid">
 
       <div class="card">
         <div class="card-body">
             <?php echo form_open_multipart('cadet/uploadpic'); ?>
-            <p><strong>Profile Picture: </strong></p><input type="file" name="profilepicture"><br><br>
+            <p><strong>Profile Picture: </strong></p>
+            <img class="card-img-top" id="profile" alt="Profile picture" src='<?php echo base_url("images/" . $picture); ?>'><br><br>
+            <input type="file" name="profilepicture"><br><br>
             <button class="btn btn-sm btn-primary" type="submit" name="submit">Upload Picture</button><br><br>
             </form>
         </div>

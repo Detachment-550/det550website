@@ -22,15 +22,24 @@ class Cadet extends CI_Controller{
     } 
 
     /*
-     * Listing of cadet
+     * Selects a cadet to be modified
      */
-//    function index()
-//    {
-//        $data['cadet'] = $this->Cadet_model->get_all_cadet();
-//        
-//        $data['_view'] = 'cadet/index';
-//        $this->load->view('layouts/main',$data);
-//    }
+    function select()
+    {
+        if( $this->input->post('modify') !== null )
+        {
+            $data['cadet'] = $this->Cadet_model->get_cadet( $this->input->post('modify') );
+
+            // Loads the home page
+            $this->load->view('templates/header', $data);
+            $this->load->view('pages/modifycadet.php');
+            $this->load->view('templates/footer');
+        }
+        else
+        {
+            show_error('You must select a cadet to be modified');
+        }
+    }
 
     /*
      * Saves response to security question
@@ -167,6 +176,8 @@ class Cadet extends CI_Controller{
         if( file_exists("./images/" . $data['cadet']['rin'] . ".png") || file_exists("./images/" . $data['cadet']['rin'] . ".jpg") || file_exists("./images/" . $data['cadet']['rin'] . ".jpeg"))
         {
             unlink("./images/" . $data['cadet']['rin'] . ".png");
+            unlink("./images/" . $data['cadet']['rin'] . ".jpg");
+            unlink("./images/" . $data['cadet']['rin'] . ".jpeg");
         }
         
         // Uploads image
@@ -190,6 +201,24 @@ class Cadet extends CI_Controller{
     {   
         $data['title'] = 'Edit Profile';
         $data['cadet'] = $data['cadet'] = $this->Cadet_model->get_cadet($this->session->userdata('rin'));
+
+        // Looks for profile picture
+        $files = array_diff(scandir("./images"), array('.', '..'));
+        $found = false;
+        $data['files'] = $files;
+        foreach($files as $file)
+        {
+            $info = pathinfo($file);
+            if($info['filename'] == $_SESSION['rin'])
+            {
+                $data['picture'] = $info['basename'];
+                $found = true;
+            }
+        }
+        if(!$found)
+        {
+            $data['picture'] = "/images/default.jpeg";
+        }
 
         $this->load->view('templates/header', $data);
         $this->load->view('pages/editProfile.php');
@@ -322,6 +351,8 @@ class Cadet extends CI_Controller{
             }
         }
     }
+
+
     
     
     /*
@@ -389,7 +420,18 @@ class Cadet extends CI_Controller{
                 $message = "<h2>New Account Password</h2>
                         <p>Your new account has been created! Below is your new temporary password please log on and change it as soon as possible!</p>
                         <br><br>
-                        <p>Temporary Password: " . $pass . "</p>";
+                        <p>Temporary Password: " . $pass . "</p>" . "
+                        <p>There are a few things you will need to do once you log on:</p>
+                        <ol>
+                        <li>Change your password to something you will remember.</li>
+                        <li>Create a security question.</li>
+                        <li>Update your profile information and add a professional picture of yourself.</li>
+                        <li>Explore the site!</li>
+                        </ol>
+                        <p>&nbsp;</p>
+                        <div>--<br class=\"\" />Very Respectfully,</div>
+                        <div>&nbsp;</div>
+                        <div>ECPA Flight</div>";
 
                 // Load email library
                 $this->load->library('email');
