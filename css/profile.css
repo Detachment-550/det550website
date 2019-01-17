@@ -21,7 +21,7 @@
 {
     .jumbotron
     {
-        height: -webkit-fill-available;
+        height: 100%;
         margin-bottom: 0;
     }
 }

@@ -86,3 +86,4 @@ foreach( $cadets as $cadet )
     echo "<button class='btn btn-sm btn-primary' type='submit'>View Profile</button></form></div></div>";
 }
 ?>
+</div>
