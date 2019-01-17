@@ -6,7 +6,9 @@
       </form>
     <div class='card'>
 <?php
-	foreach($announcements as $announcement) 
+
+    // TODO: Implement paganation with codeigniter here
+	foreach($announcements as $announcement)
     {
 		//print out the information for the post
 		echo "<div class='card-header'>" . $announcement['title'] . "</div>";

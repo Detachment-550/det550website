@@ -1,19 +1,5 @@
-<style>
-/* Styles for mobile */
-@media (max-width: 500px) 
-{
-    .col-6
-    {
-        flex: 100%;
-        max-width: 100%;
-        padding-bottom: 10px;
-    }
-    body
-    {
-        min-width: 400px;
-    }
-}
-</style>
+<link rel="stylesheet" type="text/css" href="<?php echo base_url("css/attendance.css"); ?>">
+
 <body>
   <div class="jumbotron container-fluid">
   	<h1 class="display-4"> Events </h1>
