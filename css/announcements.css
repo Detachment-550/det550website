@@ -1,0 +1,18 @@
+.pagination
+{
+    padding: 10px;
+    display: inline;
+}
+
+#links
+{
+    display:block;
+    margin-left: auto;
+    margin-right:auto;
+    padding: 10px;
+}
+
+.jumbotron
+{
+    margin-bottom: 0;
+}

@@ -26,7 +26,27 @@ class Announcement_model extends CI_Model
     {
         return $this->db->query('SELECT a.title, a.subject, c.firstName, c.lastName FROM announcement a, cadet c WHERE a.createdBy = c.rin ORDER BY date DESC LIMIT 5')->result_array();
     }
-    
+
+    /*
+     * Returns a given 5 announcements
+     */
+    function get_specific_announcements( $limit, $start )
+    {
+        $this->db->order_by('date', 'desc');
+        $this->db->limit($limit, $start);
+
+        $query = $this->db->get('announcement');
+        return $query->result_array();
+    }
+
+    /*
+     * Returns the total number of announcements
+     */
+    public function record_count()
+    {
+        return $this->db->count_all("announcement");
+    }
+
     /*
      * Get all announcement
      */

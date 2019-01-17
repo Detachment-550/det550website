@@ -1,3 +1,5 @@
+<link rel="stylesheet" type="text/css" href="<?php echo base_url("css/announcements.css"); ?>">
+
 <body>
   <div class="jumbotron container-fluid">
 	<h1 class="display-4"> Announcements </h1><br>
@@ -49,5 +51,6 @@
         echo "</div>";
 	}
 	?>
+        <div id="links"><?php echo $links; ?></div>
       </div>
 </div>

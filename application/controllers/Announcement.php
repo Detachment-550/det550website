@@ -120,14 +120,26 @@ class Announcement extends CI_Controller{
     /*
      * Shows the annoucement page.
      */
-    function view()
+    function view( $page = 1 )
     {
         $data['title'] = 'Announcements';
         $this->load->model('announcement_model');
         $this->load->model('cadet_model');
         $this->load->model('acknowledge_post_model');
+        $this->load->library("pagination");
 
-        $data['announcements'] =  $this->announcement_model->get_all_announcements();
+        $config = array();
+        $config["base_url"] = base_url() . "announcement/view";
+
+        $config["total_rows"] = $this->announcement_model->record_count();
+        $config["per_page"] = 10;
+        $config["num_tag_open"] = "<div class='pagination'>";
+        $config["num_tag_close"] = "</div>";
+
+        $this->pagination->initialize($config);
+
+        $data["announcements"] = $this->announcement_model->get_specific_announcements($config["per_page"], $page);
+        $data["links"] = $this->pagination->create_links();
         $data['cadets'] = $this->cadet_model->get_all_cadets();
         $data['ackposts'] = $this->acknowledge_post_model->get_all_acknowledge_posts();
 
@@ -160,7 +172,7 @@ class Announcement extends CI_Controller{
             $data['_view'] = 'announcement/add';
             $this->load->view('layouts/main',$data);
         }
-    }  
+    }
 
     /*
      * Editing a announcement
