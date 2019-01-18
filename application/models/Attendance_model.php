@@ -40,7 +40,24 @@ class Attendance_model extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
-    
+
+    /*
+     * Get attendance by event
+     */
+    function export_event_attendance( $id )
+    {
+        $this->db->select('cadet.lastName as Last Name, cadetEvent.name as Event, attendance.excused_absence as Excused, attendance.time as Time');
+        $this->db->from('attendance');
+        $this->db->join('cadet', 'cadet.rin = attendance.rin');
+        $this->db->join('cadetEvent', 'cadetEvent.eventID = attendance.eventid');
+        $this->db->where('attendance.eventid', $id);
+
+        $query = $this->db->get();
+        $this->load->dbutil();
+        $file = $this->dbutil->csv_from_result( $query );
+        return $file;
+    }
+
     /*
      * Get all attendance
      */

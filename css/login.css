@@ -1,0 +1,15 @@
+/* Styles for mobile */
+@media (max-width: 500px)
+{
+    .card
+    {
+        width: 100%;
+    }
+}
+@media (min-width: 500px)
+{
+    .card
+    {
+        width: 40%;
+    }
+}

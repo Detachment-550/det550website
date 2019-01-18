@@ -202,5 +202,19 @@ class Attendance extends CI_Controller{
         else
             show_error('The attendance you are trying to delete does not exist.');
     }
+
+    /*
+     * Creates csv of attendance records.
+     */
+    function export()
+    {
+        $this->load->model('attendance_model');
+
+        $file = $this->attendance_model->export_event_attendance( $this->input->post('event') );
+
+        // Load the download helper and send the file to your desktop
+        $this->load->helper('download');
+        force_download('attendance.csv', $file);
+    }
     
 }

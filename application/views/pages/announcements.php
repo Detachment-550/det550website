@@ -8,8 +8,6 @@
       </form>
     <div class='card'>
 <?php
-
-    // TODO: Implement paganation with codeigniter here
 	foreach($announcements as $announcement)
     {
 		//print out the information for the post
