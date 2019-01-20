@@ -49,6 +49,7 @@
         echo "</div>";
 	}
 	?>
-        <div id="links"><?php echo $links; ?></div>
+        <?php echo $links; ?>
       </div>
 </div>
+

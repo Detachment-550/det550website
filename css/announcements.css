@@ -1,9 +1,3 @@
-.pagination
-{
-    padding: 10px;
-    display: inline;
-}
-
 #links
 {
     display:block;
@@ -15,4 +9,10 @@
 .jumbotron
 {
     margin-bottom: 0;
+}
+
+.pagination
+{
+    margin-left: auto;
+    margin-right: auto;
 }
