@@ -24,7 +24,12 @@ class Announcement_model extends CI_Model
      */
     function get_last_five_announcements()
     {
-        return $this->db->query('SELECT a.title, a.subject, c.firstName, c.lastName FROM announcement a, cadet c WHERE a.createdBy = c.rin ORDER BY date DESC LIMIT 5')->result_array();
+        $this->db->join('cadet', 'cadet.rin = announcement.createdBy');
+        $this->db->order_by('date', 'desc');
+        $this->db->limit(5);
+
+        $query = $this->db->get('announcement');
+        return $query->result_array();
     }
 
     /*

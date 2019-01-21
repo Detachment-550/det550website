@@ -4,7 +4,7 @@
 <div class="jumbotron container-fluid">
     <div class='card'>
     <div class='card-header'><?php echo $announcement['title']; ?></div>
-    <div class='card-body'><h5 class='card-title'><?php echo $announcement['subject']; ?></h5>;
+    <div class='card-body'><h5 class='card-title'><?php echo $announcement['subject']; ?></h5>
         <?php echo $announcement['body']; ?>
          <?php
             foreach($cadets as $cadet)
