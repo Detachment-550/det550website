@@ -18,8 +18,8 @@
 					}
 				?>
 				</select><br>
-                <p class="card-text">Title: <input class="form-control" type="text" name="title"/></p>
-                <p class="card-text">Subject: <input class="form-control" type="text" name="subject"/></p>
+                <p class="card-text">Title: <input class="form-control" type="text" name="title" required/></p>
+                <p class="card-text">Subject: <input class="form-control" type="text" name="subject" required/></p>
                 <p class="card-text">Description: <textarea class="form-control" name="body" id="body"></textarea></p><br>
                 <button class="btn btn-sm btn-primary" type="submit" name="submit">Post Announcement</button>
 			</form>

@@ -11,7 +11,7 @@
 	foreach($announcements as $announcement)
     {
 		//print out the information for the post
-		echo "<div class='card-header'>" . $announcement['title'] . "</div>";
+		echo "<div class='card-header'><a href=" . site_url("announcement/page/" . $announcement['uid']) . ">" . $announcement['title'] . "</a></div>";
 		echo "<div class='card-body'><h5 class='card-title'>" . $announcement['subject'] . "</h5>";
         echo $announcement['body'];
 
