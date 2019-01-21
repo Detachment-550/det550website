@@ -29,12 +29,6 @@
         flex: 0 0 33.333333%;
         max-width: 33.333333%;
     }
-    
-    .jumbotron 
-    {
-        margin-bottom: 0;
-        height: -webkit-fill-available;
-    }
 }
 
 .row
@@ -56,3 +50,8 @@
     height: 20px;
 }
 
+.jumbotron
+{
+    margin-bottom: 0;
+    height: 100%;
+}

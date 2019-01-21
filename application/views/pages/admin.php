@@ -16,6 +16,7 @@
 }
 </style>
 
+
 <body>
   <div class="container">
     <div class="row">
@@ -151,7 +152,7 @@
                         }
                       ?>
                     </select><br><br>
-                    <button class="btn btn-sm btn-primary" name="submit" type="submit">Remove</button>
+                    <button onClick="return confirm('Are you sure you want to remove this User?')"  class="btn btn-sm btn-primary" name="submit" type="submit">Remove</button>
                 </form>
           </div>
         </div><br>
@@ -255,7 +256,7 @@
                       
                     ?>
                   </select><br><br>
-                  <button class="btn btn-sm btn-primary" type="submit" name="devent">Delete</button>
+                  <button onClick="return confirm('Are you sure you want to delete this Event?')"  class="btn btn-sm btn-primary"  type="submit" name="devent">Delete</button>
                 </form><br><br>
             
                 <h6>Delete an Announcement</h6>
@@ -268,7 +269,7 @@
                         }
                     ?>
                   </select><br><br>
-                <button class="btn btn-sm btn-primary" type="submit" name="dannouncement">Delete</button>
+                <button onClick="return confirm('Are you sure you want to delete this Announcement?')"  class="btn btn-sm btn-primary" type="submit" name="dannouncement">Delete</button>
                 </form><br><br>
 
                 <h6>Unlock Cadet Account</h6>

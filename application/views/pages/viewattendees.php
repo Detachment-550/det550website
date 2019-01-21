@@ -20,4 +20,12 @@
         echo "</tr>";
     }
 ?>
+</table><br>
+
+    <?php echo form_open('attendance/export'); ?>
+    <input type="text" name="event" value="<?php echo $event['eventID']; ?>" style="display: none;"/>
+    <button class="btn btn-sm btn-primary" type="submit" name="submit">Export to Excel</button>
+    </form>
+
 </div>
+</body>

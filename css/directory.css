@@ -1,0 +1,12 @@
+/* Styles for mobile */
+@media (max-width: 450px)
+{
+    .card
+    {
+        width:95%;
+    }
+    body
+    {
+        min-width: 400px;
+    }
+}

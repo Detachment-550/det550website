@@ -256,18 +256,18 @@ class Cadetgroup extends CI_Controller{
     /*
      * Deleting cadetgroup
      */
-    function remove($id)
+    function remove()
     {
-        $cadetgroup = $this->Cadetgroup_model->get_group($id);
+        $cadetgroup = $this->Cadetgroup_model->get_group($this->input->post('group'));
 
         // check if the cadetgroup exists before trying to delete it
         if(isset($cadetgroup['id']))
         {
-            $this->Cadetgroup_model->delete_group($id);
-            redirect('cadetgroup/index');
+            $this->Cadetgroup_model->delete_group($this->input->post('group'));
+            redirect('cadetgroup/view');
         }
         else
-            show_error('The cadetgroup you are trying to delete does not exist.');
+            show_error('The Cadet Group you are trying to delete does not exist.');
     }
     
 }

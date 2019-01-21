@@ -10,18 +10,10 @@
     margin-right: auto;
     width: 100%;
 }
-#left
-{
-    float: left;
-    width: 50%;
-    padding: 10px;
-}
 
-#right
+.card
 {
-    float: right;
-    width: 50%;
-    padding: 10px
+    margin: 10px;
 }
 
 #bottom
@@ -30,4 +22,16 @@
     width: 100%;
     float: left;
     padding: 10px;
+}
+
+#profile
+{
+    height: 200px;
+    width: 200px;
+}
+
+.jumbotron
+{
+    margin-bottom: 0;
+    height: 100%;
 }

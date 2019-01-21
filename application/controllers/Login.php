@@ -15,15 +15,23 @@ class Login extends CI_Controller {
     }
     
     /*
-     * Makes sure cadet is authroized to login.
+     * Makes sure cadet is authorized to login.
      */
     function auth()
     {
         $this->load->model('Cadet_model');
         $this->load->library('session');
+        $this->load->helper('email');
 
-        $cadet = $this->Cadet_model->get_cadet($this->input->post('rin'));
-        
+        if( valid_email($this->input->post('user')) )
+        {
+            $cadet = $this->Cadet_model->get_email_cadet( $this->input->post('user') );
+        }
+        else
+        {
+            $cadet = $this->Cadet_model->get_cadet( $this->input->post('user') );
+        }
+
         $this->load->helper('form');
         $this->load->library('form_validation');
 
@@ -40,11 +48,11 @@ class Login extends CI_Controller {
             $params = array(
                 'loginattempt' => 0
             );
-            $this->Cadet_model->update_cadet($this->input->post('rin'),$params);
+            $this->Cadet_model->update_cadet($cadet['rin'],$params);
             
             // Sets session variable and loads closest 5 events
             $this->session->set_userdata('login', true);
-            $this->session->set_userdata('rin', $this->input->post('rin'));
+            $this->session->set_userdata('rin', $cadet['rin']);
             
             // Checks if user is an admin or not
             if( $cadet['admin'] == 1 )
@@ -63,7 +71,7 @@ class Login extends CI_Controller {
         else
         {            
             // Increments login attempt
-            if( $cadet['loginattempt'] < 10 )
+            if( isset($cadet['loginattempt']) && $cadet['loginattempt'] < 10 )
             {
                 $cadet['loginattempt'] += 1;
                 
@@ -71,13 +79,14 @@ class Login extends CI_Controller {
                     'loginattempt' => $cadet['loginattempt']
                 );
 
-                $this->Cadet_model->update_cadet($this->input->post('rin'),$params);
+                $this->Cadet_model->update_cadet( $cadet['rin'], $params );
             }  
             
             // If you are locked out of the account show error
             if( $cadet['loginattempt'] >= 10 )
             {
-                show_error("You have been locked out of your account due to 10 inccorect password entries. Please reach out to a site admin or up your chain of commend to resolve this issue.");
+                show_error("You have been locked out of your account due to 10 incorrect password entries. 
+                Please reach out to a site admin or up your chain of commend to resolve this issue.");
             }
             else 
             {
@@ -165,29 +174,8 @@ class Login extends CI_Controller {
             // Load email library
             $this->load->library('email');
 
-            // SMTP & mail configuration
-            $config = array(
-                'protocol'  => 'smtp',
-                'smtp_host' => 'ssl://smtp.googlemail.com',
-                'smtp_port' => 465,
-                'smtp_user' => 'afrotcdet550@gmail.com',
-                'smtp_pass' => 'silverfalcons550',
-                'mailtype'  => 'html',
-                'charset'   => 'utf-8'
-            );
-
-            $this->email->initialize($config);
-            $this->email->set_mailtype("html");
-            $this->email->set_newline("\r\n");
-            
-            $this->load->model('groupmember_model');
-            $this->load->model('cadet_model');
-
-            $recipients = array();
-            $recipients[] = $cadet['primaryEmail'];
-
             $this->email->bcc($email);
-            $this->email->from('noreply@detachment550.org','MyWebsite');
+            $this->email->from('noreply@detachment550.org','Air Force ROTC Detachment 550');
             $this->email->subject('Password Reset');
             $this->email->message($message);
             
@@ -215,37 +203,5 @@ class Login extends CI_Controller {
         $this->load->view('pages/login.php', $data);
         $this->load->view('templates/footer');
     }
-    
-    
-//    // (string) $message - message to be passed to Slack
-//    // (string) $room - room in which to write the message, too
-//    // (string) $icon - You can set up custom emoji icons to use with each message
-//    function test( $room = "general", $icon = ":longbox:") 
-//    {
-//        $room = ($room) ? $room : "engineering";
-//        $data = "payload=" . json_encode(array(
-//                "channel"       =>  "#{$room}",
-//                "text"          =>  "hello",
-//                "icon_emoji"    =>  $icon
-//            ));
-//	
-//	// You can get your webhook endpoint from your Slack settings
-//        $ch = curl_init("https://hooks.slack.com/services/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");
-//        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-//        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//        $result = curl_exec($ch);
-//        curl_close($ch);
-//	
-//	// Laravel-specific log writing method
-//        // Log::info("Sent to Slack: " . $message, array('context' => 'Notifications'));
-//        return $result;
-//    }
-//    
-//    function try()
-//    {
-//        $this->load->view('pages/test.php');
-//    }
-}
 
-?>
+}

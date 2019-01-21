@@ -1,15 +1,17 @@
+<link rel="stylesheet" type="text/css" href="<?php echo base_url("css/announcements.css"); ?>">
+
 <body>
   <div class="jumbotron container-fluid">
 	<h1 class="display-4"> Announcements </h1><br>
     <?php echo form_open('announcement/create'); ?>
-          	<button class="btn btn-primary" href="makepost.php" type="submit">Make an Announcement</button><br><br>
+          	<button class="btn btn-primary" type="submit">Make an Announcement</button><br><br>
       </form>
     <div class='card'>
 <?php
-	foreach($announcements as $announcement) 
+	foreach($announcements as $announcement)
     {
 		//print out the information for the post
-		echo "<div class='card-header'>" . $announcement['title'] . "</div>";
+		echo "<div class='card-header'><a href=" . site_url("announcement/page/" . $announcement['uid']) . ">" . $announcement['title'] . "</a></div>";
 		echo "<div class='card-body'><h5 class='card-title'>" . $announcement['subject'] . "</h5>";
         echo $announcement['body'];
 
@@ -44,22 +46,10 @@
 		echo form_open('acknowledge_post/view');
         echo "<input type='text' style='display:none;' name='event' value='" . $announcement['uid'] . "'>";
 		echo '<input type="submit" name="count" value="'. $count .'"/></form>';
-
-        // TODO: Make it work so you can see who acknowledged the post
-//		$setstr = $announcement['uid'] . 'second';
-//		if (isset($_POST[$setstr])) 
-//        {
-//			$readquery = 'SELECT firstName, lastName FROM acknowledge_posts a, cadet c WHERE c.rin = a.rin and a.announcement_id = ' . $row['uid'] . ';';
-//			$readres = $mysqli->query($readquery);
-//			while ($readrow = $readres->fetch_assoc()) 
-//            {
-//				//print out the name of everyone who has clicked read and understood for this post
-//				echo $readrow['firstName'] . ' ' . $readrow['lastName'] . '<br>';
-//			}
-//            echo "</div>";
-//		}
         echo "</div>";
 	}
 	?>
+        <?php echo $links; ?>
       </div>
 </div>
+

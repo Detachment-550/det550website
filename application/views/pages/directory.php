@@ -1,17 +1,5 @@
-<style>
-/* Styles for mobile */
-@media (max-width: 450px) 
-{
-    .card
-    {
-        width:95%;
-    }
-    body
-    {
-        min-width: 400px;
-    }
-}
-</style>
+<link rel="stylesheet" type="text/css" href="<?php echo base_url("css/directory.css"); ?>">
+
 <div class="jumbotron container-fluid">
     <h1 class="display-4"> Detachment Directory </h1><br>
       <?php echo form_open('cadetdirectory/major'); ?>
@@ -86,3 +74,4 @@ foreach( $cadets as $cadet )
     echo "<button class='btn btn-sm btn-primary' type='submit'>View Profile</button></form></div></div>";
 }
 ?>
+</div>
