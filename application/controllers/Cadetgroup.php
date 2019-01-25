@@ -28,6 +28,8 @@ class Cadetgroup extends CI_Controller{
         $data['title'] = 'Create/Modify Group';
         $data['groups'] = $this->Cadetgroup_model->get_all_groups();
 
+        $data['groupname'] = $this->input->post('groupname');
+
         $this->load->view('templates/header', $data);
         $this->load->view('pages/addgroup.php');
         $this->load->view('templates/footer'); 
@@ -74,7 +76,6 @@ class Cadetgroup extends CI_Controller{
         {   
             $this->load->model('Cadet_model');
             $this->load->model('Groupmember_model');
-
             $data['curgroup'] = $this->input->post('group');
             $data['groupname'] = $this->Cadetgroup_model->get_group($this->input->post('group'));
             $data['title'] = 'Create/Modify Group';
@@ -99,10 +100,8 @@ class Cadetgroup extends CI_Controller{
             }
             $data['members'] = $members;
             $data['nonmembers'] = $nonmembers;
-            
-            $this->load->view('templates/header', $data);
-            $this->load->view('pages/addgroup.php');
-            $this->load->view('templates/footer');         
+
+            echo json_encode($data);
         }
         else
         {            
