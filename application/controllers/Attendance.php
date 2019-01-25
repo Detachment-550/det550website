@@ -142,7 +142,6 @@ class Attendance extends CI_Controller{
 
             $data['attendees'] =  $this->attendance_model->get_event_attendance( $this->input->post('event') );
             $data['event'] =  $this->cadetevent_model->get_cadetevent( $this->input->post('event') );
-            $data['test'] = $this->input->post('event');
 
             // Loads the home page 
             $this->load->view('templates/header', $data);
@@ -158,50 +157,50 @@ class Attendance extends CI_Controller{
     /*
      * Editing a attendance
      */
-    function edit($rin)
-    {   
-        // check if the attendance exists before trying to edit it
-        $data['attendance'] = $this->Attendance_model->get_attendance($rin);
-        
-        if(isset($data['attendance']['rin']))
-        {
-            if(isset($_POST) && count($_POST) > 0)     
-            {   
-                $params = array(
-					'excused_absence' => $this->input->post('excused_absence'),
-					'time' => $this->input->post('time'),
-                );
-
-                $this->Attendance_model->update_attendance($rin,$params);            
-                redirect('attendance/index');
-            }
-            else
-            {
-                $data['_view'] = 'attendance/edit';
-                $this->load->view('layouts/main',$data);
-            }
-        }
-        else
-            show_error('The attendance you are trying to edit does not exist.');
-    } 
+//    function edit($rin)
+//    {
+//        // check if the attendance exists before trying to edit it
+//        $data['attendance'] = $this->Attendance_model->get_attendance($rin);
+//
+//        if(isset($data['attendance']['rin']))
+//        {
+//            if(isset($_POST) && count($_POST) > 0)
+//            {
+//                $params = array(
+//					'excused_absence' => $this->input->post('excused_absence'),
+//					'time' => $this->input->post('time'),
+//                );
+//
+//                $this->Attendance_model->update_attendance($rin,$params);
+//                redirect('attendance/index');
+//            }
+//            else
+//            {
+//                $data['_view'] = 'attendance/edit';
+//                $this->load->view('layouts/main',$data);
+//            }
+//        }
+//        else
+//            show_error('The attendance you are trying to edit does not exist.');
+//    }
     
 
     /*
      * Deleting attendance
      */
-    function remove($rin)
-    {
-        $attendance = $this->Attendance_model->get_attendance($rin);
-
-        // check if the attendance exists before trying to delete it
-        if(isset($attendance['rin']))
-        {
-            $this->Attendance_model->delete_attendance($rin);
-            redirect('attendance/index');
-        }
-        else
-            show_error('The attendance you are trying to delete does not exist.');
-    }
+//    function remove($rin)
+//    {
+//        $attendance = $this->Attendance_model->get_attendance($rin);
+//
+//        // check if the attendance exists before trying to delete it
+//        if(isset($attendance['rin']))
+//        {
+//            $this->Attendance_model->delete_attendance($rin);
+//            redirect('attendance/index');
+//        }
+//        else
+//            show_error('The attendance you are trying to delete does not exist.');
+//    }
 
     /*
      * Creates csv of attendance records.
@@ -215,6 +214,26 @@ class Attendance extends CI_Controller{
         // Load the download helper and send the file to your desktop
         $this->load->helper('download');
         force_download('attendance.csv', $file);
+    }
+
+    /*
+     * Shows master list of attendance.
+     */
+    function master()
+    {
+        $this->load->model('Cadet_model');
+        $this->load->model('Cadetevent_model');
+        $this->load->model('attendance_model');
+
+        $data['title'] = "Master Attendance";
+        $data['cadets'] = $this->Cadet_model->get_all_cadets();
+        $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
+        $data['attendees'] =  $this->attendance_model->get_all_attendance();
+
+        // Loads the home page
+        $this->load->view('templates/header', $data);
+        $this->load->view('pages/masterattendance');
+        $this->load->view('templates/footer');
     }
     
 }
