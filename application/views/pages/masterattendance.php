@@ -1,13 +1,22 @@
+<h1>Semester Attendance</h1>
 <table class="table table-sm">
     <thead>
     <tr>
         <th scope="col">Cadet</th>
         <?php
+            $month = date('m');
+            $year = date('Y');
+
             foreach ($events as $event)
             {
-                echo "<th>" . $event['name'] . "</th>";
+                if(($month > 6 && date("m", strtotime($event['date'])) > 6 || $month <= 6 && date("m", strtotime($event['date'])) <= 6) && (date("Y", strtotime($event['date'])) == $year))
+                {
+                    echo "<th>" . $event['name'] . "</th>";
+                }
             }
         ?>
+        <th>PT Total</th>
+        <th>LLAB Total</th>
     </tr>
     </thead>
     <tbody>
@@ -15,30 +24,46 @@
         foreach ($cadets as $cadet)
         {
             $found = false;
+            $pt = 0;
+            $llab = 0;
             echo "<tr>";
             echo "<th scope='row'>". $cadet['lastName']  . "</th>";
             foreach ($events as $event)
             {
-                foreach ($attendees as $attendee)
+                if(($month > 6 && date("m", strtotime($event['date'])) > 6 || $month <= 6 && date("m", strtotime($event['date'])) <= 6) && (date("Y", strtotime($event['date'])) == $year))
                 {
-                    if($attendee['rin'] === $cadet['rin'] && $event['eventID'] === $attendee['eventid'])
-                    {
-                        if($attendee['excused_absence'] == 1)
-                        {
-                            echo "<th>E</th>";
-                            $found = true;
-                            break;
-                        }
-                        else
-                        {
-                            echo "<th>P</th>";
-                            $found = true;
-                            break;
+                    $cursemester = true;
+                }
+                else
+                {
+                    $cursemester = false;
+                }
+
+                if($cursemester) {
+                    foreach ($attendees as $attendee) {
+                        if ($attendee['rin'] === $cadet['rin'] && $event['eventID'] === $attendee['eventid']) {
+                            if ($attendee['excused_absence'] == 1) {
+                                echo "<th>E</th>";
+                                $found = true;
+                                break;
+                            } else {
+                                echo "<th>P</th>";
+                                $found = true;
+                                $month = date('m');
+                                $year = date('Y');
+
+                                if ($event['pt'] == 1) {
+                                    $pt += 1;
+                                } else if ($event['llab'] == 1) {
+                                    $llab += 1;
+                                }
+                                break;
+                            }
                         }
                     }
                 }
 
-                if($found === false)
+                if($found === false && $cursemester)
                 {
                     echo "<th>A</th>";
                 }
@@ -47,6 +72,12 @@
                     $found = false;
                 }
             }
+
+            echo "<th>" . $pt . "/" . $ptsum . "</th>";
+            echo "<th>" . $llab . "/" . $llabsum . "</th>";
+            $pt = 0;
+            $llab = 0;
+
         }
     ?>
     </tbody>

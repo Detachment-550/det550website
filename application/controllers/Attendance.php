@@ -229,6 +229,8 @@ class Attendance extends CI_Controller{
         $data['cadets'] = $this->Cadet_model->get_all_cadets();
         $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
         $data['attendees'] =  $this->attendance_model->get_all_attendance();
+        $data['ptsum'] = $this->Cadetevent_model->get_event_total('pt');
+        $data['llabsum'] = $this->Cadetevent_model->get_event_total('llab');
 
         // Loads the home page
         $this->load->view('templates/header', $data);
