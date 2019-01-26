@@ -226,11 +226,105 @@ class Attendance extends CI_Controller{
         $this->load->model('attendance_model');
 
         $data['title'] = "Master Attendance";
-        $data['cadets'] = $this->Cadet_model->get_all_cadets();
-        $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
-        $data['attendees'] =  $this->attendance_model->get_all_attendance();
-        $data['ptsum'] = $this->Cadetevent_model->get_event_total('pt');
-        $data['llabsum'] = $this->Cadetevent_model->get_event_total('llab');
+
+
+        $table = array();
+        $table[0] = array();
+        $count = 0;
+
+        $month = date('m');
+        $year = date('Y');
+
+        // Figures out how many rows will be in the table
+        foreach ($this->Cadetevent_model->get_all_cadetevents() as $event)
+        {
+            if(($month > 6 && date("m", strtotime($event['date'])) > 6 || $month <= 6 && date("m", strtotime($event['date'])) <= 6) && (date("Y", strtotime($event['date'])) == $year))
+            {
+                $count += 1;
+                $table[0][] = $event['name'];
+            }
+        }
+
+        // Adds the sum columns for pt and llab totals
+        $table[0][] = "PT Total";
+        $table[0][] = "LLAB Total";
+
+        $count = 1;
+
+        // Goes through each event and checks to see if it's in the current semester and if the cadet was present, excused, or absent
+        foreach ($this->Cadet_model->get_all_cadets() as $cadet)
+        {
+            // If person is not a cadet attendance is not shown
+            if(strpos($cadet['rank'], 'AS') !== false)
+            {
+                $found = false;
+                $pt = 0;
+                $llab = 0;
+                $table[$count] = array();
+                $table[$count][0] = $cadet['lastName'];
+
+                foreach ($this->Cadetevent_model->get_all_cadetevents() as $event)
+                {
+                    if (($month > 6 && date("m", strtotime($event['date'])) > 6 || $month <= 6 && date("m", strtotime($event['date'])) <= 6) && (date("Y", strtotime($event['date'])) == $year))
+                    {
+                        $cursemester = true;
+                    }
+                    else
+                    {
+                        $cursemester = false;
+                    }
+
+                    // If the event didn't take place in the current semester event is not shown
+                    if ($cursemester)
+                    {
+                        foreach ($this->attendance_model->get_all_attendance() as $attendee)
+                        {
+                            if ($attendee['rin'] === $cadet['rin'] && $event['eventID'] === $attendee['eventid'])
+                            {
+                                if ($attendee['excused_absence'] == 1)
+                                {
+                                    $table[$count][] = "E";
+                                    $found = true;
+                                    break;
+                                }
+                                else
+                                {
+                                    $table[$count][] = "P";
+                                    $found = true;
+                                    $month = date('m');
+                                    $year = date('Y');
+
+                                    if ($event['pt'] == 1) {
+                                        $pt += 1;
+                                    } else if ($event['llab'] == 1) {
+                                        $llab += 1;
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    if ($found === false && $cursemester)
+                    {
+                        $table[$count][] = "A";
+                    }
+                    else
+                    {
+                        $found = false;
+                    }
+                }
+
+                $table[$count][] = $pt . "/" . $this->Cadetevent_model->get_event_total('pt');
+                $table[$count][] = $llab . "/" . $this->Cadetevent_model->get_event_total('llab');
+
+                $count += 1;
+                $pt = 0;
+                $llab = 0;
+            }
+        }
+
+        $data['table'] = $table;
 
         // Loads the home page
         $this->load->view('templates/header', $data);

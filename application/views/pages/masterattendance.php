@@ -4,76 +4,28 @@
     <tr>
         <th scope="col">Cadet</th>
         <?php
-            $month = date('m');
-            $year = date('Y');
+            $collen = count($table[0]);
+            $rowlen = count($table);
 
-            foreach ($events as $event)
+            for($x = 0; $x < $collen; $x++)
             {
-                if(($month > 6 && date("m", strtotime($event['date'])) > 6 || $month <= 6 && date("m", strtotime($event['date'])) <= 6) && (date("Y", strtotime($event['date'])) == $year))
-                {
-                    echo "<th>" . $event['name'] . "</th>";
-                }
+                echo "<th>" . $table[0][$x] . "</th>";
             }
         ?>
-        <th>PT Total</th>
-        <th>LLAB Total</th>
     </tr>
     </thead>
     <tbody>
     <?php
-        foreach ($cadets as $cadet)
+        for($row = 1; $row < $rowlen; $row++)
         {
-            // If person is not a cadet attendance is not shown
-            if(strpos($cadet['rank'], 'AS') !== false) {
-                $found = false;
-                $pt = 0;
-                $llab = 0;
-                echo "<tr>";
-                echo "<th scope='row'>" . $cadet['lastName'] . "</th>";
-                foreach ($events as $event) {
-                    if (($month > 6 && date("m", strtotime($event['date'])) > 6 || $month <= 6 && date("m", strtotime($event['date'])) <= 6) && (date("Y", strtotime($event['date'])) == $year)) {
-                        $cursemester = true;
-                    } else {
-                        $cursemester = false;
-                    }
+            echo "<tr>";
 
-                    // If the event didn't take place in the current semester event is not shown
-                    if ($cursemester) {
-                        foreach ($attendees as $attendee) {
-                            if ($attendee['rin'] === $cadet['rin'] && $event['eventID'] === $attendee['eventid']) {
-                                if ($attendee['excused_absence'] == 1) {
-                                    echo "<th>E</th>";
-                                    $found = true;
-                                    break;
-                                } else {
-                                    echo "<th>P</th>";
-                                    $found = true;
-                                    $month = date('m');
-                                    $year = date('Y');
-
-                                    if ($event['pt'] == 1) {
-                                        $pt += 1;
-                                    } else if ($event['llab'] == 1) {
-                                        $llab += 1;
-                                    }
-                                    break;
-                                }
-                            }
-                        }
-                    }
-
-                    if ($found === false && $cursemester) {
-                        echo "<th>A</th>";
-                    } else {
-                        $found = false;
-                    }
-                }
-
-                echo "<th>" . $pt . "/" . $ptsum . "</th>";
-                echo "<th>" . $llab . "/" . $llabsum . "</th>";
-                $pt = 0;
-                $llab = 0;
+            for ($col = 0; $col <= $collen; $col++)
+            {
+                echo "<th>" . $table[$row][$col] . "</th>";
             }
+
+            echo "</tr>";
         }
     ?>
     </tbody>
