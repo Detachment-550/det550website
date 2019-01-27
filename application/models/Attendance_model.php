@@ -91,9 +91,10 @@ class Attendance_model extends CI_Model
     /*
      * function to update attendance
      */
-    function update_attendance($rin,$params)
+    function update_attendance($rin,$id,$params)
     {
         $this->db->where('rin',$rin);
+        $this->db->where('eventid',$id);
         return $this->db->update('attendance',$params);
     }
     

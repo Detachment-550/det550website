@@ -23,8 +23,12 @@ class Cadetevent extends CI_Controller{
     function view()
     {
         $data['title'] = 'Set Attendance';
-        $data['event'] =  $this->Cadetevent_model->get_cadetevent( $this->input->post('event') );        
-        
+
+        $this->load->model('Cadet_model');
+
+        $data['event'] =  $this->Cadetevent_model->get_cadetevent( $this->input->post('event') );
+        $data['cadets'] = $this->Cadet_model->get_all_cadets();
+
         // Loads the home page 
         $this->load->view('templates/header', $data);
         $this->load->view('pages/attend.php');

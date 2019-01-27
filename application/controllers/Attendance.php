@@ -39,14 +39,43 @@ class Attendance extends CI_Controller{
         $data['title'] = 'Cadet Events';
         $this->load->model('cadetevent_model');
         $data['events'] =  $this->cadetevent_model->get_all_cadetevents();
-        
+
         // Loads the home page 
         $this->load->view('templates/header', $data);
         $this->load->view('pages/attendance.php');
         $this->load->view('templates/footer');   
     }
 
-    // TODO: Fix duplicate entry bug
+    /*
+     * Adding a new attendance
+     */
+    function excuse()
+    {
+        $this->load->model('Cadet_model');
+        $this->load->model('Cadetevent_model');
+        $this->load->model('Attendance_model');
+
+        if( $this->Attendance_model->attendance_exists( $this->input->post('cadet'), $this->input->post('event')) === 0 )
+        {
+            $params = array(
+                'rin' => $this->input->post('cadet'),
+                'eventid' => $this->input->post('event'),
+                'excused_absence' => 1
+            );
+
+            $this->Attendance_model->add_attendance( $params );
+        }
+
+        $data['title'] = 'Set Attendance';
+        $data['event'] =  $this->Cadetevent_model->get_cadetevent( $this->input->post('event') );
+        $data['cadets'] = $this->Cadet_model->get_all_cadets();
+
+        // Loads the home page
+        $this->load->view('templates/header', $data);
+        $this->load->view('pages/attend.php');
+        $this->load->view('templates/footer');
+    }
+
     /*
      * Adding a new attendance
      */
@@ -74,6 +103,7 @@ class Attendance extends CI_Controller{
 
                     $data['title'] = 'Set Attendance';
                     $data['event'] =  $this->Cadetevent_model->get_cadetevent( $this->input->post('event') );
+                    $data['cadets'] = $this->Cadet_model->get_all_cadets();
 
                     // Loads the home page
                     $this->load->view('templates/header', $data);
@@ -111,6 +141,7 @@ class Attendance extends CI_Controller{
 
                     $data['title'] = 'Set Attendance';
                     $data['event'] =  $this->Cadetevent_model->get_cadetevent( $this->input->post('event') );
+                    $data['cadets'] = $this->cadet_model->get_all_cadets();
 
                     // Loads the home page
                     $this->load->view('templates/header', $data);
