@@ -65,12 +65,12 @@ class Announcement extends CI_Controller{
 
                         // Creates an email to be send
                         $params = array(
-                            'day'     => date("Y-m-d"),
-                            'to'   => $cadetemail['primaryEmail'],
-                            'from'      => "afrotcdet550@gmail.com",
-                            'subject'      => $this->input->post('subject'),
-                            'message'      => $this->input->post('body'),
-                            'title' => $this->session->userdata('title')
+                            'day'           => date("Y-m-d"),
+                            'to'            => $cadetemail['primaryEmail'],
+                            'from'          => "afrotcdet550@gmail.com",
+                            'subject'       => $this->input->post('subject'),
+                            'message'       => $this->input->post('body'),
+                            'title'         => $this->input->post('title')
                         );
                         $this->batch_email_model->add_batchemail($params);
                     }

@@ -29,6 +29,7 @@ class Cadet extends CI_Controller{
         if( $this->input->post('modify') !== null )
         {
             $data['cadet'] = $this->Cadet_model->get_cadet( $this->input->post('modify') );
+            $data['title'] = "Modify Cadet";
 
             // Loads the home page
             $this->load->view('templates/header', $data);
@@ -356,7 +357,7 @@ class Cadet extends CI_Controller{
     
     
     /*
-     * Saves response to security question
+     * Updates a cadets permissions and rank
      */
     function modify()
     {
@@ -371,7 +372,7 @@ class Cadet extends CI_Controller{
                 );
 
                 $this->Cadet_model->update_cadet($this->input->post('modify'),$params);            
-                redirect('cadet/view');        
+                redirect('cadet/view');
             }
             else
             {
