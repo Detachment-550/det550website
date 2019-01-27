@@ -46,7 +46,14 @@
             </form><br>
       </div>
     </div>
-
+<div class="card-body">
+            <h5 class="card-title">GroupMe</h5>
+            <div>
+               
+            <button type="submit" onclick="location.href='https://oauth.groupme.com/oauth/login_dialog?client_id=RtiKTbtfkzIn40Czo6uh6NsBgksBg8DAeTzoY9cEYM1aIjos'" class="btn btn-sm btn-primary">Link GroupMe</button>
+                
+            </div></form>
+</div>
         <div class="card">
             <div class="card-body">
                 <?php echo form_open('cadet/changepassword'); ?>
