@@ -133,11 +133,8 @@ class Cadet extends CI_Controller{
                     'bio' => $this->input->post('bio'),
                     'firstName' => $this->input->post('firstName'),
                     'primaryEmail' => $this->input->post('pemail'),
-                    'secondaryEmail' => $this->input->post('semail'),
                     'primaryPhone' => $this->input->post('pphone'),
-                    'secondaryPhone' => $this->input->post('sphone'),
                     'position' => $this->input->post('position'),
-                    'groupMe' => $this->input->post('groupme'),
                     'major' => $this->input->post('major')
                 );
 

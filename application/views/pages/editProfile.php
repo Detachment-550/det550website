@@ -19,24 +19,12 @@
         <div class="card-body">
             <?php echo form_open('cadet/saveprofile'); ?>
             <div>
-                <strong>Primary Email:</strong><br>
+                <strong>Email:</strong><br>
                 <input class="form-control" id="pemail" type="text" name="pemail" size="30" value="<?php echo $cadet['primaryEmail']; ?>"/>
             </div><br>
             <div>
-                <strong>Secondary Email:</strong><br>
-                <input class="form-control" type="text" name="semail" size="30" value="<?php echo $cadet['secondaryEmail']; ?>"/>
-            </div><br>
-            <div>
-                <strong>Primary Phone:</strong><br>
+                <strong>Phone:</strong><br>
                 <input class="form-control" id="pphone" type="text" name="pphone" size="30" value="<?php echo $cadet['primaryPhone']; ?>"/>
-            </div><br>
-            <div>
-                <strong>Secondary Phone:</strong><br>
-                <input class="form-control" type="text" name="sphone" size="30" value="<?php echo $cadet['secondaryPhone']; ?>"/>
-            </div><br>
-            <div>
-                <strong>GroupMe:</strong><br>
-                <input class="form-control" type="text" name="groupme" size="30" value="<?php echo $cadet['groupMe']; ?>"/>
             </div><br>
             <div>
                 <strong>Position:</strong><br>
