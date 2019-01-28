@@ -16,11 +16,18 @@ class Groupme extends CI_Controller{
         }
     }
 
+    /*
+     * Saves cadets groupme access token to their profile
+     */
     function auth()
     {
-        form_open('cadet/edit/'.$cadet['rin'],array("class"=>"form-horizontal"));
-        echo ($this->input->get('access_token') ? $this->input->get('access_token') : $cadet['GroupMe']);
-        echo $this->input->get('access_token');
+        $params = array(
+            'groupMe' => $this->input->get('access_token')
+        );
+
+        $this->Cadet_model->update_cadet($this->session->userdata('rin'),$params);
+
+        redirect('cadet/edit');
     }
 
 }
