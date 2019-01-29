@@ -404,6 +404,7 @@ class Cadet extends CI_Controller{
                     'admin' => $this->input->post('admin'),
                     'password' => $hash,
                     'firstName' => $this->input->post('firstname'),
+                    'rin' => $this->input->post('rin'),
                     'rank' => $this->input->post('rank'),
                     'primaryEmail' => $this->input->post('primaryEmail'),
                     'flight' => $this->input->post('flight'),
