@@ -131,7 +131,6 @@ class Cadet extends CI_Controller{
                     'PGoals' => $this->input->post('pgoals'),
                     'AFGoals' => $this->input->post('afgoals'),
                     'bio' => $this->input->post('bio'),
-                    'firstName' => $this->input->post('firstName'),
                     'primaryEmail' => $this->input->post('pemail'),
                     'primaryPhone' => $this->input->post('pphone'),
                     'position' => $this->input->post('position'),
