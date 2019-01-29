@@ -1,5 +1,4 @@
 <head>
-    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=ij0h6vcxvcacvu1l56udgaairzb672xtq1kktiizh2cpf4fe"></script>
     <script src="<?php echo base_url("js/editwiki.js"); ?>"></script>
 </head>
 <?php echo form_open('wiki/save'); ?>

@@ -77,10 +77,7 @@ class Announcement extends CI_Controller{
                 }
 
             }
-            
-            $this->load->model('announcement_model');
-            $this->load->library('session');
-        
+
             $params = array(
                 'title'     => $this->input->post('title'),
                 'subject'   => $this->input->post('subject'),
@@ -88,7 +85,7 @@ class Announcement extends CI_Controller{
                 'createdBy' => $this->session->userdata('rin')
             );
             
-            $id = $this->announcement_model->add_announcement( $params );
+            $id = $this->Announcement_model->add_announcement( $params );
 
             // Sends the announcement to groupMe
             $url = "https://api.groupme.com/v3/bots/post";
@@ -194,6 +191,14 @@ class Announcement extends CI_Controller{
 
         $data["announcement"] = $this->announcement_model->get_announcement($page);
         $data['cadets'] = $this->cadet_model->get_all_cadets();
+        if($data['announcement']['createdBy'] == $this->session->userdata('rin'))
+        {
+            $data['mypost'] = true;
+        }
+        else
+        {
+            $data['mypost'] = false;
+        }
 
         // Loads the home page
         $this->load->view('templates/header', $data);
@@ -227,37 +232,37 @@ class Announcement extends CI_Controller{
     }
 
     /*
-     * Editing a announcement
+     * Loads the edit announcement page.
      */
-    function edit($uid)
-    {   
-        // check if the announcement exists before trying to edit it
-        $data['announcement'] = $this->Announcement_model->get_announcement($uid);
-        
-        if(isset($data['announcement']['uid']))
-        {
-            if(isset($_POST) && count($_POST) > 0)     
-            {   
-                $params = array(
-					'title' => $this->input->post('title'),
-					'subject' => $this->input->post('subject'),
-					'createdBy' => $this->input->post('createdBy'),
-					'date' => $this->input->post('date'),
-					'body' => $this->input->post('body'),
-                );
+    function edit()
+    {
+        $data['title'] = 'Edit Announcement';
+        $data['announcement'] = $this->Announcement_model->get_announcement($this->input->post('announcement'));
 
-                $this->Announcement_model->update_announcement($uid,$params);            
-                redirect('announcement/index');
-            }
-            else
-            {
-                $data['_view'] = 'announcement/edit';
-                $this->load->view('layouts/main',$data);
-            }
-        }
-        else
-            show_error('The announcement you are trying to edit does not exist.');
-    } 
+        // Loads the home page
+        $this->load->view('templates/header', $data);
+        $this->load->view('pages/editannouncement.php');
+        $this->load->view('templates/footer');
+    }
+
+    /*
+     * Loads the edit announcement page.
+     */
+    function update()
+    {
+        $data['title'] = 'Edit Announcement';
+        $announcement = $this->Announcement_model->get_announcement($this->input->post('announcement'));
+
+        $params = array(
+            'title'     => $this->input->post('title'),
+            'subject'   => $this->input->post('subject'),
+            'body'      => $this->input->post('body'),
+        );
+
+        $this->Announcement_model->update_announcement( $announcement['uid'], $params );
+
+        redirect("announcement/page/" . $announcement['uid']);
+    }
 
     /*
      * Deleting announcement

@@ -17,6 +17,15 @@
             }
             ?>
             <p class='card-text'>Posted by: <?php echo $firstName . ' ' . $lastName; ?></p>
+        <?php
+        if($mypost)
+        {
+            echo form_open('announcement/edit');
+            echo "<input style='display: none;' name='announcement' value='" . $announcement['uid'] . "'/>";
+            echo "<button type='submit' class='btn btn-primary' id='edit'>Edit Announcement</button>";
+            echo "</form>";
+        }
+        ?>
         </div>
     </div>
 </div>

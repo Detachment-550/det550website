@@ -1,4 +1,3 @@
-<script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=ij0h6vcxvcacvu1l56udgaairzb672xtq1kktiizh2cpf4fe"></script>
 <script src="<?php echo base_url("js/editProfile.js"); ?>"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url("css/editprofile.css"); ?>">
 
