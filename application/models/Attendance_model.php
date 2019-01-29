@@ -59,6 +59,30 @@ class Attendance_model extends CI_Model
     }
 
     /*
+     * Gets total of pt or llab in the current year
+     */
+    function get_event_total($event, $rin)
+    {
+        $this->db->from('attendance');
+        $this->db->where($event, 1);
+        $this->db->where('rin', $rin);
+        $this->db->join('cadetEvent', 'cadetEvent.eventID = attendance.eventid');
+        $this->db->where('YEAR(date) = YEAR(CURDATE())');
+        if(date("m") >= 1 && date("m") < 6)
+        {
+            $this->db->where('MONTH(date) > 0');
+            $query = $this->db->where('MONTH(date) < 6');
+        }
+        else
+        {
+            $this->db->where('MONTH(date) > 5');
+            $query = $this->db->where('MONTH(date) < 13');
+        }
+
+        return $query->count_all_results();
+    }
+
+    /*
      * Get all attendance
      */
     function get_all_attendance()

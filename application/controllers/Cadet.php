@@ -283,24 +283,13 @@ class Cadet extends CI_Controller{
 
         // Gets pt and llab attendance percentage 
         $attendance = $this->attendance_model->get_attendance($this->session->userdata('rin'));
-        $pt = 0;
-        $llab = 0;
+        $pt = $this->attendance_model->get_event_total('pt',$this->session->userdata('rin'));
+        $llab = $this->attendance_model->get_event_total('llab',$this->session->userdata('rin'));
         $ptSum = $this->cadetevent_model->get_event_total('pt');
         $llabSum = $this->cadetevent_model->get_event_total('llab');
-        foreach( $attendance as $attend )
-        {
-            if( $attend['pt'] )
-            {
-                $pt += 1;
-            }
-            else if( $attend['llab'] )
-            {
-                $llab += 1;
-            }
-        }
 
         // Checks to see if no pt events have occurred yet
-        if($ptSum === 0)
+        if($ptSum == 0)
         {
             $data['ptperc'] = number_format(0, 2);
         }
@@ -310,7 +299,7 @@ class Cadet extends CI_Controller{
         }
 
         // Checks to see if no llab  events have occurred yet
-        if($llabSum === 0)
+        if($llabSum == 0)
         {
             $data['llabperc'] = number_format(0, 2);
         }
