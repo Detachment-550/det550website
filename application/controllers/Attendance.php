@@ -13,6 +13,8 @@ class Attendance extends CI_Controller{
         if( $this->session->userdata('login') === true )
         {
             $this->load->model('Attendance_model');
+            $this->load->model('Cadet_model');
+
         }
         else
         {
