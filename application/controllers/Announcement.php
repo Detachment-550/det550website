@@ -40,6 +40,15 @@ class Announcement extends CI_Controller{
         
         if( $this->input->post('body') != null && $this->input->post('subject') != null)
         {
+            $params = array(
+                'title'     => $this->input->post('title'),
+                'subject'   => $this->input->post('subject'),
+                'body'      => $this->input->post('body'),
+                'createdBy' => $this->session->userdata('rin')
+            );
+
+            $id = $this->Announcement_model->add_announcement( $params );
+
             // Goes to each selected group and sends announcement as email
             if( $this->input->post('groups') !== null )
             {
@@ -70,22 +79,14 @@ class Announcement extends CI_Controller{
                             'from'          => "afrotcdet550@gmail.com",
                             'subject'       => $this->input->post('subject'),
                             'message'       => $this->input->post('body'),
-                            'title'         => $this->input->post('title')
+                            'title'         => $this->input->post('title'),
+                            'announcementid'=> $id
                         );
                         $this->batch_email_model->add_batchemail($params);
                     }
                 }
 
             }
-
-            $params = array(
-                'title'     => $this->input->post('title'),
-                'subject'   => $this->input->post('subject'),
-                'body'      => $this->input->post('body'),
-                'createdBy' => $this->session->userdata('rin')
-            );
-            
-            $id = $this->Announcement_model->add_announcement( $params );
 
             // Sends the announcement to groupMe
             $url = "https://api.groupme.com/v3/bots/post";
