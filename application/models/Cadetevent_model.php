@@ -48,7 +48,12 @@ class Cadetevent_model extends CI_Model
     {
         return $this->db->query('SELECT * FROM cadetEvent ORDER BY ABS( DATEDIFF( cadetEvent.date, NOW() ) ) LIMIT 5')->result_array();
     }
-        
+
+    function get_last_x_events($x)
+    {
+        return $this->db->query('SELECT * FROM cadetEvent ORDER BY ABS( DATEDIFF( cadetEvent.date, NOW() ) ) LIMIT '.$x)->result_array();
+    }
+
     /*
      * Get all cadetevent
      */
