@@ -56,48 +56,48 @@ class Groupmember extends CI_Controller{
     /*
      * Editing a groupmember
      */
-    function edit($)
-    {   
-        // check if the groupmember exists before trying to edit it
-        $data['groupmember'] = $this->Groupmember_model->get_groupmember($);
-        
-        if(isset($data['groupmember']['']))
-        {
-            if(isset($_POST) && count($_POST) > 0)     
-            {   
-                $params = array(
-					'groupID' => $this->input->post('groupID'),
-					'rin' => $this->input->post('rin'),
-                );
-
-                $this->Groupmember_model->update_groupmember($,$params);            
-                redirect('groupmember/index');
-            }
-            else
-            {
-                $data['_view'] = 'groupmember/edit';
-                $this->load->view('layouts/main',$data);
-            }
-        }
-        else
-            show_error('The groupmember you are trying to edit does not exist.');
-    } 
+//    function edit($)
+//    {
+//        // check if the groupmember exists before trying to edit it
+//        $data['groupmember'] = $this->Groupmember_model->get_groupmember($);
+//
+//        if(isset($data['groupmember']['']))
+//        {
+//            if(isset($_POST) && count($_POST) > 0)
+//            {
+//                $params = array(
+//					'groupID' => $this->input->post('groupID'),
+//					'rin' => $this->input->post('rin'),
+//                );
+//
+//                $this->Groupmember_model->update_groupmember($,$params);
+//                redirect('groupmember/index');
+//            }
+//            else
+//            {
+//                $data['_view'] = 'groupmember/edit';
+//                $this->load->view('layouts/main',$data);
+//            }
+//        }
+//        else
+//            show_error('The groupmember you are trying to edit does not exist.');
+//    }
 
     /*
      * Deleting groupmember
      */
-    function remove($)
-    {
-        $groupmember = $this->Groupmember_model->get_groupmember($);
-
-        // check if the groupmember exists before trying to delete it
-        if(isset($groupmember['']))
-        {
-            $this->Groupmember_model->delete_groupmember($);
-            redirect('groupmember/index');
-        }
-        else
-            show_error('The groupmember you are trying to delete does not exist.');
-    }
+//    function remove($)
+//    {
+//        $groupmember = $this->Groupmember_model->get_groupmember($);
+//
+//        // check if the groupmember exists before trying to delete it
+//        if(isset($groupmember['']))
+//        {
+//            $this->Groupmember_model->delete_groupmember($);
+//            redirect('groupmember/index');
+//        }
+//        else
+//            show_error('The groupmember you are trying to delete does not exist.');
+//    }
     
 }
