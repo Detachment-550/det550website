@@ -1,3 +1,5 @@
+<link rel="stylesheet" type="text/css" href="<?php echo base_url("css/wiki.css"); ?>">
+
 <body>
   <div class="jumbotron container-fluid">
   	<h1 class="display-4">Documentation</h1>

@@ -20,6 +20,34 @@ class Acknowledge_post extends CI_Controller{
         }
     } 
 
+    function view()
+    {
+        if(isset($_POST) && count($_POST) > 0)     
+        {
+            $data['title'] = "Acknowledgements"; 
+            $this->load->model('Announcement_model');
+            $this->load->model('Cadet_model');
+            $data['announcement'] = $this->Announcement_model->get_announcement($this->input->post('event'));
+            $data['acknowledgements'] = $this->Acknowledge_post_model->get_event_acknowledge_posts($this->input->post('event'));
+            $cadets = array();
+            
+            foreach( $data['acknowledgements'] as $ack )
+            {
+                $cadets[] = $this->Cadet_model->get_cadet($ack['rin']);
+            }
+            
+            $data['cadets'] = $cadets;
+            
+            $this->load->view('templates/header', $data);
+            $this->load->view('pages/acknowledged.php');
+            $this->load->view('templates/footer'); 
+        }
+        else
+        {
+            show_error('The announcemen you are trying to view acknoledgements for does not exist.');
+        }
+    }
+
     /*
      * Listing of acknowledge_posts
      */
@@ -39,17 +67,15 @@ class Acknowledge_post extends CI_Controller{
         if(isset($_POST) && count($_POST) > 0)     
         {   
             $this->load->library('session');
-
-            $params = array(
-				'rin' =>  $this->session->userdata('rin'),
-				'announcement_id' => $this->input->post('announcementid')
-            );
-            
-            $exists = $this->Acknowledge_post_model->acknowledge_posts_exists($this->session->userdata('rin'), $this->input->post('announcementid'));
-            
+                        
             // Ignores duplicate entries
-            if( $exists == 0 )
+            if( $this->Acknowledge_post_model->acknowledge_post_exists( $this->session->userdata('rin'), $this->input->post('announcementid') ) <= 0 )
             {
+                $params = array(
+                    'rin' =>  $this->session->userdata('rin'),
+                    'announcement_id' => $this->input->post('announcementid')
+                );
+                
                 $this->Acknowledge_post_model->add_acknowledge_post($params);
             }
             
@@ -57,7 +83,7 @@ class Acknowledge_post extends CI_Controller{
         }
         else
         {            
-            $this->load->view('layouts/main',$data);
+            $this->load->view('layouts/main');
         }
     }  
 

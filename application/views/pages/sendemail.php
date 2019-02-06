@@ -1,7 +1,7 @@
-<head>
-    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=ij0h6vcxvcacvu1l56udgaairzb672xtq1kktiizh2cpf4fe"></script>
-        <script src="../../../js/sendemail.js"></script>
-</head>
+<script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=ij0h6vcxvcacvu1l56udgaairzb672xtq1kktiizh2cpf4fe"></script>
+<script src="<?php echo base_url("js/sendemail.js"); ?>"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo base_url("css/sendemail.css"); ?>">
+
 <body>
 <div class="jumbotron container-fluid">
   <h1 class="display-4"> Send an Email </h1>
@@ -27,4 +27,7 @@
             <textarea class="form-control" type="text" name="body" id="body"></textarea><br>
             <button class="btn btn-sm btn-primary" type="submit" name="send" onclick="sendBody()" value="Send">Send</button>
         </form><br>
+      </div>
+    </div>
+</div>
         

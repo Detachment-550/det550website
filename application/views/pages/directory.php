@@ -1,17 +1,5 @@
-<style>
-/* Styles for mobile */
-@media (max-width: 450px) 
-{
-    .card
-    {
-        width:95%;
-    }
-    body
-    {
-        min-width: 400px;
-    }
-}
-</style>
+<link rel="stylesheet" type="text/css" href="<?php echo base_url("css/directory.css"); ?>">
+
 <div class="jumbotron container-fluid">
     <h1 class="display-4"> Detachment Directory </h1><br>
       <?php echo form_open('cadetdirectory/major'); ?>
@@ -48,19 +36,19 @@ foreach( $cadets as $cadet )
 {
     if( in_array($cadet['rin'] . ".jpg", $images) )
     {
-        $file = "../../../images/" . $cadet['rin'] . ".jpg";
+        $file = base_url("images/" . $cadet['rin'] . ".jpg" );
     }
     else if( in_array($cadet['rin'] . ".png", $images) )
     {
-        $file = "../../../images/" . $cadet['rin'] . ".png";
+        $file = base_url("images/" . $cadet['rin'] . ".png" );
     }
     else if( in_array($cadet['rin'] . ".jpeg", $images) )
     {
-        $file = "../../../images/" . $cadet['rin'] . ".jpeg";
+        $file = base_url("images/" . $cadet['rin'] . ".jpeg" );
     }
     else
     {
-        $file = "../../../images/default.jpeg";
+        $file = base_url("images/default.jpeg");
     }
     
     echo "<div class='card' style='display:inline-block;text-align:center;'>";
@@ -86,3 +74,4 @@ foreach( $cadets as $cadet )
     echo "<button class='btn btn-sm btn-primary' type='submit'>View Profile</button></form></div></div>";
 }
 ?>
+</div>

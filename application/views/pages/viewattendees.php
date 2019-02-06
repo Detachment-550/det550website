@@ -1,25 +1,5 @@
-<style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
+<link rel="stylesheet" type="text/css" href="<?php echo base_url("css/viewattendees.css"); ?>">
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-
-.jumbotron {
-    height: -webkit-fill-available;
-}
-</style>
-</head>
 <body>
 <div class="jumbotron container-fluid">
     <h2><?php echo $event['name']; ?> Attendees</h2>
@@ -37,7 +17,15 @@ tr:nth-child(even) {
         echo "<td>Cadet " . $attendee['lastName'] . "</td>";
         echo "<td>" . $attendee['time'] . "</td>";
         echo "<td>" . $attendee['excused_absence'] . "</td>";
-        echo "<tr>";
+        echo "</tr>";
     }
 ?>
+</table><br>
+
+    <?php echo form_open('attendance/export'); ?>
+    <input type="text" name="event" value="<?php echo $event['eventID']; ?>" style="display: none;"/>
+    <button class="btn btn-sm btn-primary" type="submit" name="submit">Export to Excel</button>
+    </form>
+
 </div>
+</body>

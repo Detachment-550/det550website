@@ -1,0 +1,18 @@
+#links
+{
+    display:block;
+    margin-left: auto;
+    margin-right:auto;
+    padding: 10px;
+}
+
+.jumbotron
+{
+    margin-bottom: 0;
+}
+
+.pagination
+{
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -1,0 +1,15 @@
+.jumbotron-fluid
+{
+    height: -webkit-fill-available;
+    margin: 0;
+}
+
+.card
+{
+    margin: 10px;
+}
+
+#cadet
+{
+    display: none;
+}

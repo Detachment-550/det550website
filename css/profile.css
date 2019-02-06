@@ -1,0 +1,27 @@
+/* Styles for mobile */
+@media (max-width: 600px)
+{
+    .col-4, .col-8
+    {
+        -ms-flex: 100%;
+        flex: 100%;
+        max-width: 100%;
+    }
+    body
+    {
+        min-width: 400px;
+    }
+    .jumbotron
+    {
+        margin-bottom: 0;
+    }
+}
+/* Styles for desktop */
+@media (min-width: 600px)
+{
+    .jumbotron
+    {
+        height: 100%;
+        margin-bottom: 0;
+    }
+}

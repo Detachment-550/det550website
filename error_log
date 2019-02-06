@@ -1,0 +1,1 @@
+[13-Jan-2019 08:23:57 America/New_York] PHP Fatal error:  require_once(): Failed opening required 'Mail.php' (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/afrotc/public_html/afrotc/application/controllers/Batchemail.php on line 34

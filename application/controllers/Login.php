@@ -15,29 +15,44 @@ class Login extends CI_Controller {
     }
     
     /*
-     * Makes sure cadet is authroized to login.
+     * Makes sure cadet is authorized to login.
      */
     function auth()
     {
         $this->load->model('Cadet_model');
         $this->load->library('session');
+        $this->load->helper('email');
 
-        $cadet = $this->Cadet_model->get_cadet($this->input->post('rin'));
-        
+        if( valid_email($this->input->post('user')) )
+        {
+            $cadet = $this->Cadet_model->get_email_cadet( $this->input->post('user') );
+        }
+        else
+        {
+            $cadet = $this->Cadet_model->get_cadet( $this->input->post('user') );
+        }
+
         $this->load->helper('form');
         $this->load->library('form_validation');
 
         $data['title'] = 'Login Page';
 
-        if($this->input->post('psw') !== null && password_verify($this->input->post('psw'), $cadet['password']))
+        // Checks that the password given is correct and that the user isn't locked out of the account
+        if( ($this->input->post('psw') !== null && password_verify($this->input->post('psw'), $cadet['password'])) && $cadet['loginattempt'] < 10 )
         {
             $this->load->model('cadetevent_model');
             $this->load->model('announcement_model');
             $this->load->model('attendance_model');
             
+            // Resets login attempts on a successful login
+            $params = array(
+                'loginattempt' => 0
+            );
+            $this->Cadet_model->update_cadet($cadet['rin'],$params);
+            
             // Sets session variable and loads closest 5 events
             $this->session->set_userdata('login', true);
-            $this->session->set_userdata('rin', $this->input->post('rin'));
+            $this->session->set_userdata('rin', $cadet['rin']);
             
             // Checks if user is an admin or not
             if( $cadet['admin'] == 1 )
@@ -54,9 +69,30 @@ class Login extends CI_Controller {
             redirect('cadet/home');
         }
         else
-        {
-            $this->load->view('pages/login.php', $data);
-            $this->load->view('templates/footer');
+        {            
+            // Increments login attempt
+            if( isset($cadet['loginattempt']) && $cadet['loginattempt'] < 10 )
+            {
+                $cadet['loginattempt'] += 1;
+                
+                $params = array(
+                    'loginattempt' => $cadet['loginattempt']
+                );
+
+                $this->Cadet_model->update_cadet( $cadet['rin'], $params );
+            }  
+            
+            // If you are locked out of the account show error
+            if( $cadet['loginattempt'] >= 10 )
+            {
+                show_error("You have been locked out of your account due to 10 incorrect password entries. 
+                Please reach out to a site admin or up your chain of commend to resolve this issue.");
+            }
+            else 
+            {
+                $this->load->view('pages/login.php', $data);
+                $this->load->view('templates/footer');
+            }
         }   
     }
     
@@ -138,29 +174,8 @@ class Login extends CI_Controller {
             // Load email library
             $this->load->library('email');
 
-            // SMTP & mail configuration
-            $config = array(
-                'protocol'  => 'smtp',
-                'smtp_host' => 'ssl://smtp.googlemail.com',
-                'smtp_port' => 465,
-                'smtp_user' => 'afrotcdet550@gmail.com',
-                'smtp_pass' => 'silverfalcons550',
-                'mailtype'  => 'html',
-                'charset'   => 'utf-8'
-            );
-
-            $this->email->initialize($config);
-            $this->email->set_mailtype("html");
-            $this->email->set_newline("\r\n");
-            
-            $this->load->model('groupmember_model');
-            $this->load->model('cadet_model');
-
-            $recipients = array();
-            $recipients[] = $cadet['primaryEmail'];
-
             $this->email->bcc($email);
-            $this->email->from('noreply@detachment550.org','MyWebsite');
+            $this->email->from('noreply@detachment550.org','Air Force ROTC Detachment 550');
             $this->email->subject('Password Reset');
             $this->email->message($message);
             
@@ -188,6 +203,5 @@ class Login extends CI_Controller {
         $this->load->view('pages/login.php', $data);
         $this->load->view('templates/footer');
     }
-}
 
-?>
+}

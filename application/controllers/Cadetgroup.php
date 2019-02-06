@@ -28,6 +28,8 @@ class Cadetgroup extends CI_Controller{
         $data['title'] = 'Create/Modify Group';
         $data['groups'] = $this->Cadetgroup_model->get_all_groups();
 
+        $data['groupname'] = $this->input->post('groupname');
+
         $this->load->view('templates/header', $data);
         $this->load->view('pages/addgroup.php');
         $this->load->view('templates/footer'); 
@@ -74,7 +76,6 @@ class Cadetgroup extends CI_Controller{
         {   
             $this->load->model('Cadet_model');
             $this->load->model('Groupmember_model');
-
             $data['curgroup'] = $this->input->post('group');
             $data['groupname'] = $this->Cadetgroup_model->get_group($this->input->post('group'));
             $data['title'] = 'Create/Modify Group';
@@ -99,10 +100,8 @@ class Cadetgroup extends CI_Controller{
             }
             $data['members'] = $members;
             $data['nonmembers'] = $nonmembers;
-            
-            $this->load->view('templates/header', $data);
-            $this->load->view('pages/addgroup.php');
-            $this->load->view('templates/footer');         
+
+            echo json_encode($data);
         }
         else
         {            
@@ -256,18 +255,18 @@ class Cadetgroup extends CI_Controller{
     /*
      * Deleting cadetgroup
      */
-    function remove($id)
+    function remove()
     {
-        $cadetgroup = $this->Cadetgroup_model->get_group($id);
+        $cadetgroup = $this->Cadetgroup_model->get_group($this->input->post('group'));
 
         // check if the cadetgroup exists before trying to delete it
         if(isset($cadetgroup['id']))
         {
-            $this->Cadetgroup_model->delete_group($id);
-            redirect('cadetgroup/index');
+            $this->Cadetgroup_model->delete_group($this->input->post('group'));
+            redirect('cadetgroup/view');
         }
         else
-            show_error('The cadetgroup you are trying to delete does not exist.');
+            show_error('The Cadet Group you are trying to delete does not exist.');
     }
     
 }

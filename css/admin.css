@@ -1,0 +1,24 @@
+/* Styles for mobile */
+@media (max-width: 1000px)
+{
+    .col-4
+    {
+        flex: 100%;
+        max-width: 100%;
+        padding-bottom: 10px;
+    }
+    body
+    {
+        min-width: 700px;
+    }
+}
+
+select
+{
+    max-width: 100%;
+}
+
+.row, .jumbotron-fluid
+{
+    margin: 0;
+}
