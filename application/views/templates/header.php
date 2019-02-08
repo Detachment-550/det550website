@@ -40,6 +40,7 @@
             <?php echo anchor('email/view', 'Send Email', 'class="dropdown-item"'); ?>
             <?php echo anchor('pages/view/wingstructure', 'Org Chart', 'class="dropdown-item"'); ?>
             <?php echo anchor('attendance/master', 'Master Attendance', 'class="dropdown-item"'); ?>
+            <?php echo anchor('attendance/weeklysummary', 'Weekly Attendance', 'class="dropdown-item"'); ?>
 
             <?php
                 if( $this->session->userdata('admin') !== null && $this->session->userdata('admin') === true )
