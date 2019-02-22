@@ -25,6 +25,20 @@ class Attendance_model extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
+
+    /*
+     * Returns the master attendance.
+     */
+    function get_attendance_records()
+    {
+//        $this->db->select('cadetEvent.pt, cadetEvent.llab, cadet.lastName, cadetEvent.name, attendance.excused_absence, attendance.time');
+        $this->db->from('cadet');
+        $this->db->join('attendance', 'cadet.rin = attendance.rin');
+        $this->db->join('cadetEvent', 'cadetEvent.eventID = attendance.eventid');
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
       
     /*
      * Get attendance by event

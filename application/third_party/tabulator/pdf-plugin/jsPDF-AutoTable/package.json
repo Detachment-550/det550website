@@ -1,0 +1,54 @@
+{
+  "name": "jspdf-autotable",
+  "version": "3.0.10",
+  "description": "Generate pdf tables with javascript (jsPDF plugin)",
+  "main": "dist/jspdf.plugin.autotable.js",
+  "directories": {
+    "example": "examples"
+  },
+  "peerDependencies": {
+    "jspdf": "^1.5.3"
+  },
+  "devDependencies": {
+    "@webpack-cli/migrate": "0.1.3",
+    "jspdf": "1.5.3",
+    "mocha": "5.2.0",
+    "mock-browser": "0.92.14",
+    "mock-require": "3.0.3",
+    "object-assign": "4.1.1",
+    "object.entries": "1.1.0",
+    "ts-loader": "5.3.3",
+    "ts-node": "8.0.2",
+    "typedoc": "0.14.2",
+    "typescript": "3.3.1",
+    "uglifyjs-webpack-plugin": "2.1.1",
+    "webpack": "4.29.0",
+    "webpack-cli": "3.2.1",
+    "webpack-dev-server": "3.1.14"
+  },
+  "scripts": {
+    "start": "webpack-dev-server -d --open",
+    "build": "webpack --mode=production",
+    "copyLib": "cp ./node_modules/jspdf/dist/jspdf.debug.js ./examples/libs/jspdf.debug.js && cp ./dist/jspdf.plugin.autotable.js ./examples/libs/jspdf.plugin.autotable.js",
+    "version": "npm test && npm run build && npm run copyLib && git add -A dist && git add -A examples && git add README.md",
+    "hosted": "git checkout gh-pages && npm run build && git add -A && git commit -m \"Updated to latest version\" && git push && git checkout master && git clean -f -d",
+    "deploy": "git push && git push --tags && npm publish && npm run hosted && npm i",
+    "test": "mocha --require ts-node/register"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/simonbengtsson/jsPDF-AutoTable.git"
+  },
+  "keywords": [
+    "pdf",
+    "table",
+    "jspdf"
+  ],
+  "author": "Simon Bengtsson <dev@simonbengtsson.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/simonbengtsson/jsPDF-AutoTable/issues"
+  },
+  "homepage": "https://simonbengtsson.github.io/jsPDF-AutoTable/",
+  "dependencies": {}
+}
