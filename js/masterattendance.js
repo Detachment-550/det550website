@@ -23,8 +23,7 @@ function loadattendance(siteurl)
             columns.push({
                 title:"AS Class",
                 field:"class",
-                download: true,
-                headerVertical:true,
+                download: false,
                 visible: false
             });
 
@@ -63,6 +62,7 @@ function loadattendance(siteurl)
                 // Sets the cadets name
                 cadetrecord['name'] = response.cadet[z].firstName + " " + response.cadet[z].lastName;
                 cadetrecord['class'] = response.cadet[z].rank;
+
                 var rin = response.cadet[z].rin;
                 var ptSum = 0;
                 var llabSum = 0;
@@ -125,16 +125,11 @@ function loadattendance(siteurl)
                 placeholder:"No attendance records to show", //display message to user on empty table
                 // layout:"fitColumns", //fit columns to width of table (optional)
                 pagination:"local",
-                groupBy:function(data){
+                groupBy:"class",
+                groupHeader:function(value, count, data, group){
                     //data - the data object for the row being grouped
-                    return "Class: " + data.class; //groups by day, month, and year
+                    return "<span style='color:black; margin-left:10px;'>Class: " + data[0].class + "</span>";
                 },
-                // groupHeader:function(value, count, data, group){
-                //     //data - the data object for the row being grouped
-                //     var day = new Date(data[0].finished);
-                //
-                //     return "<span style='color:black; margin-left:10px;'>" + day.getMonth() + "/" + day.getDate() + "/" + day.getFullYear() + "</span>";
-                // },
                 paginationSize: 100,
                 paginationSizeSelector:[10, 25, 50, 100],
                 movableColumns:true,
@@ -166,12 +161,12 @@ function loadattendance(siteurl)
                     //return data for download
                     return data;
                 },
-                // downloadConfig:{
-                //     rowGroups:true, //do not include row groups in download
-                // },
-                // initialSort:[
-                //     {column:"finished", dir:"desc"} // Sorts data by the most recent to the oldest
-                // ],
+                downloadConfig:{
+                    rowGroups:false, //do not include row groups in download
+                },
+                initialSort:[
+                    {column:"class", dir:"asc"} // Sorts data by the most recent to the oldest
+                ],
                 columns:columns
             });
         },
