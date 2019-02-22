@@ -138,7 +138,7 @@ function loadattendance(siteurl)
                     {
                         for(var key in data.data[x])
                         {
-                            if(key !== "name")
+                            if(key !== "name" && key !== "llab" && key !== "pt")
                             {
                                 if(data.data[x][key] === "green")
                                 {
