@@ -33,6 +33,20 @@ function loadattendance(siteurl)
                 });
             }
 
+            columns.push({
+                title:"PT Total",
+                field:"pt",
+                download: true,
+                headerVertical:true
+            });
+
+            columns.push({
+                title:"LLAB Total",
+                field:"llab",
+                download: true,
+                headerVertical:true
+            });
+
             // Loops through each cadet
             for(var z = 0; z < response.cadet.length; z++)
             {
@@ -40,24 +54,59 @@ function loadattendance(siteurl)
 
                 // Sets the cadets name
                 cadetrecord['name'] = response.cadet[z].firstName + " " + response.cadet[z].lastName;
-                cadetrecord['rin'] = response.cadet[z].rin;
+                var rin = response.cadet[z].rin;
+                var ptSum = 0;
+                var llabSum = 0;
+                var pt = 0;
+                var llab = 0;
 
                 // Compares each event to the db and checks to see if cadet was present or absent or excused
                 for(y = 0; y < response.events.length; y++)
                 {
                     var event = response.events[y].eventID;
+                    if(response.events[y].pt == 1)
+                    {
+                        ptSum += 1;
+                    }
+                    else if(response.events[y].llab == 1)
+                    {
+                        llabSum += 1;
+                    }
+
                     for(var x = 0; x < response.record.length; x++)
                     {
-                        if( response.record[x].rin === cadetrecord['rin'] && response.record[x].eventid === event && (response.record[x].excused_absence === null || parseInt(response.record[x].excused_absence,10) === 0))
+                        if( response.record[x].rin === rin && response.record[x].eventid === event && (response.record[x].excused_absence === null || parseInt(response.record[x].excused_absence,10) === 0))
                         {
+                            if(response.events[y].pt == 1)
+                            {
+                                pt += 1;
+                            }
+                            else if(response.events[y].llab == 1)
+                            {
+                                llab += 1;
+                            }
+
                             cadetrecord[response.record[x].eventid] = "green";
                         }
-                        else if( response.record[x].rin === cadetrecord['rin'] && response.record[x].eventid === event && parseInt(response.record[x].excused_absence, 10) === 1)
+                        else if( response.record[x].rin === rin && response.record[x].eventid === event && parseInt(response.record[x].excused_absence, 10) === 1)
                         {
+                            if(response.events[y].pt == 1)
+                            {
+                                pt += 1;
+                            }
+                            else if(response.events[y].llab == 1)
+                            {
+                                llab += 1;
+                            }
+
                             cadetrecord[response.record[x].eventid] = "yellow";
                         }
                     }
                 }
+
+                cadetrecord['pt'] = pt + "/" + ptSum;
+                cadetrecord['llab'] = llab + "/" + llabSum;
+
                 tabledata.push(cadetrecord);
             }
 
