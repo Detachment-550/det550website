@@ -61,7 +61,31 @@ class Cadetevent_model extends CI_Model
     {
         return $this->db->query('SELECT * FROM cadetEvent ORDER BY ABS( DATEDIFF( cadetEvent.date, NOW() ) )')->result_array();
     }
-        
+
+    /*
+      * Get all cadetevent
+      */
+    function get_current_cadetevents()
+    {
+        $this->db->from('cadetEvent');
+
+        $this->db->where('YEAR(date) = YEAR(CURDATE())');
+
+        if(date("m") >= 1 && date("m") < 6)
+        {
+            $this->db->where('MONTH(date) > 0');
+            $this->db->where('MONTH(date) < 6');
+        }
+        else
+        {
+            $this->db->where('MONTH(date) > 5');
+            $this->db->where('MONTH(date) < 13');
+        }
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
     /*
      * function to add new cadetevent
      */

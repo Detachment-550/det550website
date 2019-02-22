@@ -31,10 +31,22 @@ class Attendance_model extends CI_Model
      */
     function get_attendance_records()
     {
-//        $this->db->select('cadetEvent.pt, cadetEvent.llab, cadet.lastName, cadetEvent.name, attendance.excused_absence, attendance.time');
+        $this->db->select('pt, llab, lastName, firstName, excused_absence, attendance.eventid, cadetEvent.eventID, cadet.rin');
         $this->db->from('cadet');
         $this->db->join('attendance', 'cadet.rin = attendance.rin');
         $this->db->join('cadetEvent', 'cadetEvent.eventID = attendance.eventid');
+        $this->db->where('YEAR(cadetEvent.date) = YEAR(CURDATE())');
+
+        if(date("m") >= 1 && date("m") < 6)
+        {
+            $this->db->where('MONTH(date) > 0');
+            $this->db->where('MONTH(date) < 6');
+        }
+        else
+        {
+            $this->db->where('MONTH(date) > 5');
+            $this->db->where('MONTH(date) < 13');
+        }
 
         $query = $this->db->get();
         return $query->result_array();
