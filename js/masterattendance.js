@@ -20,6 +20,14 @@ function loadattendance(siteurl)
                 headerVertical:true
             });
 
+            columns.push({
+                title:"AS Class",
+                field:"class",
+                download: true,
+                headerVertical:true,
+                visible: false
+            });
+
             // Adds columns for each event
             for(var y = 0; y < response.events.length; y++)
             {
@@ -54,6 +62,7 @@ function loadattendance(siteurl)
 
                 // Sets the cadets name
                 cadetrecord['name'] = response.cadet[z].firstName + " " + response.cadet[z].lastName;
+                cadetrecord['class'] = response.cadet[z].rank;
                 var rin = response.cadet[z].rin;
                 var ptSum = 0;
                 var llabSum = 0;
@@ -104,8 +113,8 @@ function loadattendance(siteurl)
                     }
                 }
 
-                cadetrecord['pt'] = pt + "/" + ptSum;
-                cadetrecord['llab'] = llab + "/" + llabSum;
+                cadetrecord['pt'] = pt + " of " + ptSum;
+                cadetrecord['llab'] = llab + " of " + llabSum;
 
                 tabledata.push(cadetrecord);
             }
@@ -116,12 +125,10 @@ function loadattendance(siteurl)
                 placeholder:"No attendance records to show", //display message to user on empty table
                 // layout:"fitColumns", //fit columns to width of table (optional)
                 pagination:"local",
-                // groupBy:function(data){
-                //     //data - the data object for the row being grouped
-                //     var day = new Date(data.finished);
-                //     var compstr = day.getDate() + "/" + day.getMonth() + "/" + day.getFullYear();
-                //     return compstr; //groups by day, month, and year
-                // },
+                groupBy:function(data){
+                    //data - the data object for the row being grouped
+                    return "Class: " + data.class; //groups by day, month, and year
+                },
                 // groupHeader:function(value, count, data, group){
                 //     //data - the data object for the row being grouped
                 //     var day = new Date(data[0].finished);
