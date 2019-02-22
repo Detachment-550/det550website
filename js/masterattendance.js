@@ -40,17 +40,19 @@ function loadattendance(siteurl)
 
                 // Sets the cadets name
                 cadetrecord['name'] = response.cadet[z].firstName + " " + response.cadet[z].lastName;
+                cadetrecord['rin'] = response.cadet[z].rin;
 
                 // Compares each event to the db and checks to see if cadet was present or absent or excused
                 for(y = 0; y < response.events.length; y++)
                 {
+                    var event = response.events[y].eventID;
                     for(var x = 0; x < response.record.length; x++)
                     {
-                        if( response.record[x].rin === response.cadet[z].rin && response.record[x].eventid === response.events[y].eventID && response.record[x].excused_absence === null)
+                        if( response.record[x].rin === cadetrecord['rin'] && response.record[x].eventid === event && (response.record[x].excused_absence === null || parseInt(response.record[x].excused_absence,10) === 0))
                         {
                             cadetrecord[response.record[x].eventid] = "green";
                         }
-                        else if( response.record[x].rin === response.cadet[z].rin && response.record[x].eventid === response.events[y].eventID && response.record[x].excused_absence === "1")
+                        else if( response.record[x].rin === cadetrecord['rin'] && response.record[x].eventid === event && parseInt(response.record[x].excused_absence, 10) === 1)
                         {
                             cadetrecord[response.record[x].eventid] = "yellow";
                         }
