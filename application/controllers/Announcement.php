@@ -144,7 +144,7 @@ class Announcement extends CI_Controller{
         $this->load->library("pagination");
 
         $config = array();
-        $config["base_url"] = base_url() . "announcement/view";
+        $config["base_url"] = site_url('announcement/view');
 
         $config["total_rows"] = $this->announcement_model->record_count();
         $config["per_page"] = 10;
