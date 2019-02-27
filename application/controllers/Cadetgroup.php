@@ -34,18 +34,6 @@ class Cadetgroup extends CI_Controller{
         $this->load->view('pages/addgroup.php');
         $this->load->view('templates/footer'); 
     }
-    
-    
-    /*
-     * Listing of cadetgroup
-     */
-    function index()
-    {
-        $data['cadetgroup'] = $this->Cadetgroup_model->get_all_cadetgroups();
-        
-        $data['_view'] = 'cadetgroup/index';
-        $this->load->view('layouts/main',$data);
-    }
 
     /*
      * Adding a new cadetgroup
@@ -56,9 +44,11 @@ class Cadetgroup extends CI_Controller{
         {   
             $params = array(
 				'label' => $this->input->post('label'),
+                'description' => $this->input->post('description')
             );
             
-            $cadetgroup_id = $this->Cadetgroup_model->add_group($params);
+            $this->Cadetgroup_model->add_group($params);
+
             redirect('cadetgroup/view');
         }
         else
@@ -76,6 +66,7 @@ class Cadetgroup extends CI_Controller{
         {   
             $this->load->model('Cadet_model');
             $this->load->model('Groupmember_model');
+
             $data['curgroup'] = $this->input->post('group');
             $data['groupname'] = $this->Cadetgroup_model->get_group($this->input->post('group'));
             $data['title'] = 'Create/Modify Group';
@@ -222,51 +213,4 @@ class Cadetgroup extends CI_Controller{
             show_error("You must select at least one cadet to be added to the group. Also you must select a group.");
         }
     }
-
-    /*
-     * Editing a cadetgroup
-     */
-    function edit($id)
-    {   
-        // check if the cadetgroup exists before trying to edit it
-        $data['cadetgroup'] = $this->Cadetgroup_model->get_cadetgroup($id);
-        
-        if(isset($data['cadetgroup']['id']))
-        {
-            if(isset($_POST) && count($_POST) > 0)     
-            {   
-                $params = array(
-					'label' => $this->input->post('label'),
-                );
-
-                $this->Cadetgroup_model->update_group($id,$params);            
-                redirect('cadetgroup/index');
-            }
-            else
-            {
-                $data['_view'] = 'cadetgroup/edit';
-                $this->load->view('layouts/main',$data);
-            }
-        }
-        else
-            show_error('The cadetgroup you are trying to edit does not exist.');
-    } 
-
-    /*
-     * Deleting cadetgroup
-     */
-    function remove()
-    {
-        $cadetgroup = $this->Cadetgroup_model->get_group($this->input->post('group'));
-
-        // check if the cadetgroup exists before trying to delete it
-        if(isset($cadetgroup['id']))
-        {
-            $this->Cadetgroup_model->delete_group($this->input->post('group'));
-            redirect('cadetgroup/view');
-        }
-        else
-            show_error('The Cadet Group you are trying to delete does not exist.');
-    }
-    
 }

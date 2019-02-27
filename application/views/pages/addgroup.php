@@ -27,7 +27,10 @@
         
         <?php echo form_open('cadetgroup/add'); ?>
           <h5 class="card-text">Create Group</h5>
-          <input type="text" name="label" id="groupname"><br><br>
+          <label>Group Label:</label><br>
+          <input type="text" name="label" id="groupname">
+          <label>Group Description (What other people see as the group name):</label><br>
+          <input type="text" name="description" id="groupdes"><br><br>
           <button class="btn btn-sm btn-primary" type="submit" name="submit">Create Group</button>
         </form><br>
         
@@ -40,11 +43,11 @@
                   // Checks to see if a group was selected
                   if( $group['id'] == 1 )
                   {
-                      echo "<option selected value='" . $group['id'] . "'> " . $group['label'] . "</option>";      
+                      echo "<option selected value='" . $group['id'] . "'> " . $group['description'] . "</option>";
                   }
                   else
                   {
-                      echo "<option value='" . $group['id'] . "'> " . $group['label'] . "</option>";
+                      echo "<option value='" . $group['id'] . "'> " . $group['description'] . "</option>";
                   }
               }
             ?>
@@ -72,7 +75,11 @@
               <?php
               foreach( $groups as $group )
               {
-                  echo "<option value='" . $group['id'] . "'> " . $group['label'] . "</option>";
+                  // Doesn't allow admin or general members groups to be deleted
+                  if( $group['label'] !== "admin" || $group['label'] !== "members" )
+                  {
+                      echo "<option value='" . $group['id'] . "'> " . $group['description'] . "</option>";
+                  }
               }
               ?>
           </select><br><br>
