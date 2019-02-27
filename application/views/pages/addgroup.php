@@ -28,11 +28,11 @@
         <?php echo form_open('cadetgroup/add'); ?>
           <h5 class="card-text">Create Group</h5>
           <label>Group Label:</label><br>
-          <input type="text" name="label" id="groupname">
+          <input type="text" name="label" id="groupname"><br>
           <label>Group Description (What other people see as the group name):</label><br>
           <input type="text" name="description" id="groupdes"><br><br>
           <button class="btn btn-sm btn-primary" type="submit" name="submit">Create Group</button>
-        </form><br>
+        </form><br><br>
         
         <h5 class="card-text">Select Group</h5>
         
@@ -65,7 +65,7 @@
           <div class="selectcadets" style="height:100px;border: solid grey 1px;overflow-y: scroll;" id="groupmember">
           </div><br>
           <button class="btn btn-sm btn-primary" type="submit" name="submit">Remove Members</button>
-        </form><br>
+        </form><br><br>
 
 
           <h5 class="card-text">Remove Group</h5>
