@@ -76,7 +76,7 @@
               foreach( $groups as $group )
               {
                   // Doesn't allow admin or general members groups to be deleted
-                  if( $group['label'] !== "admin" || $group['label'] !== "members" )
+                  if( $group['label'] !== "admin" && $group['label'] !== "members" )
                   {
                       echo "<option value='" . $group['id'] . "'> " . $group['description'] . "</option>";
                   }
