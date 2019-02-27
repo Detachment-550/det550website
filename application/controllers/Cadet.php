@@ -319,7 +319,7 @@ class Cadet extends CI_Controller{
      */
     function remove()
     {
-        if( $this->session->userdata('admin') === true )
+        if( $this->session->userdata('admin') )
         {
             $data['admin'] = $this->session->userdata('admin');
             $this->load->model('Cadet_model');            
@@ -346,7 +346,7 @@ class Cadet extends CI_Controller{
      */
     function modify()
     {
-        if( $this->session->userdata('admin') === true )
+        if( $this->session->userdata('admin') )
         {
             if( $this->input->post('admin') !== null && $this->input->post('rank') !== null && $this->input->post('flight') !== null )
             {
@@ -371,7 +371,7 @@ class Cadet extends CI_Controller{
      */
     function add()
     {   
-        if( $this->session->userdata('admin') === true )
+        if( $this->session->userdata('admin') )
         {
             if(isset($_POST) && count($_POST) > 0)     
             {
@@ -447,7 +447,7 @@ class Cadet extends CI_Controller{
      */
     function view()
     {
-        if( $this->session->userdata('admin') === true )
+        if( $this->session->userdata('admin') )
         {
             $data['title'] = 'Admin Page';
             $this->load->model('Cadetevent_model');
@@ -508,7 +508,7 @@ class Cadet extends CI_Controller{
      */
     function unlock()
     {
-        if( $this->input->post('cadet') !== null && $this->session->userdata('admin') === true )
+        if( $this->input->post('cadet') !== null && $this->session->userdata('admin') )
         {
             $params = array(
                 'loginattempt' => 0

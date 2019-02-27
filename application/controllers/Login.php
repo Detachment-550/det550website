@@ -43,7 +43,8 @@ class Login extends CI_Controller {
             $this->load->model('cadetevent_model');
             $this->load->model('announcement_model');
             $this->load->model('attendance_model');
-            
+            $this->load->model('Groupmember_model');
+
             // Resets login attempts on a successful login
             $params = array(
                 'loginattempt' => 0
@@ -55,7 +56,7 @@ class Login extends CI_Controller {
             $this->session->set_userdata('rin', $cadet['rin']);
             
             // Checks if user is an admin or not
-            if( $cadet['admin'] == 1 )
+            if( $this->Groupmember_model->is_admin($cadet['rin']) )
             {
                 $this->session->set_userdata('admin', true);
             }

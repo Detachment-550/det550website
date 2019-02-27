@@ -38,6 +38,29 @@ class Groupmember_model extends CI_Model
             return false;
         }
     }
+
+    /*
+     * Checks to see if a user is an admin.
+     */
+    function is_admin($rin)
+    {
+        $this->db->from('groupMember');
+        $this->db->where('rin', $rin);
+        $this->db->where('label', 'admin');
+
+        $this->db->join('cadetGroup', 'cadetGroup.id = groupMember.groupID');
+
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
         
     /*
      * Get all groupmembers of a given group
