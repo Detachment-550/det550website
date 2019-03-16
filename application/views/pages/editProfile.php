@@ -23,7 +23,7 @@
             </div><br>
             <div>
                 <strong>Phone:</strong><br>
-                <input class="form-control" id="pphone" type="text" name="pphone" size="30" value="<?php echo $cadet['primaryPhone']; ?>"/>
+                <input class="form-control" id="pphone" type="number" name="pphone" size="30" value="<?php echo $cadet['primaryPhone']; ?>"/>
             </div><br>
             <div>
                 <strong>Position:</strong><br>
