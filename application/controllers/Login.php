@@ -160,7 +160,8 @@ class Login extends CI_Controller {
             $hash = password_hash($pass, PASSWORD_DEFAULT);
 
             $params = array(
-                'password' => $hash
+                'password' => $hash,
+                'loginattempt' => 0
             );
 
             $this->Cadet_model->update_cadet($this->input->post('rin'), $params); 
