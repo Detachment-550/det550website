@@ -1,0 +1,10 @@
+.jumbotron
+{
+    height: -webkit-fill-available;
+    margin-bottom: 0px;
+}
+
+#hiderecord, #save
+{
+    display: none;
+}

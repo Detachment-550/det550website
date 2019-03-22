@@ -196,6 +196,10 @@
 
                     <h6>Create/Modify/Delete a Group</h6>
                     <?php echo anchor('cadetgroup/view', 'Edit Group', 'class="btn btn-sm btn-primary"'); ?>
+                    <br><br>
+
+                    <h6>Modify Attendance Records</h6>
+                    <?php echo anchor('attendance/modify', 'Modify Attendance', 'class="btn btn-sm btn-primary"'); ?>
                 </div>
             </div>
         </div>
