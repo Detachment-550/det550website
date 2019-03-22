@@ -7,9 +7,6 @@ function populate(siteurl)
 
     if(cadet.value !== "" && event.value !== "")
     {
-        document.getElementById('hiderecord').style.display = 'block';
-        document.getElementById('save').style.display = 'block';
-
         $.ajax({
             url: siteurl + '/attendance/status',
             method: 'post',
@@ -31,11 +28,15 @@ function populate(siteurl)
                 {
                     record.value = 'e';
                 }
+
+                document.getElementById('hiderecord').style.display = 'block';
+                document.getElementById('save').style.display = 'block';
             },
             error: function (response)
             {
                 // Something went wrong
                 console.log("Error: Something went wrong with getting the attendance records");
+                alert("Error: Something went wrong with getting the attendance records");
             }
         });
     }
