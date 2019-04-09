@@ -1,8 +1,5 @@
-<head>
-	<title><?php echo $title; ?></title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" type="text/css" href="../../../css/attend.css">
-</head>
+<link rel="stylesheet" type="text/css" href="<?php echo base_url("css/attend.css"); ?>">
+
 <body>
   <div class="jumbotron container-fluid">
 	<h1 class="display-4"> Attendance </h1><br>
