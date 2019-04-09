@@ -33,8 +33,10 @@
             <option value="e">Excused</option>
         </select><br>
 
-        <label for="comments">Comments</label>
-        <textarea name="comments" id="comments" class="form-control"></textarea>
+        <div id="comment">
+            <label for="comments">Comments</label>
+            <textarea name="comments" id="comments" class="form-control"></textarea>
+        </div>
     </div><br>
 
     <button class="btn btn-primary" type="submit" id="save">Save Changes</button>

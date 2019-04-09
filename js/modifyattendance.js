@@ -20,17 +20,20 @@ function populate(siteurl)
                 if(response.status === null)
                 {
                     record.value = 'a';
+                    $('#comment').css('display', 'none');
                 }
                 else if(response.status.excused_absence === "0")
                 {
                     record.value = 'p';
+                    $('#comment').css('display', 'block');
+                    comments.value = response.status.comments;
                 }
                 else if(response.status.excused_absence === "1")
                 {
                     record.value = 'e';
+                    $('#comment').css('display', 'block');
+                    comments.value = response.status.comments;
                 }
-
-                comments.value = response.status.comments;
 
                 document.getElementById('hiderecord').style.display = 'block';
                 document.getElementById('save').style.display = 'block';
