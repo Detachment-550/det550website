@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="<?php echo base_url("application/third_party/bootstrap-4.3.1/css/bootstrap-grid.min.css"); ?>">
     <link rel="stylesheet" href="<?php echo base_url("application/third_party/bootstrap-4.3.1/css/bootstrap-reboot.min.css"); ?>">
     <script type="text/javascript" src="<?php echo base_url("application/third_party/bootstrap-4.3.1/js/bootstrap.min.js"); ?>"></script>
-    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=ij0h6vcxvcacvu1l56udgaairzb672xtq1kktiizh2cpf4fe"></script>
+    <script type="text/javascript" src="<?php echo base_url("application/third_party/tinymce/jquery.tinymce.min.js"); ?>"></script>
+    <script type="text/javascript" src="<?php echo base_url("application/third_party/tinymce/tinymce.min.js"); ?>"></script>
 </head>
 
 <body>
