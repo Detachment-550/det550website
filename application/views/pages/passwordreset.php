@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
     <title><?php echo $title; ?></title>
     <link href='https://fonts.googleapis.com/css?family=Cabin' rel='stylesheet'>
-    <script src="<?php echo base_url("js/jQuery/jquery-3.3.1.min.js"); ?>"></script>
-    <link rel="stylesheet" href="<?php echo base_url("css/bootstrap-4.3.1/css/bootstrap.min.css"); ?>">
-    <link rel="stylesheet" href="<?php echo base_url("css/bootstrap-4.3.1/css/bootstrap-grid.min.css"); ?>">
-    <link rel="stylesheet" href="<?php echo base_url("css/bootstrap-4.3.1/css/bootstrap-reboot.min.css"); ?>">
-    <script type="text/javascript" src="<?php echo base_url("css/bootstrap-4.3.1/js/bootstrap.min.js"); ?>"></script>
+    <script src="<?php echo base_url("application/third_party/jQuery/jquery-3.3.1.min.js"); ?>"></script>
+    <link rel="stylesheet" href="<?php echo base_url("application/third_party/bootstrap-4.3.1/css/bootstrap.min.css"); ?>">
+    <link rel="stylesheet" href="<?php echo base_url("application/third_party/bootstrap-4.3.1/css/bootstrap-grid.min.css"); ?>">
+    <link rel="stylesheet" href="<?php echo base_url("application/third_party/bootstrap-4.3.1/css/bootstrap-reboot.min.css"); ?>">
+    <script type="text/javascript" src="<?php echo base_url("application/third_party/bootstrap-4.3.1/js/bootstrap.min.js"); ?>"></script>
 
     <div class="jumbotron container-fluid">
   <div class="container">
