@@ -31,13 +31,10 @@ class Attendance_model extends CI_Model
      */
     function get_attendance_status($rin, $id)
     {
-        $this->db->from('attendance');
-
         $this->db->where('rin',$rin);
         $this->db->where('eventid',$id);
 
-        $query = $this->db->get();
-        return $query->row_array();
+        return $this->db->get('attendance')->row_array();
     }
 
     /*

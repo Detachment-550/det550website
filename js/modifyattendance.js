@@ -4,6 +4,7 @@ function populate(siteurl)
     var cadet = document.getElementById('cadet');
     var event = document.getElementById('event');
     var record = document.getElementById('record');
+    var comments = document.getElementById('comments');
 
     if(cadet.value !== "" && event.value !== "")
     {
@@ -28,6 +29,8 @@ function populate(siteurl)
                 {
                     record.value = 'e';
                 }
+
+                comments.value = response.status.comments;
 
                 document.getElementById('hiderecord').style.display = 'block';
                 document.getElementById('save').style.display = 'block';

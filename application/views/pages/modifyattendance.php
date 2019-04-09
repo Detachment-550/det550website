@@ -27,11 +27,14 @@
 
     <div id="hiderecord">
         <label for="record">Record</label>
-        <select class="form-control" name="record" id="record">
+        <select class="form-control" name="record" id="record" onchange="newattendance(this.value)">
             <option value="p">Present</option>
             <option value="a">Absent</option>
             <option value="e">Excused</option>
         </select><br>
+
+        <label for="comments">Comments</label>
+        <textarea name="comments" id="comments" class="form-control"></textarea>
     </div><br>
 
     <button class="btn btn-primary" type="submit" id="save">Save Changes</button>

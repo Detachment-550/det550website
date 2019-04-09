@@ -99,7 +99,8 @@ class Attendance extends CI_Controller
                 if( $status !== NULL)
                 {
                     $params = array(
-                        'excused_absence' => 1
+                        'excused_absence' => 1,
+                        'comments' => $this->input->post('comments'),
                     );
                     $this->Attendance_model->update_attendance($this->input->post('cadet'),$this->input->post('event'),$params);
                 }
@@ -108,7 +109,8 @@ class Attendance extends CI_Controller
                     $params = array(
                         'rin' => $this->input->post('cadet'),
                         'eventid' => $this->input->post('event'),
-                        'excused_absence' => 1
+                        'excused_absence' => 1,
+                        'comments' => $this->input->post('comments'),
                     );
                     $this->Attendance_model->add_attendance($params);
                 }
@@ -118,7 +120,8 @@ class Attendance extends CI_Controller
                 if( $status !== NULL)
                 {
                     $params = array(
-                        'excused_absence' => 0
+                        'excused_absence' => 0,
+                        'comments' => $this->input->post('comments'),
                     );
                     $this->Attendance_model->update_attendance($this->input->post('cadet'),$this->input->post('event'),$params);
                 }
@@ -127,7 +130,8 @@ class Attendance extends CI_Controller
                     $params = array(
                         'rin' => $this->input->post('cadet'),
                         'eventid' => $this->input->post('event'),
-                        'excused_absence' => 0
+                        'excused_absence' => 0,
+                        'comments' => $this->input->post('comments'),
                     );
                     $this->Attendance_model->add_attendance($params);
                 }
