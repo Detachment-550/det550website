@@ -1,8 +1,5 @@
-<head>
-	<title><?php echo $title; ?></title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" type="text/css" href="../../../css/attend.css">
-</head>
+<link rel="stylesheet" type="text/css" href="<?php echo base_url("css/attend.css"); ?>">
+
 <body>
   <div class="jumbotron container-fluid">
 	<h1 class="display-4"> Attendance </h1><br>
@@ -19,23 +16,6 @@
             <input style="display:none;" type="text" name="event" value="<?php echo $event['eventID']; ?>">
           <input class="btn btn-sm btn-primary" type="submit" value="Submit">
           </form><br>
-
-      <?php echo form_open('attendance/excuse'); ?>
-      <h5>Excuse a Cadet:</h5>
-      <select name="cadet">
-          <?php
-              foreach ($cadets as $cadet)
-              {
-                  if(strpos($cadet['rank'], "AS") !== false)
-                  {
-                      echo "<option value='" . $cadet['rin'] . "'>Cadet " . $cadet['lastName'] . "</option>";
-                  }
-              }
-          ?>
-      </select><br>
-      <input style="display:none;" type="text" name="event" value="<?php echo $event['eventID']; ?>"><br>
-      <input class='btn btn-sm btn-primary' type='submit' value='Excuse Cadet' name='excuse'/>
-      </form><br><br>
       
         <?php echo form_open('attendance/attendees'); ?>  
             <input style="display:none;" type="text" name="event" value="<?php echo $event['eventID']; ?>">

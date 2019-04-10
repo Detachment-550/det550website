@@ -23,13 +23,13 @@ class Login extends CI_Controller {
         $this->load->library('session');
         $this->load->helper('email');
 
-        if( valid_email($this->input->post('user')) )
+        if( valid_email(trim($this->input->post('user'))) )
         {
-            $cadet = $this->Cadet_model->get_email_cadet( $this->input->post('user') );
+            $cadet = $this->Cadet_model->get_email_cadet( trim($this->input->post('user')) );
         }
         else
         {
-            $cadet = $this->Cadet_model->get_cadet( $this->input->post('user') );
+            $cadet = $this->Cadet_model->get_cadet( trim($this->input->post('user')) );
         }
 
         $this->load->helper('form');
@@ -160,7 +160,8 @@ class Login extends CI_Controller {
             $hash = password_hash($pass, PASSWORD_DEFAULT);
 
             $params = array(
-                'password' => $hash
+                'password' => $hash,
+                'loginattempt' => 0
             );
 
             $this->Cadet_model->update_cadet($this->input->post('rin'), $params); 

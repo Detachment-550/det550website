@@ -1,7 +1,5 @@
-<head>
-    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=ij0h6vcxvcacvu1l56udgaairzb672xtq1kktiizh2cpf4fe"></script>
-    <script src="<?php echo base_url("js/makepost.js"); ?>"></script>
-</head>
+<script src="<?php echo base_url("js/makepost.js"); ?>"></script>
+
 <body> 
 	<div class="jumbotron container-fluid">
 		<h1 class="display-4"> Make an Announcement </h1>

@@ -27,6 +27,17 @@ class Attendance_model extends CI_Model
     }
 
     /*
+     * Get attendance status.
+     */
+    function get_attendance_status($rin, $id)
+    {
+        $this->db->where('rin',$rin);
+        $this->db->where('eventid',$id);
+
+        return $this->db->get('attendance')->row_array();
+    }
+
+    /*
      * Returns the master attendance.
      */
     function get_attendance_records()
@@ -151,8 +162,8 @@ class Attendance_model extends CI_Model
     /*
      * function to delete attendance
      */
-    function delete_attendance($rin)
+    function delete_attendance($rin,$event)
     {
-        return $this->db->delete('attendance',array('rin'=>$rin));
+        return $this->db->delete('attendance',array('rin'=>$rin,'eventid'=>$event));
     }
 }

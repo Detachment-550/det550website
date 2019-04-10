@@ -75,9 +75,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'db2.internal',
-	'username' => 'afrotc_admin',
-	'password' => 'Det550',
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => 'mess1998',
 	'database' => 'afrotc_mitr',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',

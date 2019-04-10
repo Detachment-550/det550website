@@ -45,13 +45,113 @@ class Attendance extends CI_Controller
     }
 
     /*
+     * Shows the page to manually change attendance.
+     */
+    function modify()
+    {
+        $data['title'] = 'Modify Attendance';
+        $this->load->model('cadetevent_model');
+        $data['events'] = $this->cadetevent_model->get_all_cadetevents();
+        $data['cadets'] = $this->Cadet_model->get_all_cadets();
+
+        // Loads the home page
+        $this->load->view('templates/header', $data);
+        $this->load->view('pages/modifyattendance.php');
+        $this->load->view('templates/footer');
+    }
+
+    /*
+     * Returns in json the status of the event attendance.
+     */
+    function status()
+    {
+        if (isset($_POST) && count($_POST) > 0)
+        {
+            $data['status'] = $this->Attendance_model->get_attendance_status($this->input->post('cadet'), $this->input->post('event'));
+        }
+        else
+        {
+            $data['error'] = "You must provide the rin and event id to get the event status";
+        }
+
+        echo json_encode($data);
+    }
+
+    /*
+     * Updates a cadets attendance record.
+     */
+    function update()
+    {
+        if (isset($_POST) && count($_POST) > 0)
+        {
+            $status = $this->Attendance_model->get_attendance_status($this->input->post('cadet'),$this->input->post('event'));
+
+            if($this->input->post('record') === 'a')
+            {
+                // Delete the cadet attendance record if it exists
+                if( $status !== NULL)
+                {
+                    $this->Attendance_model->delete_attendance($this->input->post('cadet'),$this->input->post('event'));
+                }
+            }
+            else if($this->input->post('record') === 'e')
+            {
+                if( $status !== NULL)
+                {
+                    $params = array(
+                        'excused_absence' => 1,
+                        'comments' => $this->input->post('comments'),
+                    );
+                    $this->Attendance_model->update_attendance($this->input->post('cadet'),$this->input->post('event'),$params);
+                }
+                else
+                {
+                    $params = array(
+                        'rin' => $this->input->post('cadet'),
+                        'eventid' => $this->input->post('event'),
+                        'excused_absence' => 1,
+                        'comments' => $this->input->post('comments'),
+                    );
+                    $this->Attendance_model->add_attendance($params);
+                }
+            }
+            else
+            {
+                if( $status !== NULL)
+                {
+                    $params = array(
+                        'excused_absence' => 0,
+                        'comments' => $this->input->post('comments'),
+                    );
+                    $this->Attendance_model->update_attendance($this->input->post('cadet'),$this->input->post('event'),$params);
+                }
+                else
+                {
+                    $params = array(
+                        'rin' => $this->input->post('cadet'),
+                        'eventid' => $this->input->post('event'),
+                        'excused_absence' => 0,
+                        'comments' => $this->input->post('comments'),
+                    );
+                    $this->Attendance_model->add_attendance($params);
+                }
+            }
+
+            redirect('attendance/modify');
+        }
+        else
+        {
+            show_error("You must provide a cadet, event, and status to update a cadet attendance record.");
+        }
+    }
+
+    /*
      * Adding a new attendance
      */
     function excuse()
     {
-        $this->load->model('Cadet_model');
         $this->load->model('Cadetevent_model');
-        $this->load->model('Attendance_model');
+
         if ($this->Attendance_model->attendance_exists($this->input->post('cadet'), $this->input->post('event')) === 0) {
             $params = array(
                 'rin' => $this->input->post('cadet'),

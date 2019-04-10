@@ -135,7 +135,7 @@ class Announcement extends CI_Controller{
     /*
      * Shows the annoucement page.
      */
-    function view( $page = 1 )
+    function view( $page = 0 )
     {
         $data['title'] = 'Announcements';
         $this->load->model('announcement_model');
