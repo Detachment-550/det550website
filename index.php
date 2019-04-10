@@ -300,7 +300,7 @@ switch (ENVIRONMENT)
 	{
 		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
 		echo 'Your view folder path does not appear to be set correctly. Please open the following file and correct this: '.SELF;
-		exit(3); // EXIT_CONFIG
+		exmyit(3); // EXIT_CONFIG
 	}
 
 	define('VIEWPATH', $view_folder.DIRECTORY_SEPARATOR);
