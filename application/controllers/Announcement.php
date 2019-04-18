@@ -13,6 +13,7 @@ class Announcement extends CI_Controller{
         if( $this->session->userdata('login') === true )
         {
             $this->load->model('Announcement_model');
+            $this->load->model('Acknowledge_post_model');
         }
         else
         {
@@ -140,7 +141,6 @@ class Announcement extends CI_Controller{
         $data['title'] = 'Announcements';
         $this->load->model('announcement_model');
         $this->load->model('cadet_model');
-        $this->load->model('acknowledge_post_model');
         $this->load->library("pagination");
 
         $config = array();
@@ -173,7 +173,7 @@ class Announcement extends CI_Controller{
         $data["announcements"] = $this->announcement_model->get_specific_announcements($config["per_page"], $page);
         $data["links"] = $this->pagination->create_links();
         $data['cadets'] = $this->cadet_model->get_all_cadets();
-        $data['ackposts'] = $this->acknowledge_post_model->get_all_acknowledge_posts();
+        $data['ackposts'] = $this->Acknowledge_post_model->get_all_acknowledge_posts();
 
         // Loads the home page 
         $this->load->view('templates/header', $data);
@@ -190,6 +190,7 @@ class Announcement extends CI_Controller{
         $this->load->model('announcement_model');
         $this->load->model('cadet_model');
 
+        $data['ackposts'] = $this->Acknowledge_post_model->get_all_acknowledge_posts();
         $data["announcement"] = $this->announcement_model->get_announcement($page);
         $data['cadets'] = $this->cadet_model->get_all_cadets();
         if($data['announcement']['createdBy'] == $this->session->userdata('rin'))
