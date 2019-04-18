@@ -1,4 +1,4 @@
-$('#phone').mask('(000) 000-0000');
+$('#phone').mask('(000) 000-0000'); // Gives the phone number input a mask
 
 tinymce.init({
     selector: '#cadetbio, #afgoals, #pgoals, #awards',

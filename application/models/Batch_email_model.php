@@ -53,5 +53,16 @@ class Batch_email_model extends CI_Model
     {
         return $this->db->delete('emails',array('uid'=>$uid));
     }
+
+    /*
+     * Searches for a cadet's daily email.
+     *
+     * @param rin - the user's rin number (uid)
+     */
+    function email_exists($rin)
+    {
+        $this->db->where('cadet', $rin);
+        return $this->db->get('emails', 1)->row_array();
+    }
 }
 

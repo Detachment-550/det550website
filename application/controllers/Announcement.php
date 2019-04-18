@@ -14,6 +14,7 @@ class Announcement extends CI_Controller{
         {
             $this->load->model('Announcement_model');
             $this->load->model('Acknowledge_post_model');
+            $this->load->model('Cadet_model');
         }
         else
         {
@@ -59,52 +60,69 @@ class Announcement extends CI_Controller{
                 // Load email library
                 $this->load->library('email');
 
-                $this->load->model('groupmember_model');
-                $this->load->model('cadet_model');
-                $this->load->model('batch_email_model');
+                $this->load->model('Groupmember_model');
+                $this->load->model('Batch_email_model');
 
                 $recipients = array();
                 
                 foreach( $this->input->post('groups') as $group )
                 {
-                    $data['members'] =  $this->groupmember_model->get_all_groupmembers( $group );
+                    $data['members'] =  $this->Groupmember_model->get_all_groupmembers( $group );
                     foreach( $data['members'] as $member )
                     {
                         // Gets the cadet who needs to be sent an email
-                        $cadetemail = $this->cadet_model->get_cadet( $member['rin'] );
+                        $cadet = $this->Cadet_model->get_cadet( $member['rin'] );
+                        $email = $this->Batch_email_model->email_exists($cadet['rin']);
 
-                        // Creates an email to be send
-                        $params = array(
-                            'day'           => date("Y-m-d"),
-                            'to'            => $cadetemail['primaryEmail'],
-                            'from'          => "afrotcdet550@gmail.com",
-                            'subject'       => $this->input->post('subject'),
-                            'message'       => $this->input->post('body'),
-                            'title'         => $this->input->post('title'),
-                            'announcementid'=> $id
-                        );
-                        $this->batch_email_model->add_batchemail($params);
+                        $message = "<h2 style='text-align:center;'>" . $this->input->post('title') . "</h2><p>" .
+                            "<strong>Subject:</strong> " . $this->input->post('subject') . "</p><p>&nbsp;</p><p>&nbsp;</p>"
+                            . $this->input->post('body') . "<br><hr><br>";
+
+                        if($email !== NULL)
+                        {
+                            // Creates an email to be send
+                            $params = array(
+                                'message'       => $email['message'] . $message,
+                            );
+
+                            $this->Batch_email_model->update_batchemail($email['uid'], $params);
+                        }
+                        else
+                        {
+                            // Creates an email to be send
+                            $params = array(
+                                'day'           => date("Y-m-d"),
+                                'to'            => $cadet['primaryEmail'],
+                                'from'          => "afrotcdet550@gmail.com",
+                                'subject'       => 'Daily Email',
+                                'message'       => "<h1 style='text-align:center;'>Daily Announcements</h1>" .$message,
+                                'title'         => 'Daily Announcements',
+                                'cadet'         => $member['rin'],
+                            );
+
+                            $this->Batch_email_model->add_batchemail($params);
+                        }
                     }
                 }
 
             }
 
             // Sends the announcement to groupMe
-            $url = "https://api.groupme.com/v3/bots/post";
-            $fields = [
-                'bot_id'    => "b83da12e82339a292c0173442d",
-                'text'      => "Title: " . $this->input->post('title') . " 
-                Subject: " . $this->input->post('subject') . "
-                
-                Link: " . site_url("announcement/page/" . $id ),
-            ];
-            $fields_string = http_build_query($fields);
-            $ch = curl_init();
-            curl_setopt($ch,CURLOPT_URL, $url);
-            curl_setopt($ch,CURLOPT_POST, count($fields));
-            curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
-            curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
-            curl_exec($ch);
+//            $url = "https://api.groupme.com/v3/bots/post";
+//            $fields = [
+//                'bot_id'    => "b83da12e82339a292c0173442d",
+//                'text'      => "Title: " . $this->input->post('title') . "
+//                Subject: " . $this->input->post('subject') . "
+//
+//                Link: " . site_url("announcement/page/" . $id ),
+//            ];
+//            $fields_string = http_build_query($fields);
+//            $ch = curl_init();
+//            curl_setopt($ch,CURLOPT_URL, $url);
+//            curl_setopt($ch,CURLOPT_POST, count($fields));
+//            curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
+//            curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
+//            curl_exec($ch);
 
             // Goes back to announcement create page
             redirect('announcement/create');
@@ -140,7 +158,6 @@ class Announcement extends CI_Controller{
     {
         $data['title'] = 'Announcements';
         $this->load->model('announcement_model');
-        $this->load->model('cadet_model');
         $this->load->library("pagination");
 
         $config = array();
@@ -172,7 +189,7 @@ class Announcement extends CI_Controller{
 
         $data["announcements"] = $this->announcement_model->get_specific_announcements($config["per_page"], $page);
         $data["links"] = $this->pagination->create_links();
-        $data['cadets'] = $this->cadet_model->get_all_cadets();
+        $data['cadets'] = $this->Cadet_model->get_all_cadets();
         $data['ackposts'] = $this->Acknowledge_post_model->get_all_acknowledge_posts();
 
         // Loads the home page 
@@ -188,11 +205,10 @@ class Announcement extends CI_Controller{
     {
         $data['title'] = 'Announcements';
         $this->load->model('announcement_model');
-        $this->load->model('cadet_model');
 
         $data['ackposts'] = $this->Acknowledge_post_model->get_all_acknowledge_posts();
         $data["announcement"] = $this->announcement_model->get_announcement($page);
-        $data['cadets'] = $this->cadet_model->get_all_cadets();
+        $data['cadets'] = $this->Cadet_model->get_all_cadets();
         if($data['announcement']['createdBy'] == $this->session->userdata('rin'))
         {
             $data['mypost'] = true;
