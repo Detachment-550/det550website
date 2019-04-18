@@ -1,3 +1,5 @@
+$('#phone').mask('(000) 000-0000');
+
 tinymce.init({
     selector: '#cadetbio, #afgoals, #pgoals, #awards',
     toolbar: 'table tabledelete fontselect fontsizeselect link wordcount forecolor backcolor numlist bullist',
@@ -7,6 +9,7 @@ tinymce.init({
     fontsize_formats: '8pt 10pt 11pt 12pt 14pt 18pt 24pt 36pt'
   });
 
+//TODO: Figre out what this does
 function validateForm()
 {
     var fail = 0;
@@ -24,4 +27,14 @@ function validateForm()
         alert("Highlighted fields must be filled out to save changes");
         return false;
     }
+}
+
+/*
+ * Validates the form input and stores the masked phone number.
+ */
+function validate()
+{
+    $('#pphone').val($('#phone').cleanVal()); // Cleans the masked input
+
+    return true;
 }
