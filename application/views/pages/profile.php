@@ -12,7 +12,10 @@
             <p class="card-text">
             <strong>Contact Information: </strong><br>
             <strong>Email: </strong> <?php echo $cadet['primaryEmail']; ?><br>
-            <strong>Phone Number: </strong> <?php echo $cadet['primaryPhone']; ?><br>
+            <strong>Phone Number: </strong> <?php echo "(" . $cadet['primaryPhone'][0] . $cadet['primaryPhone'][1] .
+                    $cadet['primaryPhone'][2] . ") " . $cadet['primaryPhone'][3] . $cadet['primaryPhone'][4] .
+                    $cadet['primaryPhone'][5] . "-" . $cadet['primaryPhone'][6] . $cadet['primaryPhone'][7] .
+                    $cadet['primaryPhone'][8] . $cadet['primaryPhone'][9]; ?><br>
             <strong>Flight: </strong> <?php echo $cadet['flight']; ?><br>
             <strong>Position: </strong> <?php echo $cadet['position']; ?><br>
             <strong>Major: </strong> <?php echo $cadet['major']; ?><br>
