@@ -47,7 +47,11 @@
                 {
                     echo anchor('cadet/view', 'Admin', 'class="dropdown-item"');
                 }
-          ?>
+                if( $this->session->userdata('attendance') )
+                {
+                    echo anchor('attendance/admin', 'Admin Attendance', 'class="dropdown-item"');
+                }
+            ?>
           </div>
           </li>
           <li class="nav-item">

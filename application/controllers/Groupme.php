@@ -5,10 +5,10 @@ class Groupme extends CI_Controller{
     {
         parent::__construct();
         $this->load->library('session');
-        $this->load->model('Cadet_model');
 
         if( $this->session->userdata('login') === true )
         {
+            $this->load->model('Cadet_model');
             $this->load->model('cadetgroup_model');
         }
         else

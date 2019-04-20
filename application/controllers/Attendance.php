@@ -45,6 +45,22 @@ class Attendance extends CI_Controller
     }
 
     /*
+     * Shows the admin view page to modify attendance records.
+     */
+    function admin()
+    {
+        $data['title'] = 'Modify Attendance';
+        $this->load->model('Cadetevent_model');
+        $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
+        $data['cadets'] = $this->Cadet_model->get_all_cadets();
+
+        // Loads the home page
+        $this->load->view('templates/header', $data);
+        $this->load->view('pages/adminattendance.php');
+        $this->load->view('templates/footer');
+    }
+
+    /*
      * Shows the page to manually change attendance.
      */
     function modify()

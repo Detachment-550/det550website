@@ -64,6 +64,17 @@ class Login extends CI_Controller {
             {
                 $this->session->set_userdata('admin', false);
             }
+
+//            TODO: Figure out which group this is
+            // Checks if user is able to change attendance or not
+            if( $this->Groupmember_model->in_group('attendance',$cadet['rin']) )
+            {
+                $this->session->set_userdata('attendance', true);
+            }
+            else
+            {
+                $this->session->set_userdata('attendance', false);
+            }
             
             $data['admin'] = $this->session->userdata('admin');
             
@@ -117,7 +128,7 @@ class Login extends CI_Controller {
         if(isset($_POST) && $_POST > 0)
         {
             $this->load->model('Cadet_model');
-            
+
             $data['title'] = 'Security Question';
             $data['cadet'] = $this->Cadet_model->get_cadet($this->input->post('rin'));
             $data['rin'] = $this->input->post('rin');
@@ -199,7 +210,7 @@ class Login extends CI_Controller {
     {
         $this->load->library('session');
         $data['title'] = 'Login Page';
-        
+
         $this->session->sess_destroy();
 
         $this->load->view('pages/login.php', $data);

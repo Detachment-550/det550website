@@ -8,7 +8,7 @@ class Email extends CI_Controller{
         
         if( $this->session->userdata('login') === true )
         {
-            $this->load->model('cadetgroup_model');
+            $this->load->model('Cadetgroup_model');
         }
         else
         {
@@ -22,7 +22,7 @@ class Email extends CI_Controller{
     function view()
     {   
         $data['title'] = 'Send Email';
-        $data['groups'] =  $this->cadetgroup_model->get_all_groups();
+        $data['groups'] =  $this->Cadetgroup_model->get_all_groups();
 
         $this->load->view('templates/header', $data);
         $this->load->view('pages/sendemail.php');

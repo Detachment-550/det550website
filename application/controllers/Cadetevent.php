@@ -128,7 +128,7 @@ class Cadetevent extends CI_Controller{
         if(isset($cadetevent['eventID']))
         {
             $this->Cadetevent_model->delete_cadetevent($this->input->post('event'));
-            redirect('cadet/view');
+            redirect('attendance/admin');
         }
         else
             show_error('The cadetevent you are trying to delete does not exist.');
