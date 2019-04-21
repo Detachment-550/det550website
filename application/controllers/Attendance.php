@@ -14,6 +14,7 @@ class Attendance extends CI_Controller
         if ($this->session->userdata('login') === true) {
             $this->load->model('Attendance_model');
             $this->load->model('Cadet_model');
+            $this->load->model('Cadetevent_model');
         } else {
             redirect('login/view');
         }
@@ -36,8 +37,8 @@ class Attendance extends CI_Controller
     function view()
     {
         $data['title'] = 'Cadet Events';
-        $this->load->model('cadetevent_model');
-        $data['events'] = $this->cadetevent_model->get_all_cadetevents();
+        $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
+
         // Loads the home page
         $this->load->view('templates/header', $data);
         $this->load->view('pages/attendance.php');
@@ -50,7 +51,6 @@ class Attendance extends CI_Controller
     function admin()
     {
         $data['title'] = 'Modify Attendance';
-        $this->load->model('Cadetevent_model');
         $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
         $data['cadets'] = $this->Cadet_model->get_all_cadets();
 
@@ -66,8 +66,7 @@ class Attendance extends CI_Controller
     function modify()
     {
         $data['title'] = 'Modify Attendance';
-        $this->load->model('cadetevent_model');
-        $data['events'] = $this->cadetevent_model->get_all_cadetevents();
+        $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
         $data['cadets'] = $this->Cadet_model->get_all_cadets();
 
         // Loads the home page
@@ -166,8 +165,6 @@ class Attendance extends CI_Controller
      */
     function excuse()
     {
-        $this->load->model('Cadetevent_model');
-
         if ($this->Attendance_model->attendance_exists($this->input->post('cadet'), $this->input->post('event')) === 0) {
             $params = array(
                 'rin' => $this->input->post('cadet'),
@@ -190,10 +187,8 @@ class Attendance extends CI_Controller
      */
     function add()
     {
-        $this->load->model('cadet_model');
-        $this->load->model('Cadetevent_model');
         if ($this->input->post('rfid') !== null) {
-            $data['cadet'] = $this->cadet_model->find_cadet($this->input->post('rfid'));
+            $data['cadet'] = $this->Cadet_model->find_cadet($this->input->post('rfid'));
             if (isset($data['cadet']['rin'])) {
                 if (isset($_POST) && count($_POST) > 0) {
                     if ($this->Attendance_model->attendance_exists($data['cadet']['rin'], $this->input->post('event')) === 0) {
@@ -206,6 +201,7 @@ class Attendance extends CI_Controller
                     $data['title'] = 'Set Attendance';
                     $data['event'] = $this->Cadetevent_model->get_cadetevent($this->input->post('event'));
                     $data['cadets'] = $this->Cadet_model->get_all_cadets();
+
                     // Loads the home page
                     $this->load->view('templates/header', $data);
                     $this->load->view('pages/attend.php');
@@ -218,7 +214,7 @@ class Attendance extends CI_Controller
                 redirect("cadet/changerfid");
             }
         } else if ($this->input->post('rin') !== null) {
-            $data['cadet'] = $this->cadet_model->get_cadet($this->input->post('rin'));
+            $data['cadet'] = $this->Cadet_model->get_cadet($this->input->post('rin'));
             if (isset($data['cadet']['rin'])) {
                 if (isset($_POST) && count($_POST) > 0) {
                     if ($this->Attendance_model->attendance_exists($data['cadet']['rin'], $this->input->post('event')) === 0) {
@@ -230,7 +226,8 @@ class Attendance extends CI_Controller
                     }
                     $data['title'] = 'Set Attendance';
                     $data['event'] = $this->Cadetevent_model->get_cadetevent($this->input->post('event'));
-                    $data['cadets'] = $this->cadet_model->get_all_cadets();
+                    $data['cadets'] = $this->Cadet_model->get_all_cadets();
+
                     // Loads the home page
                     $this->load->view('templates/header', $data);
                     $this->load->view('pages/attend.php');
@@ -251,10 +248,9 @@ class Attendance extends CI_Controller
     {
         if ($this->input->post('event') !== null) {
             $data['title'] = 'Cadet Attendance';
-            $this->load->model('attendance_model');
-            $this->load->model('cadetevent_model');
-            $data['attendees'] = $this->attendance_model->get_event_attendance($this->input->post('event'));
-            $data['event'] = $this->cadetevent_model->get_cadetevent($this->input->post('event'));
+            $data['attendees'] = $this->Attendance_model->get_event_attendance($this->input->post('event'));
+            $data['event'] = $this->Cadetevent_model->get_cadetevent($this->input->post('event'));
+
             // Loads the home page
             $this->load->view('templates/header', $data);
             $this->load->view('pages/viewattendees.php');
@@ -314,8 +310,8 @@ class Attendance extends CI_Controller
      */
     function export()
     {
-        $this->load->model('attendance_model');
-        $file = $this->attendance_model->export_event_attendance($this->input->post('event'));
+        $file = $this->Attendance_model->export_event_attendance($this->input->post('event'));
+
         // Load the download helper and send the file to your desktop
         $this->load->helper('download');
         force_download('attendance.csv', $file);
@@ -339,8 +335,6 @@ class Attendance extends CI_Controller
      */
     function getmaster()
     {
-        $this->load->model('Cadetevent_model');
-
         $data['record'] = $this->Attendance_model->get_attendance_records();
         $data['events'] = $this->Cadetevent_model->get_current_cadetevents();
         $data['cadet'] = $this->Cadet_model->get_all_cadets();
@@ -350,9 +344,6 @@ class Attendance extends CI_Controller
 
     function weeklysummary()
     {
-        $this->load->model('Cadet_model');
-        $this->load->model('Cadetevent_model');
-        $this->load->model('attendance_model');
         $data['title'] = "Weekly Attendance Summary";
         $table = array();
         $table[0] = array();
@@ -391,7 +382,7 @@ class Attendance extends CI_Controller
                     }
                     // If the event didn't take place in the current semester event is not shown
                     if ($cursemester) {
-                        foreach ($this->attendance_model->get_all_attendance() as $attendee) {
+                        foreach ($this->Attendance_model->get_all_attendance() as $attendee) {
                             if ($attendee['rin'] === $cadet['rin'] && $event['eventID'] === $attendee['eventid']) {
                                 if ($attendee['excused_absence'] == 1) {
                                     $table[$count][] = "E";
@@ -428,7 +419,7 @@ class Attendance extends CI_Controller
                     }
                     // If the event didn't take place in the current semester event is not shown
                     if ($cursemester) {
-                        foreach ($this->attendance_model->get_all_attendance() as $attendee) {
+                        foreach ($this->Attendance_model->get_all_attendance() as $attendee) {
                             if ($attendee['rin'] === $cadet['rin'] && $event['eventID'] === $attendee['eventid']) {
                                 if ($attendee['excused_absence'] == 1) {
                                     $found = true;
