@@ -19,7 +19,10 @@ class Cadetevent extends CI_Controller{
             redirect('login/view');
         }
     } 
-    
+
+    /*
+     * Shows the page where you can set the attendance for an event.
+     */
     function view()
     {
         $data['title'] = 'Set Attendance';
@@ -31,19 +34,8 @@ class Cadetevent extends CI_Controller{
 
         // Loads the home page 
         $this->load->view('templates/header', $data);
-        $this->load->view('pages/attend.php');
+        $this->load->view('attendance/attend');
         $this->load->view('templates/footer');   
-    }
-
-    /*
-     * Listing of cadetevent
-     */
-    function index()
-    {
-        $data['cadetevent'] = $this->Cadetevent_model->get_all_cadetevent();
-        
-        $data['_view'] = 'cadetevent/index';
-        $this->load->view('layouts/main',$data);
     }
 
     /*
@@ -80,58 +72,7 @@ class Cadetevent extends CI_Controller{
         }
         else
         {            
-            $data['_view'] = 'cadetevent/add';
-            $this->load->view('layouts/main',$data);
+            show_error("Something went wrong with adding a new cadet event");
         }
-    }  
-
-    /*
-     * Editing a cadetevent
-     */
-    function edit($eventID)
-    {   
-        // check if the cadetevent exists before trying to edit it
-        $data['cadetevent'] = $this->Cadetevent_model->get_cadetevent($eventID);
-        
-        if(isset($data['cadetevent']['eventID']))
-        {
-            if(isset($_POST) && count($_POST) > 0)     
-            {   
-                $params = array(
-					'name' => $this->input->post('name'),
-					'date' => $this->input->post('date'),
-					'pt' => $this->input->post('pt'),
-					'llab' => $this->input->post('llab'),
-                );
-
-                $this->Cadetevent_model->update_cadetevent($eventID,$params);            
-                redirect('cadetevent/index');
-            }
-            else
-            {
-                $data['_view'] = 'cadetevent/edit';
-                $this->load->view('layouts/main',$data);
-            }
-        }
-        else
-            show_error('The cadetevent you are trying to edit does not exist.');
-    } 
-
-    /*
-     * Deleting cadetevent
-     */
-    function remove()
-    {
-        $cadetevent = $this->Cadetevent_model->get_cadetevent($this->input->post('event'));
-
-        // check if the cadetevent exists before trying to delete it
-        if(isset($cadetevent['eventID']))
-        {
-            $this->Cadetevent_model->delete_cadetevent($this->input->post('event'));
-            redirect('attendance/admin');
-        }
-        else
-            show_error('The cadetevent you are trying to delete does not exist.');
     }
-    
 }

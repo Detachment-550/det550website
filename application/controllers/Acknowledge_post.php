@@ -39,24 +39,13 @@ class Acknowledge_post extends CI_Controller{
             $data['cadets'] = $cadets;
             
             $this->load->view('templates/header', $data);
-            $this->load->view('pages/acknowledged.php');
+            $this->load->view('announcement/acknowledged.php');
             $this->load->view('templates/footer'); 
         }
         else
         {
-            show_error('The announcemen you are trying to view acknoledgements for does not exist.');
+            show_error('The announcement you are trying to view acknowledgements for does not exist.');
         }
-    }
-
-    /*
-     * Listing of acknowledge_posts
-     */
-    function index()
-    {
-        $data['acknowledge_posts'] = $this->Acknowledge_post_model->get_all_acknowledge_posts();
-        
-        $data['_view'] = 'acknowledge_post/index';
-        $this->load->view('layouts/main',$data);
     }
 
     /*
@@ -65,9 +54,7 @@ class Acknowledge_post extends CI_Controller{
     function add()
     {   
         if(isset($_POST) && count($_POST) > 0)     
-        {   
-            $this->load->library('session');
-                        
+        {
             // Ignores duplicate entries
             if( $this->Acknowledge_post_model->acknowledge_post_exists( $this->session->userdata('rin'), $this->input->post('announcementid') ) <= 0 )
             {
@@ -83,37 +70,9 @@ class Acknowledge_post extends CI_Controller{
         }
         else
         {            
-            $this->load->view('layouts/main');
+            show_error("There was a problem adding an announcement");
         }
-    }  
-
-    /*
-     * Editing a acknowledge_post
-     */
-    function edit($rin)
-    {   
-        // check if the acknowledge_post exists before trying to edit it
-        $data['acknowledge_post'] = $this->Acknowledge_post_model->get_acknowledge_post($rin);
-        
-        if(isset($data['acknowledge_post']['rin']))
-        {
-            if(isset($_POST) && count($_POST) > 0)     
-            {   
-                $params = array(
-                );
-
-                $this->Acknowledge_post_model->update_acknowledge_post($rin,$params);            
-                redirect('acknowledge_post/index');
-            }
-            else
-            {
-                $data['_view'] = 'acknowledge_post/edit';
-                $this->load->view('layouts/main',$data);
-            }
-        }
-        else
-            show_error('The acknowledge_post you are trying to edit does not exist.');
-    } 
+    }
     
     /*
      * Returns the number of posts with a given uid

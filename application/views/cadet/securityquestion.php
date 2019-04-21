@@ -1,20 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url("images/favicon.ico"); ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
-    <link href='https://fonts.googleapis.com/css?family=Cabin' rel='stylesheet'>
-    <script src="<?php echo base_url("application/third_party/jQuery/jquery-3.3.1.min.js"); ?>"></script>
-    <link rel="stylesheet" href="<?php echo base_url("application/third_party/bootstrap-4.3.1/css/bootstrap.min.css"); ?>">
-    <link rel="stylesheet" href="<?php echo base_url("application/third_party/bootstrap-4.3.1/css/bootstrap-grid.min.css"); ?>">
-    <link rel="stylesheet" href="<?php echo base_url("application/third_party/bootstrap-4.3.1/css/bootstrap-reboot.min.css"); ?>">
-    <script type="text/javascript" src="<?php echo base_url("application/third_party/bootstrap-4.3.1/js/bootstrap.min.js"); ?>"></script>
-
-	<title>Security Question</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <style>
+<style>
     /* Styles for mobile */
-    @media (max-width: 500px) 
+    @media (max-width: 500px)
     {
         .card
         {
@@ -25,16 +11,15 @@
             min-width: 400px;
         }
     }
-    @media (min-width: 600px) 
+    @media (min-width: 600px)
     {
         .card
         {
             width: 40%;
         }
     }
-    </style>
-</head>
-    
+</style>
+
 <body>
 <div class="jumbotron container-fluid">
   <div class="container">

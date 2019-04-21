@@ -9,7 +9,6 @@ class Groupme extends CI_Controller{
         if( $this->session->userdata('login') === true )
         {
             $this->load->model('Cadet_model');
-            $this->load->model('cadetgroup_model');
         }
         else
         {

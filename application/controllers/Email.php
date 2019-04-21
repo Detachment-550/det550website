@@ -25,7 +25,7 @@ class Email extends CI_Controller{
         $data['groups'] =  $this->Cadetgroup_model->get_all_groups();
 
         $this->load->view('templates/header', $data);
-        $this->load->view('pages/sendemail.php');
+        $this->load->view('sendemail');
         $this->load->view('templates/footer');    
     } 
     
@@ -41,8 +41,8 @@ class Email extends CI_Controller{
             $this->load->library('encryption');
             $this->load->library('email');
             
-            $this->load->model('groupmember_model');
-            $this->load->model('cadet_model');
+            $this->load->model('Groupmember_model');
+            $this->load->model('Cadet_model');
 
             $recipients = array();
             // Goes to each selected group
@@ -50,10 +50,10 @@ class Email extends CI_Controller{
             {
                 foreach( $this->input->post('groups') as $group )
                 {
-                    $data['members'] =  $this->groupmember_model->get_all_groupmembers( $group );
+                    $data['members'] =  $this->Groupmember_model->get_all_groupmembers( $group );
                     foreach( $data['members'] as $member )
                     {
-                        $cadet = $this->cadet_model->get_cadet( $member['rin'] );
+                        $cadet = $this->Cadet_model->get_cadet( $member['rin'] );
                         $recipients[] = $cadet['primaryEmail'];
                     }
                 }

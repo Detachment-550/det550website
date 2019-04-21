@@ -33,7 +33,7 @@ class Cadetgroup extends CI_Controller{
         $data['groupname'] = $this->input->post('groupname');
 
         $this->load->view('templates/header', $data);
-        $this->load->view('pages/addgroup.php');
+        $this->load->view('admin/addgroup');
         $this->load->view('templates/footer'); 
     }
 
@@ -147,7 +147,7 @@ class Cadetgroup extends CI_Controller{
             $data['groupname'] = $this->Cadetgroup_model->get_group($group);
 
             $this->load->view('templates/header', $data);
-            $this->load->view('pages/addgroup.php');
+            $this->load->view('admin/addgroup');
             $this->load->view('templates/footer');  
         }
         else
@@ -198,7 +198,7 @@ class Cadetgroup extends CI_Controller{
             $data['groupname'] = $this->Cadetgroup_model->get_group($group);
 
             $this->load->view('templates/header', $data);
-            $this->load->view('pages/addgroup.php');
+            $this->load->view('admin/addgroup');
             $this->load->view('templates/footer');  
         }
         else

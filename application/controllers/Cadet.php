@@ -33,7 +33,7 @@ class Cadet extends CI_Controller{
 
             // Loads the home page
             $this->load->view('templates/header', $data);
-            $this->load->view('pages/modifycadet.php');
+            $this->load->view('cadet/modifycadet');
             $this->load->view('templates/footer');
         }
         else
@@ -70,8 +70,9 @@ class Cadet extends CI_Controller{
     {
         $data['title'] = 'Security Question';
         $data['cadet'] = $this->Cadet_model->get_cadet($this->input->post('rin'));
+
         $this->load->view('templates/header', $data);
-        $this->load->view('pages/securityquestion.php');
+        $this->load->view('cadet/securityquestion');
         $this->load->view('templates/footer');     
     }
     
@@ -218,7 +219,7 @@ class Cadet extends CI_Controller{
         }
 
         $this->load->view('templates/header', $data);
-        $this->load->view('pages/editProfile.php');
+        $this->load->view('cadet/editProfile');
         $this->load->view('templates/footer'); 
     } 
     
@@ -263,7 +264,7 @@ class Cadet extends CI_Controller{
         $data['myprofile'] = true;
         
         $this->load->view('templates/header', $data);
-        $this->load->view('pages/profile.php');
+        $this->load->view('cadet/profile');
         $this->load->view('templates/footer');    
     }
     
@@ -274,19 +275,20 @@ class Cadet extends CI_Controller{
     function home()
     {
         $data['title'] = "Home";
-        $this->load->model('cadetevent_model');
-        $this->load->model('announcement_model');
-        $this->load->model('attendance_model');
-        $data['events'] =  $this->cadetevent_model->get_last_five_events();
-        $data['announcements'] =  $this->announcement_model->get_last_five_announcements();
+        $this->load->model('Cadetevent_model');
+        $this->load->model('Announcement_model');
+        $this->load->model('Attendance_model');
+
+        $data['events'] =  $this->Cadetevent_model->get_last_five_events();
+        $data['announcements'] =  $this->Announcement_model->get_last_five_announcements();
         $data['admin'] = $this->session->userdata('admin');
 
         // Gets pt and llab attendance percentage 
-        $attendance = $this->attendance_model->get_attendance($this->session->userdata('rin'));
-        $pt = $this->attendance_model->get_event_total('pt',$this->session->userdata('rin'));
-        $llab = $this->attendance_model->get_event_total('llab',$this->session->userdata('rin'));
-        $ptSum = $this->cadetevent_model->get_event_total('pt');
-        $llabSum = $this->cadetevent_model->get_event_total('llab');
+        $attendance = $this->Attendance_model->get_attendance($this->session->userdata('rin'));
+        $pt = $this->Attendance_model->get_event_total('pt',$this->session->userdata('rin'));
+        $llab = $this->Attendance_model->get_event_total('llab',$this->session->userdata('rin'));
+        $ptSum = $this->Cadetevent_model->get_event_total('pt');
+        $llabSum = $this->Cadetevent_model->get_event_total('llab');
 
         // Checks to see if no pt events have occurred yet
         if($ptSum == 0)
@@ -310,7 +312,7 @@ class Cadet extends CI_Controller{
 
         // Loads the home page 
         $this->load->view('templates/header', $data);
-        $this->load->view('pages/home.php');
+        $this->load->view('home');
         $this->load->view('templates/footer');            
     }
     
@@ -322,7 +324,6 @@ class Cadet extends CI_Controller{
         if( $this->session->userdata('admin') )
         {
             $data['admin'] = $this->session->userdata('admin');
-            $this->load->model('Cadet_model');            
             $cadet = $this->Cadet_model->get_cadet($this->input->post('remove'));
 
             // check if the cadet exists before trying to delete it
@@ -338,8 +339,6 @@ class Cadet extends CI_Controller{
         }
     }
 
-
-    
     
     /*
      * Updates a cadets permissions and rank
@@ -458,7 +457,7 @@ class Cadet extends CI_Controller{
             $data['announcements'] = $this->Announcement_model->get_all_announcements();
             
             $this->load->view('templates/header', $data);
-            $this->load->view('pages/admin.php');
+            $this->load->view('admin/admin');
             $this->load->view('templates/footer'); 
         }
         else
@@ -475,7 +474,7 @@ class Cadet extends CI_Controller{
         $data['title'] = 'Add RFID';
         
         $this->load->view('templates/header', $data);
-        $this->load->view('pages/rfid.php');
+        $this->load->view('rfid');
         $this->load->view('templates/footer'); 
     }
     
@@ -522,5 +521,17 @@ class Cadet extends CI_Controller{
         {
             show_error("The cadet whose account you are trying to unlock does not exist.");
         }
+    }
+
+    /*
+     * Shows the cadet wing structure page.
+     */
+    function wingstructure()
+    {
+        $data['title'] = 'Cadet Wing Structure';
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('wingstructure');
+        $this->load->view('templates/footer');
     }
 }

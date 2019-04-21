@@ -20,17 +20,6 @@ class Announcement extends CI_Controller{
         {
             redirect('login/view');
         }
-    } 
-
-    /*
-     * Listing of announcement
-     */
-    function index()
-    {
-        $data['announcement'] = $this->Announcement_model->get_all_announcement();
-        
-        $data['_view'] = 'announcement/index';
-        $this->load->view('layouts/main',$data);
     }
     
     /*
@@ -139,15 +128,14 @@ class Announcement extends CI_Controller{
     function create()
     {
         $data['title'] = 'Make an Announcement';
-        $this->load->model('announcement_model');
-        $this->load->model('cadetgroup_model');
+        $this->load->model('Cadetgroup_model');
 
-        $data['announcements'] =  $this->announcement_model->get_all_announcements();
-        $data['groups'] = $this->cadetgroup_model->get_all_groups();
+        $data['announcements'] =  $this->Announcement_model->get_all_announcements();
+        $data['groups'] = $this->Cadetgroup_model->get_all_groups();
 
         // Loads the home page 
         $this->load->view('templates/header', $data);
-        $this->load->view('pages/makepost.php');
+        $this->load->view('announcement/makepost');
         $this->load->view('templates/footer');  
     }
 
@@ -157,13 +145,12 @@ class Announcement extends CI_Controller{
     function view( $page = 0 )
     {
         $data['title'] = 'Announcements';
-        $this->load->model('announcement_model');
         $this->load->library("pagination");
 
         $config = array();
         $config["base_url"] = site_url('announcement/view');
 
-        $config["total_rows"] = $this->announcement_model->record_count();
+        $config["total_rows"] = $this->Announcement_model->record_count();
         $config["per_page"] = 10;
         $config["num_tag_open"] = "<li class='page-item'>";
         $config["num_tag_close"] = "</li>";
@@ -187,14 +174,14 @@ class Announcement extends CI_Controller{
 
         $this->pagination->initialize($config);
 
-        $data["announcements"] = $this->announcement_model->get_specific_announcements($config["per_page"], $page);
+        $data["announcements"] = $this->Announcement_model->get_specific_announcements($config["per_page"], $page);
         $data["links"] = $this->pagination->create_links();
         $data['cadets'] = $this->Cadet_model->get_all_cadets();
         $data['ackposts'] = $this->Acknowledge_post_model->get_all_acknowledge_posts();
 
         // Loads the home page 
         $this->load->view('templates/header', $data);
-        $this->load->view('pages/announcements.php');
+        $this->load->view('announcement/announcements');
         $this->load->view('templates/footer');   
     }
 
@@ -204,10 +191,9 @@ class Announcement extends CI_Controller{
     function page( $page )
     {
         $data['title'] = 'Announcements';
-        $this->load->model('announcement_model');
 
         $data['ackposts'] = $this->Acknowledge_post_model->get_all_acknowledge_posts();
-        $data["announcement"] = $this->announcement_model->get_announcement($page);
+        $data["announcement"] = $this->Announcement_model->get_announcement($page);
         $data['cadets'] = $this->Cadet_model->get_all_cadets();
         if($data['announcement']['createdBy'] == $this->session->userdata('rin'))
         {
@@ -220,33 +206,8 @@ class Announcement extends CI_Controller{
 
         // Loads the home page
         $this->load->view('templates/header', $data);
-        $this->load->view('pages/announcement.php');
+        $this->load->view('announcement/announcement');
         $this->load->view('templates/footer');
-    }
-    
-    /*
-     * Adding a new announcement
-     */
-    function add()
-    {   
-        if(isset($_POST) && count($_POST) > 0)     
-        {   
-            $params = array(
-				'title' => $this->input->post('title'),
-				'subject' => $this->input->post('subject'),
-				'createdBy' => $this->input->post('createdBy'),
-				'date' => $this->input->post('date'),
-				'body' => $this->input->post('body'),
-            );
-            
-            $announcement_id = $this->Announcement_model->add_announcement($params);
-            redirect('announcement/index');
-        }
-        else
-        {            
-            $data['_view'] = 'announcement/add';
-            $this->load->view('layouts/main',$data);
-        }
     }
 
     /*
@@ -259,7 +220,7 @@ class Announcement extends CI_Controller{
 
         // Loads the home page
         $this->load->view('templates/header', $data);
-        $this->load->view('pages/editannouncement.php');
+        $this->load->view('announcement/editannouncement');
         $this->load->view('templates/footer');
     }
 
@@ -281,22 +242,4 @@ class Announcement extends CI_Controller{
 
         redirect("announcement/page/" . $announcement['uid']);
     }
-
-    /*
-     * Deleting announcement
-     */
-    function remove()
-    {
-        $announcement = $this->Announcement_model->get_announcement($this->input->post('announcement'));
-
-        // check if the announcement exists before trying to delete it
-        if(isset($announcement['uid']))
-        {
-            $this->Announcement_model->delete_announcement($this->input->post('announcement'));
-            redirect('cadet/view');
-        }
-        else
-            show_error('The announcement you are trying to delete does not exist.');
-    }
-    
 }

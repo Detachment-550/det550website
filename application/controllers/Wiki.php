@@ -30,7 +30,7 @@ class Wiki extends CI_Controller{
         $data['admin'] = $this->session->userdata('admin');
 
         $this->load->view('templates/header', $data);
-        $this->load->view('pages/wikihome.php');
+        $this->load->view('wikihome');
         $this->load->view('templates/footer'); 
     }
 
@@ -66,7 +66,7 @@ class Wiki extends CI_Controller{
             $data['wiki'] = $this->wiki_model->get_wiki($this->input->post('wiki'));
 
             $this->load->view('templates/header', $data);
-            $this->load->view('pages/editwiki.php');
+            $this->load->view('editwiki');
             $this->load->view('templates/footer'); 
         }
         else
@@ -91,7 +91,7 @@ class Wiki extends CI_Controller{
             $data['wikis'] = $this->wiki_model->get_all_wikis();
             $data['title'] = "Documentation";
             $this->load->view('templates/header', $data);
-            $this->load->view('pages/wikihome.php');
+            $this->load->view('wikihome');
             $this->load->view('templates/footer'); 
         }
         else
