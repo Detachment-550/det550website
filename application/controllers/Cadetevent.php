@@ -21,21 +21,36 @@ class Cadetevent extends CI_Controller{
     } 
 
     /*
-     * Shows the page where you can set the attendance for an event.
+     * Loads the cadet event page.
      */
     function view()
     {
-        $data['title'] = 'Set Attendance';
+        if(isset($_POST) && count($_POST) > 0)
+        {
+            redirect('cadetevent/event/' . $this->input->post('event'));
+        }
+        else
+        {
+            show_error("You must provide an event to view");
+        }
+    }
 
+    /*
+     * Displays the event
+     */
+    function event($event)
+    {
         $this->load->model('Cadet_model');
 
-        $data['event'] =  $this->Cadetevent_model->get_cadetevent( $this->input->post('event') );
+        $data['event'] =  $this->Cadetevent_model->get_cadetevent( $event );
         $data['cadets'] = $this->Cadet_model->get_all_cadets();
 
-        // Loads the home page 
+        $data['title'] = 'Set Attendance';
+
+        // Loads the home page
         $this->load->view('templates/header', $data);
         $this->load->view('attendance/attend');
-        $this->load->view('templates/footer');   
+        $this->load->view('templates/footer');
     }
 
     /*
