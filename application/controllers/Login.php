@@ -10,7 +10,7 @@ class Login extends CI_Controller {
         }
         $data['title'] = 'Login';
 
-        $this->load->view('pages/login.php', $data);
+        $this->load->view('login', $data);
         $this->load->view('templates/footer');
     }
     
@@ -40,9 +40,6 @@ class Login extends CI_Controller {
         // Checks that the password given is correct and that the user isn't locked out of the account
         if( ($this->input->post('psw') !== null && password_verify($this->input->post('psw'), $cadet['password'])) && $cadet['loginattempt'] < 10 )
         {
-            $this->load->model('cadetevent_model');
-            $this->load->model('announcement_model');
-            $this->load->model('attendance_model');
             $this->load->model('Groupmember_model');
 
             // Resets login attempts on a successful login
@@ -63,6 +60,17 @@ class Login extends CI_Controller {
             else
             {
                 $this->session->set_userdata('admin', false);
+            }
+
+//            TODO: Figure out which group this is
+            // Checks if user is able to change attendance or not
+            if( $this->Groupmember_model->in_group('attendance',$cadet['rin']) )
+            {
+                $this->session->set_userdata('attendance', true);
+            }
+            else
+            {
+                $this->session->set_userdata('attendance', false);
             }
             
             $data['admin'] = $this->session->userdata('admin');
@@ -91,7 +99,7 @@ class Login extends CI_Controller {
             }
             else 
             {
-                $this->load->view('pages/login.php', $data);
+                $this->load->view('login', $data);
                 $this->load->view('templates/footer');
             }
         }   
@@ -105,7 +113,7 @@ class Login extends CI_Controller {
     {
         $data['title'] = 'Forgot Password';
         
-        $this->load->view('pages/forgotpass.php', $data);
+        $this->load->view('cadet/forgotpass', $data);
         $this->load->view('templates/footer');
     }
    
@@ -117,12 +125,12 @@ class Login extends CI_Controller {
         if(isset($_POST) && $_POST > 0)
         {
             $this->load->model('Cadet_model');
-            
+
             $data['title'] = 'Security Question';
             $data['cadet'] = $this->Cadet_model->get_cadet($this->input->post('rin'));
             $data['rin'] = $this->input->post('rin');
             
-            $this->load->view('pages/passwordreset.php', $data);
+            $this->load->view('cadet/passwordreset', $data);
             $this->load->view('templates/footer');
         }
         else
@@ -199,10 +207,10 @@ class Login extends CI_Controller {
     {
         $this->load->library('session');
         $data['title'] = 'Login Page';
-        
+
         $this->session->sess_destroy();
 
-        $this->load->view('pages/login.php', $data);
+        $this->load->view('login', $data);
         $this->load->view('templates/footer');
     }
 

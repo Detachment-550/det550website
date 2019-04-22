@@ -52,3 +52,20 @@ function populate(siteurl)
         document.getElementById('save').style.display = 'none';
     }
 }
+
+/*
+ * Display's or hides the comments section.
+ * 
+ * @param value - present absent or excused value
+ */
+function newattendance(value)
+{
+    if(value === 'p' || value === 'e')
+    {
+        $('#comment').css('display', 'block');
+    }
+    else
+    {
+        $('#comment').css('display', 'none');
+    }
+}

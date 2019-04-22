@@ -1,4 +1,4 @@
-<script src="<?php echo base_url("js/editProfile.js"); ?>"></script>
+<script src="<?php echo base_url("application/third_party/jQuery-Mask-Plugin/dist/jquery.mask.min.js"); ?>"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url("css/editprofile.css"); ?>">
 
     <div class="jumbotron jumbotron-fluid">
@@ -16,14 +16,15 @@
 
     <div class="card">
         <div class="card-body">
-            <?php echo form_open('cadet/saveprofile'); ?>
+            <?php echo form_open('cadet/saveprofile', array('onsubmit' => 'return validate();')); ?>
             <div>
                 <strong>Email:</strong><br>
-                <input class="form-control" id="pemail" type="text" name="pemail" size="30" value="<?php echo $cadet['primaryEmail']; ?>"/>
+                <input class="form-control" id="pemail" type="email" name="pemail" size="30" value="<?php echo $cadet['primaryEmail']; ?>"/>
             </div><br>
             <div>
                 <strong>Phone:</strong><br>
-                <input class="form-control" id="pphone" type="number" name="pphone" size="30" value="<?php echo $cadet['primaryPhone']; ?>"/>
+                <input class="form-control" id="phone" type="text" name="phone" value="<?php echo $cadet['primaryPhone']; ?>"/>
+                <input style="display: none;" id="pphone" type="number" name="pphone" value="<?php echo $cadet['primaryPhone']; ?>"/>
             </div><br>
             <div>
                 <strong>Position:</strong><br>
@@ -79,3 +80,5 @@
             </div>
         </div>
   </div>
+
+<script src="<?php echo base_url("js/editProfile.js"); ?>"></script>

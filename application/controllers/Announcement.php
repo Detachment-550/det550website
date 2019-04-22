@@ -13,22 +13,13 @@ class Announcement extends CI_Controller{
         if( $this->session->userdata('login') === true )
         {
             $this->load->model('Announcement_model');
+            $this->load->model('Acknowledge_post_model');
+            $this->load->model('Cadet_model');
         }
         else
         {
             redirect('login/view');
         }
-    } 
-
-    /*
-     * Listing of announcement
-     */
-    function index()
-    {
-        $data['announcement'] = $this->Announcement_model->get_all_announcement();
-        
-        $data['_view'] = 'announcement/index';
-        $this->load->view('layouts/main',$data);
     }
     
     /*
@@ -58,31 +49,48 @@ class Announcement extends CI_Controller{
                 // Load email library
                 $this->load->library('email');
 
-                $this->load->model('groupmember_model');
-                $this->load->model('cadet_model');
-                $this->load->model('batch_email_model');
+                $this->load->model('Groupmember_model');
+                $this->load->model('Batch_email_model');
 
                 $recipients = array();
                 
                 foreach( $this->input->post('groups') as $group )
                 {
-                    $data['members'] =  $this->groupmember_model->get_all_groupmembers( $group );
+                    $data['members'] =  $this->Groupmember_model->get_all_groupmembers( $group );
                     foreach( $data['members'] as $member )
                     {
                         // Gets the cadet who needs to be sent an email
-                        $cadetemail = $this->cadet_model->get_cadet( $member['rin'] );
+                        $cadet = $this->Cadet_model->get_cadet( $member['rin'] );
+                        $email = $this->Batch_email_model->email_exists($cadet['rin']);
 
-                        // Creates an email to be send
-                        $params = array(
-                            'day'           => date("Y-m-d"),
-                            'to'            => $cadetemail['primaryEmail'],
-                            'from'          => "afrotcdet550@gmail.com",
-                            'subject'       => $this->input->post('subject'),
-                            'message'       => $this->input->post('body'),
-                            'title'         => $this->input->post('title'),
-                            'announcementid'=> $id
-                        );
-                        $this->batch_email_model->add_batchemail($params);
+                        $message = "<h2 style='text-align:center;'>" . $this->input->post('title') . "</h2><p>" .
+                            "<strong>Subject:</strong> " . $this->input->post('subject') . "</p><p>&nbsp;</p><p>&nbsp;</p>"
+                            . $this->input->post('body') . "<br><hr><br>";
+
+                        if($email !== NULL)
+                        {
+                            // Creates an email to be send
+                            $params = array(
+                                'message'       => $email['message'] . $message,
+                            );
+
+                            $this->Batch_email_model->update_batchemail($email['uid'], $params);
+                        }
+                        else
+                        {
+                            // Creates an email to be send
+                            $params = array(
+                                'day'           => date("Y-m-d"),
+                                'to'            => $cadet['primaryEmail'],
+                                'from'          => "afrotcdet550@gmail.com",
+                                'subject'       => 'Daily Email',
+                                'message'       => "<h1 style='text-align:center;'>Daily Announcements</h1>" .$message,
+                                'title'         => 'Daily Announcements',
+                                'cadet'         => $member['rin'],
+                            );
+
+                            $this->Batch_email_model->add_batchemail($params);
+                        }
                     }
                 }
 
@@ -92,9 +100,9 @@ class Announcement extends CI_Controller{
             $url = "https://api.groupme.com/v3/bots/post";
             $fields = [
                 'bot_id'    => "b83da12e82339a292c0173442d",
-                'text'      => "Title: " . $this->input->post('title') . " 
+                'text'      => "Title: " . $this->input->post('title') . "
                 Subject: " . $this->input->post('subject') . "
-                
+
                 Link: " . site_url("announcement/page/" . $id ),
             ];
             $fields_string = http_build_query($fields);
@@ -120,15 +128,14 @@ class Announcement extends CI_Controller{
     function create()
     {
         $data['title'] = 'Make an Announcement';
-        $this->load->model('announcement_model');
-        $this->load->model('cadetgroup_model');
+        $this->load->model('Cadetgroup_model');
 
-        $data['announcements'] =  $this->announcement_model->get_all_announcements();
-        $data['groups'] = $this->cadetgroup_model->get_all_groups();
+        $data['announcements'] =  $this->Announcement_model->get_all_announcements();
+        $data['groups'] = $this->Cadetgroup_model->get_all_groups();
 
         // Loads the home page 
         $this->load->view('templates/header', $data);
-        $this->load->view('pages/makepost.php');
+        $this->load->view('announcement/makepost');
         $this->load->view('templates/footer');  
     }
 
@@ -138,15 +145,12 @@ class Announcement extends CI_Controller{
     function view( $page = 0 )
     {
         $data['title'] = 'Announcements';
-        $this->load->model('announcement_model');
-        $this->load->model('cadet_model');
-        $this->load->model('acknowledge_post_model');
         $this->load->library("pagination");
 
         $config = array();
         $config["base_url"] = site_url('announcement/view');
 
-        $config["total_rows"] = $this->announcement_model->record_count();
+        $config["total_rows"] = $this->Announcement_model->record_count();
         $config["per_page"] = 10;
         $config["num_tag_open"] = "<li class='page-item'>";
         $config["num_tag_close"] = "</li>";
@@ -170,14 +174,14 @@ class Announcement extends CI_Controller{
 
         $this->pagination->initialize($config);
 
-        $data["announcements"] = $this->announcement_model->get_specific_announcements($config["per_page"], $page);
+        $data["announcements"] = $this->Announcement_model->get_specific_announcements($config["per_page"], $page);
         $data["links"] = $this->pagination->create_links();
-        $data['cadets'] = $this->cadet_model->get_all_cadets();
-        $data['ackposts'] = $this->acknowledge_post_model->get_all_acknowledge_posts();
+        $data['cadets'] = $this->Cadet_model->get_all_cadets();
+        $data['ackposts'] = $this->Acknowledge_post_model->get_all_acknowledge_posts();
 
         // Loads the home page 
         $this->load->view('templates/header', $data);
-        $this->load->view('pages/announcements.php');
+        $this->load->view('announcement/announcements');
         $this->load->view('templates/footer');   
     }
 
@@ -187,11 +191,10 @@ class Announcement extends CI_Controller{
     function page( $page )
     {
         $data['title'] = 'Announcements';
-        $this->load->model('announcement_model');
-        $this->load->model('cadet_model');
 
-        $data["announcement"] = $this->announcement_model->get_announcement($page);
-        $data['cadets'] = $this->cadet_model->get_all_cadets();
+        $data['ackposts'] = $this->Acknowledge_post_model->get_all_acknowledge_posts();
+        $data["announcement"] = $this->Announcement_model->get_announcement($page);
+        $data['cadets'] = $this->Cadet_model->get_all_cadets();
         if($data['announcement']['createdBy'] == $this->session->userdata('rin'))
         {
             $data['mypost'] = true;
@@ -203,33 +206,8 @@ class Announcement extends CI_Controller{
 
         // Loads the home page
         $this->load->view('templates/header', $data);
-        $this->load->view('pages/announcement.php');
+        $this->load->view('announcement/announcement');
         $this->load->view('templates/footer');
-    }
-    
-    /*
-     * Adding a new announcement
-     */
-    function add()
-    {   
-        if(isset($_POST) && count($_POST) > 0)     
-        {   
-            $params = array(
-				'title' => $this->input->post('title'),
-				'subject' => $this->input->post('subject'),
-				'createdBy' => $this->input->post('createdBy'),
-				'date' => $this->input->post('date'),
-				'body' => $this->input->post('body'),
-            );
-            
-            $announcement_id = $this->Announcement_model->add_announcement($params);
-            redirect('announcement/index');
-        }
-        else
-        {            
-            $data['_view'] = 'announcement/add';
-            $this->load->view('layouts/main',$data);
-        }
     }
 
     /*
@@ -242,7 +220,7 @@ class Announcement extends CI_Controller{
 
         // Loads the home page
         $this->load->view('templates/header', $data);
-        $this->load->view('pages/editannouncement.php');
+        $this->load->view('announcement/editannouncement');
         $this->load->view('templates/footer');
     }
 
@@ -264,22 +242,4 @@ class Announcement extends CI_Controller{
 
         redirect("announcement/page/" . $announcement['uid']);
     }
-
-    /*
-     * Deleting announcement
-     */
-    function remove()
-    {
-        $announcement = $this->Announcement_model->get_announcement($this->input->post('announcement'));
-
-        // check if the announcement exists before trying to delete it
-        if(isset($announcement['uid']))
-        {
-            $this->Announcement_model->delete_announcement($this->input->post('announcement'));
-            redirect('cadet/view');
-        }
-        else
-            show_error('The announcement you are trying to delete does not exist.');
-    }
-    
 }

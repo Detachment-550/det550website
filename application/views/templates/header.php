@@ -38,7 +38,7 @@
             <?php echo anchor('https://rpi.account.box.com/login', 'Media/Documents', 'class="dropdown-item"') ?>
             <?php echo anchor('wiki/view', 'Documentation', 'class="dropdown-item"'); ?>
             <?php echo anchor('email/view', 'Send Email', 'class="dropdown-item"'); ?>
-            <?php echo anchor('pages/view/wingstructure', 'Org Chart', 'class="dropdown-item"'); ?>
+            <?php echo anchor('cadet/wingstructure', 'Org Chart', 'class="dropdown-item"'); ?>
             <?php echo anchor('attendance/master', 'Master Attendance', 'class="dropdown-item"'); ?>
             <?php echo anchor('attendance/weeklysummary', 'Weekly Attendance', 'class="dropdown-item"'); ?>
 
@@ -47,7 +47,11 @@
                 {
                     echo anchor('cadet/view', 'Admin', 'class="dropdown-item"');
                 }
-          ?>
+                if( $this->session->userdata('attendance') )
+                {
+                    echo anchor('attendance/admin', 'Admin Attendance', 'class="dropdown-item"');
+                }
+            ?>
           </div>
           </li>
           <li class="nav-item">

@@ -34,7 +34,7 @@ class Cadetdirectory extends CI_Controller{
         $data['selected'] = $this->input->post('showcadets');
 
         $this->load->view('templates/header', $data);
-        $this->load->view('pages/directory.php');
+        $this->load->view('directory');
         $this->load->view('templates/footer'); 
     }
     
@@ -48,7 +48,7 @@ class Cadetdirectory extends CI_Controller{
         $data['majors'] = $this->Cadet_model->get_all_majors();
 
         $this->load->view('templates/header', $data);
-        $this->load->view('pages/directory.php');
+        $this->load->view('directory');
         $this->load->view('templates/footer'); 
     }
     
@@ -90,7 +90,7 @@ class Cadetdirectory extends CI_Controller{
         $data['myprofile'] = false;
         
         $this->load->view('templates/header', $data);
-        $this->load->view('pages/profile.php');
+        $this->load->view('cadet/profile');
         $this->load->view('templates/footer');   
     }
     

@@ -13,6 +13,8 @@ class Cadetgroup extends CI_Controller{
         if( $this->session->userdata('login') === true )
         {
             $this->load->model('Cadetgroup_model');
+            $this->load->model('Cadet_model');
+            $this->load->model('Groupmember_model');
         }
         else
         {
@@ -31,7 +33,7 @@ class Cadetgroup extends CI_Controller{
         $data['groupname'] = $this->input->post('groupname');
 
         $this->load->view('templates/header', $data);
-        $this->load->view('pages/addgroup.php');
+        $this->load->view('admin/addgroup');
         $this->load->view('templates/footer'); 
     }
 
@@ -63,10 +65,7 @@ class Cadetgroup extends CI_Controller{
     function modify()
     {   
         if(isset($_POST) && count($_POST) > 0)     
-        {   
-            $this->load->model('Cadet_model');
-            $this->load->model('Groupmember_model');
-
+        {
             $data['curgroup'] = $this->input->post('group');
             $data['groupname'] = $this->Cadetgroup_model->get_group($this->input->post('group'));
             $data['title'] = 'Create/Modify Group';
@@ -105,9 +104,6 @@ class Cadetgroup extends CI_Controller{
      */
     function addmembers()
     {
-        $this->load->model('Groupmember_model');
-        $this->load->model('Cadet_model');
-
         $cadets = $this->input->post('cadets');
         $group = $this->input->post('group');
         
@@ -151,7 +147,7 @@ class Cadetgroup extends CI_Controller{
             $data['groupname'] = $this->Cadetgroup_model->get_group($group);
 
             $this->load->view('templates/header', $data);
-            $this->load->view('pages/addgroup.php');
+            $this->load->view('admin/addgroup');
             $this->load->view('templates/footer');  
         }
         else
@@ -166,9 +162,6 @@ class Cadetgroup extends CI_Controller{
      */
     function removemembers()
     {
-        $this->load->model('Groupmember_model');
-        $this->load->model('Cadet_model');
-
         $cadets = $this->input->post('cadets');
         $group = $this->input->post('group');
         
@@ -205,7 +198,7 @@ class Cadetgroup extends CI_Controller{
             $data['groupname'] = $this->Cadetgroup_model->get_group($group);
 
             $this->load->view('templates/header', $data);
-            $this->load->view('pages/addgroup.php');
+            $this->load->view('admin/addgroup');
             $this->load->view('templates/footer');  
         }
         else

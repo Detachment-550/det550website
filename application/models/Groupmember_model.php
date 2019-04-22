@@ -22,12 +22,13 @@ class Groupmember_model extends CI_Model
     /*
      * Returns true if cadet is in group and false otherwise.
      */
-    function in_group( $id, $rin )
+    function in_group( $label, $rin )
     {
-        $this->db->from('groupMember');
+        $this->db->join('cadetGroup', 'cadetGroup.id = groupMember.groupID');
+
         $this->db->where('rin', $rin);
-        $this->db->where('groupID', $id);
-        $query = $this->db->get();
+        $this->db->where('label', $label);
+        $query = $this->db->get('groupMember');
         
         if($query->num_rows() > 0)
         {
@@ -44,13 +45,12 @@ class Groupmember_model extends CI_Model
      */
     function is_admin($rin)
     {
-        $this->db->from('groupMember');
         $this->db->where('rin', $rin);
         $this->db->where('label', 'admin');
 
         $this->db->join('cadetGroup', 'cadetGroup.id = groupMember.groupID');
 
-        $query = $this->db->get();
+        $query = $this->db->get('groupMember');
 
         if($query->num_rows() > 0)
         {
