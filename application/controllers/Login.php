@@ -12,6 +12,20 @@ class Login extends CI_Controller {
 
         $this->load->view('login', $data);
         $this->load->view('templates/footer');
+
+        $username = '661550966';
+        $password = 'Mess1998';
+        $email = 'jmessare46@gmail.com';
+        $additional_data = array(
+            'first_name' => 'Joe',
+            'last_name' => 'Messare',
+            'question' => 'test',
+            'answer' => 'test'
+        );
+        $group = array('1'); // Sets user to admin.
+
+        $this->ion_auth->register($username, $password, $email, $additional_data, $group);
+
     }
     
     /*
