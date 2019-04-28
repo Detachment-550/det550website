@@ -12,20 +12,6 @@ class Login extends CI_Controller {
 
         $this->load->view('login', $data);
         $this->load->view('templates/footer');
-
-        $username = '661550966';
-        $password = 'Mess1998';
-        $email = 'jmessare46@gmail.com';
-        $additional_data = array(
-            'first_name' => 'Joe',
-            'last_name' => 'Messare',
-            'question' => 'test',
-            'answer' => 'test'
-        );
-        $group = array('1'); // Sets user to admin.
-
-        $this->ion_auth->register($username, $password, $email, $additional_data, $group);
-
     }
     
     /*
@@ -33,90 +19,30 @@ class Login extends CI_Controller {
      */
     function auth()
     {
-        $this->load->model('Cadet_model');
-        $this->load->library('session');
-        $this->load->helper('email');
-
-        if( valid_email(trim($this->input->post('user'))) )
-        {
-            $cadet = $this->Cadet_model->get_email_cadet( trim($this->input->post('user')) );
-        }
-        else
-        {
-            $cadet = $this->Cadet_model->get_cadet( trim($this->input->post('user')) );
-        }
-
-        $this->load->helper('form');
-        $this->load->library('form_validation');
+        $identity = trim($this->input->post('user'));
+        $password = $this->input->post('psw');
 
         $data['title'] = 'Login Page';
 
         // Checks that the password given is correct and that the user isn't locked out of the account
-        if( ($this->input->post('psw') !== null && password_verify($this->input->post('psw'), $cadet['password'])) && $cadet['loginattempt'] < 10 )
+        if( !$this->ion_auth->is_max_login_attempts_exceeded($identity) && $this->ion_auth->login($identity, $password) )
         {
-            $this->load->model('Groupmember_model');
-
-            // Resets login attempts on a successful login
-            $params = array(
-                'loginattempt' => 0
-            );
-            $this->Cadet_model->update_cadet($cadet['rin'],$params);
-            
-            // Sets session variable and loads closest 5 events
-            $this->session->set_userdata('login', true);
-            $this->session->set_userdata('rin', $cadet['rin']);
-            
-            // Checks if user is an admin or not
-            if( $this->Groupmember_model->is_admin($cadet['rin']) )
-            {
-                $this->session->set_userdata('admin', true);
-            }
-            else
-            {
-                $this->session->set_userdata('admin', false);
-            }
-
-//            TODO: Figure out which group this is
-            // Checks if user is able to change attendance or not
-            if( $this->Groupmember_model->in_group('attendance',$cadet['rin']) )
-            {
-                $this->session->set_userdata('attendance', true);
-            }
-            else
-            {
-                $this->session->set_userdata('attendance', false);
-            }
-            
-            $data['admin'] = $this->session->userdata('admin');
-            
             redirect('cadet/home');
         }
         else
-        {            
-            // Increments login attempt
-            if( isset($cadet['loginattempt']) && $cadet['loginattempt'] < 10 )
-            {
-                $cadet['loginattempt'] += 1;
-                
-                $params = array(
-                    'loginattempt' => $cadet['loginattempt']
-                );
-
-                $this->Cadet_model->update_cadet( $cadet['rin'], $params );
-            }  
-            
+        {
             // If you are locked out of the account show error
-            if( $cadet['loginattempt'] >= 10 )
+            if( $this->ion_auth->is_max_login_attempts_exceeded($identity) )
             {
                 show_error("You have been locked out of your account due to 10 incorrect password entries. 
                 Please reach out to a site admin or up your chain of commend to resolve this issue.");
             }
-            else 
+            else
             {
                 $this->load->view('login', $data);
                 $this->load->view('templates/footer');
             }
-        }   
+        }
     }
     
     

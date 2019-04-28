@@ -16,9 +16,9 @@ class Attendance_model extends CI_Model
      */
     function get_attendance( $rin )
     {
-        $this->db->select('cadetEvent.pt, cadetEvent.llab, cadet.lastName, cadetEvent.name, attendance.excused_absence, attendance.time');
+        $this->db->select('cadetEvent.pt, cadetEvent.llab, users.last_name, cadetEvent.name, attendance.excused_absence, attendance.time');
         $this->db->from('attendance');
-        $this->db->join('cadet', 'cadet.rin = attendance.rin');
+        $this->db->join('users', 'users.id = attendance.rin');
         $this->db->join('cadetEvent', 'cadetEvent.eventID = attendance.eventid');
         $this->db->where('attendance.rin', $rin);
         
@@ -42,9 +42,9 @@ class Attendance_model extends CI_Model
      */
     function get_attendance_records()
     {
-        $this->db->select('pt, llab, lastName, firstName, excused_absence, attendance.eventid, cadetEvent.eventID, cadet.rin');
-        $this->db->from('cadet');
-        $this->db->join('attendance', 'cadet.rin = attendance.rin');
+        $this->db->select('pt, llab, lastName, firstName, excused_absence, attendance.eventid, cadetEvent.eventID, users.username');
+        $this->db->from('users');
+        $this->db->join('attendance', 'users.id = attendance.rin');
         $this->db->join('cadetEvent', 'cadetEvent.eventID = attendance.eventid');
         $this->db->where('YEAR(cadetEvent.date) = YEAR(CURDATE())');
 
@@ -70,7 +70,7 @@ class Attendance_model extends CI_Model
     {
         $this->db->select('cadetEvent.pt, cadetEvent.llab, cadet.lastName, cadetEvent.name, attendance.excused_absence, attendance.time');
         $this->db->from('attendance');
-        $this->db->join('cadet', 'cadet.rin = attendance.rin');
+        $this->db->join('users', 'users.id = attendance.rin');
         $this->db->join('cadetEvent', 'cadetEvent.eventID = attendance.eventid');
         $this->db->where('attendance.eventid', $id);
         
@@ -83,9 +83,9 @@ class Attendance_model extends CI_Model
      */
     function export_event_attendance( $id )
     {
-        $this->db->select('cadet.lastName as Last Name, cadetEvent.name as Event, attendance.excused_absence as Excused, attendance.time as Time');
+        $this->db->select('users.last_name as Last Name, cadetEvent.name as Event, attendance.excused_absence as Excused, attendance.time as Time');
         $this->db->from('attendance');
-        $this->db->join('cadet', 'cadet.rin = attendance.rin');
+        $this->db->join('users', 'user.id = attendance.rin');
         $this->db->join('cadetEvent', 'cadetEvent.eventID = attendance.eventid');
         $this->db->where('attendance.eventid', $id);
 
