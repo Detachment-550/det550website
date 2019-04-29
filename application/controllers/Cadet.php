@@ -223,9 +223,11 @@ class Cadet extends CI_Controller{
      * Shows cadet's profile.
      */
     function profile()
-    {        
+    {
+        $user = $this->ion_auth->user()->row();
+
         $data['title'] = 'Profile Page';
-        $data['admin'] = $this->session->userdata('admin');
+        $data['admin'] = $this->ion_auth->is_admin();
         
         // Looks for profile picture
         $files = array_diff(scandir("./images"), array('.', '..'));
@@ -234,7 +236,7 @@ class Cadet extends CI_Controller{
         foreach($files as $file)
         {
             $info = pathinfo($file);
-            if($info['filename'] == $_SESSION['rin'])
+            if($info['filename'] == $user->username)
             {
                 $data['picture'] = $info['basename']; 
                 $found = true;
@@ -245,15 +247,15 @@ class Cadet extends CI_Controller{
             $data['picture'] = "/images/default.jpeg";
         }
         
-        $data['cadet'] = $this->Cadet_model->get_cadet($this->session->userdata('rin'));
+        $data['user'] = $user;
         
-        if(strpos($data['cadet']['rank'], "AS") !== false || strpos($data['cadet']['rank'], "None") !== false)
+        if(strpos($user->class, "AS") !== false || strpos($user->class, "None") !== false)
         {
-            $data['heading'] = "Cadet " . $data['cadet']['lastName'];
+            $data['heading'] = "Cadet " . $user->last_name;
         }
         else
         {
-            $data['heading'] = $data['cadet']['rank'] . " " . $data['cadet']['lastName'];
+            $data['heading'] = $user->rank . " " . $user->last_name;
         } 
         
         // Allows user to see edit profile button
@@ -318,9 +320,9 @@ class Cadet extends CI_Controller{
      */
     function remove()
     {
-        if( $this->session->userdata('admin') )
+        if( $this->ion_auth->is_admin() )
         {
-            $data['admin'] = $this->session->userdata('admin');
+            $data['admin'] = $this->ion_auth->is_admin();
             $cadet = $this->Cadet_model->get_cadet($this->input->post('remove'));
 
             // check if the cadet exists before trying to delete it

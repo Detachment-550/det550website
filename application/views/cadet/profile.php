@@ -11,14 +11,14 @@
           <div class="card-body">
             <p class="card-text">
             <strong>Contact Information: </strong><br>
-            <strong>Email: </strong> <?php echo $cadet['primaryEmail']; ?><br>
-            <strong>Phone Number: </strong> <?php echo "(" . $cadet['primaryPhone'][0] . $cadet['primaryPhone'][1] .
-                    $cadet['primaryPhone'][2] . ") " . $cadet['primaryPhone'][3] . $cadet['primaryPhone'][4] .
-                    $cadet['primaryPhone'][5] . "-" . $cadet['primaryPhone'][6] . $cadet['primaryPhone'][7] .
-                    $cadet['primaryPhone'][8] . $cadet['primaryPhone'][9]; ?><br>
-            <strong>Flight: </strong> <?php echo $cadet['flight']; ?><br>
-            <strong>Position: </strong> <?php echo $cadet['position']; ?><br>
-            <strong>Major: </strong> <?php echo $cadet['major']; ?><br>
+            <strong>Email: </strong> <?php echo $user->email; ?><br>
+            <strong>Phone Number: </strong> <?php echo "(" . $user->phone[0] . $user->phone[1] .
+                    $user->phone[2] . ") " . $user->phone[3] . $user->phone[4] .
+                    $user->phone[5] . "-" . $user->phone[6] . $user->phone[7] .
+                    $user->phone[8] . $user->phone[9]; ?><br>
+            <strong>Flight: </strong> <?php echo $user->flight; ?><br>
+            <strong>Position: </strong> <?php echo $user->position; ?><br>
+            <strong>Major: </strong> <?php echo $user->major; ?><br>
             </p>
               <?php
                 if( $myprofile === true)
@@ -37,35 +37,35 @@
           <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Rank:</h5>
-                <p class="card-text"><?php echo $cadet['rank']; ?></p>
+                <p class="card-text"><?php echo $user->rank; ?></p>
             </div>
           </div>
 
           <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Bio:</h5>
-                <p class="card-text"><?php echo $cadet['bio']; ?></p>
+                <p class="card-text"><?php echo $user->bio; ?></p>
             </div>
           </div>
 
           <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Awards and Achievements:</h5>
-                <p class="card-text"><?php echo $cadet['awards']; ?></p>
+                <p class="card-text"><?php echo $user->awards; ?></p>
             </div>
           </div>
 
           <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Air Force Goals:</h5>
-                <p class="card-text"><?php echo $cadet['AFGoals']; ?></p>
+                <p class="card-text"><?php echo $user->afgoals; ?></p>
             </div>
           </div>
 
           <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Personal Goals:</h5>
-                <p class="card-text"><?php echo $cadet['PGoals']; ?></p>
+                <p class="card-text"><?php echo $user->goals; ?></p>
             </div>
           </div>
         </div>
