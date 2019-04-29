@@ -14,7 +14,7 @@
                 // Lists groups available to be emailed
                 foreach( $groups as $group ) 
                 {
-                    echo "<option value = '" . $group['id'] . "'>" . $group['description'] . "</option>";
+                    echo "<option value = '" . $group->id . "'>" . $group->description . "</option>";
                 }
             ?>
             </select><br>

@@ -8,7 +8,7 @@ class Email extends CI_Controller{
         
         if( $this->ion_auth->logged_in() )
         {
-            $this->load->model('Cadetgroup_model');
+            $this->load->model('Cadet_model');
         }
         else
         {
@@ -22,7 +22,7 @@ class Email extends CI_Controller{
     function view()
     {   
         $data['title'] = 'Send Email';
-        $data['groups'] =  $this->Cadetgroup_model->get_all_groups();
+        $data['groups'] = $this->ion_auth->groups()->result();
 
         $this->load->view('templates/header', $data);
         $this->load->view('sendemail');
