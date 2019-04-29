@@ -44,7 +44,7 @@ class Cadetdirectory extends CI_Controller{
     function view()
     {
         $data['title'] = 'Cadet Directory';
-        $data['cadets'] = $this->Cadet_model->get_all_cadets();
+        $data['users'] = $this->ion_auth->users()->result();
         $data['majors'] = $this->Cadet_model->get_all_majors();
 
         $this->load->view('templates/header', $data);

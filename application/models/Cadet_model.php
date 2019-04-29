@@ -53,11 +53,10 @@ class Cadet_model extends CI_Model
      */
     function get_all_majors()
     {
-        $this->db->from('cadet');
+        $this->db->select('major');
         $this->db->group_by("major");
-        $query = $this->db->get();
 
-        return $query->result();
+        return $this->db->get('users')->result_array();
     }
 
     /*
