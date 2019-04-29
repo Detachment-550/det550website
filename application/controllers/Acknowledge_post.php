@@ -10,7 +10,7 @@ class Acknowledge_post extends CI_Controller{
         parent::__construct();
         $this->load->library('session'); 
         
-        if( $this->session->userdata('login') === true )
+        if( $this->ion_auth->logged_in() )
         {
             $this->load->model('Acknowledge_post_model');
         }

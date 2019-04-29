@@ -7,11 +7,14 @@ class Attendance extends CI_Controller
         parent::__construct();
         $this->load->library('session');
 
-        if ($this->session->userdata('login') === true) {
+        if ( $this->ion_auth->logged_in() )
+        {
             $this->load->model('Attendance_model');
             $this->load->model('Cadet_model');
             $this->load->model('Cadetevent_model');
-        } else {
+        }
+        else
+        {
             redirect('login/view');
         }
     }

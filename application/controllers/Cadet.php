@@ -65,7 +65,7 @@ class Cadet extends CI_Controller{
     function security()
     {
         $data['title'] = 'Security Question';
-        $data['cadet'] = $this->Cadet_model->get_cadet($this->input->post('rin'));
+        $data['user'] = $this->ion_auth->user()->row();
 
         $this->load->view('templates/header', $data);
         $this->load->view('cadet/securityquestion');
@@ -77,9 +77,9 @@ class Cadet extends CI_Controller{
      */
     function changepassword()
     {
-        $cadet = $this->Cadet_model->get_cadet($this->session->userdata('rin'));
+//        TODO: Make this work
+        $user = $this->ion_auth->user()->row();
         
-        $password = $cadet['password'];
         if(isset($_POST) && $_POST > 0)
         {
             if(password_verify( $this->input->post('oldpass'), $password ))
@@ -115,37 +115,31 @@ class Cadet extends CI_Controller{
     function saveprofile()
     {
         $data['title'] = 'Edit Profile';
+        $user = $this->ion_auth->user()->row();
 
         // check if the cadet exists before trying to edit it
-        $data['cadet'] = $this->Cadet_model->get_cadet($this->session->userdata('rin'));
+        $data['user'] = $user;
 
-        if(isset($data['cadet']['rin']))
+        if(isset($_POST) && count($_POST) > 0)
         {
-            if(isset($_POST) && count($_POST) > 0)
-            {
-                $params = array(
-                    'awards' => $this->input->post('awards'),
-                    'PGoals' => $this->input->post('pgoals'),
-                    'AFGoals' => $this->input->post('afgoals'),
-                    'bio' => $this->input->post('bio'),
-                    'primaryEmail' => $this->input->post('pemail'),
-                    'primaryPhone' => $this->input->post('pphone'),
-                    'position' => $this->input->post('position'),
-                    'major' => $this->input->post('major')
-                );
+            $params = array(
+                'awards' => $this->input->post('awards'),
+                'goals' => $this->input->post('pgoals'),
+                'afgoals' => $this->input->post('afgoals'),
+                'bio' => $this->input->post('bio'),
+                'email' => $this->input->post('pemail'),
+                'phone' => $this->input->post('pphone'),
+                'position' => $this->input->post('position'),
+                'major' => $this->input->post('major')
+            );
 
-                $this->Cadet_model->update_cadet($this->session->userdata('rin'),$params);
+            $this->ion_auth->update($user->id, $params);
 
-                redirect('cadet/edit');
-            }
-            else
-            {
-                show_error('There was no information given to save in your profile.');
-            }
+            redirect('cadet/edit');
         }
         else
         {
-            show_error('The cadet you are trying to edit does not exist.');
+            show_error('There was no information given to save in your profile.');
         }
     }
 
@@ -192,9 +186,11 @@ class Cadet extends CI_Controller{
      * Editing a cadet
      */
     function edit()
-    {   
+    {
+        $user = $this->ion_auth->user()->row();
+
         $data['title'] = 'Edit Profile';
-        $data['cadet'] = $data['cadet'] = $this->Cadet_model->get_cadet($this->session->userdata('rin'));
+        $data['user'] = $user;
 
         // Looks for profile picture
         $files = array_diff(scandir("./images"), array('.', '..'));
@@ -203,7 +199,7 @@ class Cadet extends CI_Controller{
         foreach($files as $file)
         {
             $info = pathinfo($file);
-            if($info['filename'] == $_SESSION['rin'])
+            if($info['filename'] == $user->username)
             {
                 $data['picture'] = $info['basename'];
                 $found = true;

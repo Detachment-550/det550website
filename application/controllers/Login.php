@@ -4,7 +4,7 @@ class Login extends CI_Controller {
     public function view()
     {
         $this->load->library('session');
-        if( $this->session->userdata('login') === true )
+        if( $this->ion_auth->logged_in() )
         {
             redirect('cadet/home');
         }
