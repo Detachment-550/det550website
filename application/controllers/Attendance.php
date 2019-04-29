@@ -40,7 +40,7 @@ class Attendance extends CI_Controller
     {
         $data['title'] = 'Modify Attendance';
         $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
-        $data['cadets'] = $this->Cadet_model->get_all_cadets();
+        $data['users'] = $this->ion_auth->users()->result();
 
         // Loads the home page
         $this->load->view('templates/header', $data);
@@ -55,7 +55,7 @@ class Attendance extends CI_Controller
     {
         $data['title'] = 'Modify Attendance';
         $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
-        $data['cadets'] = $this->Cadet_model->get_all_cadets();
+        $data['users'] = $this->ion_auth->users()->result();
 
         // Loads the home page
         $this->load->view('templates/header', $data);

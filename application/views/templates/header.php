@@ -43,11 +43,11 @@
             <?php echo anchor('attendance/weeklysummary', 'Weekly Attendance', 'class="dropdown-item"'); ?>
 
             <?php
-                if( $this->session->userdata('admin') !== null && $this->session->userdata('admin') === true )
+                if( $this->ion_auth->is_admin() )
                 {
                     echo anchor('cadet/view', 'Admin', 'class="dropdown-item"');
                 }
-                if( $this->session->userdata('attendance') )
+                if( $this->ion_auth->is_admin() || $this->session->userdata('attendance') )
                 {
                     echo anchor('attendance/admin', 'Admin Attendance', 'class="dropdown-item"');
                 }

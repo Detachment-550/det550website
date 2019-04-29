@@ -380,15 +380,11 @@ class Cadet extends CI_Controller{
                 }
                 $pass = implode($pass); // Turn the array into a string
 
-                $hash = password_hash($pass, PASSWORD_DEFAULT);
-
                 $params = array(
                     'admin' => $this->input->post('admin'),
-                    'password' => $hash,
                     'firstName' => $this->input->post('firstname'),
-                    'rin' => $this->input->post('rin'),
                     'rank' => $this->input->post('rank'),
-                    'primaryEmail' => $this->input->post('primaryEmail'),
+                    'class' => $this->input->post('class'),
                     'flight' => $this->input->post('flight'),
                     'lastName' => $this->input->post('lastname'),
                     'rfid' => $this->input->post('rfid'),
@@ -397,6 +393,11 @@ class Cadet extends CI_Controller{
                 );
 
                 $this->Cadet_model->add_cadet($params);
+
+                $username = $this->input->post('rin');
+                $email = $this->input->post('email');
+
+                $this->ion_auth->register($username, $pass, $email, $params);
 
                 $message = "<h2>New Account Password</h2>
                         <p>Your new account has been created! Below is your new temporary password please log on and change it as soon as possible!</p>
@@ -441,13 +442,13 @@ class Cadet extends CI_Controller{
      */
     function view()
     {
-        if( $this->session->userdata('admin') )
+        if( $this->ion_auth->is_admin() )
         {
             $data['title'] = 'Admin Page';
             $this->load->model('Cadetevent_model');
             $this->load->model('Announcement_model');
 
-            $data['cadets'] = $this->Cadet_model->get_all_cadets();
+            $data['users'] = $this->ion_auth->users()->result();
             $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
             $data['announcements'] = $this->Announcement_model->get_all_announcements();
             
