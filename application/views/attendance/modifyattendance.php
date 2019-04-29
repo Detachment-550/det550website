@@ -7,9 +7,9 @@
     <select class="form-control" name="cadet" id="cadet" onchange="populate('<?php echo site_url(); ?>')">
         <option value="">Choose...</option>
         <?php
-        foreach($cadets as $cadet)
+        foreach($users as $user)
         {
-            echo '<option value="' . $cadet['rin'] . '">' . $cadet['firstName'] . ' ' . $cadet['lastName'] . '</option>';
+            echo '<option value="' . $user->id . '">' . $user->first_name . ' ' . $user->last_name . '</option>';
         }
         ?>
     </select><br>

@@ -73,24 +73,23 @@ class Cadet extends CI_Controller{
     }
     
     /*
-     * Changes a cadet's password.
+     * Changes logged in user's password.
      */
     function changepassword()
     {
-//        TODO: Make this work
         $user = $this->ion_auth->user()->row();
-        
+
         if(isset($_POST) && $_POST > 0)
         {
-            if(password_verify( $this->input->post('oldpass'), $password ))
+            if($this->ion_auth->verify_password($this->input->post('oldpass'), $user->password))
             {
                 if($this->input->post('newpass') === $this->input->post('verpass'))
                 {
                     $params = array(
-					   'password' => password_hash( $this->input->post('newpass'), PASSWORD_DEFAULT )
+					   'password' => $this->input->post('newpass'),
                     );
 
-                    $this->Cadet_model->update_cadet($this->session->userdata('rin'),$params);            
+                    $this->ion_auth->update($user->id, $params);
                     redirect('cadet/edit');
                 }
                 else

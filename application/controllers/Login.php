@@ -85,6 +85,7 @@ class Login extends CI_Controller {
      */
     function resetpass()
     {
+//        TODO: Fix this
         $this->load->model('Cadet_model');
         $this->load->library('session');
 
@@ -145,10 +146,9 @@ class Login extends CI_Controller {
      */
     function logout()
     {
-        $this->load->library('session');
         $data['title'] = 'Login Page';
 
-        $this->session->sess_destroy();
+        $this->ion_auth->logout();
 
         $this->load->view('login', $data);
         $this->load->view('templates/footer');
