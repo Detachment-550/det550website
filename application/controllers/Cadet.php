@@ -24,7 +24,7 @@ class Cadet extends CI_Controller{
     {
         if( $this->input->post('modify') !== null )
         {
-            $data['cadet'] = $this->Cadet_model->get_cadet( $this->input->post('modify') );
+            $data['user'] = $this->ion_auth->user($this->input->post('modify'))->row();
             $data['title'] = "Modify Cadet";
 
             // Loads the home page
@@ -45,13 +45,15 @@ class Cadet extends CI_Controller{
     {
         if( $this->input->post('question') !== null && $this->input->post('answer') !== null )
         {
+            $user = $this->ion_auth->user()->row();
+
             $params = array(
                 'question' => $this->input->post('question'),
                 'answer' => $this->input->post('answer')
             );
 
-            $this->Cadet_model->update_cadet($this->session->userdata('rin'),$params);            
-            redirect('cadet/edit');        
+            $this->ion_auth->update($user->id, $params);
+            redirect('cadet/edit');
         }
         else
         {
@@ -317,19 +319,8 @@ class Cadet extends CI_Controller{
     {
         if( $this->ion_auth->is_admin() )
         {
-            $data['admin'] = $this->ion_auth->is_admin();
-            $cadet = $this->Cadet_model->get_cadet($this->input->post('remove'));
-
-            // check if the cadet exists before trying to delete it
-            if(isset($cadet['rin']))
-            {
-                $this->Cadet_model->delete_cadet($this->input->post('remove'));
-                redirect('cadet/view');
-            }
-            else
-            {
-                show_error('The cadet you are trying to delete does not exist.');
-            }
+            $this->ion_auth->delete_user($this->input->post('remove'));
+            redirect('cadet/view');
         }
     }
 
@@ -339,7 +330,7 @@ class Cadet extends CI_Controller{
      */
     function modify()
     {
-        if( $this->session->userdata('admin') )
+        if( $this->ion_auth->is_admin() )
         {
             if( $this->input->post('admin') !== null && $this->input->post('rank') !== null && $this->input->post('flight') !== null )
             {
@@ -349,7 +340,7 @@ class Cadet extends CI_Controller{
                     'flight' => $this->input->post('flight')
                 );
 
-                $this->Cadet_model->update_cadet($this->input->post('modify'),$params);            
+                $this->ion_auth->update($this->input->post('modify'), $params);
                 redirect('cadet/view');
             }
             else
