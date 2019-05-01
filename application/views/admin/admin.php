@@ -9,33 +9,33 @@
                 <div id="memWrapper" class="card-body">
                     <h5 id="memHeader" class="card-title">Add User</h5>
                     <?php echo form_open('cadet/add'); ?>
-                    <div>
-                        First Name:<br>
-                        <input class="form-control" type="text" name="firstname" size="30" id="firstname" required/>
+                    <div class="form-group">
+                        <label for="firstname">First Name:</label>
+                        <input class="form-control" type="text" name="firstname" size="30" id="firstname" placeholder="Enter first name..." required/>
                     </div>
-                    <div>
-                        Last Name:<br>
-                        <input class="form-control" type="text" name="lastname" size="30" id="lastname" required/>
+                    <div class="form-group">
+                        <label for="lastname">Last Name:</label>
+                        <input class="form-control" type="text" name="lastname" size="30" id="lastname" placeholder="Enter last name..." required/>
                     </div>
-                    <div>
-                        RIN:<br>
-                        <input class="form-control" type="text" name="rin" size="30" id="rin" required/>
+                    <div class="form-group">
+                        <label for="rin">RIN:</label>
+                        <input class="form-control" type="text" name="rin" size="30" id="rin" placeholder="Enter Rensselaer ID number..." required/>
                     </div>
-                    <div>
-                        Email:<br>
-                        <input class="form-control" type="text" name="email" size="30" id="primaryEmail" required/>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input class="form-control" type="email" name="email" id="email" size="30" placeholder="Enter your email..." required/>
                     </div>
-                    <div>
-                        Administrative Privileges:<br>
-                        <select name="admin" class="form-control" required>
+                    <div class="form-group">
+                        <label for="admin">Administrative Privileges:</label>
+                        <select name="admin" class="form-control" id="admin" required>
                             <option value="">Choose...</option>
                             <option value="0">No</option>
                             <option value="1">Yes</option>
                         </select>
                     </div>
-                    <div>
-                        Rank:<br>
-                        <select name="rank" class="form-control" required>
+                    <div class="form-group">
+                        <label for="rank">Rank:</label>
+                        <select name="rank" id="rank" class="form-control" required>
                             <option value="">Choose...</option>
                             <option value="None">None</option>
                             <optgroup label="ROTC Ranks">
@@ -66,9 +66,9 @@
                             </optgroup>
                         </select>
                     </div>
-                    <div>
-                        AS Class:<br>
-                        <select name="class" class="form-control" required>
+                    <div class="form-group">
+                        <label for="class">AS Class:</label>
+                        <select name="class" id="class" class="form-control" required>
                             <option value="">Choose...</option>
                             <option value="None">None</option>
                             <option value="AS100">AS100</option>
@@ -79,9 +79,9 @@
                             <option value="AS500">AS500</option>
                         </select>
                     </div>
-                    <div>
-                        Flight:<br>
-                        <select name="flight" class="form-control" required>
+                    <div class="form-group">
+                        <label for="flight">Flight:</label>
+                        <select name="flight" class="form-control" id="flight" required>
                             <option value="">Choose...</option>
                             <option value="None">None</option>
                             <option value="Alpha">Alpha</option>
@@ -93,8 +93,8 @@
                         </select>
                     </div>
                     <div class="clearfix">
-                        Card Input:<br>
-                        <input class="form-control" type="text" name="rfid"/>
+                        <label for="rfid">Card Input:</label>
+                        <input class="form-control" type="text" id="rfid" placeholder="Select and scan RPI ID..." name="rfid"/>
                     </div><br>
                     <div class="clearfix">
                         <input class="btn btn-sm btn-primary" type="submit" value="Add User" />
@@ -110,7 +110,9 @@
                 <div id="memWrapper" class="card-body">
                     <h5 id="memHeader" class="card-title">Remove User</h5>
                     <?php echo form_open('cadet/remove'); ?>
-                    <select name="remove" class="form-control">
+                    <label for="remove">Select User</label>
+                    <select name="remove" class="form-control" id="remove" required>
+                        <option value="">Choose...</option>
                         <?php
                         foreach($users as $user)
                         {
@@ -127,8 +129,9 @@
                 <div class="card-body">
                     <h5 class="card-title">Modify User Info</h5>
                     <?php echo form_open('cadet/select'); ?>
-                    <strong>Select User</strong><br>
-                    <select name="modify" class="form-control">
+                    <label for="modify">Select User</label>
+                    <select name="modify" id="modify" class="form-control" required>
+                        <option value="">Choose...</option>
                         <?php
                         foreach($users as $user)
                         {
@@ -146,10 +149,11 @@
         <div class="col-4">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Additional Admin Links</h5>
-                    <h6>Delete an Announcement</h6>
+                    <h4 class="card-title">Additional Admin Links</h4>
                     <?php echo form_open('announcement/remove'); ?>
-                    <select name="announcement" class="form-control">
+                    <label for="announcement">Delete an Announcement</label>
+                    <select name="announcement" id="announcement" class="form-control" required>
+                        <option value="">Choose...</option>
                         <?php
                         foreach($announcements as $announcement)
                         {
@@ -160,9 +164,10 @@
                     <button onClick="return confirm('Are you sure you want to delete this Announcement?')" class="btn btn-sm btn-primary" type="submit" name="dannouncement">Delete</button>
                     </form><br><br>
 
-                    <h6>Unlock Cadet Account</h6>
                     <?php echo form_open('cadet/unlock'); ?>
-                    <select name="cadet" class="form-control">
+                    <label for="cadet">Unlock Cadet Account</label>
+                    <select name="cadet" id="cadet" class="form-control" required>
+                        <option value="">Choose...</option>
                         <?php
                         foreach($users as $user)
                         {
