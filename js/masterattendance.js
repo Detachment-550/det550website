@@ -55,15 +55,15 @@ function loadattendance(siteurl)
             });
 
             // Loops through each cadet
-            for(var z = 0; z < response.cadet.length; z++)
+            for(var z = 0; z < response.users.length; z++)
             {
                 var cadetrecord = {};
 
                 // Sets the cadets name
-                cadetrecord['name'] = response.cadet[z].firstName + " " + response.cadet[z].lastName;
-                cadetrecord['class'] = response.cadet[z].rank;
+                cadetrecord['name'] = response.users[z].first_name + " " + response.users[z].last_name;
+                cadetrecord['class'] = response.users[z].class;
 
-                var rin = response.cadet[z].rin;
+                var rin = response.users[z].id;
                 var ptSum = 0;
                 var llabSum = 0;
                 var pt = 0;
