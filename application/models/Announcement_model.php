@@ -24,8 +24,7 @@ class Announcement_model extends CI_Model
         $this->db->order_by('date', 'desc');
         $this->db->limit(5);
 
-        $query = $this->db->get('announcement');
-        return $query->result_array();
+        return $this->db->get('announcement')->result_array();
     }
 
     /*

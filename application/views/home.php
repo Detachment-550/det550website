@@ -67,7 +67,7 @@
         echo "<div class='card-body'>";
         echo "<h5 class='card-title'><a href='" . site_url('announcement/page/' . $announcement['uid']) . "'>" . $announcement['title'] . "</a></h5>";
         echo "<p class='card-text'> " . $announcement['subject'] . '</p>';
-        echo "<p class='card-text'>" . $announcement['firstName'] . ' ' . $announcement['lastName'] . '</p></div>';
+        echo "<p class='card-text'>" . $announcement['first_name'] . ' ' . $announcement['last_name'] . '</p></div>';
     }
 ?>
             </div>

@@ -16,12 +16,12 @@
         echo $announcement['body'];
 
 		// Prints out the author of the post
-        foreach($cadets as $cadet)
+        foreach($users as $user)
         {   
-            if($cadet['rin'] === $announcement['createdBy'])
+            if($user->id === $announcement['createdBy'])
             {
-                $firstName = $cadet['firstName'];
-                $lastName = $cadet['lastName'];
+                $firstName = $user->first_name;
+                $lastName = $user->last_name;
             }
         }
 		echo "<p class='card-text'>Posted by: " . $firstName . ' ' . $lastName . "</p>";

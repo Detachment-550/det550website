@@ -6,12 +6,7 @@ class Cadet extends CI_Controller{
         parent::__construct();
         $this->load->library('session'); 
         
-        if( $this->ion_auth->logged_in() )
-        {
-            $this->load->model('Cadet_model');
-            $data['admin'] = $this->session->userdata('admin');
-        }
-        else
+        if( !$this->ion_auth->logged_in() )
         {
             redirect('login/view');
         }
@@ -245,15 +240,8 @@ class Cadet extends CI_Controller{
         }
         
         $data['user'] = $user;
-        
-        if(strpos($user->class, "AS") !== false || strpos($user->class, "None") !== false)
-        {
-            $data['heading'] = "Cadet " . $user->last_name;
-        }
-        else
-        {
-            $data['heading'] = $user->rank . " " . $user->last_name;
-        } 
+
+        $data['heading'] = $user->rank . " " . $user->last_name;
         
         // Allows user to see edit profile button
         $data['myprofile'] = true;

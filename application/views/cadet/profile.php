@@ -36,8 +36,8 @@
         <div class="col-8">
           <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Rank:</h5>
-                <p class="card-text"><?php echo $user->rank; ?></p>
+                <h5 class="card-title">Class:</h5>
+                <p class="card-text"><?php echo $user->class; ?></p>
             </div>
           </div>
 
