@@ -20,7 +20,7 @@
                 </select>
             </div>
 
-
+<!--TODO: Use input mask here to force delimeters or some other better way -->
             <div class="form-group">
                 <label class="card-text" for="address"><b>To Address (Add ; after each email address)</b></label>
                 <input class="form-control" type="text" id="address" name="to">

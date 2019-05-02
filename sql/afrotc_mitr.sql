@@ -143,7 +143,7 @@ create table attendance
     collate = ascii_bin;
 
 create index attendance_cadet_fk
-    on attendance (rin);
+    on attendance (user);
 
 create table users_groups
 (

@@ -14,7 +14,7 @@
     foreach( $attendees as $attendee )
     {
         echo "<tr>";
-        echo "<td>Cadet " . $attendee['lastName'] . "</td>";
+        echo "<td>" . $attendee['rank'] . $attendee['last_name'] . "</td>";
         echo "<td>" . $attendee['time'] . "</td>";
         echo "<td>" . $attendee['excused_absence'] . "</td>";
         echo "</tr>";

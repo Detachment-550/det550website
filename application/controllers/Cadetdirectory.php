@@ -6,11 +6,7 @@ class Cadetdirectory extends CI_Controller{
         parent::__construct();
         $this->load->library('session'); 
         
-        if( $this->ion_auth->logged_in() )
-        {
-            $this->load->model('Cadet_model');
-        }
-        else
+        if( !$this->ion_auth->logged_in() )
         {
             redirect('login/view');
         }
@@ -21,16 +17,10 @@ class Cadetdirectory extends CI_Controller{
      */
     function major()
     {
+//        TODO: Make this searchable again
         $data['title'] = 'Cadet Directory';
-        if( strcmp("all", $this->input->post('showcadets')) == 0 )
-        {
-            $data['cadets'] = $this->Cadet_model->get_all_cadets();
-        }
-        else
-        {
-            $data['cadets'] = $this->Cadet_model->get_major($this->input->post('showcadets'));
-        }
-        $data['majors'] = $this->Cadet_model->get_all_majors();
+
+        $data['users'] = $this->ion_auth->users()->row();
         $data['selected'] = $this->input->post('showcadets');
 
         $this->load->view('templates/header', $data);
@@ -45,7 +35,6 @@ class Cadetdirectory extends CI_Controller{
     {
         $data['title'] = 'Cadet Directory';
         $data['users'] = $this->ion_auth->users()->result();
-        $data['majors'] = $this->Cadet_model->get_all_majors();
 
         $this->load->view('templates/header', $data);
         $this->load->view('directory');

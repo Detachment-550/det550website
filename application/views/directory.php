@@ -1,35 +1,8 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url("css/directory.css"); ?>">
 
+<!--TODO: Use boot strap card decks here to manage the card sizes -->
 <div class="jumbotron container-fluid">
     <h1 class="display-4"> Detachment Directory </h1><br>
-      <?php echo form_open('cadetdirectory/major'); ?>
-        <select class="form-control" name="showcadets">
-<?php
-    if(strcmp("all", $selected) == 0 )
-    {
-        echo "<option selected value='all'>All</option>";
-    }
-    else
-    {
-        echo "<option value='all'>All</option>";
-    }
-    foreach( $majors as $major )
-    {
-        if( strcmp($major->major, "") != 0 && strcmp($major->major, $selected) == 0 )
-        {
-            echo "<option selected value='" . $major->major . "'>" . $major->major . "</option>";
-        }
-        else if( strcmp($major->major, "") != 0 )
-        {
-            echo "<option value='" . $major->major . "'>" . $major->major . "</option>";
-        }
-    }
-?>
-        </select><br>
-        <button class="btn btn-sm btn-primary" type="submit" value="Submit" name="submit">Show Cadets</button><br><br>
-    </form>
-
-    
 <?php
 //TODO: Find a better way to do this
 $images = scandir("./images");
