@@ -50,12 +50,14 @@ class Cadetevent extends CI_Controller{
     }
 
     /*
-     * Adding a new cadetevent
+     * Adds a new cadet event.
      */
     function add()
     {   
         if(isset($_POST) && count($_POST) > 0)     
-        {   
+        {
+            $user = $this->ion_auth->user()->row();
+
             if($this->input->post('type') === "pt")
             {
                 $pt = 1;
@@ -76,9 +78,10 @@ class Cadetevent extends CI_Controller{
 				'date' => $this->input->post('date'),
 				'pt' => $pt,
 				'llab' => $llab,
+                'created_by' => $user->id,
             );
             
-            $cadetevent_id = $this->Cadetevent_model->add_cadetevent($params);
+            $this->Cadetevent_model->add_cadetevent($params);
             redirect('attendance/view');
         }
         else

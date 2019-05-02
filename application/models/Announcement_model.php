@@ -12,6 +12,7 @@ class Announcement_model extends CI_Model
      */
     function get_announcement($uid)
     {
+        $this->db->join('users', 'users.id = announcement.createdBy');
         return $this->db->get_where('announcement',array('uid'=>$uid))->row_array();
     }
     
@@ -28,15 +29,18 @@ class Announcement_model extends CI_Model
     }
 
     /*
-     * Returns a given 5 announcements
+     * Returns a given 5 announcements.
+     *
+     * @param limit - the number of announcements to return
+     * @param start - what row to start at in results
      */
     function get_specific_announcements( $limit, $start )
     {
+        $this->db->join('users', 'users.id = announcement.createdBy');
         $this->db->order_by('date', 'desc');
         $this->db->limit($limit, $start);
 
-        $query = $this->db->get('announcement');
-        return $query->result_array();
+        return $this->db->get('announcement')->result_array();
     }
 
     /*

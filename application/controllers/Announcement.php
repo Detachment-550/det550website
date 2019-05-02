@@ -37,7 +37,6 @@ class Announcement extends CI_Controller{
 
             $id = $this->Announcement_model->add_announcement( $params );
 
-//            TODO: Make this work with ion auth groups instead
             // Goes to each selected group and sends announcement as email
             if( $this->input->post('groups') !== null )
             {
@@ -47,19 +46,19 @@ class Announcement extends CI_Controller{
                 // Load email library
                 $this->load->library('email');
 
-                $this->load->model('Groupmember_model');
                 $this->load->model('Batch_email_model');
 
                 $recipients = array();
                 
                 foreach( $this->input->post('groups') as $group )
                 {
-                    $data['members'] =  $this->Groupmember_model->get_all_groupmembers( $group );
-                    foreach( $data['members'] as $member )
+                    $members = $this->ion_auth->users($group)->result(); // get users from given group
+
+                    foreach( $members as $member )
                     {
+//                        TODO: Make this just a join table and create the email text in batch email so if an announcement is updated so is the email
                         // Gets the cadet who needs to be sent an email
-                        $cadet = $this->Cadet_model->get_cadet( $member['rin'] );
-                        $email = $this->Batch_email_model->email_exists($cadet['rin']);
+                        $email = $this->Batch_email_model->email_exists($member->id);
 
                         $message = "<h2 style='text-align:center;'>" . $this->input->post('title') . "</h2><p>" .
                             "<strong>Subject:</strong> " . $this->input->post('subject') . "</p><p>&nbsp;</p><p>&nbsp;</p>"
@@ -79,12 +78,12 @@ class Announcement extends CI_Controller{
                             // Creates an email to be send
                             $params = array(
                                 'day'           => date("Y-m-d"),
-                                'to'            => $cadet['primaryEmail'],
+                                'to'            => $member->email,
                                 'from'          => "afrotcdet550@gmail.com",
                                 'subject'       => 'Wing Email',
                                 'message'       => "<h1 style='text-align:center;'>Daily Announcements</h1>" .$message,
                                 'title'         => 'Wing Announcements',
-                                'cadet'         => $member['rin'],
+                                'user'         => $member->id,
                             );
 
                             $this->Batch_email_model->add_batchemail($params);
@@ -173,7 +172,6 @@ class Announcement extends CI_Controller{
 
         $data["announcements"] = $this->Announcement_model->get_specific_announcements($config["per_page"], $page);
         $data["links"] = $this->pagination->create_links();
-        $data['users'] = $this->ion_auth->users()->result();
         $data['ackposts'] = $this->Acknowledge_post_model->get_all_acknowledge_posts();
 
         // Loads the home page 
@@ -183,22 +181,26 @@ class Announcement extends CI_Controller{
     }
 
     /*
-  * Shows the annoucement page.
-  */
+     * Shows the announcement page.
+     *
+     * @param page - the id of the announcement to view
+     */
     function page( $page )
     {
         $data['title'] = 'Announcements';
+        $user = $this->ion_auth->user()->row();
 
         $data['ackposts'] = $this->Acknowledge_post_model->get_all_acknowledge_posts();
         $data["announcement"] = $this->Announcement_model->get_announcement($page);
-        $data['cadets'] = $this->Cadet_model->get_all_cadets();
-        if($data['announcement']['createdBy'] == $this->session->userdata('rin'))
+        $data['users'] = $this->ion_auth->users()->row();
+
+        if($data['announcement']['createdBy'] == $user->id)
         {
-            $data['mypost'] = true;
+            $data['mypost'] = TRUE;
         }
         else
         {
-            $data['mypost'] = false;
+            $data['mypost'] = FALSE;
         }
 
         // Loads the home page

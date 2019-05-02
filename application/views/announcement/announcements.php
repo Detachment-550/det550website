@@ -14,17 +14,7 @@
 		echo "<div class='card-header'><a href=" . site_url("announcement/page/" . $announcement['uid']) . ">" . $announcement['title'] . "</a></div>";
 		echo "<div class='card-body'><h5 class='card-title'>" . $announcement['subject'] . "</h5>";
         echo $announcement['body'];
-
-		// Prints out the author of the post
-        foreach($users as $user)
-        {   
-            if($user->id === $announcement['createdBy'])
-            {
-                $firstName = $user->first_name;
-                $lastName = $user->last_name;
-            }
-        }
-		echo "<p class='card-text'>Posted by: " . $firstName . ' ' . $lastName . "</p>";
+		echo "<p class='card-text'>Posted by: " . $announcement['rank'] . ' ' . $announcement['last_name'] . "</p>";
 
 		// Make a button to read and understand post
         echo form_open('acknowledge_post/add');
