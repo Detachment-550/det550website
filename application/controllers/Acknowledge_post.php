@@ -21,19 +21,19 @@ class Acknowledge_post extends CI_Controller{
 //        TODO: Fix this to work with new ion auth system
         if(isset($_POST) && count($_POST) > 0)     
         {
-            $data['title'] = "Acknowledgements"; 
             $this->load->model('Announcement_model');
-            $this->load->model('Cadet_model');
+
+            $data['title'] = "Acknowledgements"; 
             $data['announcement'] = $this->Announcement_model->get_announcement($this->input->post('event'));
             $data['acknowledgements'] = $this->Acknowledge_post_model->get_event_acknowledge_posts($this->input->post('event'));
-            $cadets = array();
-            
+
+            $users = NULL;
             foreach( $data['acknowledgements'] as $ack )
             {
-                $cadets[] = $this->Cadet_model->get_cadet($ack['rin']);
+                $users[] = $this->ion_auth->user($ack['user'])->row();
             }
             
-            $data['cadets'] = $cadets;
+            $data['users'] = $users;
             
             $this->load->view('templates/header', $data);
             $this->load->view('announcement/acknowledged.php');
@@ -58,7 +58,7 @@ class Acknowledge_post extends CI_Controller{
             if( $this->Acknowledge_post_model->acknowledge_post_exists( $user->id, $this->input->post('announcementid') ) <= 0 )
             {
                 $params = array(
-                    'rin' =>  $this->session->userdata('rin'),
+                    'user' =>  $user->id,
                     'announcement_id' => $this->input->post('announcementid')
                 );
                 
@@ -79,23 +79,6 @@ class Acknowledge_post extends CI_Controller{
     function get_acknowledge_count($announcement_id)
     {
         return $this->Acknowledge_post_model->get_acknowledge_post_count($announcement_id);
-    }
-
-    /*
-     * Deleting acknowledge_post
-     */
-    function remove($rin)
-    {
-        $acknowledge_post = $this->Acknowledge_post_model->get_acknowledge_post($rin);
-
-        // check if the acknowledge_post exists before trying to delete it
-        if(isset($acknowledge_post['rin']))
-        {
-            $this->Acknowledge_post_model->delete_acknowledge_post($rin);
-            redirect('acknowledge_post/index');
-        }
-        else
-            show_error('The acknowledge_post you are trying to delete does not exist.');
     }
     
 }

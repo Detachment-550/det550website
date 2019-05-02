@@ -10,7 +10,6 @@ class Announcement extends CI_Controller{
         {
             $this->load->model('Announcement_model');
             $this->load->model('Acknowledge_post_model');
-            $this->load->model('Cadet_model');
         }
         else
         {
