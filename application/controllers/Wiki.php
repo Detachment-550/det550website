@@ -23,7 +23,7 @@ class Wiki extends CI_Controller{
     {
         $data['title'] = 'Detachment Wiki';
         $data['wikis'] = $this->wiki_model->get_all_wikis();
-        $data['admin'] = $this->session->userdata('admin');
+        $data['admin'] = $this->ion_auth->is_admin();
 
         $this->load->view('templates/header', $data);
         $this->load->view('wikihome');

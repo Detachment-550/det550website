@@ -42,7 +42,7 @@ class Attendance_model extends CI_Model
      */
     function get_attendance_records()
     {
-        $this->db->select('pt, llab, lastName, firstName, excused_absence, attendance.eventid, cadetEvent.eventID, users.username');
+        $this->db->select('pt, llab, last_name, first_name, excused_absence, attendance.eventid, cadetEvent.eventID, users.username');
         $this->db->from('users');
         $this->db->join('attendance', 'users.id = attendance.rin');
         $this->db->join('cadetEvent', 'cadetEvent.eventID = attendance.eventid');
@@ -68,7 +68,7 @@ class Attendance_model extends CI_Model
      */
     function get_event_attendance( $id )
     {
-        $this->db->select('cadetEvent.pt, cadetEvent.llab, cadet.lastName, cadetEvent.name, attendance.excused_absence, attendance.time');
+        $this->db->select('cadetEvent.pt, cadetEvent.llab, last_name, cadetEvent.name, attendance.excused_absence, attendance.time');
         $this->db->from('attendance');
         $this->db->join('users', 'users.id = attendance.rin');
         $this->db->join('cadetEvent', 'cadetEvent.eventID = attendance.eventid');
@@ -96,13 +96,16 @@ class Attendance_model extends CI_Model
     }
 
     /*
-     * Gets total of pt or llab in the current year
+     * Gets total of pt or llab in the current year.
+     *
+     * @param event - either pt or llab
+     * @param user - the id of the user to count for
      */
-    function get_event_total($event, $rin)
+    function get_event_total($event, $user)
     {
         $this->db->from('attendance');
         $this->db->where($event, 1);
-        $this->db->where('rin', $rin);
+        $this->db->where('user', $user);
         $this->db->join('cadetEvent', 'cadetEvent.eventID = attendance.eventid');
         $this->db->where('YEAR(date) = YEAR(CURDATE())');
         if(date("m") >= 1 && date("m") < 6)
@@ -124,7 +127,7 @@ class Attendance_model extends CI_Model
      */
     function get_all_attendance()
     {
-        $this->db->order_by('rin', 'desc');
+        $this->db->order_by('user', 'desc');
         return $this->db->get('attendance')->result_array();
     }
         
@@ -140,10 +143,10 @@ class Attendance_model extends CI_Model
     /*
      * function to update attendance
      */
-    function attendance_exists($rin,$id)
+    function attendance_exists($user,$id)
     {
         $this->db->from('attendance');
-        $this->db->where('rin',$rin);
+        $this->db->where('user',$user);
         $this->db->where('eventid',$id);
         $query = $this->db->get();
         return $query->num_rows();
@@ -152,9 +155,9 @@ class Attendance_model extends CI_Model
     /*
      * function to update attendance
      */
-    function update_attendance($rin,$id,$params)
+    function update_attendance($user,$id,$params)
     {
-        $this->db->where('rin',$rin);
+        $this->db->where('user',$user);
         $this->db->where('eventid',$id);
         return $this->db->update('attendance',$params);
     }
@@ -162,8 +165,8 @@ class Attendance_model extends CI_Model
     /*
      * function to delete attendance
      */
-    function delete_attendance($rin,$event)
+    function delete_attendance($user,$event)
     {
-        return $this->db->delete('attendance',array('rin'=>$rin,'eventid'=>$event));
+        return $this->db->delete('attendance',array('user'=>$user,'eventid'=>$event));
     }
 }
