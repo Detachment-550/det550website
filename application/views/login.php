@@ -19,11 +19,11 @@
       <?php echo form_open('login/auth'); ?>
       <img class="img-fluid" src="<?php echo base_url("images/default.jpeg"); ?>" alt="Responsive image">
       <h5 class="card-title">Please Sign In</h5>
-      <label for="uname"><b>Username</b></label><br>
-      <input class="form-control" type="text" placeholder="Enter RIN or Email" name="user" required><br>
+      <label for="uname"><b>Email</b></label><br>
+      <input class="form-control" type="text" placeholder="Enter your email" name="user" required><br>
 
       <label for="psw"><b>Password</b></label><br>
-      <input class="form-control" type="password" placeholder="Enter Password" name="psw" required><br>
+      <input class="form-control" type="password" placeholder="Enter your password" name="psw" required><br>
       <br>
       <button class="btn btn-sm btn-primary" type="submit" name="submit">Login</button>
       <button class="btn btn-sm btn-secondary" type="reset" name="reset">Reset</button>

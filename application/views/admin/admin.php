@@ -7,6 +7,7 @@
         <div class="col-4">
             <div class="card">
                 <div id="memWrapper" class="card-body">
+<!--                    TODO: Check to see if user exists before adding it in a validation form -->
                     <h5 id="memHeader" class="card-title">Add User</h5>
                     <?php echo form_open('cadet/add'); ?>
                     <div class="form-group">
@@ -92,13 +93,34 @@
                             <option value="Foxtrot">Foxtrot</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="question">Security Question:</label>
+                        <select class="form-control" name="question" id="question" required>
+                            <option value="">Choose...</option>
+                            <option value="What was your childhood nickname?">What was your childhood nickname?</option>
+                            <option value="What is the name of your favorite childhood friend?">What is the name of your favorite childhood friend?</option>
+                            <option value="In what city or town did your mother and father meet?">In what city or town did your mother and father meet?</option>
+                            <option value="What is your favorite team?">What is your favorite team?</option>
+                            <option value="What is your favorite movie?">What is your favorite movie?</option>
+                            <option value="What was your favorite sport in high school?">What was your favorite sport in high school?</option>
+                            <option value="What was your favorite food as a child?">What was your favorite food as a child?</option>
+                            <option value="What was the make and model of your first car?">What was the make and model of your first car?</option>
+                            <option value="Who is your childhood sports hero?">Who is your childhood sports hero?</option>
+                            <option value="In what town was your first job?">In what town was your first job?</option>
+                            <option value="What was the name of the company where you had your first job?">What was the name of the company where you had your first job?</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="answer">Response:</label>
+                        <input type="text" name="answer" id="answer" class="form-control" placeholder="Enter your security question answer..." required>
+                    </div>
                     <div class="clearfix">
                         <label for="rfid">Card Input:</label>
                         <input class="form-control" type="text" id="rfid" placeholder="Select and scan RPI ID..." name="rfid"/>
                     </div><br>
                     <div class="clearfix">
-                        <input class="btn btn-sm btn-primary" type="submit" value="Add User" />
-                        <input class="btn btn-sm btn-primary" type="reset" value="Reset"/>
+                        <input class="btn btn-primary" type="submit" value="Add User" />
+                        <input class="btn btn-secondary" type="reset" value="Reset"/>
                     </div>
                     </form><br>
                 </div>
@@ -120,7 +142,7 @@
                         }
                         ?>
                     </select><br>
-                    <button class="btn btn-sm btn-primary" name="submit" type="submit">Remove</button>
+                    <button class="btn btn-danger" name="submit" type="submit">Remove</button>
                     </form>
                 </div>
             </div><br>
@@ -140,7 +162,7 @@
                         ?>
                         <br>
                     </select><br>
-                    <button class="btn btn-sm btn-primary" type="submit" name="submit">Modify Cadet Info</button>
+                    <button class="btn btn-warning" type="submit" name="submit">Modify Cadet Info</button>
                     </form>
                 </div>
             </div><br>
@@ -161,12 +183,12 @@
                         }
                         ?>
                     </select><br>
-                    <button onClick="return confirm('Are you sure you want to delete this Announcement?')" class="btn btn-sm btn-primary" type="submit" name="dannouncement">Delete</button>
+                    <button onClick="return confirm('Are you sure you want to delete this Announcement?')" class="btn btn-danger" type="submit" name="dannouncement">Delete</button>
                     </form><br><br>
 
                     <?php echo form_open('cadet/unlock'); ?>
                     <label for="cadet">Unlock Cadet Account</label>
-                    <select name="cadet" id="cadet" class="form-control" required>
+                    <select name="user" id="cadet" class="form-control" required>
                         <option value="">Choose...</option>
                         <?php
                         foreach($users as $user)
@@ -175,11 +197,11 @@
                         }
                         ?>
                     </select><br>
-                    <button class="btn btn-sm btn-primary" type="submit" name="unlock">Unlock</button>
+                    <button class="btn btn-success" type="submit" name="unlock">Unlock</button>
                     </form><br><br>
 
                     <h6>Create/Modify/Delete a Group</h6>
-                    <?php echo anchor('cadetgroup/view', 'Edit Group', 'class="btn btn-sm btn-primary"'); ?>
+                    <?php echo anchor('cadetgroup/view', 'Edit Group', 'class="btn btn-primary"'); ?>
                     <br><br>
                 </div>
             </div>
