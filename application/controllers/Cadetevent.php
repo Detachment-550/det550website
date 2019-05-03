@@ -86,4 +86,21 @@ class Cadetevent extends CI_Controller{
             show_error("Something went wrong with adding a new cadet event");
         }
     }
+
+    /*
+     * Deletes a cadet event.
+     */
+    function remove()
+    {
+        if(isset($_POST) && count($_POST) > 0)
+        {
+            $this->Cadetevent_model->delete_cadetevent($this->input->post('event'));
+
+            redirect('attendance/view');
+        }
+        else
+        {
+            show_error("Something went wrong with adding a new cadet event");
+        }
+    }
 }

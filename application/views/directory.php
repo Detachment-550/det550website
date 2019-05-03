@@ -44,7 +44,7 @@ foreach( $users as $user )
     }
     echo "<p class='card-text'><strong>Rank: </strong>" . $user->rank . "<br><strong>Flight: </strong>" . $user->flight . "</p>";
     echo form_open('cadetdirectory/profile');
-    echo "<input value='" . $user->id . "' name='rin' style='display:none;' readonly>";
+    echo "<input value='" . $user->id . "' name='id' style='display:none;' readonly>";
     echo "<button class='btn btn-sm btn-primary' type='submit'>View Profile</button></form></div></div>";
 }
 ?>

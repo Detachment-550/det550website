@@ -47,14 +47,16 @@ class Cadetdirectory extends CI_Controller{
     function profile()
     {        
         $data['title'] = 'Profile Page';
-        
+
+        $user = $this->ion_auth->user($this->input->post('id'))->row();
+
         // Looks for profile picture
         $files = scandir("./images");
         $found = false;
         foreach($files as $file)
         {
             $info = pathinfo($file);
-            if($info['filename'] == $this->input->post('rin'))
+            if($info['filename'] == $user->id)
             {
                 $data['picture'] = $file; 
                 $found = true;
@@ -65,17 +67,10 @@ class Cadetdirectory extends CI_Controller{
             $data['picture'] = base_url("images/default.jpeg");
         }
         
-        $data['cadet'] = $this->Cadet_model->get_cadet($this->input->post('rin'));
+        $data['user'] = $user;
         
-        if(strpos($data['cadet']['rank'], "AS") !== false || strpos($data['cadet']['rank'], "None") !== false)
-        {
-            $data['heading'] = "Cadet " . $data['cadet']['lastName'];
-        }
-        else
-        {
-            $data['heading'] = $data['cadet']['rank'] . " " . $data['cadet']['lastName'];
-        } 
-        
+        $data['heading'] = $user->rank . " " . $user->last_name;
+
         $data['myprofile'] = false;
         
         $this->load->view('templates/header', $data);
