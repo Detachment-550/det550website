@@ -109,7 +109,7 @@ class Attendance extends CI_Controller
                 else
                 {
                     $params = array(
-                        'rin' => $this->input->post('cadet'),
+                        'user' => $this->input->post('cadet'),
                         'eventid' => $this->input->post('event'),
                         'excused_absence' => 1,
                         'comments' => $this->input->post('comments'),
@@ -130,7 +130,7 @@ class Attendance extends CI_Controller
                 else
                 {
                     $params = array(
-                        'rin' => $this->input->post('cadet'),
+                        'user' => $this->input->post('cadet'),
                         'eventid' => $this->input->post('event'),
                         'excused_absence' => 0,
                         'comments' => $this->input->post('comments'),
@@ -154,7 +154,7 @@ class Attendance extends CI_Controller
     {
         if ($this->Attendance_model->attendance_exists($this->input->post('cadet'), $this->input->post('event')) === 0) {
             $params = array(
-                'rin' => $this->input->post('cadet'),
+                'user' => $this->input->post('cadet'),
                 'eventid' => $this->input->post('event'),
                 'excused_absence' => 1
             );
@@ -171,15 +171,21 @@ class Attendance extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+
+
     /*
-     * Adding a new attendance
+     * Manually adds a new attendance record by entering a user's email.
      */
     function add()
     {
-        if ($this->input->post('rfid') !== null) {
-            $data['cadet'] = $this->Cadet_model->find_cadet($this->input->post('rfid'));
-            if (isset($data['cadet']['rin'])) {
-                if (isset($_POST) && count($_POST) > 0) {
+//        TODO: Fix this
+        if (isset($_POST) && count($_POST) > 0) {
+            $this->load->model('User_model');
+
+            if ($this->input->post('rfid') !== null) {
+                $user = $this->User_model->find_user($this->input->post('rfid')); // Finds user based on their RPI ID
+
+                if ($user !== NULL) {
                     if ($this->Attendance_model->attendance_exists($data['cadet']['rin'], $this->input->post('event')) === 0) {
                         $params = array(
                             'rin' => $data['cadet']['rin'],
@@ -196,37 +202,37 @@ class Attendance extends CI_Controller
                     $this->load->view('attendance/attend');
                     $this->load->view('templates/footer');
                 } else {
-                    show_error("There was no input given.");
+                    // TODO: Fix this link
+                    redirect("cadet/changerfid");
                 }
-            } else {
-                // TODO: Fix this link
-                redirect("cadet/changerfid");
-            }
-        } else if ($this->input->post('rin') !== null) {
-            $data['cadet'] = $this->Cadet_model->get_cadet($this->input->post('rin'));
-            if (isset($data['cadet']['rin'])) {
-                if (isset($_POST) && count($_POST) > 0) {
-                    if ($this->Attendance_model->attendance_exists($data['cadet']['rin'], $this->input->post('event')) === 0) {
-                        $params = array(
-                            'rin' => $data['cadet']['rin'],
-                            'eventid' => $this->input->post('event'),
-                        );
-                        $this->Attendance_model->add_attendance($params);
-                    }
-                    $data['title'] = 'Set Attendance';
-                    $data['event'] = $this->Cadetevent_model->get_cadetevent($this->input->post('event'));
-                    $data['cadets'] = $this->Cadet_model->get_all_cadets();
+            } else if ($this->input->post('rin') !== null) {
+                $data['cadet'] = $this->Cadet_model->get_cadet($this->input->post('rin'));
+                if (isset($data['cadet']['rin'])) {
+                    if (isset($_POST) && count($_POST) > 0) {
+                        if ($this->Attendance_model->attendance_exists($data['cadet']['rin'], $this->input->post('event')) === 0) {
+                            $params = array(
+                                'rin' => $data['cadet']['rin'],
+                                'eventid' => $this->input->post('event'),
+                            );
+                            $this->Attendance_model->add_attendance($params);
+                        }
+                        $data['title'] = 'Set Attendance';
+                        $data['event'] = $this->Cadetevent_model->get_cadetevent($this->input->post('event'));
+                        $data['cadets'] = $this->Cadet_model->get_all_cadets();
 
-                    // Loads the home page
-                    $this->load->view('templates/header', $data);
-                    $this->load->view('attendance/attend');
-                    $this->load->view('templates/footer');
+                        // Loads the home page
+                        $this->load->view('templates/header', $data);
+                        $this->load->view('attendance/attend');
+                        $this->load->view('templates/footer');
+                    } else {
+                        show_error("There was no input given.");
+                    }
                 } else {
-                    show_error("There was no input given.");
+                    show_error("This is not a cadet. Please enter a valid RIN or create a cadet with this RIN");
                 }
-            } else {
-                show_error("This is not a cadet. Please enter a valid RIN or create a cadet with this RIN");
             }
+        } else {
+            show_error("There was no input given.");
         }
     }
 

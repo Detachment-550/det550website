@@ -36,10 +36,7 @@ class Cadetevent extends CI_Controller{
      */
     function event($event)
     {
-        $this->load->model('Cadet_model');
-
-        $data['event'] =  $this->Cadetevent_model->get_cadetevent( $event );
-        $data['cadets'] = $this->Cadet_model->get_all_cadets();
+        $data['event'] = $this->Cadetevent_model->get_cadetevent( $event );
 
         $data['title'] = 'Set Attendance';
 

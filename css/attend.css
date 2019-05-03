@@ -17,3 +17,10 @@
         width: 40%;
     }
 }
+
+.jumbotron
+{
+    height: -webkit-fill-available;
+    overflow: auto;
+    margin: 0px;
+}

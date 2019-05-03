@@ -1,0 +1,5 @@
+.jumbotron {
+    height: -webkit-fill-available;
+    overflow: auto;
+    margin: 0px;
+}
