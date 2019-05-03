@@ -241,4 +241,21 @@ class Announcement extends CI_Controller{
 
         redirect("announcement/page/" . $announcement['uid']);
     }
+
+    /*
+     * Deletes an announcement.
+     */
+    function remove()
+    {
+        if( $this->ion_auth->is_admin() )
+        {
+            $this->Announcement_model->delete_announcement( $this->input->post('announcement') );
+
+            redirect('cadet/view');
+        }
+        else
+        {
+            show_error("You must be an admin to delete an announcement");
+        }
+    }
 }

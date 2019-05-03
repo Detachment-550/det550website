@@ -1,0 +1,23 @@
+/* Styles for mobile */
+@media (max-width: 500px)
+{
+    .card
+    {
+        width: 100%;
+    }
+    body
+    {
+        min-width: 400px;
+    }
+    .selectcadets
+    {
+        width: 100%;
+    }
+}
+
+#ngroupmember, #groupmember
+{
+    height:100px;
+    overflow-y: scroll;
+    border: solid grey 1px;
+}

@@ -1,23 +1,7 @@
 <script src="<?php echo base_url("js/group.js"); ?>"></script>
+<link type="text/css" href="<?php echo base_url('css/group.css'); ?>">
 
-<style>
-/* Styles for mobile */
-@media (max-width: 500px) 
-{
-    .card
-    {
-        width: 100%;
-    }
-    body
-    {
-        min-width: 400px;
-    }
-    .selectcadets
-    {
-        width: 100%;
-    }
-}
-</style>
+<!--TODO: Fix ajax on this page to work with new auth system -->
 <body onload="select(1)">
 <div class="jumbotron container-fluid">
   <div class="container">
@@ -27,42 +11,52 @@
         
         <?php echo form_open('cadetgroup/add'); ?>
           <h5 class="card-text">Create Group</h5>
-          <label>Group Label:</label><br>
-          <input type="text" name="label" id="groupname"><br>
-          <label>Group Description (What other people see as the group name):</label><br>
-          <input type="text" name="description" id="groupdes"><br><br>
-          <button class="btn btn-sm btn-primary" type="submit" name="submit">Create Group</button>
+          <div class="form-group">
+              <label for="groupname">Group Label:</label>
+              <input type="text" name="label" id="groupname" class="form-control" placeholder="Enter the group's label" required>
+          </div>
+
+          <div class="form-group">
+              <label>Group Description:</label>
+              <input type="text" name="description" id="groupdes" class="form-control" placeholder="What other people see as the group name" required>
+          </div>
+
+          <button class="btn btn-primary" type="submit" name="submit">Create Group</button>
         </form><br><br>
-        
-        <h5 class="card-text">Select Group</h5>
-        
-          <select id="selectgroup" name="group" onchange="select(this.value)" id="members">
-          <?php
-              foreach( $groups as $group )
-              {
-                  // Checks to see if a group was selected
-                  if( $group['id'] == 1 )
+
+          <h5 class="card-text">Modify Group</h5>
+          <div class="form-group">
+              <label for="selectgroup">Select Group</label>
+              <select id="selectgroup" name="group" onchange="select(this.value)" id="members" class="form-control" required>
+                  <option value="">Choose...</option>
+                  <?php
+                  foreach( $groups as $group )
                   {
-                      echo "<option selected value='" . $group['id'] . "'> " . $group['description'] . "</option>";
+                      // Checks to see if a group was selected
+                      if( $group['id'] == 1 )
+                      {
+                          echo "<option selected value='" . $group['id'] . "'> " . $group['description'] . "</option>";
+                      }
+                      else
+                      {
+                          echo "<option value='" . $group['id'] . "'> " . $group['description'] . "</option>";
+                      }
                   }
-                  else
-                  {
-                      echo "<option value='" . $group['id'] . "'> " . $group['description'] . "</option>";
-                  }
-              }
-            ?>
-          </select><br><br>
+                  ?>
+              </select>
+          </div>
+
 
         <?php echo form_open('cadetgroup/addmembers'); ?>
-          <h5 class="card-text" id="addcard">Add Members to </h5>
-            <div class="selectcadets" style="height:100px;overflow-y: scroll;border: solid grey 1px;" id="ngroupmember">
+          <label for="ngroupmember">Add Members</label>
+            <div class="selectcadets" id="ngroupmember">
             </div><br>
             <button class="btn btn-sm btn-primary" type="submit" name="submit">Add Members</button>
         </form><br>
         
         <?php echo form_open('cadetgroup/removemembers'); ?>
-          <h5 class="card-text" id="removecard">Remove Members from </h5>
-          <div class="selectcadets" style="height:100px;border: solid grey 1px;overflow-y: scroll;" id="groupmember">
+          <label for="groupmember">Remove Members</label>
+          <div class="selectcadets" id="groupmember">
           </div><br>
           <button class="btn btn-sm btn-primary" type="submit" name="submit">Remove Members</button>
         </form><br><br>

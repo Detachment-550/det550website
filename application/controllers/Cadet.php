@@ -17,6 +17,7 @@ class Cadet extends CI_Controller{
      */
     function select()
     {
+//        TODO: Fix this so it redirects to a page where it doesn't repost data on a refresh
         if( $this->input->post('modify') !== null )
         {
             $data['user'] = $this->ion_auth->user($this->input->post('modify'))->row();
@@ -145,23 +146,22 @@ class Cadet extends CI_Controller{
      */ 
     function uploadpic()
     {
-        // check if the cadet exists before trying to edit it
-        $data['cadet'] = $this->Cadet_model->get_cadet($this->session->userdata('rin'));
+//        TODO: Fix this so instead of manipulating a name the file name is stored on the cadet's profile
+        $user = $this->ion_auth->user()->row();
         
-        // TODO: Account for max file sizes
         $config['upload_path']      = './images/';
         $config['allowed_types']    = 'jpeg|jpg|png';
         $config['max_size']         = 100000;
         $config['max_width']        = 20000;
         $config['max_height']       = 20000;
-        $config['file_name']        = $data['cadet']['rin'];
+        $config['file_name']        = $user->id;
 
         // If old profile picture exists delete it
-        if( file_exists("./images/" . $data['cadet']['rin'] . ".png") || file_exists("./images/" . $data['cadet']['rin'] . ".jpg") || file_exists("./images/" . $data['cadet']['rin'] . ".jpeg"))
+        if( file_exists("./images/" . $user->id . ".png") || file_exists("./images/" . $user->id . ".jpg") || file_exists("./images/" . $user->id . ".jpeg"))
         {
-            unlink("./images/" . $data['cadet']['rin'] . ".png");
-            unlink("./images/" . $data['cadet']['rin'] . ".jpg");
-            unlink("./images/" . $data['cadet']['rin'] . ".jpeg");
+            unlink("./images/" . $user->id . ".png");
+            unlink("./images/" . $user->id . ".jpg");
+            unlink("./images/" . $user->id . ".jpeg");
         }
         
         // Uploads image
@@ -325,7 +325,8 @@ class Cadet extends CI_Controller{
                 $params = array(
                     'admin' => $this->input->post('admin'),
                     'rank' => $this->input->post('rank'),
-                    'flight' => $this->input->post('flight')
+                    'flight' => $this->input->post('flight'),
+                    'class' => $this->input->post('class')
                 );
 
                 $this->ion_auth->update($this->input->post('modify'), $params);
@@ -342,8 +343,8 @@ class Cadet extends CI_Controller{
      * Adding a new cadet
      */
     function add()
-    {   
-        if( $this->session->userdata('admin') )
+    {
+        if( $this->ion_auth->is_admin() )
         {
             if(isset($_POST) && count($_POST) > 0)     
             {
@@ -369,8 +370,6 @@ class Cadet extends CI_Controller{
                     'question' => $this->input->post('question'),
                     'answer' => $this->input->post('answer')
                 );
-
-                $this->Cadet_model->add_cadet($params);
 
                 $username = $this->input->post('rin');
                 $email = $this->input->post('email');
@@ -412,6 +411,10 @@ class Cadet extends CI_Controller{
             {            
                 show_error('The cadet you are trying to edit does not exist. Or improper information to add cadet was given.');
             }
+        }
+        else
+        {
+            show_error("You must be an admin to add a new user");
         }
     }  
     
@@ -457,6 +460,7 @@ class Cadet extends CI_Controller{
      */
     function saverfid()
     {
+//       TODO: Fix this to work with the new auth system
         if( $this->input->post('rin') !== null && $this->input->post('rfid') !== null )
         {
             $cadetrin = trim($this->input->post('rin'));
@@ -481,14 +485,10 @@ class Cadet extends CI_Controller{
      */
     function unlock()
     {
-        if( $this->input->post('cadet') !== null && $this->session->userdata('admin') )
+        if( $this->input->post('user') !== null && $this->ion_auth->is_admin() )
         {
-            $params = array(
-                'loginattempt' => 0
-            );
+            $this->ion_auth->clear_login_attempts($this->input->post('user'));
 
-            $this->Cadet_model->update_cadet($this->input->post('cadet'), $params);
-            
             redirect('cadet/view');
         }
         else

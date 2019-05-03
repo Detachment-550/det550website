@@ -201,7 +201,7 @@
                     </form><br><br>
 
                     <h6>Create/Modify/Delete a Group</h6>
-                    <?php echo anchor('cadetgroup/view', 'Edit Group', 'class="btn btn-primary"'); ?>
+                    <?php echo anchor('group/adminview', 'Edit Group', 'class="btn btn-primary"'); ?>
                     <br><br>
                 </div>
             </div>
