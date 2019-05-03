@@ -9,7 +9,7 @@
         <input class="form-control" id="rfid" type="password" placeholder="Select input before scanning..." name="rfid" autofocus required>
     </div>
     <input style="display:none;" type="text" name="event" value="<?php echo $event['eventID']; ?>">
-    <button class="btn btn-sm btn-primary" type="submit">Scan Card</button>
+    <button class="btn btn-primary" type="submit">Scan Card</button>
     </form><br>
 
     <?php echo form_open('attendance/add'); ?>
@@ -19,15 +19,15 @@
     </div>
 
     <input style="display:none;" type="text" name="event" value="<?php echo $event['eventID']; ?>" required>
-    <input class="btn btn-sm btn-primary" type="submit" value="Submit">
+    <input class="btn btn-primary" type="submit" value="Submit">
     </form>
     <br>
     <br>
 
     <?php echo form_open('attendance/attendees', array('style' => 'display:inline;')); ?>
     <input style="display:none;" type="text" name="event" value="<?php echo $event['eventID']; ?>">
-    <button class='btn btn-sm btn-secondary' type='submit'>Show All Attendees</button>
+    <button class='btn btn-secondary' type='submit'>Show All Attendees</button>
     </form>
 
-    <a class='btn btn-sm btn-warning' style="float: right;" href="<?php echo site_url("cadet/changerfid"); ?>">Add Cadet ID Card</a><br><br>
+    <a class='btn btn-warning' style="float: right;" href="<?php echo site_url("cadet/changerfid"); ?>">Add Cadet ID Card</a><br><br>
 </div>

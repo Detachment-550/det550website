@@ -136,15 +136,25 @@ class Attendance_model extends CI_Model
     }
 
     /*
-     * function to update attendance
+     * Checks whether or not an attendance record already exists.
+     *
+     * @param user - the id of a user
+     * @param id - the event uid
      */
     function attendance_exists($user,$id)
     {
-        $this->db->from('attendance');
         $this->db->where('user',$user);
         $this->db->where('eventid',$id);
-        $query = $this->db->get();
-        return $query->num_rows();
+        $rows = $this->db->get('attendance')->num_rows();
+
+        if($rows > 0)
+        {
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
+        }
     }
 
     /*
