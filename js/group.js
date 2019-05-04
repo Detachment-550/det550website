@@ -1,30 +1,54 @@
+//TODO: Add logic to prevent all users from being removed from the admin group
+
+/*
+ * Retrieves all of the members of a given group.
+ *
+ * @param value - the group's id
+ */
 function select( value ) {
     $.ajax({
-        url: 'modify',
+        url: 'members',
         method: 'post',
         data: {group: value},
         dataType: 'json',
         success: function (response) {
-            document.getElementById('addcard').innerText = "Add Members to " + response.groupname.label;
-            document.getElementById('removecard').innerText = "Remove Members from " + response.groupname.label;
+            if(value === "")
+            {
+                $("#add").css('display', 'none');
+                $("#remove").css('display', 'none');
+            }
+            else
+            {
+                $("#ngroupmember").empty();
+                $("#groupmember").empty();
 
-            $("#ngroupmember").empty();
-            $("#groupmember").empty();
+                $("#ngroupmember").append("<input type='text' style='display:none;' name='group' value='" + value + "'>");
+                $("#groupmember").append("<input type='text' style='display:none;' name='group' value='" + value + "'>");
 
-            var checkbox="<input type='text' style='display:none;' name='group' value='" + response.curgroup + "'>";
-            $("#ngroupmember").append($(checkbox));
-            checkbox="<input type='text' style='display:none;' name='group' value='" + response.curgroup + "'>";
-            $("#groupmember").append($(checkbox));
+                // Loops through all users on the site
+                response.users.forEach(function (user) {
+                    var found = false;
 
-            response.nonmembers.forEach(function (nonmember) {
-                checkbox="<input type='checkbox' id="+nonmember.rin+" value="+nonmember.rin+" name='cadets[]'> <label for="+nonmember.rin+">"+nonmember.firstName + " " + nonmember.lastName + "</label><br>";
-                $("#ngroupmember").append($(checkbox));
-            });
+                    // Looks at each group member
+                    for(var x = 0; x < response.members.length; x++)
+                    {
+                        if(user.id === response.members[x].id)
+                        {
+                            $("#groupmember").append("<input type='checkbox' class='checkbox' id='" + user.id + "' value='" + user.id + "' " +
+                                "name='users[]'> <label for=" + user.id + ">" + user.rank + " " + user.last_name + "</label><br>");
+                            found = true;
+                        }
+                    }
+                    if(!found)
+                    {
+                        $("#ngroupmember").append("<input type='checkbox' class='checkbox' id='" + user.id + "' value='" + user.id + "' " +
+                            "name='users[]'> <label for=" + user.id + ">" + user.rank + " " + user.last_name + "</label><br>");
+                    }
+                });
 
-            response.members.forEach(function (member) {
-                checkbox="<input type='checkbox' id="+member.rin+" value="+member.rin+" name='cadets[]'> <label for="+member.rin+">"+member.firstName + " " + member.lastName + "</label><br>";
-                $("#groupmember").append($(checkbox));
-            });
+                $("#add").css('display', 'block');
+                $("#remove").css('display', 'block');
+            }
         }
     });
 }

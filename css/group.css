@@ -21,3 +21,18 @@
     overflow-y: scroll;
     border: solid grey 1px;
 }
+
+.container-fluid
+{
+    margin: 0px;
+}
+
+#add, #remove
+{
+    display: none;
+}
+
+.checkbox
+{
+    margin-left: 5px;
+}
