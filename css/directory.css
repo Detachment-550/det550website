@@ -12,4 +12,6 @@
 }
 .jumbotron{
 	margin: 0;
+    height: -webkit-fill-available;
+    overflow: auto;
 }
