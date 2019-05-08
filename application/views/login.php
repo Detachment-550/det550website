@@ -17,6 +17,9 @@
 <div class="card" style="margin: auto;padding: 10px;">
   <div class="card-body">
       <?php echo form_open('login/auth'); ?>
+      <div class="alert alert-warning" role="alert" style="display: <?php if($error !== NULL) { echo "block";} else {echo "none";} ?>">
+          <?php echo $error; ?>
+      </div>
       <img class="img-fluid" src="<?php echo base_url("images/default.jpeg"); ?>" alt="Responsive image">
       <h5 class="card-title">Please Sign In</h5>
       <label for="uname"><b>Email</b></label><br>

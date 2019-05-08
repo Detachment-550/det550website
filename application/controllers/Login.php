@@ -9,6 +9,7 @@ class Login extends CI_Controller {
             redirect('cadet/home');
         }
         $data['title'] = 'Login';
+        $data['error'] = NULL;
 
         $this->load->view('login', $data);
         $this->load->view('templates/footer');
@@ -34,14 +35,16 @@ class Login extends CI_Controller {
             // If you are locked out of the account show error
             if( $this->ion_auth->is_max_login_attempts_exceeded($identity) )
             {
-                show_error("You have been locked out of your account due to 10 incorrect password entries. 
-                Please reach out to a site admin or up your chain of commend to resolve this issue.");
+                $data['error'] = "You have been locked out of your account due to 10 incorrect password entries. 
+                Please reach out to a site admin or up your chain of commend to resolve this issue.";
             }
             else
             {
-                $this->load->view('login', $data);
-                $this->load->view('templates/footer');
+                $data['error'] = "Your email or password is incorrect.";
             }
+
+            $this->load->view('login', $data);
+            $this->load->view('templates/footer');
         }
     }
     
@@ -147,6 +150,7 @@ class Login extends CI_Controller {
     function logout()
     {
         $data['title'] = 'Login Page';
+        $data['error'] = NULL;
 
         $this->ion_auth->logout();
 
