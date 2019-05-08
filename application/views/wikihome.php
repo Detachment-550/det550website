@@ -23,22 +23,25 @@
         if( $admin == 1 )
         {
             echo "<div class='card' style='padding:10px;''>";
-            echo "<h5 class='card-title'>Add/Delete Pages</h5>";
+            echo "<div class='form-group'>";
+            echo "<label for='name'>Add Wiki Page</label>";
             echo "<p class='card-text'>";
             echo form_open('wiki/add');
-            echo "<input placeholder='Enter wiki name...' name='name'>";
-            echo " <button value='submit' class='btn btn-primary'>Add Wiki</button>";
+            echo "<input placeholder='Enter wiki name...' class='form-control' name='name' id='name' required></div>";
+            echo " <button type='submit' class='btn btn-success'>Add Wiki</button>";
             echo "</form><br>";
             echo form_open('wiki/remove');
-            echo "<select name='wiki'>";
+            echo "<div class='form-group'>";
+            echo "<label for='wiki'>Remove Wiki Page</label>";
+            echo "<select name='wiki' id='wiki' class='form-control' required><option value=''>Choose...</option>";
             
             foreach( $wikis as $wiki )
             {
               echo "<option value='" . $wiki['id'] . "'>" . $wiki['name'] . "</option>";
             }
             
-            echo "</select>";
-            echo " <button value='submit' class='btn btn-primary'>Remove Wiki</button>";
+            echo "</select></div>";
+            echo " <button type='submit' class='btn btn-danger'>Remove Wiki</button>";
             echo "</form><br></p></div><br>";
         }
 ?>

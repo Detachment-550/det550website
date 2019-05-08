@@ -11,17 +11,10 @@
     {
         min-width: 400px;
     }
-    .jumbotron
-    {
-        margin-bottom: 0;
-    }
 }
-/* Styles for desktop */
-@media (min-width: 600px)
+.jumbotron
 {
-    .jumbotron
-    {
-        height: 100%;
-        margin-bottom: 0;
-    }
+    margin: 0px;
+    height: -webkit-fill-available;
+    overflow: auto;
 }
