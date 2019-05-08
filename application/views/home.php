@@ -35,7 +35,9 @@
 
 
 <div class="jumbotron jumbotron-fluid">
-    <h1 class="display-4"> Hello! </h1>
+    <h1 class="display-4">
+        <?php echo $greeting; ?>
+    </h1>
     <div class="row">
         <div class="col-4">
             <div class="card" style="width:100%">

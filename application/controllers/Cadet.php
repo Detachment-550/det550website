@@ -4,7 +4,8 @@ class Cadet extends CI_Controller{
     function __construct()
     {
         parent::__construct();
-        $this->load->library('session'); 
+        date_default_timezone_set('US/Eastern');
+        $this->load->library('session');
         
         if( !$this->ion_auth->logged_in() )
         {
@@ -279,6 +280,20 @@ class Cadet extends CI_Controller{
         $data['admin'] = $this->ion_auth->is_admin();
 
         $user = $this->ion_auth->user()->row();
+
+        $hour = intval(date("H"));
+        if($hour < 12 )
+        {
+            $data['greeting'] = "Good Morning " . $user->rank . " " . $user->last_name;
+        }
+        else if( $hour >= 12 && $hour < 17 )
+        {
+            $data['greeting'] = "Good Afternoon " . $user->rank . " " . $user->last_name;
+        }
+        else
+        {
+            $data['greeting'] = "Good Evening " . $user->rank . " " . $user->last_name;
+        }
 
         // Gets pt and llab attendance percentage
         $pt = $this->Attendance_model->get_event_total('pt',$user->username);
