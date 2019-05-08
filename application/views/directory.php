@@ -8,17 +8,17 @@
 $images = scandir("./images");
 foreach( $users as $user )
 {
-    if( in_array($user->username . ".jpg", $images) )
+    if( in_array($user->id . ".jpg", $images) )
     {
-        $file = base_url("images/" . $user->username . ".jpg" );
+        $file = base_url("images/" . $user->id . ".jpg" );
     }
-    else if( in_array($user->username . ".png", $images) )
+    else if( in_array($user->id . ".png", $images) )
     {
-        $file = base_url("images/" . $user->username . ".png" );
+        $file = base_url("images/" . $user->id . ".png" );
     }
-    else if( in_array($user->username . ".jpeg", $images) )
+    else if( in_array($user->id . ".jpeg", $images) )
     {
-        $file = base_url("images/" . $user->username . ".jpeg" );
+        $file = base_url("images/" . $user->id . ".jpeg" );
     }
     else
     {
@@ -30,11 +30,7 @@ foreach( $users as $user )
     // This needs to be fixed with cadet's picture
     echo "  <img class='img-fluid' style='height:200px;width:200px;' src='" . $file . "' alt='Cadet Profile Picture'>";
     echo "<div class='card-body'>";
-    if(strpos($user->class, "AS") !== false)
-    {
-        echo "<h5 class='card-title'>Cadet " . $user->last_name . "</h5>";
-    }
-    else if(strpos($user->class, "None") !== false)
+    if(strpos($user->class, "None") !== false)
     {
         echo "<h5 class='card-title'> " . $user->first_name . " " . $user->last_name . "</h5>";
     }

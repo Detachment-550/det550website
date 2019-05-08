@@ -157,13 +157,22 @@ class Cadet extends CI_Controller{
         $config['file_name']        = $user->id;
 
         // If old profile picture exists delete it
-        if( file_exists(base_url('/images/'. $user->id . ".png")) || file_exists(base_url('/images/'. $user->id . ".jpg")) || file_exists(base_url('/images/'. $user->id . ".jpeg")))
+        if( file_exists('./images/'. $user->id . ".png"))
         {
-            unlink(base_url('/images/'. $user->id . ".png"));
-            unlink(base_url('/images/'. $user->id . ".jpg"));
-            unlink(base_url('/images/'. $user->id . ".jpeg"));
+            unlink('./images/'. $user->id . ".png");
+
         }
-        
+        if(file_exists('./images/'. $user->id . ".jpg"))
+        {
+            unlink('./images/'. $user->id . ".jpg");
+
+        }
+        if(file_exists('./images/'. $user->id . ".jpeg"))
+        {
+            unlink('./images/'. $user->id . ".jpeg");
+
+        }
+
         // Uploads image
         $this->load->library('upload', $config);
         if( !$this->upload->do_upload('profilepicture') ) 
@@ -199,7 +208,7 @@ class Cadet extends CI_Controller{
             $info = pathinfo($file);
             if($info['filename'] == $user->id)
             {
-                $data['picture'] = base_url( 'images/' . $info['basename']);
+                $data['picture'] = base_url( '/images/' . $info['basename']);
                 $found = true;
             }
         }
@@ -233,7 +242,7 @@ class Cadet extends CI_Controller{
             $info = pathinfo($file);
             if($info['filename'] == $user->id)
             {
-                $data['picture'] = $info['basename']; 
+                $data['picture'] = base_url( '/images/' . $info['basename']);
                 $found = true;
             }
         }

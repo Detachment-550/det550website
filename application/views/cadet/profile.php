@@ -7,7 +7,7 @@
       <div class="row">
         <div class="col-4">
           <div class="card">
-            <img class="card-img-top" alt="Profile picture" src='<?php echo base_url("images/" . $picture); ?>'>
+            <img class="card-img-top" alt="Profile picture" src='<?php echo $picture; ?>'>
           <div class="card-body">
             <p class="card-text">
             <strong>Contact Information: </strong><br>
