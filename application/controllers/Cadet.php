@@ -149,7 +149,7 @@ class Cadet extends CI_Controller{
 //        TODO: Fix this so instead of manipulating a name the file name is stored on the cadet's profile
         $user = $this->ion_auth->user()->row();
         
-        $config['upload_path']      = './images/';
+        $config['upload_path']      = 'images/';
         $config['allowed_types']    = 'jpeg|jpg|png';
         $config['max_size']         = 100000;
         $config['max_width']        = 20000;
@@ -157,20 +157,22 @@ class Cadet extends CI_Controller{
         $config['file_name']        = $user->id;
 
         // If old profile picture exists delete it
-        if( file_exists("./images/" . $user->id . ".png") || file_exists("./images/" . $user->id . ".jpg") || file_exists("./images/" . $user->id . ".jpeg"))
+        if( file_exists(base_url('/images/'. $user->id . ".png")) || file_exists(base_url('/images/'. $user->id . ".jpg")) || file_exists(base_url('/images/'. $user->id . ".jpeg")))
         {
-            unlink("./images/" . $user->id . ".png");
-            unlink("./images/" . $user->id . ".jpg");
-            unlink("./images/" . $user->id . ".jpeg");
+            unlink(base_url('/images/'. $user->id . ".png"));
+            unlink(base_url('/images/'. $user->id . ".jpg"));
+            unlink(base_url('/images/'. $user->id . ".jpeg"));
         }
         
         // Uploads image
         $this->load->library('upload', $config);
         if( !$this->upload->do_upload('profilepicture') ) 
         {
-            $error = array('error' => $this->upload->display_errors()); 
-            redirect('cadet/edit');
-        }
+            $data['error'] = $this->upload->display_errors();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('cadet/editProfile');
+            $this->load->view('templates/footer');         }
         else 
         { 
             $data = array('upload_data' => $this->upload->data()); 
@@ -195,16 +197,17 @@ class Cadet extends CI_Controller{
         foreach($files as $file)
         {
             $info = pathinfo($file);
-            if($info['filename'] == $user->username)
+            if($info['filename'] == $user->id)
             {
-                $data['picture'] = $info['basename'];
+                $data['picture'] = base_url( 'images/' . $info['basename']);
                 $found = true;
             }
         }
         if(!$found)
         {
-            $data['picture'] = "/images/default.jpeg";
+            $data['picture'] = base_url("/images/default.jpeg");
         }
+        $data['error'] = NULL;
 
         $this->load->view('templates/header', $data);
         $this->load->view('cadet/editProfile');
@@ -228,7 +231,7 @@ class Cadet extends CI_Controller{
         foreach($files as $file)
         {
             $info = pathinfo($file);
-            if($info['filename'] == $user->username)
+            if($info['filename'] == $user->id)
             {
                 $data['picture'] = $info['basename']; 
                 $found = true;

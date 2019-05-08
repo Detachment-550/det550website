@@ -5,10 +5,13 @@
 
       <div class="card">
         <div class="card-body">
+            <div class="alert alert-warning" role="alert" style="display: <?php if($error !== NULL) { echo "block";} else {echo "none";} ?>">
+                <?php echo $error; ?>
+            </div>
             <?php echo form_open_multipart('cadet/uploadpic'); ?>
             <p><strong>Profile Picture: </strong></p>
-            <img class="card-img-top" id="profile" alt="Profile picture" src='<?php echo base_url("images/" . $picture); ?>'><br><br>
-            <input type="file" name="profilepicture"><br><br>
+            <img class="card-img-top" id="profile" alt="Profile picture" src='<?php echo $picture; ?>'><br><br>
+            <input type="file" name="profilepicture" required><br><br>
             <button class="btn btn-sm btn-primary" type="submit" name="submit">Upload Picture</button><br><br>
             </form>
         </div>
