@@ -423,7 +423,7 @@ class Cadet extends CI_Controller{
                 $this->load->library('email');
                 $this->load->library('encryption');
 
-                $this->email->to($this->input->post('primaryEmail'));
+                $this->email->to($this->input->post('email'));
                 $this->email->from('noreply@detachment550.org','Air Force ROTC Detachment 550');
                 $this->email->subject('New Cadet Account');
                 $this->email->message($message);
