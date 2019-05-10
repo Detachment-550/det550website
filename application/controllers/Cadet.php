@@ -386,14 +386,23 @@ class Cadet extends CI_Controller{
                 }
                 $pass = implode($pass); // Turn the array into a string
 
+                if($this->input->post('rfid') !== "")
+                {
+                    $rfid = $this->input->post('rfid');
+                }
+                else
+                {
+                    $rfid = NULL;
+                }
+
                 $params = array(
                     'admin' => $this->input->post('admin'),
-                    'firstName' => $this->input->post('firstname'),
+                    'first_name' => $this->input->post('firstname'),
                     'rank' => $this->input->post('rank'),
                     'class' => $this->input->post('class'),
                     'flight' => $this->input->post('flight'),
-                    'lastName' => $this->input->post('lastname'),
-                    'rfid' => $this->input->post('rfid'),
+                    'last_name' => $this->input->post('lastname'),
+                    'rfid' => $rfid,
                     'question' => $this->input->post('question'),
                     'answer' => $this->input->post('answer')
                 );
