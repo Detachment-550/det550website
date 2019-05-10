@@ -32,10 +32,11 @@
       <?php echo form_open('login/question'); ?>
       <h5 class="card-title">Password Reset</h5>
         <p>(sends new temporary password to your email)</p><br>
-        
-      <label for="rin"><b>RIN</b></label><br>
-      <input class="form-control" type="text" placeholder="Enter RIN" name="rin" id="rin" required><br>
 
+      <div class="form-group">
+          <label for="email">Email</label>
+          <input class="form-control" type="text" placeholder="Enter your email..." name="email" id="email" required>
+      </div>
       <button class="btn btn-sm btn-primary" type="submit" name="submit">Reset Password</button>
     </form>
   </div>

@@ -1,13 +1,26 @@
 <?php
 class Login extends CI_Controller {
 
-    public function view()
+    function __construct()
     {
+        parent::__construct();
         $this->load->library('session');
+
         if( $this->ion_auth->logged_in() )
         {
             redirect('cadet/home');
         }
+        else
+        {
+            $this->load->model('User_model');
+        }
+    }
+
+    /*
+     * Shows the login page.
+     */
+    public function view()
+    {
         $data['title'] = 'Login';
         $data['error'] = NULL;
 
@@ -35,7 +48,7 @@ class Login extends CI_Controller {
             // If you are locked out of the account show error
             if( $this->ion_auth->is_max_login_attempts_exceeded($identity) )
             {
-                $data['error'] = "You have been locked out of your account due to 10 incorrect password entries. 
+                $data['error'] = "You have been locked out of your account due to 5 incorrect password entries. 
                 Please reach out to a site admin or up your chain of commend to resolve this issue.";
             }
             else
@@ -67,12 +80,9 @@ class Login extends CI_Controller {
     {
         if(isset($_POST) && $_POST > 0)
         {
-            $this->load->model('Cadet_model');
-
             $data['title'] = 'Security Question';
-            $data['cadet'] = $this->Cadet_model->get_cadet($this->input->post('rin'));
-            $data['rin'] = $this->input->post('rin');
-            
+            $data['user'] = $this->User_model->find_user_email(trim($this->input->post('email')));
+
             $this->load->view('cadet/passwordreset', $data);
             $this->load->view('templates/footer');
         }
@@ -88,15 +98,9 @@ class Login extends CI_Controller {
      */
     function resetpass()
     {
-//        TODO: Fix this
-        $this->load->model('Cadet_model');
-        $this->load->library('session');
-
-        $cadet = $this->Cadet_model->get_cadet($this->input->post('rin'));
+        $user = $this->User_model->find_user_email(trim($this->input->post('email')));
         
-        $email[] = $cadet['primaryEmail'];
-        
-        if(strcmp($this->input->post('answer'), $cadet['answer']) == 0)
+        if(strcmp($this->input->post('answer'), $user['answer']) == 0)
         {
             // Generates random password
             $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
@@ -107,16 +111,15 @@ class Login extends CI_Controller {
                 $n = rand(0, $alphaLength);
                 $pass[] = $alphabet[$n];
             }
+
             $pass = implode($pass); // Turn the array into a string
-            
-            $hash = password_hash($pass, PASSWORD_DEFAULT);
 
             $params = array(
-                'password' => $hash,
+                'password' => $pass,
                 'loginattempt' => 0
             );
 
-            $this->Cadet_model->update_cadet($this->input->post('rin'), $params); 
+            $this->ion_auth->update($user['id'], $params);
 
             $message = "<h2>Password Reset</h2>
                         <p>The below is your temporary password please change it as soon as possible!</p>
@@ -128,7 +131,7 @@ class Login extends CI_Controller {
             // Load email library
             $this->load->library('email');
 
-            $this->email->bcc($email);
+            $this->email->bcc($user['email']);
             $this->email->from('noreply@detachment550.org','Air Force ROTC Detachment 550');
             $this->email->subject('Password Reset');
             $this->email->message($message);

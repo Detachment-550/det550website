@@ -11,21 +11,25 @@
     <link rel="stylesheet" href="<?php echo base_url("application/third_party/bootstrap-4.3.1/css/bootstrap-reboot.min.css"); ?>">
     <script type="text/javascript" src="<?php echo base_url("application/third_party/bootstrap-4.3.1/js/bootstrap.min.js"); ?>"></script>
 
-    <div class="jumbotron container-fluid">
-  <div class="container">
-    <h1 class="display-4">Security Question</h1>
-    <div style="width:90%;display:block;margin-left:auto;margin-right:auto;" class="card" id="Edit Groups">
-      <div class="card-body">
+    <div class="jumbotron container-fluid" style="height: -webkit-fill-available;margin: 0px;">
+        <div class="container">
+            <h1 class="display-4">Security Question</h1>
+            <div style="width:90%;display:block;margin-left:auto;margin-right:auto;" class="card" id="Edit Groups">
+                <div class="card-body">
 
-      <?php echo form_open('login/resetpass'); ?>
-      <h4>Security Question:</h4>
-            RIN: <input type='text' name='rin' id='rin' value='<?php echo $cadet['rin']; ?>' readonly><br><br>
-            <?php echo $cadet['question']; ?>
-            <br><br><h4 class='card-text'>Response:</h4>
-          
-          <input type="text" style="width:100%;" name="answer" id="answer" placeholder="Answer is case sensitive"><br><br>
-            
-          <button class="btn btn-sm btn-primary" type="submit" name="submit">Submit</button>
-        </form><br>
-    </div>
-</div>
+                    <?php echo form_open('login/resetpass'); ?>
+                    <h4>Security Question:</h4>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type='text' name='email' id='email' value='<?php echo $user['email']; ?>' class="form-control" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="answer"><?php echo $user['question']; ?></label>
+                        <input type="text" class="form-control" name="answer" id="answer" placeholder="Answer is case sensitive" required>
+                    </div>
+
+                    <button class="btn btn-sm btn-primary" type="submit" name="submit">Submit</button>
+                    </form><br>
+                </div>
+            </div>
