@@ -4,13 +4,8 @@ class Login extends CI_Controller {
     function __construct()
     {
         parent::__construct();
-        $this->load->library('session');
 
         if( $this->ion_auth->logged_in() )
-        {
-            redirect('cadet/home');
-        }
-        else
         {
             $this->load->model('User_model');
         }
@@ -21,11 +16,17 @@ class Login extends CI_Controller {
      */
     public function view()
     {
-        $data['title'] = 'Login';
-        $data['error'] = NULL;
+        if( $this->ion_auth->logged_in() )
+        {
+            redirect('cadet/home');
+        }
+        else
+        {
+            $data['title'] = 'Login';
 
-        $this->load->view('login', $data);
-        $this->load->view('templates/footer');
+            $this->load->view('login', $data);
+            $this->load->view('templates/footer');
+        }
     }
     
     /*
@@ -152,13 +153,9 @@ class Login extends CI_Controller {
      */
     function logout()
     {
-        $data['title'] = 'Login Page';
-        $data['error'] = NULL;
-
         $this->ion_auth->logout();
 
-        $this->load->view('login', $data);
-        $this->load->view('templates/footer');
+        redirect('login/view');
     }
 
 }

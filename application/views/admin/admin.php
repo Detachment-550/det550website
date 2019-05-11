@@ -151,17 +151,6 @@
                 <div class="card-body">
                     <h5 class="card-title">Modify User Info</h5>
                     <?php echo form_open('cadet/select'); ?>
-                    <label for="modify">Select User</label>
-                    <select name="modify" id="modify" class="form-control" required>
-                        <option value="">Choose...</option>
-                        <?php
-                        foreach($users as $user)
-                        {
-                            echo "<option value='" . $user->id . "'>" . $user->first_name . " " . $user->last_name . "</option>";
-                        }
-                        ?>
-                        <br>
-                    </select><br>
                     <button class="btn btn-warning" type="submit" name="submit">Modify Cadet Info</button>
                     </form>
                 </div>

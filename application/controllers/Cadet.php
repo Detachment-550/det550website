@@ -5,34 +5,25 @@ class Cadet extends CI_Controller{
     {
         parent::__construct();
         date_default_timezone_set('US/Eastern');
-        $this->load->library('session');
-        
+
         if( !$this->ion_auth->logged_in() )
         {
             redirect('login/view');
         }
-    } 
+    }
 
     /*
      * Selects a cadet to be modified
      */
     function select()
     {
-//        TODO: Fix this so it redirects to a page where it doesn't repost data on a refresh
-        if( $this->input->post('modify') !== null )
-        {
-            $data['user'] = $this->ion_auth->user($this->input->post('modify'))->row();
-            $data['title'] = "Modify Cadet";
+        $data['users'] = $this->ion_auth->users()->result(); // get all users
+        $data['title'] = "Modify Cadet";
 
-            // Loads the home page
-            $this->load->view('templates/header', $data);
-            $this->load->view('cadet/modifycadet');
-            $this->load->view('templates/footer');
-        }
-        else
-        {
-            show_error('You must select a cadet to be modified');
-        }
+        // Loads the home page
+        $this->load->view('templates/header', $data);
+        $this->load->view('cadet/modifycadet');
+        $this->load->view('templates/footer');
     }
 
     /*
@@ -345,25 +336,33 @@ class Cadet extends CI_Controller{
      */
     function modify()
     {
-        if( $this->ion_auth->is_admin() )
+        if( isset($_POST) && count($_POST) > 0 && $this->ion_auth->is_admin() )
         {
-            if( $this->input->post('admin') !== null && $this->input->post('rank') !== null && $this->input->post('flight') !== null )
+            if($this->input->post('admin') === "yes" && !$this->ion_auth->is_admin($this->input->post('modify')))
             {
-                $params = array(
-                    'admin' => $this->input->post('admin'),
-                    'rank' => $this->input->post('rank'),
-                    'flight' => $this->input->post('flight'),
-                    'class' => $this->input->post('class')
-                );
+                // Makes user an admin
+                $this->ion_auth->add_to_group(1, $this->input->post('modify'));
+            }
+            else if($this->input->post('admin') === "no" && $this->ion_auth->is_admin($this->input->post('modify')))
+            {
+                // Removes admin privileges
+                $this->ion_auth->remove_from_group(1, $this->input->post('modify'));
+            }
 
-                $this->ion_auth->update($this->input->post('modify'), $params);
-                redirect('cadet/view');
-            }
-            else
-            {
-                show_error('You must provide a question and answer to set your security question.');
-            }
+            $params = array(
+                'rank' => $this->input->post('rank'),
+                'flight' => $this->input->post('flight'),
+                'class' => $this->input->post('class')
+            );
+
+            $this->ion_auth->update($this->input->post('modify'), $params);
+            redirect('cadet/select');
         }
+        else
+        {
+            show_error('You must be an admin and give new user information to change a user\'s information');
+        }
+
     }
     
     /*
@@ -543,5 +542,23 @@ class Cadet extends CI_Controller{
         $this->load->view('templates/header', $data);
         $this->load->view('wingstructure');
         $this->load->view('templates/footer');
+    }
+
+    /*
+     * Returns information about the selected user.
+     */
+    function info()
+    {
+        if( $this->input->post('user') !== null && $this->ion_auth->is_admin() )
+        {
+            $data['user'] = $this->ion_auth->user($this->input->post('user'))->row();
+            $data['admin'] = $this->ion_auth->is_admin($this->input->post('user'));
+        }
+        else
+        {
+            $data['error'] = "You must provide a user id to get information abou their account";
+        }
+
+        echo json_encode($data);
     }
 }
