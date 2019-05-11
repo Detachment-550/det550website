@@ -265,12 +265,11 @@ class Cadet extends CI_Controller{
         $this->load->model('Cadetevent_model');
         $this->load->model('Announcement_model');
         $this->load->model('Attendance_model');
+        $user = $this->ion_auth->user()->row();
 
         $data['events'] =  $this->Cadetevent_model->get_last_five_events();
-        $data['announcements'] =  $this->Announcement_model->get_last_five_announcements();
+        $data['announcements'] =  $this->Announcement_model->get_last_five_announcements($user->id);
         $data['admin'] = $this->ion_auth->is_admin();
-
-        $user = $this->ion_auth->user()->row();
 
         $hour = intval(date("H"));
         if($hour < 12 )

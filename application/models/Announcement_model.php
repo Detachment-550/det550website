@@ -18,10 +18,15 @@ class Announcement_model extends CI_Model
     
     /*
      * Get last 5 announcements by date
+     *
+     * @param user - the user making this db query
      */
-    function get_last_five_announcements()
+    function get_last_five_announcements($user)
     {
         $this->db->join('users', 'users.id = announcement.createdBy');
+        $this->db->join('announcement_group_jointable', 'announcement.uid = announcement_group_jointable.announcement');
+        $this->db->join('users_groups', 'group_id = announcement_group_jointable.group');
+        $this->db->where('user_id', $user);
         $this->db->order_by('date', 'desc');
         $this->db->limit(5);
 
