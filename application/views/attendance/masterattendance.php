@@ -12,6 +12,12 @@
         <button type="button" class="btn btn-primary" style="float: right;margin: 10px;" onclick="download()">Download Table</button><br><br>
 
         <div id="attendance"></div>
+
+        <h1>Weekly Attendance</h1>
+
+        <button type="button" class="btn btn-primary" style="float: right;margin: 10px;" onclick="downloadweek()">Download Table</button><br><br>
+
+        <div id="weekattendance"></div>
     </div>
 </div>
 

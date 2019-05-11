@@ -87,6 +87,18 @@ class Cadetevent_model extends CI_Model
     }
 
     /*
+     * Get events from the current week
+     */
+    function get_week_events()
+    {
+        $this->db->where('YEAR(date) = YEAR(CURDATE())');
+        $this->db->where('MONTH(date) = MONTH(CURDATE())');
+        $this->db->where('WEEK(date) = WEEK(CURDATE())');
+
+        return $this->db->get('cadetEvent')->result_array();
+    }
+
+    /*
      * function to add new cadetevent
      */
     function add_cadetevent($params)
