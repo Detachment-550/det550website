@@ -93,22 +93,22 @@ class Announcement extends CI_Controller{
 
             }
 
-//            // Sends the announcement to groupMe
-//            $url = "https://api.groupme.com/v3/bots/post";
-//            $fields = [
-//                'bot_id'    => "b83da12e82339a292c0173442d",
-//                'text'      => "Title: " . $this->input->post('title') . "
-//                Subject: " . $this->input->post('subject') . "
-//
-//                Link: " . site_url("announcement/page/" . $id ),
-//            ];
-//            $fields_string = http_build_query($fields);
-//            $ch = curl_init();
-//            curl_setopt($ch,CURLOPT_URL, $url);
-//            curl_setopt($ch,CURLOPT_POST, count($fields));
-//            curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
-//            curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
-//            curl_exec($ch);
+            // Sends the announcement to groupMe
+            $url = "https://api.groupme.com/v3/bots/post";
+            $fields = [
+                'bot_id'    => "b83da12e82339a292c0173442d",
+                'text'      => "Title: " . $this->input->post('title') . "
+                Subject: " . $this->input->post('subject') . "
+
+                Link: " . site_url("announcement/page/" . $id ),
+            ];
+            $fields_string = http_build_query($fields);
+            $ch = curl_init();
+            curl_setopt($ch,CURLOPT_URL, $url);
+            curl_setopt($ch,CURLOPT_POST, count($fields));
+            curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
+            curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
+            curl_exec($ch);
 
             // Goes back to announcement create page
             redirect('announcement/create');
