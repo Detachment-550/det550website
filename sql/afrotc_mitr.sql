@@ -1,29 +1,3 @@
-create table cadetEvent
-(
-    name    varchar(255)         null,
-    date    datetime             null,
-    eventID int auto_increment
-        primary key,
-    pt      tinyint(1) default 0 null,
-    llab    tinyint(1) default 0 null
-)
-    collate = ascii_bin;
-
-create table emails
-(
-    uid     int auto_increment
-        primary key,
-    day     date                                not null,
-    `to`    varchar(255)                        null,
-    `from`  varchar(255)                        null,
-    subject mediumtext                          null,
-    message longtext                            null,
-    title   varchar(255)                        null,
-    cadet   int                                 null,
-    created timestamp default CURRENT_TIMESTAMP not null
-)
-    charset = latin1;
-
 create table `groups`
 (
     id          mediumint unsigned auto_increment
@@ -125,9 +99,36 @@ create index acknowledge_posts_cadet_fk
 create index user_fk
     on announcement (createdBy);
 
+create table announcement_group_jointable
+(
+    announcement int                not null,
+    `group`      mediumint unsigned not null,
+    id           int auto_increment
+        primary key,
+    constraint announcement_group_jointable_announcement_uid_fk
+        foreign key (announcement) references announcement (uid),
+    constraint announcement_group_jointable_groups_id_fk
+        foreign key (`group`) references `groups` (id)
+);
+
+create table cadetEvent
+(
+    name       varchar(255)                         null,
+    date       datetime                             null,
+    eventID    int auto_increment
+        primary key,
+    pt         tinyint(1) default 0                 null,
+    llab       tinyint(1) default 0                 null,
+    created    timestamp  default CURRENT_TIMESTAMP not null,
+    created_by int(11) unsigned                     not null,
+    constraint cadetEvent_users_id_fk
+        foreign key (created_by) references users (id)
+)
+    collate = ascii_bin;
+
 create table attendance
 (
-    rin             int(11) unsigned                     not null,
+    user            int(11) unsigned                     not null,
     eventid         int                                  not null,
     excused_absence tinyint(1) default 0                 null,
     time            timestamp  default CURRENT_TIMESTAMP not null,
@@ -138,12 +139,31 @@ create table attendance
         foreign key (eventid) references cadetEvent (eventID)
             on update cascade on delete cascade,
     constraint attendance_users_id_fk
-        foreign key (rin) references users (id)
+        foreign key (user) references users (id)
+            on update cascade on delete cascade
 )
     collate = ascii_bin;
 
 create index attendance_cadet_fk
     on attendance (user);
+
+create table emails
+(
+    uid     int auto_increment
+        primary key,
+    day     date                                not null,
+    `to`    varchar(255)                        null,
+    `from`  varchar(255)                        null,
+    subject mediumtext                          null,
+    message longtext                            null,
+    title   varchar(255)                        null,
+    user    int(11) unsigned                    null,
+    created timestamp default CURRENT_TIMESTAMP not null,
+    constraint emails_users_id_fk
+        foreign key (user) references users (id)
+            on update cascade on delete cascade
+)
+    charset = latin1;
 
 create table users_groups
 (
