@@ -58,7 +58,7 @@ class Cadetdirectory extends CI_Controller{
             $info = pathinfo($file);
             if($info['filename'] == $user->id)
             {
-                $data['picture'] = $file; 
+                $data['picture'] = base_url( './images/' . $info['basename']);
                 $found = true;
             }
         }
