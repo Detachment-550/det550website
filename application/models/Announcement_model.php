@@ -33,10 +33,14 @@ class Announcement_model extends CI_Model
      *
      * @param limit - the number of announcements to return
      * @param start - what row to start at in results
+     * @param user - the id of the user looking for announcements
      */
-    function get_specific_announcements( $limit, $start )
+    function get_specific_announcements( $limit, $start, $user )
     {
         $this->db->join('users', 'users.id = announcement.createdBy');
+        $this->db->join('announcement_group_jointable', 'announcement.uid = announcement_group_jointable.announcement');
+        $this->db->join('users_groups', 'group_id = announcement_group_jointable.group');
+        $this->db->where('user_id', $user);
         $this->db->order_by('date', 'desc');
         $this->db->limit($limit, $start);
 

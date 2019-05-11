@@ -9,8 +9,7 @@
 
                 <div class="form-group">
                     <label class="card-text" for="grouplist">Groups to notify (Ctl/Command Click to multiselect)</label><br>
-                    <select id="grouplist" class="form-control" name="groups[]" multiple>
-                        <option value="null">No Groups [Default]</option>
+                    <select id="grouplist" class="form-control" name="groups[]" multiple required>
                         <?php
                         foreach( $groups as $group )
                         {

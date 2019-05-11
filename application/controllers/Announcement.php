@@ -22,10 +22,11 @@ class Announcement extends CI_Controller{
      */
     function post()
     {
-        $this->load->helper('form');
-        
         if( $this->input->post('body') != null && $this->input->post('subject') != null)
         {
+            $this->load->helper('form');
+            $this->load->model('Join_announcement_group_model');
+
             $user = $this->ion_auth->user()->row();
 
             $params = array(
@@ -52,6 +53,13 @@ class Announcement extends CI_Controller{
                 
                 foreach( $this->input->post('groups') as $group )
                 {
+                    $params = array(
+                        'announcement'  => $id,
+                        'group'         => $group,
+                    );
+
+                    $this->Join_announcement_group_model->add_announcement_group($params);
+
                     $members = $this->ion_auth->users($group)->result(); // get users from given group
 
                     foreach( $members as $member )
@@ -169,8 +177,9 @@ class Announcement extends CI_Controller{
         $config["attributes"] = array('class' => 'page-link');
 
         $this->pagination->initialize($config);
+        $user = $this->ion_auth->user()->row();
 
-        $data["announcements"] = $this->Announcement_model->get_specific_announcements($config["per_page"], $page);
+        $data["announcements"] = $this->Announcement_model->get_specific_announcements($config["per_page"], $page, $user->id);
         $data["links"] = $this->pagination->create_links();
         $data['ackposts'] = $this->Acknowledge_post_model->get_all_acknowledge_posts();
 

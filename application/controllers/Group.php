@@ -102,4 +102,21 @@ class Group extends CI_Controller{
             show_error("You must be an admin to remove a group");
         }
     }
+
+    /*
+     * Creates a group.
+     */
+    function add()
+    {
+        if( $this->ion_auth->is_admin() && isset($_POST) && count($_POST) > 0 )
+        {
+            $this->ion_auth->create_group($this->input->post('label'), $this->input->post('description'));
+
+            redirect('group/adminview');
+        }
+        else
+        {
+            show_error("You must be an admin to view this page and you must provide group information to create a group");
+        }
+    }
 }
