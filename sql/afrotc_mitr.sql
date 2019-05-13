@@ -66,6 +66,7 @@ create table users
     position                    varchar(255)        null,
     awards                      text                null,
     groupme                     varchar(50)         null,
+    image                       varchar(255)        null,
     constraint uc_activation_selector
         unique (activation_selector),
     constraint uc_email

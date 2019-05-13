@@ -149,20 +149,9 @@ class Cadet extends CI_Controller{
         $config['file_name']        = $user->id;
 
         // If old profile picture exists delete it
-        if( file_exists('./images/'. $user->id . ".png"))
+        if(is_file('./images/' . $user->image))
         {
-            unlink('./images/'. $user->id . ".png");
-
-        }
-        if(file_exists('./images/'. $user->id . ".jpg"))
-        {
-            unlink('./images/'. $user->id . ".jpg");
-
-        }
-        if(file_exists('./images/'. $user->id . ".jpeg"))
-        {
-            unlink('./images/'. $user->id . ".jpeg");
-
+            unlink('./images/'. $user->image );
         }
 
         // Uploads image
@@ -173,9 +162,16 @@ class Cadet extends CI_Controller{
 
             $this->load->view('templates/header', $data);
             $this->load->view('cadet/editProfile');
-            $this->load->view('templates/footer');         }
+            $this->load->view('templates/footer');
+        }
         else 
-        { 
+        {
+            $params = array(
+                'image' => $this->upload->data('file_name'),
+            );
+
+            $this->ion_auth->update($user->id, $params);
+
             $data = array('upload_data' => $this->upload->data()); 
             redirect('cadet/edit');
         } 
@@ -192,22 +188,15 @@ class Cadet extends CI_Controller{
         $data['user'] = $user;
 
         // Looks for profile picture
-        $files = array_diff(scandir("./images"), array('.', '..'));
-        $found = false;
-        $data['files'] = $files;
-        foreach($files as $file)
+        if(is_file('./images/' . $user->image))
         {
-            $info = pathinfo($file);
-            if($info['filename'] == $user->id)
-            {
-                $data['picture'] = base_url( '/images/' . $info['basename']);
-                $found = true;
-            }
+            $data['picture'] = base_url("./images/" . $user->image);
         }
-        if(!$found)
+        else
         {
-            $data['picture'] = base_url("/images/default.jpeg");
+            $data['picture'] = base_url("./images/default.jpeg");
         }
+
         $data['error'] = NULL;
 
         $this->load->view('templates/header', $data);
@@ -224,27 +213,18 @@ class Cadet extends CI_Controller{
 
         $data['title'] = 'Profile Page';
         $data['admin'] = $this->ion_auth->is_admin();
-        
+
         // Looks for profile picture
-        $files = array_diff(scandir("./images"), array('.', '..'));
-        $found = false;
-        $data['files'] = $files;
-        foreach($files as $file)
+        if(is_file('./images/' . $user->image))
         {
-            $info = pathinfo($file);
-            if($info['filename'] == $user->id)
-            {
-                $data['picture'] = base_url( '/images/' . $info['basename']);
-                $found = true;
-            }
+            $data['picture'] = base_url("./images/" . $user->image);
         }
-        if(!$found)
+        else
         {
-            $data['picture'] = "/images/default.jpeg";
+            $data['picture'] = base_url("./images/default.jpeg");
         }
         
         $data['user'] = $user;
-
         $data['heading'] = $user->rank . " " . $user->last_name;
         
         // Allows user to see edit profile button
