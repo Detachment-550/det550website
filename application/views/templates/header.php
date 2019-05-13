@@ -48,6 +48,7 @@
                     if( $this->ion_auth->is_admin() )
                     {
                         echo anchor('cadet/view', 'Admin', 'class="dropdown-item"');
+                        echo anchor('alumni/modify', 'Modify Alumni', 'class="dropdown-item"');
                     }
                     if( $this->ion_auth->is_admin() || $this->session->userdata('attendance') )
                     {
