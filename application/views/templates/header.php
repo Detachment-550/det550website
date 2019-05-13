@@ -42,6 +42,7 @@
                     <?php echo anchor('email/view', 'Send Email', 'class="dropdown-item"'); ?>
                     <?php echo anchor('cadet/wingstructure', 'Org Chart', 'class="dropdown-item"'); ?>
                     <?php echo anchor('attendance/master', 'View Attendance', 'class="dropdown-item"'); ?>
+                    <?php echo anchor('alumni/view', 'View Alumni', 'class="dropdown-item"'); ?>
 
                     <?php
                     if( $this->ion_auth->is_admin() )

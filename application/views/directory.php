@@ -4,21 +4,11 @@
 <div class="jumbotron">
     <h1 class="display-4"> Detachment Directory </h1><br>
 <?php
-//TODO: Find a better way to do this
-$images = scandir("./images");
 foreach( $users as $user )
 {
-    if( in_array($user->id . ".jpg", $images) )
+    if( is_file('./images/' . $user->image) )
     {
-        $file = base_url("images/" . $user->id . ".jpg" );
-    }
-    else if( in_array($user->id . ".png", $images) )
-    {
-        $file = base_url("images/" . $user->id . ".png" );
-    }
-    else if( in_array($user->id . ".jpeg", $images) )
-    {
-        $file = base_url("images/" . $user->id . ".jpeg" );
+        $file = base_url('images/' . $user->image);
     }
     else
     {

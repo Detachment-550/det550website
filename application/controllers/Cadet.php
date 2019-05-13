@@ -309,40 +309,6 @@ class Cadet extends CI_Controller{
         }
     }
 
-    /*
-     * Transfers an account to an alumni status
-     */
-    function alumni()
-    {
-        if( isset($_POST) && count($_POST) > 0 && $this->ion_auth->is_admin() )
-        {
-            $this->load->model('Alumni_model');
-
-            $user = $this->ion_auth->user($this->input->post('transfer'))->row();
-
-            $params = array(
-                'rank' => $user->rank,
-                'email' => $user->email,
-                'first_name' => $user->first_name,
-                'last_name' => $user->last_name,
-                'phone' => $user->phone,
-                'major' => $user->major,
-                'position' => $user->position,
-            );
-
-            $this->Alumni_model->add_alumni($params);
-
-            $this->ion_auth->delete_user($user->id);
-
-            redirect('cadet/view');
-        }
-        else
-        {
-            show_error("You mus be an admin to transfer a user to alumni status. You also must provide a user
-            id of the user you wish to transfer.");
-        }
-    }
-
 
     
     /*

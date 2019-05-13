@@ -1,0 +1,23 @@
+/* Styles for mobile */
+@media (max-width: 450px)
+{
+    .card
+    {
+        width:95%;
+    }
+    body
+    {
+        min-width: 400px;
+    }
+}
+
+.jumbotron{
+	margin: 0;
+    height: -webkit-fill-available;
+    overflow: auto;
+}
+
+strong
+{
+    float: left;
+}

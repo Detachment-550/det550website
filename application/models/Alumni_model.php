@@ -18,9 +18,8 @@ class Alumni_model extends CI_Model
     /*
      * Get all alumni
      */
-    function get_all_alumnis()
+    function get_all_alumni()
     {
-        $this->db->order_by('name', 'asc');
         return $this->db->get('alumni')->result_array();
     }
 
@@ -38,7 +37,6 @@ class Alumni_model extends CI_Model
      */
     function update_alumni($id,$params)
     {
-        $this->db->where('id',$id);
         return $this->db->update('alumni',$params);
     }
 

@@ -155,7 +155,7 @@
                     </form>
                     <br>
                     <h5 id="memHeader" class="card-title">Make User an Alumni</h5>
-                    <?php echo form_open('cadet/alumni'); ?>
+                    <?php echo form_open('alumni/create'); ?>
                     <div class="form-group">
                         <label for="transfer">Select User</label>
                         <select name="transfer" class="form-control" id="transfer" required>
