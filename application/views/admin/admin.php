@@ -128,6 +128,15 @@
         </div>
 
         <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Modify User Info</h5>
+                    <?php echo form_open('cadet/select'); ?>
+                    <button class="btn btn-warning" type="submit" name="submit">Modify Cadet Info</button>
+                    </form>
+                </div>
+            </div><br>
+
             <div id="makeuser" class="card">
                 <div id="memWrapper" class="card-body">
                     <h5 id="memHeader" class="card-title">Remove User</h5>
@@ -144,17 +153,26 @@
                     </select><br>
                     <button class="btn btn-danger" name="submit" type="submit">Remove</button>
                     </form>
-                </div>
-            </div><br>
-
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Modify User Info</h5>
-                    <?php echo form_open('cadet/select'); ?>
-                    <button class="btn btn-warning" type="submit" name="submit">Modify Cadet Info</button>
+                    <br>
+                    <h5 id="memHeader" class="card-title">Make User an Alumni</h5>
+                    <?php echo form_open('cadet/alumni'); ?>
+                    <div class="form-group">
+                        <label for="transfer">Select User</label>
+                        <select name="transfer" class="form-control" id="transfer" required>
+                            <option value="">Choose...</option>
+                            <?php
+                            foreach($users as $user)
+                            {
+                                echo "<option value='" . $user->id . "'>" . $user->first_name . " " . $user->last_name . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <button class="btn btn-danger" name="submit" type="submit">Transfer</button>
                     </form>
                 </div>
             </div><br>
+
         </div>
 
         <div class="col-4">

@@ -1,3 +1,18 @@
+create table alumni
+(
+    alumni_id    int auto_increment
+        primary key,
+    `rank`       varchar(255)                        not null,
+    last_updated timestamp default CURRENT_TIMESTAMP not null,
+    created      timestamp default CURRENT_TIMESTAMP not null,
+    email        varchar(255)                        not null,
+    first_name   varchar(255)                        not null,
+    last_name    varchar(255)                        not null,
+    phone        varchar(20)                         null,
+    major        varchar(255)                        not null,
+    position     varchar(255)                        not null
+);
+
 create table `groups`
 (
     id          mediumint unsigned auto_increment
@@ -69,12 +84,13 @@ create table announcement
     title     varchar(255)                        not null,
     subject   varchar(255)                        not null,
     body      mediumtext                          not null,
-    createdBy int(11) unsigned                    not null,
+    createdBy int(11) unsigned                    null,
     uid       int auto_increment
         primary key,
     date      timestamp default CURRENT_TIMESTAMP not null,
     constraint announcement_users_id_fk
         foreign key (createdBy) references users (id)
+            on update set null on delete set null
 )
     collate = ascii_bin;
 
@@ -120,9 +136,10 @@ create table cadetEvent
     pt         tinyint(1) default 0                 null,
     llab       tinyint(1) default 0                 null,
     created    timestamp  default CURRENT_TIMESTAMP not null,
-    created_by int(11) unsigned                     not null,
+    created_by int(11) unsigned                     null,
     constraint cadetEvent_users_id_fk
         foreign key (created_by) references users (id)
+            on update set null on delete set null
 )
     collate = ascii_bin;
 
