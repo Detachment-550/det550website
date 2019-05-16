@@ -12,7 +12,7 @@ class Alumni_model extends CI_Model
      */
     function get_alumni($id)
     {
-        return $this->db->get_where('alumni',array('id'=>$id))->row_array();
+        return $this->db->get_where('alumni',array('alumni_id'=>$id))->row_array();
     }
 
     /*
@@ -45,6 +45,6 @@ class Alumni_model extends CI_Model
      */
     function delete_alumni($id)
     {
-        return $this->db->delete('alumni',array('id'=>$id));
+        return $this->db->delete('alumni',array('alumni_id'=>$id));
     }
 }
