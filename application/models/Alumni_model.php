@@ -37,6 +37,8 @@ class Alumni_model extends CI_Model
      */
     function update_alumni($id,$params)
     {
+        $this->db->where('alumni_id',$id);
+        $this->db->set('last_updated', 'NOW()', FALSE);
         return $this->db->update('alumni',$params);
     }
 

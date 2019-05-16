@@ -1,6 +1,6 @@
-<script src="<?php echo base_url("js/editalumni.js"); ?>"></script>
+<script src="<?php echo base_url("application/third_party/jQuery-Mask-Plugin/dist/jquery.mask.min.js"); ?>"></script>
 
-<div class="jumbotron">
+<div class="jumbotron" style="margin: 0px;">
     <h1 class="display-4">Add/Edit Alumni</h1>
     <div class="card">
         <div class="card-body">
@@ -75,14 +75,14 @@
             <h3>Edit Alumni</h3>
             <?php echo form_open('alumni/edit'); ?>
             <div class="form-group">
-                <label for="alum">Select Alumni</label>
-                <select name="alumni" id="alum" required class="form-control" onchange="selectalum(this.value)">
+                <label for="alumni">Select Alumni</label>
+                <select name="alumni" id="alumni" required class="form-control" onchange="selectalum(this.value)">
                     <option value="">Choose...</option>
                     <?php
-                        foreach ($alumni as $alumnus)
-                        {
-                            echo "<option value='" . $alumnus['alumni_id'] . "'>" . $alumnus['rank'] . " " . $alumnus['last_name'] . "</option>";
-                        }
+                    foreach ($alumni as $alumnus)
+                    {
+                        echo "<option value='" . $alumnus['alumni_id'] . "'>" . $alumnus['rank'] . " " . $alumnus['last_name'] . "</option>";
+                    }
                     ?>
                 </select>
             </div>
@@ -152,4 +152,49 @@
 
         </div>
     </div>
+    <br>
+    <?php echo form_open('alumni/remove'); ?>
+    <div class="card">
+        <div class="card-body">
+            <h3>Delete Alumni</h3>
+            <div class="form-group">
+                <label for="alum">Select Alumni</label>
+                <select name="alumni" id="alum" required class="form-control" onchange="confirm(this.value)">
+                    <option value="">Choose...</option>
+                    <?php
+                    foreach ($alumni as $alumnus)
+                    {
+                        echo "<option value='" . $alumnus['alumni_id'] . "'>" . $alumnus['rank'] . " " . $alumnus['last_name'] . "</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+            <button type="reset" class="btn btn-secondary">Reset</button>
+            <button type="button" class="btn btn-danger" data-toggle="modal" id="delete" disabled data-target="#confirm">Delete</button>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Delete <span id="alumname"></span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete <span id="name"></span>? This cannot be un-done.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
 </div>
+
+<script src="<?php echo base_url("js/editalumni.js"); ?>"></script>

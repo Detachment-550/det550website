@@ -139,6 +139,22 @@ class Alumni extends CI_Controller{
     }
 
     /*
+     * Deletes an alumni record.
+     */
+    function remove()
+    {
+        if( $this->ion_auth->is_admin() && isset($_POST) && count($_POST) > 0 )
+        {
+            $this->Alumni_model->delete_alumni($this->input->post('alumni'));
+            redirect('alumni/modify');
+        }
+        else
+        {
+            show_error("You mus be an admin to delete alumni. You also must provide an alumni_id to delete an alumni record.");
+        }
+    }
+
+    /*
      * Shows the directory of all of the alumni.
      */
     function view()
