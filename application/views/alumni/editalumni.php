@@ -5,7 +5,14 @@
     <div class="card">
         <div class="card-body">
             <h3>Add Alumni</h3>
-            <?php echo form_open('alumni/addalum'); ?>
+            <?php echo form_open_multipart('alumni/addalum'); ?>
+            <div class="alert alert-warning" role="alert" style="display: <?php if(isset($error)) { echo "block";} else {echo "none";} ?>">
+                <?php echo $error; ?>
+            </div>
+            <div class="form-group">
+                <label for="image">Profile Picture (optional)</label>
+                <input type="file" id="image" name="image" class="form-control"/>
+            </div>
             <div class="form-group">
                 <label for="first">First Name</label>
                 <input type="text" id="first" name="firstname" required class="form-control" placeholder="Enter first name..."/>
@@ -70,6 +77,7 @@
         </div>
     </div>
     <br>
+<!--    TODO: Add ability to edit alumni profile picture-->
     <div class="card">
         <div class="card-body">
             <h3>Edit Alumni</h3>

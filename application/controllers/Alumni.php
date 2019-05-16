@@ -72,6 +72,7 @@ class Alumni extends CI_Controller{
      */
     function edit()
     {
+//        TODO: Add ability to edit alumni picture
         if( $this->ion_auth->is_admin() && isset($_POST) && count($_POST) > 0 )
         {
             $params = array(
@@ -82,7 +83,6 @@ class Alumni extends CI_Controller{
                 'phone' => $this->input->post('phone'),
                 'major' => $this->input->post('major'),
                 'position' => $this->input->post('position'),
-                'image' => $this->input->post('image'),
             );
 
             $this->Alumni_model->update_alumni($this->input->post('alumni'), $params);
@@ -126,11 +126,43 @@ class Alumni extends CI_Controller{
                 'phone' => $this->input->post('phone'),
                 'major' => $this->input->post('major'),
                 'position' => $this->input->post('position'),
-                'image' => $this->input->post('image'),
             );
 
-            $this->Alumni_model->add_alumni($params);
-            redirect('alumni/modify');
+            $id = $this->Alumni_model->add_alumni($params);
+
+            $config['upload_path']      = 'images/';
+            $config['allowed_types']    = 'jpeg|jpg|png';
+            $config['max_size']         = 100000;
+            $config['max_width']        = 20000;
+            $config['max_height']       = 20000;
+            $config['file_name']        = 'alum' . $id;
+
+            // If old profile picture exists delete it
+            if(is_file('./images/' . 'alum' . $id))
+            {
+                unlink('./images/'. 'alum' . $id);
+            }
+
+            // Uploads image
+            $this->load->library('upload', $config);
+            if( !$this->upload->do_upload('image') )
+            {
+                $data['error'] = $this->upload->display_errors();
+
+                $this->load->view('templates/header', $data);
+                $this->load->view('alumni/editalumni');
+                $this->load->view('templates/footer');
+            }
+            else
+            {
+                $params = array(
+                    'image' => $this->upload->data('file_name'),
+                );
+
+                $this->Alumni_model->update_alumni($id, $params);
+
+                redirect('alumni/modify');
+            }
         }
         else
         {
