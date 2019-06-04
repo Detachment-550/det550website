@@ -4,11 +4,7 @@ class Login extends CI_Controller {
     function __construct()
     {
         parent::__construct();
-
-        if( $this->ion_auth->logged_in() )
-        {
-            $this->load->model('User_model');
-        }
+        $this->load->model('User_model');
     }
 
     /*
