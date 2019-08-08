@@ -12,6 +12,8 @@ class Attendance extends CI_Controller
             $this->load->model('Attendance_model');
             $this->load->model('Cadetevent_model');
             $this->load->model('User_model');
+            $this->load->model('Memo_type_model');
+            $this->load->model('Memo_model');
         }
         else
         {
@@ -102,7 +104,7 @@ class Attendance extends CI_Controller
                 if( $status !== NULL)
                 {
                     $params = array(
-                        'excused_absence' => 1,
+                        'memod_absence' => 1,
                         'comments' => $this->input->post('comments'),
                     );
                     $this->Attendance_model->update_attendance($this->input->post('cadet'),$this->input->post('event'),$params);
@@ -112,7 +114,7 @@ class Attendance extends CI_Controller
                     $params = array(
                         'user' => $this->input->post('cadet'),
                         'eventid' => $this->input->post('event'),
-                        'excused_absence' => 1,
+                        'memod_absence' => 1,
                         'comments' => $this->input->post('comments'),
                     );
                     $this->Attendance_model->add_attendance($params);
@@ -123,7 +125,7 @@ class Attendance extends CI_Controller
                 if( $status !== NULL)
                 {
                     $params = array(
-                        'excused_absence' => 0,
+                        'memod_absence' => 0,
                         'comments' => $this->input->post('comments'),
                     );
                     $this->Attendance_model->update_attendance($this->input->post('cadet'),$this->input->post('event'),$params);
@@ -133,7 +135,7 @@ class Attendance extends CI_Controller
                     $params = array(
                         'user' => $this->input->post('cadet'),
                         'eventid' => $this->input->post('event'),
-                        'excused_absence' => 0,
+                        'memod_absence' => 0,
                         'comments' => $this->input->post('comments'),
                     );
                     $this->Attendance_model->add_attendance($params);
@@ -151,13 +153,13 @@ class Attendance extends CI_Controller
     /*
      * Adding a new attendance
      */
-    function excuse()
+    function memo()
     {
         if ($this->Attendance_model->attendance_exists($this->input->post('cadet'), $this->input->post('event')) === 0) {
             $params = array(
                 'user' => $this->input->post('cadet'),
                 'eventid' => $this->input->post('event'),
-                'excused_absence' => 1
+                'memod_absence' => 1
             );
             $this->Attendance_model->add_attendance($params);
         }
@@ -280,6 +282,8 @@ class Attendance extends CI_Controller
     function master()
     {
         $data['title'] = "Master Attendance";
+        $data['events'] = $this->Cadetevent_model->get_current_cadetevents();
+        $data['memo_types'] = $this->Memo_type_model->get_all_memo_types();
 
         // Loads the home page
         $this->load->view('templates/header', $data);
@@ -300,4 +304,57 @@ class Attendance extends CI_Controller
         echo json_encode($data);
     }
 
+    /*
+     * Creates an memo.
+     */
+    function create_memo()
+    {
+        if (isset($_POST) && count($_POST) > 0)
+        {
+            $user = $this->ion_auth->user()->row();
+
+            $params = array(
+                'user' => $user->id,
+                'event' => $this->input->post('event'),
+                'memo_type' => $this->input->post('memo_type'),
+                'comments' => $this->input->post('comments'),
+            );
+
+            $this->Memo_model->add_memo($params);
+
+            redirect('attendance/master');
+        }
+        else
+        {
+            show_error("You must provide an memo type, event, and comments to create a memo memo");
+        }
+    }
+
+    /*
+     * Gets all of the memo's that have not been reviewed
+     */
+    function get_new_memos()
+    {
+        echo json_encode($this->Memo_model->get_new_memos());
+    }
+
+    /*
+     * Approves a memo based on it's id.
+     *
+     * @param memo_id - the memo id
+     */
+    function approve_memo($memo_id)
+    {
+        echo json_encode($this->Memo_model->approve_memo($memo_id));
+    }
+
+    /*
+     * Approves a memo based on it's id.
+     *
+     * @param memo_id - the memo id
+     */
+    function deny_memo($memo_id)
+    {
+        echo json_encode($this->Memo_model->deny_memo($memo_id));
+    }
 }

@@ -32,6 +32,16 @@ create table login_attempts
 )
     charset = utf8;
 
+create table memo_type
+(
+    memo_type_id int auto_increment
+        primary key,
+    label        varchar(255) not null,
+    description  text         null,
+    constraint excuse_type_label_uindex
+        unique (label)
+);
+
 create table users
 (
     id                          int(11) unsigned auto_increment
@@ -182,6 +192,25 @@ create table emails
             on update cascade on delete cascade
 )
     charset = latin1;
+
+create table memo
+(
+    memo_id       int auto_increment
+        primary key,
+    user          int unsigned                        not null,
+    event         int                                 not null,
+    memo_type     int                                 not null,
+    comments      text                                null,
+    approved      tinyint(1)                          null,
+    date_created  timestamp default CURRENT_TIMESTAMP not null,
+    date_reviewed timestamp                           null,
+    constraint excuse_cadetEvent_eventID_fk
+        foreign key (event) references cadetEvent (eventID),
+    constraint excuse_excuse_type_excuse_type_id_fk
+        foreign key (memo_type) references memo_type (memo_type_id),
+    constraint excuse_users_id_fk
+        foreign key (user) references users (id)
+);
 
 create table users_groups
 (
