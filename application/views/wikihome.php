@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="<?php echo base_url("css/wiki.css"); ?>">
+<link rel="stylesheet" type="text/css" href="/css/wiki.css">
 
 <body>
   <div class="jumbotron container-fluid">

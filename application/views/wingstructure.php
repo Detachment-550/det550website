@@ -1,5 +1,5 @@
 <div class="jumbotron jumbotron-fluid" style="height: 100%;">
-    <img style="width:100%;padding:10px;" src="<?php echo base_url("images/orgchart.png"); ?>">
+    <img style="width:100%;padding:10px;" src="/images/orgchart.png">
 </div>
 <style>
 body

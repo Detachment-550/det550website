@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="<?php echo base_url("css/attend.css"); ?>">
+<link rel="stylesheet" type="text/css" href="/css/attend.css">
 
 <div class="jumbotron container-fluid">
     <h3 class='h3'> Event: <?php echo $event["name"]; ?> </h3>
