@@ -294,7 +294,7 @@ class Attendance extends CI_Controller
     /*
      * Returns all of the master attendance records
      */
-    function getmaster()
+    function get_master()
     {
         $data['record'] = $this->Attendance_model->get_attendance_records();
         $data['events'] = $this->Cadetevent_model->get_current_cadetevents();
@@ -345,7 +345,18 @@ class Attendance extends CI_Controller
      */
     function approve_memo($memo_id)
     {
-        echo json_encode($this->Memo_model->approve_memo($memo_id));
+        $memo = $this->Memo_model->get_memo($memo_id);
+
+        $params = array(
+            'excused_absence' => 1,
+            'user' => $memo['user'],
+            'eventid' => $memo['event'],
+            'comments' => $memo['comments'],
+        );
+
+        $data['event_excused'] = $this->Attendance_model->add_attendance($params);
+        $data['memo_approved'] = $this->Memo_model->approve_memo($memo_id);
+        echo json_encode($data);
     }
 
     /*

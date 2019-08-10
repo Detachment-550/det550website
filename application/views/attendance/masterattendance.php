@@ -60,5 +60,3 @@
     </div>
 
     </div>
-
-<script>loadattendance('<?php echo site_url(); ?>')</script>

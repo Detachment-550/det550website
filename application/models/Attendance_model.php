@@ -38,8 +38,7 @@ class Attendance_model extends CI_Model
      */
     function get_attendance_records()
     {
-        $this->db->select('pt, llab, last_name, first_name, excused_absence, attendance.eventid, cadetEvent.eventID, users.username');
-        $this->db->from('users');
+        $this->db->select('pt, llab, users.id, last_name, first_name, excused_absence, attendance.eventid, cadetEvent.eventID, users.username');
         $this->db->join('attendance', 'users.id = attendance.user');
         $this->db->join('cadetEvent', 'cadetEvent.eventID = attendance.eventid');
         $this->db->where('YEAR(cadetEvent.date) = YEAR(CURDATE())');
@@ -55,8 +54,7 @@ class Attendance_model extends CI_Model
             $this->db->where('MONTH(date) < 13');
         }
 
-        $query = $this->db->get();
-        return $query->result_array();
+        return $this->db->get('users')->result_array();
     }
       
     /*
