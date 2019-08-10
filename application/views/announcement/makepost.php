@@ -1,20 +1,19 @@
-<script src="<?php echo base_url("js/makepost.js"); ?>"></script>
+<script src="/js/makepost.js"></script>
 
-<body> 
-	<div class="jumbotron container-fluid">
-		<h1 class="display-4"> Make an Announcement </h1>
-		<div class="card">
-			<div class="card-body">
-                <?php echo form_open('announcement/post'); ?>
-
+<body>
+<div class="jumbotron container-fluid">
+    <h1 class="display-4"> Make an Announcement </h1>
+    <div class="card">
+        <div class="card-body">
+            <form action="/index.php/announcement/post" method="POST">
                 <div class="form-group">
                     <label class="card-text" for="grouplist">Groups to notify (Ctl/Command Click to multiselect)</label><br>
                     <select id="grouplist" class="form-control" name="groups[]" multiple required>
                         <?php
-                        foreach( $groups as $group )
-                        {
-                            echo "<option value = '" . $group->id . "'>" . $group->description . "</option>";
-                        }
+                            foreach( $groups as $group )
+                            {
+                                echo "<option value = '" . $group->id . "'>" . $group->description . "</option>";
+                            }
                         ?>
                     </select>
                 </div>
@@ -36,6 +35,6 @@
 
                 <br>
                 <button class="btn btn-sm btn-primary" type="submit" name="submit">Post Announcement</button>
-			</form>
-	</div>
+            </form>
+        </div>
 </body>

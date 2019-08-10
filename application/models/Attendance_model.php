@@ -77,12 +77,11 @@ class Attendance_model extends CI_Model
     function export_event_attendance( $id )
     {
         $this->db->select('users.last_name as Last Name, cadetEvent.name as Event, attendance.excused_absence as Excused, attendance.time as Time');
-        $this->db->from('attendance');
-        $this->db->join('users', 'user.id = attendance.user');
+        $this->db->join('users', 'users.id = attendance.user');
         $this->db->join('cadetEvent', 'cadetEvent.eventID = attendance.eventid');
         $this->db->where('attendance.eventid', $id);
 
-        $query = $this->db->get();
+        $query = $this->db->get('attendance');
         $this->load->dbutil();
         $file = $this->dbutil->csv_from_result( $query );
         return $file;

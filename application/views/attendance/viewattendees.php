@@ -3,7 +3,7 @@
 <body>
 <div class="jumbotron container-fluid">
     <h2><?php echo $event['name']; ?> Attendees</h2>
-
+    <strong>* Note: 1 = Yes | 0 = No</strong>
 <table>
   <tr>
     <th>Name</th>
@@ -14,8 +14,8 @@
     foreach( $attendees as $attendee )
     {
         echo "<tr>";
-        echo "<td>" . $attendee['rank'] . $attendee['last_name'] . "</td>";
-        echo "<td>" . $attendee['time'] . "</td>";
+        echo "<td>" . $attendee['rank'] . ' ' . $attendee['last_name'] . "</td>";
+        echo "<td>" . date("m/d/Y H:i:s", strtotime($attendee['time'])) . "</td>";
         echo "<td>" . $attendee['excused_absence'] . "</td>";
         echo "</tr>";
     }

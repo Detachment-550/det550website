@@ -27,19 +27,19 @@
 
         <div class="card">
             <div class="card-body">
-                <?php echo form_open('cadetevent/view'); ?>
-                <div class="form-group">
-                    <label for="setevent">Set Event Attendance</label>
-                    <select name="event" id="setevent" class="form-control" required>
-                        <?php
-                        foreach( $events as $event )
-                        {
-                            echo "<option value='" . $event['eventID'] . "'>" . $event['name'] . "</option>";
-                        }
-                        ?>
-                    </select>
-                </div>
-                <button class="btn btn-primary" type="submit">Select Event</button>
+                <form action="/index.php/cadetevent/view" method="POST">
+                    <div class="form-group">
+                        <label for="setevent">Set Event Attendance</label>
+                        <select name="event" id="setevent" class="form-control" required>
+                            <?php
+                            foreach( $events as $event )
+                            {
+                                echo "<option value='" . $event['eventID'] . "'>" . $event['name'] . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Select Event</button>
                 </form>
             </div>
         </div><br>
@@ -47,7 +47,7 @@
         <div class="card">
             <div class="card-body">
                 <label>Modify Attendance Records</label><br>
-                <?php echo anchor('attendance/modify', 'Modify Attendance', 'class="btn btn-primary"'); ?>
+                <a href="/index.php/attendance/modify" class="btn btn-primary">Modify Attendance</a>
             </div>
         </div>
     </div>

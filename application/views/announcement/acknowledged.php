@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="<?php echo base_url("css/acknowledged.css"); ?>">
+<link rel="stylesheet" type="text/css" href="/css/acknowledged.css">
 
 <div class="jumbotron container-fluid">
     <h2><?php echo $announcement['title']; ?> HUA</h2>

@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="<?php echo base_url("css/announcement.css"); ?>">
+<link rel="stylesheet" type="text/css" href="/css/announcement.css">
 
 <body>
 <div class="jumbotron container-fluid">

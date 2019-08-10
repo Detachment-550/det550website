@@ -1,10 +1,10 @@
-<script src='<?php echo base_url("js/modifyattendance.js"); ?>'></script>
-<link rel="stylesheet" type="text/css" href="<?php echo base_url("css/modifyattendance.css"); ?>">
+<script src='/js/modifyattendance.js'></script>
+<link rel="stylesheet" type="text/css" href="/css/modifyattendance.css">
 
 <div class="jumbotron">
     <?php echo form_open('attendance/update'); ?>
     <label for="cadet">Cadet</label>
-    <select class="form-control" name="cadet" id="cadet" onchange="populate('<?php echo site_url(); ?>')">
+    <select class="form-control" name="cadet" id="cadet" onchange="populate()">
         <option value="">Choose...</option>
         <?php
         foreach($users as $user)
@@ -15,7 +15,7 @@
     </select><br>
 
     <label for="event">Event</label>
-    <select class="form-control" name="event" id="event" onchange="populate('<?php echo site_url(); ?>')">
+    <select class="form-control" name="event" id="event" onchange="populate()">
         <option value="">Choose...</option>
         <?php
         foreach($events as $event)

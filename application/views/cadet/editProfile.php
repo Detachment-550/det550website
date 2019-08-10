@@ -1,9 +1,9 @@
 <script src="/application/third_party/jQuery-Mask-Plugin/dist/jquery.mask.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/css/editprofile.css">
 
-    <div class="jumbotron jumbotron-fluid">
+<div class="jumbotron jumbotron-fluid">
 
-      <div class="card">
+    <div class="card">
         <div class="card-body">
             <div class="alert alert-warning" role="alert" style="display: <?php if($error !== NULL) { echo "block";} else {echo "none";} ?>">
                 <?php echo $error; ?>
@@ -15,7 +15,7 @@
             <button class="btn btn-sm btn-primary" type="submit" name="submit">Upload Picture</button><br><br>
             </form>
         </div>
-      </div>
+    </div>
 
     <div class="card">
         <div class="card-body">
@@ -47,8 +47,9 @@
                 <textarea id="awards" name="awards"><?php echo $user->awards; ?></textarea><br>
                 <button class="btn btn-sm btn-primary" type="submit" name="submit">Update Profile</button>
             </form><br>
-      </div>
+        </div>
     </div>
+    <div class="card">
         <div class="card-body">
             <h5 class="card-title">GroupMe</h5>
             <div>
@@ -60,32 +61,34 @@
             </div>
             </form>
         </div>
-        <div class="card">
-            <div class="card-body">
-                <form action="/index.php/cadet/changepassword" method="POST">
-                    <h5 class="card-title">Change Password</h5>
-                    <div>
-                        <strong>Old Password:</strong><br>
-                        <input class="form-control" type="password" name="oldpass" id="oldpass" size="30"/>
-                    </div><br>
-                    <div>
-                        <strong>New Password:</strong><br>
-                        <input class="form-control" type="text" name="newpass" id="newpass" size="30"/>
-                    </div><br>
-                    <div>
-                        <strong>Verify Password:</strong><br>
-                        <input class="form-control" id="verpass" type="text" name="verpass" size="30"/>
-                    </div><br>
-                    <button class="btn btn-sm btn-primary" type="reset">Reset</button>
-                    <button class="btn btn-sm btn-primary" type="submit" name="updatepass">Change Password</button>
-                </form>
-                <br>
+    </div>
 
-                <form action="/index.php/cadet/security" method="POST">
-                    <button type="submit" class="btn btn-sm btn-primary">Modify Security Question</button>
-                </form>
-            </div>
+    <div class="card">
+        <div class="card-body">
+            <form action="/index.php/cadet/changepassword" method="POST">
+                <h5 class="card-title">Change Password</h5>
+                <div>
+                    <strong>Old Password:</strong><br>
+                    <input class="form-control" type="password" name="oldpass" id="oldpass" size="30"/>
+                </div><br>
+                <div>
+                    <strong>New Password:</strong><br>
+                    <input class="form-control" type="text" name="newpass" id="newpass" size="30"/>
+                </div><br>
+                <div>
+                    <strong>Verify Password:</strong><br>
+                    <input class="form-control" id="verpass" type="text" name="verpass" size="30"/>
+                </div><br>
+                <button class="btn btn-sm btn-primary" type="reset">Reset</button>
+                <button class="btn btn-sm btn-primary" type="submit" name="updatepass">Change Password</button>
+            </form>
+            <br>
+
+            <form action="/index.php/cadet/security" method="POST">
+                <button type="submit" class="btn btn-sm btn-primary">Modify Security Question</button>
+            </form>
         </div>
-  </div>
+    </div>
+</div>
 
 <script src="/js/editProfile.js"></script>

@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="<?php echo base_url("css/alumdirectory.css"); ?>">
+<link rel="stylesheet" type="text/css" href="/css/alumdirectory.css">
 
 <!--TODO: Use boot strap card decks here to manage the card sizes -->
 <div class="jumbotron">

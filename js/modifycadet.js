@@ -28,6 +28,7 @@ function selectuser(user) {
                 $('#hide').css('display','block');
             },
             error: function (response) {
+                console.log(response);
                 alert('Error: There was a problem with getting the given cadet information');
                 console.log('Error: There was a problem with getting the given cadet information');
             }
