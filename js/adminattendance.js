@@ -44,6 +44,41 @@ var memo_table = new Tabulator("#memo_table", {
     ]
 });
 
+var historical_memo_table = new Tabulator("#historical_memo_table", {
+    placeholder:"There are no new memos at this time",
+    layout:"fitColumns",
+    ajaxURL:"/index.php/attendance/get_all_memos",
+    ajaxContentType:"json",
+    height: "400px",
+    index:'excuse_id',
+    ajaxResponse:function(url, params, response){
+        //url - the URL of the request
+        //params - the parameters passed with the request
+        //response - the JSON object returned in the body of the response.
+        console.log(response);
+        for(var x = 0; x < response.length; x++)
+        {
+            response[x].full_name = response[x].first_name + ' ' + response[x].last_name;
+        }
+        return response; //return the tableData property of a response json object
+    },
+    columns:[ //Define Table Columns
+        {title:"Memo ID", field:"memo_id", visible: false},
+        {title:"Event ID", field:"event", visible: false},
+        {title:"Event", field:"name"},
+        {title:"User ID", field:"id",visible:false},
+        {title:"User", field:"full_name"},
+        {title:"Date", field:"date_created", align:"center", formatter:"datetime", formatterParams:{
+                inputFormat:"YYYY-MM-DD hh:mm:ss",
+                outputFormat:"M/D/YY h:mm A",
+                invalidPlaceholder:"No Date",
+            }},
+        {title:"Approved", field:"approved", visible: false},
+        {title:"Comments", field:"comments", formatter:"textarea"},
+
+    ]
+});
+
 /*
  * Approves a memo.
  */
@@ -84,4 +119,43 @@ function deny_memo(memo_id) {
             alert("Error: Something went wrong with denying the memo");
         }
     });
+}
+
+/*
+ * Sets a filter on the historical memo page based on user.
+ *
+ * @param user - the user id
+ */
+function filter_user(user) {
+    if(user === "")
+    {
+        historical_memo_table.clearFilter(true);
+    }
+    else
+    {
+        historical_memo_table.setFilter('id', '=', user);
+    }
+}
+
+/*
+ * Sets a filter on the historical memo page based on user.
+ *
+ * @param user - the user id
+ */
+function filter_event(event) {
+    if(event === "")
+    {
+        historical_memo_table.clearFilter(true);
+    }
+    else
+    {
+        historical_memo_table.setFilter('event', '=', event);
+    }
+}
+
+/*
+ * Downloads the table in an csv format.
+ */
+function download_historical_table() {
+    historical_memo_table.download('csv', 'historical_memos.csv');
 }

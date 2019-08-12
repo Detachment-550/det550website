@@ -20,7 +20,9 @@ class Memo_model extends CI_Model
      */
     function get_all_memos()
     {
-        $this->db->order_by('label', 'asc');
+        $this->db->order_by('date_created', 'asc');
+        $this->db->join('users', 'memo.user = users.id');
+        $this->db->join('cadetEvent', 'eventID = memo.event');
         return $this->db->get('memo')->result_array();
     }
 

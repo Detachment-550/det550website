@@ -43,6 +43,7 @@ class Attendance extends CI_Controller
         $data['title'] = 'Modify Attendance';
         $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
         $data['users'] = $this->ion_auth->users()->result();
+        $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
 
         // Loads the home page
         $this->load->view('templates/header', $data);
@@ -336,6 +337,14 @@ class Attendance extends CI_Controller
     function get_new_memos()
     {
         echo json_encode($this->Memo_model->get_new_memos());
+    }
+
+    /*
+     * Gets all of the memo's that have not been reviewed
+     */
+    function get_all_memos()
+    {
+        echo json_encode($this->Memo_model->get_all_memos());
     }
 
     /*

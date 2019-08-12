@@ -57,6 +57,40 @@
         <br>
         <div id="memo_table" class="table-condensed"></div>
     </div>
+
+    <div class="shadow p-3 mb-5 bg-white rounded" style="margin: 15px;">
+        <div>
+            <h3 style="display: inline;">Historical Attendance Memos</h3>
+            <button onclick="download_historical_table()" class="btn btn-primary" style="float: right;">Download Table</button>
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="user">Select a User</label>
+            <select class="form-control" name="user" onchange="filter_user(this.value)" required>
+                <option value="">Choose...</option>
+                <?php
+                    foreach( $users as $user )
+                    {
+                        echo "<option value='" . $user->id . "'>" . $user->first_name . " " . $user->last_name . "</option>";
+                    }
+                ?>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="event">Select an Event</label>
+            <select class="form-control" name="event" onchange="filter_event(this.value)" required>
+                <option value="">Choose...</option>
+                <?php
+                    foreach( $events as $event )
+                    {
+                        echo "<option value='" . $event['eventID'] . "'>" . $event['name'] . "</option>";
+                    }
+                ?>
+            </select>
+        </div>
+        <div id="historical_memo_table" class="table-condensed"></div>
+    </div>
 </div>
 
 <script type="text/javascript" src="/js/adminattendance.js"></script>
