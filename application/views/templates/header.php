@@ -41,7 +41,6 @@
                     <a href="/index.php/wiki/view" class="dropdown-item">Documentation</a>
                     <a href="/index.php/email/view" class="dropdown-item">Send Email</a>
                     <a href="/index.php/cadet/wingstructure" class="dropdown-item">Org Chart</a>
-                    <a href="/index.php/attendance/master" class="dropdown-item">View Attendance</a>
                     <a href="/index.php/alumni/view" class="dropdown-item">View Alumni</a>
 
                     <?php
@@ -52,7 +51,8 @@
                         }
                         if( $this->ion_auth->is_admin() || $this->session->userdata('attendance') )
                         {
-                            echo anchor('attendance/admin', 'Attendance', 'class="dropdown-item"');
+                            echo anchor('attendance/admin', 'Admin Attendance', 'class="dropdown-item"');
+                            echo anchor('attendance/master', 'View Attendance', 'class="dropdown-item"');
                         }
                     ?>
                 </div>

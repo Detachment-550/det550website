@@ -87,7 +87,7 @@
                     <h5 class="card-title">PT</h5>
                     <div id="ptprogress"><div id="ptpercent"></div></div>
                     <p class="card-text">Attendance: <?php echo $ptperc; ?>%</p>
-                    <a href="/index.php/attendance/view" class="btn btn-sm btn-primary">View</a>
+                    <a href="/index.php/attendance/master" class="btn btn-sm btn-primary">View</a>
                 </div>
             </div>
         </div>

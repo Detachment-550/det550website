@@ -7,19 +7,21 @@
 
 <div class="jumbotron" style="height: -webkit-fill-available; overflow: auto; padding: 5px;">
     <div class="shadow p-3 mb-5 bg-white rounded" style="margin: 5px;">
-        <h1>Semester Attendance</h1>
-
-        <button type="button" class="btn btn-primary" style="float: right;margin: 10px;" onclick="download()">Download Table</button><br><br>
+        <div>
+            <h1 style="display: inline;">Semester Attendance</h1>
+            <button type="button" class="btn btn-primary" style="float: right;margin: 10px;" onclick="download()">Download</button>
+        </div>
+        <br><br>
 
         <div id="attendance"></div>
     </div>
 
     <div class="shadow p-3 mb-5 bg-white rounded" style="margin: 5px;">
-
-        <h1>Weekly Attendance</h1>
-
-        <button type="button" class="btn btn-primary" style="float: right;margin: 10px;" onclick="downloadweek()">Download Table</button><br><br>
-
+        <div>
+            <h1 style="display: inline;">Weekly Attendance</h1>
+            <button type="button" class="btn btn-primary" style="float: right;margin: 10px;" onclick="downloadweek()">Download</button>
+        </div>
+        <br><br>
         <div id="weekattendance"></div>
     </div>
 
