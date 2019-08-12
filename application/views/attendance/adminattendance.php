@@ -125,11 +125,11 @@
             <!--                TODO: Add a unique label check to this field-->
             <div class="form-group">
                 <label for="label">Label</label>
-                <input class="form-control" id="label" type="text" name="label" required/>
+                <input class="form-control" id="label" type="text" name="label" placeholder="Enter the title of this memo type..." required/>
             </div>
             <div class="form-group">
                 <label for="description">Description</label>
-                <input class="form-control" id="description" type="text" name="description" required/>
+                <textarea class="form-control" id="description" rows="7" name="description" placeholder="Enter a description of this memo type..." required></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Add Memo Type</button>
         </form>
