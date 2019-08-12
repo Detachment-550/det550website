@@ -4,6 +4,32 @@
 
 <div class="jumbotron jumbotron-fluid">
     <div class="shadow p-3 mb-5 bg-white rounded" style="margin: 15px;">
+        <h2>Create an Event</h2>
+        <form action="/index.php/cadetevent/add" method="POST">
+            <div class="form-group">
+                <label for=title><b>Title: </b></label>
+                <input class="form-control" id="title" type="text" name="name" placeholder="Enter the event name here..." required/>
+            </div>
+
+            <div class="form-group">
+                <label for=date><b>Date: </b></label>
+                <input class="form-control" id="date" type="datetime-local" name="date" required/>
+            </div>
+
+            <div class="form-group">
+                <label for=mandatory><b>Event Type: </b></label>
+                <select name="type" id="mandatory" class="form-control" required>
+                    <option value="">Choose...</option>
+                    <option value="nonpmt">Non PMT</option>
+                    <option value="pt">PT</option>
+                    <option value="llab">LLAB</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" type="submit" value="Submit" name="eventMade">Submit</button>
+        </form>
+    </div>
+
+    <div class="shadow p-3 mb-5 bg-white rounded" style="margin: 15px;">
         <h2>Modify Attendance</h2>
         <div class="card">
             <div class="card-body">
@@ -11,16 +37,16 @@
                     <label for="event">Delete an Event</label>
                     <form action="/index.php/cadetevent/remove" method="POST">
                         <select name="event" id="event" class="form-control" required>
+                            <option value="">Choose...</option>
                             <?php
-                            foreach($events as $event)
-                            {
-                                echo "<option value='" . $event['eventID']."'>" . $event['name'] . " " . $event['date'] . "</option>";
-                            }
-
+                                foreach($events as $event)
+                                {
+                                    echo "<option value='" . $event['eventID']."'>" . $event['name'] . " " . $event['date'] . "</option>";
+                                }
                             ?>
                         </select>
                     </div>
-                    <button onClick="return confirm('Are you sure you want to delete this Event?')" class="btn btn-primary" type="submit" name="devent">Delete</button>
+                    <button onClick="return confirm('Are you sure you want to delete this Event?')" class="btn btn-danger" type="submit" name="devent">Delete</button>
                 </form>
             </div>
         </div><br>
@@ -31,11 +57,12 @@
                     <div class="form-group">
                         <label for="setevent">Set Event Attendance</label>
                         <select name="event" id="setevent" class="form-control" required>
+                            <option value="">Choose...</option>
                             <?php
-                            foreach( $events as $event )
-                            {
-                                echo "<option value='" . $event['eventID'] . "'>" . $event['name'] . "</option>";
-                            }
+                                foreach( $events as $event )
+                                {
+                                    echo "<option value='" . $event['eventID'] . "'>" . $event['name'] . "</option>";
+                                }
                             ?>
                         </select>
                     </div>
@@ -90,6 +117,51 @@
             </select>
         </div>
         <div id="historical_memo_table" class="table-condensed"></div>
+    </div>
+
+    <div class="shadow p-3 mb-5 bg-white rounded" style="margin: 15px;">
+        <h3>Create a Memo Type</h3>
+        <form action="/index.php/attendance/create_memo_type" method="POST">
+            <!--                TODO: Add a unique label check to this field-->
+            <div class="form-group">
+                <label for="label">Label</label>
+                <input class="form-control" id="label" type="text" name="label" required/>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input class="form-control" id="description" type="text" name="description" required/>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Memo Type</button>
+        </form>
+        <br>
+
+        <h3>Edit a Memo Type</h3>
+        <form action="/index.php/attendance/update_memo_type" method="POST">
+            <div class="form-group">
+                <label for="memo_type">Select Memo Type</label>
+                <select class="form-control" name="memo_type" id="memo_type" onchange="get_memo_type(this.value)" required>
+                    <option value="">Choose...</option>
+                    <?php
+                        foreach( $memo_types as $memo_type )
+                        {
+                            echo "<option value='" . $memo_type['memo_type_id'] . "'>" . $memo_type['label'] . "</option>";
+                        }
+                    ?>
+                </select>
+            </div>
+            <div id="hide_edit" style="display: none;">
+<!--                TODO: Add a unique label check to this field-->
+                <div class="form-group">
+                    <label for="edit_label">Label</label>
+                    <input class="form-control" id="edit_label" type="text" name="label" required/>
+                </div>
+                <div class="form-group">
+                    <label for="edit_description">Description</label>
+                    <textarea class="form-control" id="edit_description" rows="7" name="description" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Update Memo Type</button>
+            </div>
+        </form>
     </div>
 </div>
 

@@ -35,7 +35,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> More</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a href="/index.php/attendance/view" class="dropdown-item">Create/View Events</a>
+                    <a href="/index.php/attendance/view" class="dropdown-item">View Event Attendance</a>
                     <a href="/index.php/cadetdirectory/view" class="dropdown-item">Directory</a>
                     <a href="https://rpi.account.box.com/login" class="dropdown-item">Media/Documents</a>
                     <a href="/index.php/wiki/view" class="dropdown-item">Documentation</a>

@@ -28,6 +28,7 @@ class Attendance extends CI_Controller
     {
         $data['title'] = 'Cadet Events';
         $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
+        $data['memo_types'] = $this->Memo_type_model->get_all_memo_types();
 
         // Loads the home page
         $this->load->view('templates/header', $data);
@@ -44,6 +45,7 @@ class Attendance extends CI_Controller
         $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
         $data['users'] = $this->ion_auth->users()->result();
         $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
+        $data['memo_types'] = $this->Memo_type_model->get_all_memo_types();
 
         // Loads the home page
         $this->load->view('templates/header', $data);
@@ -376,5 +378,59 @@ class Attendance extends CI_Controller
     function deny_memo($memo_id)
     {
         echo json_encode($this->Memo_model->deny_memo($memo_id));
+    }
+
+    /*
+     * Gets a memo type based on it's id.
+     *
+     * @param memo_type_id - the memo types id
+     */
+    function get_memo_type($memo_type_id)
+    {
+        echo json_encode($this->Memo_type_model->get_memo_type($memo_type_id));
+    }
+
+    /*
+     * Creates a memo type.
+     */
+    function create_memo_type()
+    {
+        if (isset($_POST) && count($_POST) > 0)
+        {
+            $params = array(
+                'label' => $this->input->post('label'),
+                'description' => $this->input->post('description'),
+            );
+
+            $this->Memo_type_model->add_memo_type($params);
+
+            redirect('attendance/admin');
+        }
+        else
+        {
+            show_error("You must provide an memo type label and description to create a memo type");
+        }
+    }
+
+    /*
+     * Updates a memo type.
+     */
+    function update_memo_type()
+    {
+        if (isset($_POST) && count($_POST) > 0)
+        {
+            $params = array(
+                'label' => $this->input->post('label'),
+                'description' => $this->input->post('description'),
+            );
+
+            $this->Memo_type_model->update_memo_type($this->input->post('memo_type'), $params);
+
+            redirect('attendance/admin');
+        }
+        else
+        {
+            show_error("You must provide an memo type label, description, and id to update a memo type");
+        }
     }
 }

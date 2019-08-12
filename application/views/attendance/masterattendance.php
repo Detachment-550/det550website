@@ -25,40 +25,4 @@
         <div id="weekattendance"></div>
     </div>
 
-    <div class="shadow p-3 mb-5 bg-white rounded" style="margin: 5px;">
-        <h1>Submit Attendance Memo</h1>
-        <form action="/index.php/attendance/create_memo" method="POST">
-            <div class="form-group">
-                <label for="event">Select Event</label>
-                <select id="event" name="event" class="form-control" required>
-                    <option value="">Choose...</option>
-                    <?php
-                        foreach ($events as $event) {
-                            echo '<option value="' . $event["eventID"] . '">' . $event["name"] . '</option>';
-                        }
-                    ?>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="excuse_type">Memo Reason</label>
-                <select id="excuse_type" name="excuse_type" class="form-control" required>
-                    <option value="">Choose...</option>
-                    <?php
-                        foreach ($excuse_types as $excuse_type) {
-                            echo '<option value="' . $excuse_type["excuse_type_id"] . '">' . $excuse_type["label"] . '</option>';
-                        }
-                    ?>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="comments">Comments</label>
-                <textarea rows="7" class="form-control" id="comments" name="comments" placeholder="Provide any information about the reason..." required></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Submit Memo</button>
-        </form>
-    </div>
-
     </div>

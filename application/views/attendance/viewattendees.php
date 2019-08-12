@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="<?php echo base_url("css/viewattendees.css"); ?>">
+<link rel="stylesheet" type="text/css" href="/css/viewattendees.css">
 
 <body>
 <div class="jumbotron container-fluid">
@@ -22,9 +22,9 @@
 ?>
 </table><br>
 
-    <?php echo form_open('attendance/export'); ?>
-    <input type="text" name="event" value="<?php echo $event['eventID']; ?>" style="display: none;"/>
-    <button class="btn btn-sm btn-primary" type="submit" name="submit">Export to Excel</button>
+    <form method="POST" action="/index.php/attendance/export">
+        <input type="text" name="event" value="<?php echo $event['eventID']; ?>" style="display: none;"/>
+        <button class="btn btn-sm btn-primary" type="submit" name="submit">Export to Excel</button>
     </form>
 
 </div>

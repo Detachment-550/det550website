@@ -159,3 +159,35 @@ function filter_event(event) {
 function download_historical_table() {
     historical_memo_table.download('csv', 'historical_memos.csv');
 }
+
+/*
+ * Gets the memo type's information.
+ *
+ * @param memo_type - the memo type id
+ */
+function get_memo_type(memo_type) {
+    if(memo_type !== "")
+    {
+        $.ajax({
+            url: '/index.php/attendance/get_memo_type/' + memo_type,
+            method: 'post',
+            dataType: 'json',
+            success: function (response) {
+                console.log(response);
+                $('#edit_label').val(response.label);
+                $('#edit_description').val(response.description);
+                $('#hide_edit').css('display','block');
+            },
+            error: function (response)
+            {
+                console.log(response);
+                console.log("Error: Something went wrong with getting the memo type");
+                alert("Error: Something went wrong with getting the memo type");
+            }
+        });
+    }
+    else
+    {
+        $('#hide_edit').css('display','none');
+    }
+}
