@@ -10,6 +10,10 @@ class Cadet extends CI_Controller{
         {
             redirect('login/view');
         }
+        else
+        {
+            $this->load->model('Cadetevent_model');
+        }
     }
 
     /*
@@ -242,9 +246,10 @@ class Cadet extends CI_Controller{
     function home()
     {
         $data['title'] = "Home";
-        $this->load->model('Cadetevent_model');
+
         $this->load->model('Announcement_model');
         $this->load->model('Attendance_model');
+
         $user = $this->ion_auth->user()->row();
 
         $data['events'] =  $this->Cadetevent_model->get_last_five_events();
@@ -441,7 +446,6 @@ class Cadet extends CI_Controller{
         if( $this->ion_auth->is_admin() )
         {
             $data['title'] = 'Admin Page';
-            $this->load->model('Cadetevent_model');
             $this->load->model('Announcement_model');
 
             $data['users'] = $this->ion_auth->users()->result();

@@ -23,6 +23,7 @@ class Announcement_model extends CI_Model
      */
     function get_last_five_announcements($user)
     {
+        $this->db->select('DISTINCT(announcement.uid), announcement.*, users.*');
         $this->db->join('users', 'users.id = announcement.createdBy');
         $this->db->join('announcement_group_jointable', 'announcement.uid = announcement_group_jointable.announcement');
         $this->db->join('users_groups', 'group_id = announcement_group_jointable.group');
