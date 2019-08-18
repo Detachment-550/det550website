@@ -86,6 +86,7 @@ class Wiki extends CI_Controller{
 
             $data['wikis'] = $this->wiki_model->get_all_wikis();
             $data['title'] = "Documentation";
+            $data['admin'] = $this->ion_auth->is_admin();
             $this->load->view('templates/header', $data);
             $this->load->view('wikihome');
             $this->load->view('templates/footer'); 

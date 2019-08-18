@@ -43,6 +43,7 @@ class Announcement_model extends CI_Model
      */
     function get_specific_announcements( $limit, $start, $user )
     {
+        $this->db->select('DISTINCT(announcement.uid), announcement.*, users.*');
         $this->db->join('announcement_group_jointable', 'announcement.uid = announcement_group_jointable.announcement');
         $this->db->join('users_groups', 'group_id = announcement_group_jointable.group');
         $this->db->join('users', 'users_groups.user_id = users.id');
