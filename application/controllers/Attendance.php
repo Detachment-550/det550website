@@ -280,6 +280,20 @@ class Attendance extends CI_Controller
     }
 
     /*
+     * Downloads the attached file to the memo.
+     *
+     * @param memo_id - the memo id
+     */
+    function download_memo_attachment($memo_id)
+    {
+        $memo = $this->Memo_model->get_memo($memo_id);
+        $this->load->helper('download');
+        force_download('./memo_attachments/' . $memo['attachment'], NULL);
+
+        redirect('attendance/admin');
+    }
+
+    /*
      * Shows master list of attendance.
      */
     function master()

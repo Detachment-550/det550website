@@ -19,10 +19,13 @@ var memo_table = new Tabulator("#memo_table", {
         //url - the URL of the request
         //params - the parameters passed with the request
         //response - the JSON object returned in the body of the response.
-        console.log(response);
         for(var x = 0; x < response.length; x++)
         {
             response[x].full_name = response[x].first_name + ' ' + response[x].last_name;
+            if(response[x].attachment !== null)
+            {
+                response[x].attachment = '<a href="/index.php/attendance/download_memo_attachment/' + response[x].memo_id + '">Download Attachment</a>';
+            }
         }
         return response; //return the tableData property of a response json object
     },
@@ -38,7 +41,7 @@ var memo_table = new Tabulator("#memo_table", {
             }},
         {title:"Approved", field:"approved", visible: false},
         {title:"Comments", field:"comments", formatter:"textarea"},
-        {title:"Attachment", field:"attachment",},
+        {title:"Attachment", field:"attachment",formatter:'html'},
         {title:"Approve", formatter:approve_button, width:100, align:"center", headerSort:false },
         {title:"Deny", formatter:deny_button, width:100, align:"center", headerSort:false },
 
@@ -56,10 +59,13 @@ var historical_memo_table = new Tabulator("#historical_memo_table", {
         //url - the URL of the request
         //params - the parameters passed with the request
         //response - the JSON object returned in the body of the response.
-        console.log(response);
         for(var x = 0; x < response.length; x++)
         {
             response[x].full_name = response[x].first_name + ' ' + response[x].last_name;
+            if(response[x].attachment !== null)
+            {
+                response[x].attachment = '<a href="/index.php/attendance/download_memo_attachment/' + response[x].memo_id + '">Download Attachment</a>';
+            }
         }
         return response; //return the tableData property of a response json object
     },
@@ -76,6 +82,7 @@ var historical_memo_table = new Tabulator("#historical_memo_table", {
             }},
         {title:"Approved", field:"approved", visible: false},
         {title:"Comments", field:"comments", formatter:"textarea"},
+        {title:"Attachments", field:"attachment", formatter:"html"},
 
     ]
 });
