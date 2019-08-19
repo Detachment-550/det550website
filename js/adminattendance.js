@@ -38,6 +38,7 @@ var memo_table = new Tabulator("#memo_table", {
             }},
         {title:"Approved", field:"approved", visible: false},
         {title:"Comments", field:"comments", formatter:"textarea"},
+        {title:"Attachment", field:"attachment",},
         {title:"Approve", formatter:approve_button, width:100, align:"center", headerSort:false },
         {title:"Deny", formatter:deny_button, width:100, align:"center", headerSort:false },
 

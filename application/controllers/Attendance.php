@@ -312,7 +312,7 @@ class Attendance extends CI_Controller
      */
     function create_memo()
     {
-        if (isset($_POST) && count($_POST) > 0)
+        if(isset($_POST) && count($_POST) > 0)
         {
             $user = $this->ion_auth->user()->row();
 
@@ -323,9 +323,44 @@ class Attendance extends CI_Controller
                 'comments' => $this->input->post('comments'),
             );
 
-            $this->Memo_model->add_memo($params);
+            $memo_id = $this->Memo_model->add_memo($params);
 
-            redirect('attendance/master');
+            if($this->input->post('attachment') !== NULL)
+            {
+                $config['upload_path']          = './memo_attachments/';
+                $config['allowed_types']        = 'pdf';
+                $config['max_size']             = 1000;
+                $config['file_name']            = $memo_id;
+
+                $this->load->library('upload', $config);
+
+                if ( ! $this->upload->do_upload('attachment'))
+                {
+                    $data['upload_errors'] = $this->upload->display_errors();
+
+                    $data['title'] = 'Cadet Events';
+                    $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
+                    $data['memo_types'] = $this->Memo_type_model->get_all_memo_types();
+
+                    $this->load->view('templates/header', $data);
+                    $this->load->view('attendance/attendance');
+                    $this->load->view('templates/footer');
+                }
+                else
+                {
+                    $params = array(
+                        'attachment' => $this->upload->data('file_name'),
+                    );
+
+                    $this->Memo_model->update_memo($memo_id, $params);
+
+                    redirect('attendance/view');
+                }
+            }
+            else
+            {
+                redirect('attendance/view');
+            }
         }
         else
         {

@@ -21,7 +21,15 @@
 
     <div class="shadow p-3 mb-5 bg-white rounded" style="margin: 5px;">
         <h1>Submit Memo</h1>
-        <form action="/index.php/attendance/create_memo" method="POST">
+        <form action="/index.php/attendance/create_memo" enctype="multipart/form-data" method="POST">
+            <?php
+                if(isset($upload_errors))
+                {
+                    echo '<div class="alert alert-warning" role="alert">';
+                    echo $upload_errors;
+                    echo '</div>';
+                }
+            ?>
             <div class="form-group">
                 <label for="event">Select Event</label>
                 <select id="event" name="event" class="form-control" required>
@@ -45,12 +53,14 @@
                     ?>
                 </select>
             </div>
-
             <div class="form-group">
                 <label for="comments">Comments</label>
                 <textarea rows="7" class="form-control" id="comments" name="comments" placeholder="Provide any information about the reason..." required></textarea>
             </div>
-
+            <div class="form-group">
+                <label for="attachment">Optional Attachment (PDF Only)</label>
+                <input type="file" class="form-control" name="attachment" id="attachment"/>
+            </div>
             <button type="submit" class="btn btn-primary">Submit Memo</button>
         </form>
     </div>
