@@ -6,11 +6,7 @@ class Cadetdirectory extends CI_Controller{
         parent::__construct();
         $this->load->library('session'); 
         
-        if( $this->session->userdata('login') === true )
-        {
-            $this->load->model('Cadet_model');
-        }
-        else
+        if( !$this->ion_auth->logged_in() )
         {
             redirect('login/view');
         }
@@ -21,16 +17,10 @@ class Cadetdirectory extends CI_Controller{
      */
     function major()
     {
+//        TODO: Make this searchable again
         $data['title'] = 'Cadet Directory';
-        if( strcmp("all", $this->input->post('showcadets')) == 0 )
-        {
-            $data['cadets'] = $this->Cadet_model->get_all_cadets();
-        }
-        else
-        {
-            $data['cadets'] = $this->Cadet_model->get_major($this->input->post('showcadets'));
-        }
-        $data['majors'] = $this->Cadet_model->get_all_majors();
+
+        $data['users'] = $this->ion_auth->users()->row();
         $data['selected'] = $this->input->post('showcadets');
 
         $this->load->view('templates/header', $data);
@@ -44,8 +34,7 @@ class Cadetdirectory extends CI_Controller{
     function view()
     {
         $data['title'] = 'Cadet Directory';
-        $data['cadets'] = $this->Cadet_model->get_all_cadets();
-        $data['majors'] = $this->Cadet_model->get_all_majors();
+        $data['users'] = $this->ion_auth->users()->result();
 
         $this->load->view('templates/header', $data);
         $this->load->view('directory');
@@ -58,16 +47,18 @@ class Cadetdirectory extends CI_Controller{
     function profile()
     {        
         $data['title'] = 'Profile Page';
-        
+
+        $user = $this->ion_auth->user($this->input->post('id'))->row();
+
         // Looks for profile picture
         $files = scandir("./images");
         $found = false;
         foreach($files as $file)
         {
             $info = pathinfo($file);
-            if($info['filename'] == $this->input->post('rin'))
+            if($info['filename'] == $user->id)
             {
-                $data['picture'] = $file; 
+                $data['picture'] = base_url( './images/' . $info['basename']);
                 $found = true;
             }
         }
@@ -76,17 +67,10 @@ class Cadetdirectory extends CI_Controller{
             $data['picture'] = base_url("images/default.jpeg");
         }
         
-        $data['cadet'] = $this->Cadet_model->get_cadet($this->input->post('rin'));
+        $data['user'] = $user;
         
-        if(strpos($data['cadet']['rank'], "AS") !== false || strpos($data['cadet']['rank'], "None") !== false)
-        {
-            $data['heading'] = "Cadet " . $data['cadet']['lastName'];
-        }
-        else
-        {
-            $data['heading'] = $data['cadet']['rank'] . " " . $data['cadet']['lastName'];
-        } 
-        
+        $data['heading'] = $user->rank . " " . $user->last_name;
+
         $data['myprofile'] = false;
         
         $this->load->view('templates/header', $data);

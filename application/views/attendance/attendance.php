@@ -1,40 +1,67 @@
-<link rel="stylesheet" type="text/css" href="<?php echo base_url("css/attendance.css"); ?>">
+<link rel="stylesheet" type="text/css" href="/css/attendance.css">
 
-<body>
-  <div class="jumbotron container-fluid">
-  	<h1 class="display-4"> Events </h1>
-  	<div class="container">
-      <div class="row">
-        <div class="col-6">
-            <div class="card" style="margin: auto;padding: 10px;">
-                <h5 class="card-title">Create an Event</h5>
-                    <?php echo form_open('cadetevent/add'); ?>
-                    <label for=title><b>Title: </b></label><br><input class="form-control" type="text" name="name"/><br>
-                    <label for=date><b>Date: </b></label><br><input class="form-control" type="datetime-local" name="date"/><br>
-                    <label for=mandatory><b>Event Type: </b></label><br>
-                    <select name="type"><option value="nonpmt">Non PMT</option><option value="pt">PT</option><option value="llab">LLAB</option></select><br><br> 
-                    <button class="btn btn-sm btn-primary" type="submit" value="Submit" name="eventMade">Submit</button>
-  			   </form>
-            </div>
-          </div>
-          
-          <div class="col-6">
-    	    <div class="card" style="margin: auto;width: 100%;padding: 10px;">
-    			<h5 class="card-title"> Select Event</h5>
-                <?php echo form_open('attendance/attendees'); ?>
-    			<select class="form-control" name="event">
-    				<?php
-    				foreach($events as $event) 
+<div class="jumbotron container-fluid">
+    <div class="shadow p-3 mb-5 bg-white rounded" style="margin: 5px;">
+        <h1>View Event Attendees</h1>
+        <label for="event">Select Event</label>
+        <form action="/index.php/attendance/attendees" method="POST">
+            <select class="form-control" name="event" id="event" required>
+                <option value="">Choose...</option>
+                <?php
+                    foreach($events as $event)
                     {
                         echo '<option value="' . $event['eventID'] . '">' . $event['name'] . '</option>';
-    				}
-    				?>
-    			</select><br>
-    			<button class="btn btn-sm btn-primary" type="submit" value="submit" name="selectevent">View Attendees</button><br><br>
-    			</form>
-                   		  </div>
-      	</div>
-      </div>
+                    }
+                ?>
+            </select>
+            <br>
+            <button class="btn btn-sm btn-primary" type="submit" value="submit" name="selectevent">View Attendees</button>
+        </form>
+    </div>
+
+    <div class="shadow p-3 mb-5 bg-white rounded" style="margin: 5px;">
+        <h1>Submit Memo</h1>
+        <form action="/index.php/attendance/create_memo" enctype="multipart/form-data" method="POST">
+            <?php
+                if(isset($upload_errors))
+                {
+                    echo '<div class="alert alert-warning" role="alert">';
+                    echo $upload_errors;
+                    echo '</div>';
+                }
+            ?>
+            <div class="form-group">
+                <label for="event">Select Event</label>
+                <select id="event" name="event" class="form-control" required>
+                    <option value="">Choose...</option>
+                    <?php
+                        foreach ($events as $event) {
+                            echo '<option value="' . $event["eventID"] . '">' . $event["name"] . '</option>';
+                        }
+                    ?>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="memo_type">Memo Reason</label>
+                <select id="memo_type" name="memo_type" class="form-control" required>
+                    <option value="">Choose...</option>
+                    <?php
+                        foreach ($memo_types as $memo_type) {
+                            echo '<option value="' . $memo_type["memo_type_id"] . '">' . $memo_type["label"] . '</option>';
+                        }
+                    ?>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="comments">Comments</label>
+                <textarea rows="7" class="form-control" id="comments" name="comments" placeholder="Provide any information about the reason..." required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="attachment">Optional Attachment (PDF Only)</label>
+                <input type="file" class="form-control" name="attachment" id="attachment"/>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Memo</button>
+        </form>
     </div>
 </div>
-</body>

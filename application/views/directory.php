@@ -1,77 +1,44 @@
-<link rel="stylesheet" type="text/css" href="<?php echo base_url("css/directory.css"); ?>">
+<link rel="stylesheet" type="text/css" href="/css/directory.css">
 
-<div class="jumbotron container-fluid">
+<!--TODO: Use boot strap card decks here to manage the card sizes -->
+<div class="jumbotron">
     <h1 class="display-4"> Detachment Directory </h1><br>
-      <?php echo form_open('cadetdirectory/major'); ?>
-        <select class="form-control" name="showcadets">
 <?php
-    if(strcmp("all", $selected) == 0 )
-    {
-        echo "<option selected value='all'>All</option>";
-    }
-    else
-    {
-        echo "<option value='all'>All</option>";
-    }
-    foreach( $majors as $major )
-    {
-        if( strcmp($major->major, "") != 0 && strcmp($major->major, $selected) == 0 )
-        {
-            echo "<option selected value='" . $major->major . "'>" . $major->major . "</option>";
-        }
-        else if( strcmp($major->major, "") != 0 )
-        {
-            echo "<option value='" . $major->major . "'>" . $major->major . "</option>";
-        }
-    }
-?>
-        </select><br>
-        <button class="btn btn-sm btn-primary" type="submit" value="Submit" name="submit">Show Cadets</button><br><br>
-    </form>
+$cadet_sort = create_function('$a, $b', 'return strnatcasecmp($a->last_name, $b->last_name');
+usort($users, cadet_sort);
 
-    
-<?php
-$images = scandir("./images");
-foreach( $cadets as $cadet )
+foreach( $users as $user )
 {
-    if( in_array($cadet['rin'] . ".jpg", $images) )
-    {
-        $file = base_url("images/" . $cadet['rin'] . ".jpg" );
+    if($user->class != 'None' ){
+        if( is_file('./images/' . $user->image) )
+        {
+            $file = base_url('images/' . $user->image);
+        }
+        else
+        {
+            $file = base_url("images/default.jpeg");
+        }
+
+        echo "<div class='card' style='display:inline-block;text-align:center;'>";
+
+        // This needs to be fixed with cadet's picture
+        echo "  <img class='img-fluid' style='height:200px;width:200px;' src='" . $file . "' alt='Cadet Profile Picture'>";
+        echo "<div class='card-body'>";
+        if(strpos($user->class, "None") !== false)
+        {
+            echo "<h5 class='card-title'> " . $user->first_name . " " . $user->last_name . "</h5>";
+        }
+        else
+        {
+            echo "<h5 class='card-title'>" . $user->rank . " " . $user->last_name . "</h5>";
+        }
+        echo "<p class='card-text'><strong>Class: </strong>" . $user->class . "<br><strong>Flight: </strong>" . $user->flight . "</p>";
+        echo form_open('cadetdirectory/profile');
+        echo "<input value='" . $user->id . "' name='id' style='display:none;' readonly>";
+        echo "<button class='btn btn-sm btn-primary' type='submit'>View Profile</button></form></div>";
+        echo '<div class="card-footer"><small class="text-muted">' . wordwrap($user->major, 40,  "<br />\n") . '</small></div></div>';
+
     }
-    else if( in_array($cadet['rin'] . ".png", $images) )
-    {
-        $file = base_url("images/" . $cadet['rin'] . ".png" );
-    }
-    else if( in_array($cadet['rin'] . ".jpeg", $images) )
-    {
-        $file = base_url("images/" . $cadet['rin'] . ".jpeg" );
-    }
-    else
-    {
-        $file = base_url("images/default.jpeg");
-    }
-    
-    echo "<div class='card' style='display:inline-block;text-align:center;'>";
-    
-    // This needs to be fixed with cadet's picture
-    echo "  <img class='img-fluid' style='padding:5px;height:200px;width:200px;' src='" . $file . "' alt='Cadet Profile Picture'>";
-    echo "<div class='card-body'>";
-    if(strpos($cadet['rank'], "AS") !== false)
-    {
-        echo "<h5 class='card-title'>Cadet " . $cadet['lastName'] . "</h5>";
-    }
-    else if(strpos($cadet['rank'], "None") !== false)
-    {
-        echo "<h5 class='card-title'> " . $cadet['firstName'] . " " . $cadet['lastName'] . "</h5>";
-    }
-    else
-    {
-        echo "<h5 class='card-title'>" . $cadet['rank'] . " " . $cadet['lastName'] . "</h5>";
-    }
-    echo "<p class='card-text'><strong>Rank: </strong>" . $cadet['rank'] . "<br><strong>Flight: </strong>" . $cadet['flight'] . "</p>";
-    echo form_open('cadetdirectory/profile');
-    echo "<input value='" . $cadet['rin'] . "' name='rin' style='display:none;' readonly>";
-    echo "<button class='btn btn-sm btn-primary' type='submit'>View Profile</button></form></div></div>";
 }
 ?>
 </div>

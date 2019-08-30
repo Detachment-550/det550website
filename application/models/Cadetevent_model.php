@@ -67,8 +67,6 @@ class Cadetevent_model extends CI_Model
       */
     function get_current_cadetevents()
     {
-        $this->db->from('cadetEvent');
-
         $this->db->where('YEAR(date) = YEAR(CURDATE())');
 
         if(date("m") >= 1 && date("m") < 6)
@@ -82,8 +80,19 @@ class Cadetevent_model extends CI_Model
             $this->db->where('MONTH(date) < 13');
         }
 
-        $query = $this->db->get();
-        return $query->result_array();
+        return $this->db->get('cadetEvent')->result_array();
+    }
+
+    /*
+     * Get events from the current week
+     */
+    function get_week_events()
+    {
+        $this->db->where('YEAR(date) = YEAR(CURDATE())');
+        $this->db->where('MONTH(date) = MONTH(CURDATE())');
+        $this->db->where('WEEK(date) = WEEK(CURDATE())');
+
+        return $this->db->get('cadetEvent')->result_array();
     }
 
     /*

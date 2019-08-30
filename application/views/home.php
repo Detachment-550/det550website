@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="<?php echo base_url("css/home.css"); ?>">
+<link rel="stylesheet" type="text/css" href="/css/home.css">
 
 <!-- Creates the status bar for LLAB and PT percentages -->
 <style>
@@ -35,7 +35,9 @@
 
 
 <div class="jumbotron jumbotron-fluid">
-    <h1 class="display-4"> Hello! </h1>
+    <h1 class="display-4">
+        <?php echo $greeting; ?>
+    </h1>
     <div class="row">
         <div class="col-4">
             <div class="card" style="width:100%">
@@ -67,7 +69,7 @@
         echo "<div class='card-body'>";
         echo "<h5 class='card-title'><a href='" . site_url('announcement/page/' . $announcement['uid']) . "'>" . $announcement['title'] . "</a></h5>";
         echo "<p class='card-text'> " . $announcement['subject'] . '</p>';
-        echo "<p class='card-text'>" . $announcement['firstName'] . ' ' . $announcement['lastName'] . '</p></div>';
+        echo "<p class='card-text'>" . $announcement['first_name'] . ' ' . $announcement['last_name'] . '</p></div>';
     }
 ?>
             </div>
@@ -85,7 +87,7 @@
                     <h5 class="card-title">PT</h5>
                     <div id="ptprogress"><div id="ptpercent"></div></div>
                     <p class="card-text">Attendance: <?php echo $ptperc; ?>%</p>
-                    <a href="<?php echo site_url("attendance/view"); ?>" class="btn btn-sm btn-primary">View</a>
+                    <a href="/index.php/attendance/master" class="btn btn-sm btn-primary">View</a>
                 </div>
             </div>
         </div>

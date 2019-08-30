@@ -6,26 +6,24 @@ class Groupme extends CI_Controller{
         parent::__construct();
         $this->load->library('session');
 
-        if( $this->session->userdata('login') === true )
-        {
-            $this->load->model('Cadet_model');
-        }
-        else
+        if( !$this->ion_auth->logged_in() )
         {
             redirect('login/view');
         }
     }
 
     /*
-     * Saves cadets groupme access token to their profile
+     * Saves cadets GroupMe access token to their profile
      */
     function auth()
     {
         $params = array(
-            'groupMe' => $this->input->get('access_token')
+            'groupme' => $this->input->get('access_token')
         );
 
-        $this->Cadet_model->update_cadet($this->session->userdata('rin'),$params);
+        $user = $this->ion_auth->user()->row(); // Gets the logged in user
+
+        $this->ion_auth->update($user->id, $params);
 
         redirect('cadet/edit');
     }

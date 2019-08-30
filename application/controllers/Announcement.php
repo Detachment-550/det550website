@@ -84,8 +84,8 @@ class Announcement extends CI_Controller{
                                 'to'            => $cadet['primaryEmail'],
                                 'from'          => "afrotcdet550@gmail.com",
                                 'subject'       => 'Wing Email',
-                                'message'       => "<h1 style='text-align:center;'>Wing Announcements</h1>" .$message,
-                                'title'         => 'Wing Email',
+                                'message'       => "<h1 style='text-align:center;'>Daily Announcements</h1>" .$message,
+                                'title'         => 'Wing Announcements',
                                 'cadet'         => $member['rin'],
                             );
 

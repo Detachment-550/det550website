@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url("images/favicon.ico"); ?>">
+    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
     <title><?php echo $title; ?></title>
     <link href='https://fonts.googleapis.com/css?family=Cabin' rel='stylesheet'>
@@ -10,33 +10,34 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
-    
+
     <style>
-@media (max-width: 500px) {
-    div.card {
-        width: 100%;
-    }
-}
+        @media (max-width: 500px) {
+            div.card {
+                width: 100%;
+            }
+        }
         @media (min-width: 500px) {
-    div.card {
-        width: 40%;
-    }
-}
-</style>
-    
+            div.card {
+                width: 40%;
+            }
+        }
+    </style>
+
 </head>
 
-<body class="text-center"> 
+<body class="text-center">
 <div class="card" style="margin:auto;padding: 10px;width:80%;">
-  <div class="card-body">
-      <?php echo form_open('login/question'); ?>
-      <h5 class="card-title">Password Reset</h5>
-        <p>(sends new temporary password to your email)</p><br>
-        
-      <label for="rin"><b>RIN</b></label><br>
-      <input class="form-control" type="text" placeholder="Enter RIN" name="rin" id="rin" required><br>
+    <div class="card-body">
+        <form action="/index.php/login/question" method="POST">
+            <h5 class="card-title">Password Reset</h5>
+            <p>(sends new temporary password to your email)</p><br>
 
-      <button class="btn btn-sm btn-primary" type="submit" name="submit">Reset Password</button>
-    </form>
-  </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input class="form-control" type="text" placeholder="Enter your email..." name="email" id="email" required>
+            </div>
+            <button class="btn btn-sm btn-primary" type="submit" name="submit">Reset Password</button>
+        </form>
+    </div>
 </div>

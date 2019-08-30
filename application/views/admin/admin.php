@@ -7,43 +7,40 @@
         <div class="col-4">
             <div class="card">
                 <div id="memWrapper" class="card-body">
+<!--                    TODO: Check to see if user exists before adding it in a validation form -->
                     <h5 id="memHeader" class="card-title">Add User</h5>
                     <?php echo form_open('cadet/add'); ?>
-                    <div>
-                        First Name:<br>
-                        <input class="form-control" type="text" name="firstname" size="30" id="firstname" required/>
+                    <div class="form-group">
+                        <label for="firstname">First Name:</label>
+                        <input class="form-control" type="text" name="firstname" size="30" id="firstname" placeholder="Enter first name..." required/>
                     </div>
-                    <div>
-                        Last Name:<br>
-                        <input class="form-control" type="text" name="lastname" size="30" id="lastname" required/>
+                    <div class="form-group">
+                        <label for="lastname">Last Name:</label>
+                        <input class="form-control" type="text" name="lastname" size="30" id="lastname" placeholder="Enter last name..." required/>
                     </div>
-                    <div>
-                        RIN:<br>
-                        <input class="form-control" type="text" name="rin" size="30" id="rin" required/>
+                    <div class="form-group">
+                        <label for="rin">RIN:</label>
+                        <input class="form-control" type="text" name="rin" size="30" id="rin" placeholder="Enter Rensselaer ID number..." required/>
                     </div>
-                    <div>
-                        Email:<br>
-                        <input class="form-control" type="text" name="primaryEmail" size="30" id="primaryEmail" required/>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input class="form-control" type="email" name="email" id="email" size="30" placeholder="Enter your email..." required/>
                     </div>
-                    <div>
-                        Administrative Privileges:<br>
-                        <select name="admin">
+                    <div class="form-group">
+                        <label for="admin">Administrative Privileges:</label>
+                        <select name="admin" class="form-control" id="admin" required>
+                            <option value="">Choose...</option>
                             <option value="0">No</option>
                             <option value="1">Yes</option>
                         </select>
                     </div>
-                    <div>
-                        Rank:<br>
-                        <select name="rank">
+                    <div class="form-group">
+                        <label for="rank">Rank:</label>
+                        <select name="rank" id="rank" class="form-control" required>
+                            <option value="">Choose...</option>
                             <option value="None">None</option>
                             <optgroup label="ROTC Ranks">
-                                <option value="AS100">AS100</option>
-                                <option value="AS200">AS200</option>
-                                <option value="AS250">AS250</option>
-                                <option value="AS300">AS300</option>
-                                <option value="AS350">AS350</option>
-                                <option value="AS400">AS400</option>
-                                <option value="AS500">AS500</option>
+                                <option value="Cadet">Cadet</option>
                             </optgroup>
                             <optgroup label="Enlisted Ranks">
                                 <option value="Airman Basic">Airman Basic</option>
@@ -70,9 +67,23 @@
                             </optgroup>
                         </select>
                     </div>
-                    <div>
-                        Flight:<br>
-                        <select name="flight">
+                    <div class="form-group">
+                        <label for="class">AS Class:</label>
+                        <select name="class" id="class" class="form-control" required>
+                            <option value="">Choose...</option>
+                            <option value="None">None</option>
+                            <option value="AS100">AS100</option>
+                            <option value="AS200">AS200</option>
+                            <option value="AS250">AS250</option>
+                            <option value="AS300">AS300</option>
+                            <option value="AS400">AS400</option>
+                            <option value="AS500">AS500</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="flight">Flight:</label>
+                        <select name="flight" class="form-control" id="flight" required>
+                            <option value="">Choose...</option>
                             <option value="None">None</option>
                             <option value="Alpha">Alpha</option>
                             <option value="Bravo">Bravo</option>
@@ -82,13 +93,34 @@
                             <option value="Foxtrot">Foxtrot</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="question">Security Question:</label>
+                        <select class="form-control" name="question" id="question" required>
+                            <option value="">Choose...</option>
+                            <option value="What was your childhood nickname?">What was your childhood nickname?</option>
+                            <option value="What is the name of your favorite childhood friend?">What is the name of your favorite childhood friend?</option>
+                            <option value="In what city or town did your mother and father meet?">In what city or town did your mother and father meet?</option>
+                            <option value="What is your favorite team?">What is your favorite team?</option>
+                            <option value="What is your favorite movie?">What is your favorite movie?</option>
+                            <option value="What was your favorite sport in high school?">What was your favorite sport in high school?</option>
+                            <option value="What was your favorite food as a child?">What was your favorite food as a child?</option>
+                            <option value="What was the make and model of your first car?">What was the make and model of your first car?</option>
+                            <option value="Who is your childhood sports hero?">Who is your childhood sports hero?</option>
+                            <option value="In what town was your first job?">In what town was your first job?</option>
+                            <option value="What was the name of the company where you had your first job?">What was the name of the company where you had your first job?</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="answer">Response:</label>
+                        <input type="text" name="answer" id="answer" class="form-control" placeholder="Enter your security question answer..." required>
+                    </div>
                     <div class="clearfix">
-                        Card Input:<br>
-                        <input class="form-control" type="text" name="rfid"/>
+                        <label for="rfid">Card Input:</label>
+                        <input class="form-control" type="text" id="rfid" placeholder="Select and scan RPI ID..." name="rfid"/>
                     </div><br>
                     <div class="clearfix">
-                        <input class="btn btn-sm btn-primary" type="submit" value="Add User" />
-                        <input class="btn btn-sm btn-primary" type="reset" value="Reset"/>
+                        <input class="btn btn-primary" type="submit" value="Add User" />
+                        <input class="btn btn-secondary" type="reset" value="Reset"/>
                     </div>
                     </form><br>
                 </div>
@@ -96,75 +128,87 @@
         </div>
 
         <div class="col-4">
-            <div id="makeuser" class="card">
-                <div id="memWrapper" class="card-body">
-                    <h5 id="memHeader" class="card-title">Remove User</h5>
-                    <?php echo form_open('cadet/remove'); ?>
-                    <select name="remove" style="width:80%;">
-                        <?php
-                        foreach($cadets as $cadet)
-                        {
-                            echo "<option value='" . $cadet['rin'] . "'>" . $cadet['firstName'] . " " . $cadet['lastName'] . "</option>";
-                        }
-                        ?>
-                    </select><br><br>
-                    <button class="btn btn-sm btn-primary" name="submit" type="submit">Remove</button>
-                    </form>
-                </div>
-            </div><br>
-
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Modify User Info</h5>
                     <?php echo form_open('cadet/select'); ?>
-                    <strong>Select User</strong><br>
-                    <select name="modify" style="width:80%;margin:auto">
-                        <?php
-                        foreach($cadets as $cadet)
-                        {
-                            echo "<option value='" . $cadet['rin'] . "'>" . $cadet['firstName'] . " " . $cadet['lastName'] . "</option>";
-                        }
-                        ?>
-                        <br>
-                    </select><br><br>
-                    <button class="btn btn-sm btn-primary" type="submit" name="submit">Modify Cadet Info</button>
+                    <button class="btn btn-warning" type="submit" name="submit">Modify Cadet Info</button>
                     </form>
                 </div>
             </div><br>
+
+            <div id="makeuser" class="card">
+                <div id="memWrapper" class="card-body">
+                    <h5 id="memHeader" class="card-title">Remove User</h5>
+                    <?php echo form_open('cadet/remove'); ?>
+                    <label for="remove">Select User</label>
+                    <select name="remove" class="form-control" id="remove" required>
+                        <option value="">Choose...</option>
+                        <?php
+                        foreach($users as $user)
+                        {
+                            echo "<option value='" . $user->id . "'>" . $user->first_name . " " . $user->last_name . "</option>";
+                        }
+                        ?>
+                    </select><br>
+                    <button class="btn btn-danger" name="submit" type="submit">Remove</button>
+                    </form>
+                    <br>
+                    <h5 id="memHeader" class="card-title">Make User an Alumni</h5>
+                    <?php echo form_open('alumni/create'); ?>
+                    <div class="form-group">
+                        <label for="transfer">Select User</label>
+                        <select name="transfer" class="form-control" id="transfer" required>
+                            <option value="">Choose...</option>
+                            <?php
+                            foreach($users as $user)
+                            {
+                                echo "<option value='" . $user->id . "'>" . $user->first_name . " " . $user->last_name . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <button class="btn btn-danger" name="submit" type="submit">Transfer</button>
+                    </form>
+                </div>
+            </div><br>
+
         </div>
 
         <div class="col-4">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Additional Admin Links</h5>
-                    <h6>Delete an Announcement</h6>
+                    <h4 class="card-title">Additional Admin Links</h4>
                     <?php echo form_open('announcement/remove'); ?>
-                    <select name="announcement">
+                    <label for="announcement">Delete an Announcement</label>
+                    <select name="announcement" id="announcement" class="form-control" required>
+                        <option value="">Choose...</option>
                         <?php
                         foreach($announcements as $announcement)
                         {
                             echo "<option value='" . $announcement['uid'] . "'>" . $announcement['title'] . " " . $announcement['date'] . "</option>";
                         }
                         ?>
-                    </select><br><br>
-                    <button onClick="return confirm('Are you sure you want to delete this Announcement?')" class="btn btn-sm btn-primary" type="submit" name="dannouncement">Delete</button>
+                    </select><br>
+                    <button onClick="return confirm('Are you sure you want to delete this Announcement?')" class="btn btn-danger" type="submit" name="dannouncement">Delete</button>
                     </form><br><br>
 
-                    <h6>Unlock Cadet Account</h6>
                     <?php echo form_open('cadet/unlock'); ?>
-                    <select name="cadet" style="width:80%;">
+                    <label for="cadet">Unlock Cadet Account</label>
+                    <select name="user" id="cadet" class="form-control" required>
+                        <option value="">Choose...</option>
                         <?php
-                        foreach($cadets as $cadet)
+                        foreach($users as $user)
                         {
-                            echo "<option value='" . $cadet['rin'] . "'>" . $cadet['firstName'] . " " . $cadet['lastName'] . "</option>";
+                            echo "<option value='" . $user->id . "'>" . $user->first_name . " " . $user->last_name . "</option>";
                         }
                         ?>
-                    </select><br><br>
-                    <button class="btn btn-sm btn-primary" type="submit" name="unlock">Unlock</button>
+                    </select><br>
+                    <button class="btn btn-success" type="submit" name="unlock">Unlock</button>
                     </form><br><br>
 
                     <h6>Create/Modify/Delete a Group</h6>
-                    <?php echo anchor('cadetgroup/view', 'Edit Group', 'class="btn btn-sm btn-primary"'); ?>
+                    <?php echo anchor('group/adminview', 'Edit Group', 'class="btn btn-primary"'); ?>
                     <br><br>
                 </div>
             </div>

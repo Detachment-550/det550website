@@ -6,11 +6,7 @@ class Email extends CI_Controller{
         parent::__construct();
         $this->load->library('session'); 
         
-        if( $this->session->userdata('login') === true )
-        {
-            $this->load->model('Cadetgroup_model');
-        }
-        else
+        if( !$this->ion_auth->logged_in() )
         {
             redirect('login/view');
         }
@@ -22,7 +18,7 @@ class Email extends CI_Controller{
     function view()
     {   
         $data['title'] = 'Send Email';
-        $data['groups'] =  $this->Cadetgroup_model->get_all_groups();
+        $data['groups'] = $this->ion_auth->groups()->result();
 
         $this->load->view('templates/header', $data);
         $this->load->view('sendemail');
@@ -41,20 +37,17 @@ class Email extends CI_Controller{
             $this->load->library('encryption');
             $this->load->library('email');
             
-            $this->load->model('Groupmember_model');
-            $this->load->model('Cadet_model');
-
             $recipients = array();
             // Goes to each selected group
             if( $this->input->post('groups') !== null )
             {
                 foreach( $this->input->post('groups') as $group )
                 {
-                    $data['members'] =  $this->Groupmember_model->get_all_groupmembers( $group );
-                    foreach( $data['members'] as $member )
+                    $members = $this->ion_auth->users($group)->result(); // get users from given group
+
+                    foreach( $members as $member )
                     {
-                        $cadet = $this->Cadet_model->get_cadet( $member['rin'] );
-                        $recipients[] = $cadet['primaryEmail'];
+                        $recipients[] = $member->email;
                     }
                 }
             }

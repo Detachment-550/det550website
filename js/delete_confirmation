@@ -1,6 +1,0 @@
-/* 
-jQuery forum confirmation for delete buttons 
-
-Modified Html for buttons:
-<button class="btn btn-sm btn-primary" type="submit" name="devent">Delete</button>
-*/
