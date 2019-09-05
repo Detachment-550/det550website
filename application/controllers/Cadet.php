@@ -465,10 +465,11 @@ class Cadet extends CI_Controller{
     /*
      * Shows page to connect rfid to a cadet.
      */
-    function changerfid()
+    function change_rfid()
     {
         $data['title'] = 'Add RFID';
-        
+        $data['users'] = $this->ion_auth->users()->result(); // get all users
+
         $this->load->view('templates/header', $data);
         $this->load->view('rfid');
         $this->load->view('templates/footer'); 
@@ -477,25 +478,21 @@ class Cadet extends CI_Controller{
     /*
      * Saves the rfid to a given cadet based off of a rin.
      */
-    function saverfid()
+    function save_rfid()
     {
-//       TODO: Fix this to work with the new auth system
-        if( $this->input->post('rin') !== null && $this->input->post('rfid') !== null )
+        if(isset($_POST) && count($_POST) > 0)
         {
-            $cadetrin = trim($this->input->post('rin'));
-            $cadetrfid = trim($this->input->post('rfid'));
-
-            $params = array(
-                'rfid' => $cadetrfid
+            $data = array(
+                'rfid' => $this->input->post('rfid'),
             );
 
-            $this->Cadet_model->update_cadet($cadetrin, $params);
-            
-            redirect('cadet/view');
+            $this->ion_auth->update($this->input->post('id'), $data);
+
+            redirect('cadet/change_rfid');
         }
         else
         {
-            show_error("You must enter both a valid RIN and scan the ID card.");
+            show_error("You must enter both a valid ID and scan the ID card.");
         }
     }
     

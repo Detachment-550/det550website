@@ -200,7 +200,7 @@ class Attendance extends CI_Controller
                     $this->Attendance_model->add_attendance($params);
                 }
 
-                redirect('cadetevent/' . $this->input->post('event'));
+                redirect('cadetevent/event/' . $this->input->post('event'));
             }
             else
             {
@@ -220,7 +220,7 @@ class Attendance extends CI_Controller
     {
         if (isset($_POST) && count($_POST) > 0)
         {
-            $user = $this->ion_auth->user($this->input->post('email'))->row();
+            $user = $this->ion_auth->user($this->input->post('id'))->row();
 
             if ($user !== NULL)
             {

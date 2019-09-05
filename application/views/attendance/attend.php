@@ -15,7 +15,18 @@
     <form action="/index.php/attendance/add" method="POST">
         <div class="form-group">
             <label for="email">No RFID Scanner? Enter your Email:</label>
-            <input class="form-control" id="email" type="email" placeholder="Enter your account email..." name="email" required>
+            <div class="form-group">
+                <label for="id">Select User:</label>
+                <select name="id" id="id" class="form-control" required>
+                    <option value="">Choose...</option>
+                    <?php
+                        foreach ($users as $user)
+                        {
+                            echo '<option value="' . $user->id . '">' . $user->first_name . ' ' . $user->last_name . '</option>';
+                        }
+                    ?>
+                </select>
+            </div>
         </div>
 
         <input style="display:none;" type="text" name="event" value="<?php echo $event['eventID']; ?>" required>
@@ -29,5 +40,5 @@
         <button class='btn btn-secondary' type='submit'>Show All Attendees</button>
     </form>
 
-    <a class='btn btn-warning' style="float: right;" href="/index.php/cadet/changerfid">Add Cadet ID Card</a><br><br>
+    <a class='btn btn-warning' style="float: right;" href="/index.php/cadet/change_rfid">Add Cadet ID Card</a><br><br>
 </div>

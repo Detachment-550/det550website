@@ -37,7 +37,7 @@ class Cadetevent extends CI_Controller{
     function event($event)
     {
         $data['event'] = $this->Cadetevent_model->get_cadetevent( $event );
-
+        $data['users'] = $this->ion_auth->users()->result(); // get all users
         $data['title'] = 'Set Attendance';
 
         // Loads the home page

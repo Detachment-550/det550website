@@ -4,10 +4,18 @@
     <h1 class="display-4"> Connect RFID </h1>
     <div class="card">
         <div class="card-body">
-            <form action="/index.php/cadet/saverfid" method="POST">
+            <form action="/index.php/cadet/save_rfid" method="POST">
                 <div class="form-group">
-                    <label for="rin">RIN:</label>
-                    <input class="form-control" type="text" id="rin" name="rin" placeholder="Enter your Rensselaer ID Number..." required/>
+                    <label for="id">Select User:</label>
+                    <select name="id" id="id" class="form-control" required>
+                        <option value="">Choose...</option>
+                        <?php
+                            foreach ($users as $user)
+                            {
+                                echo '<option value="' . $user->id . '">' . $user->first_name . ' ' . $user->last_name . '</option>';
+                            }
+                        ?>
+                    </select>
                 </div>
 
                 <div class="form-group">
