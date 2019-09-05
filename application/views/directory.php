@@ -4,8 +4,8 @@
 <div class="jumbotron">
     <h1 class="display-4"> Detachment Directory </h1><br>
 <?php
-$cadet_sort = create_function('$a, $b', 'return strnatcasecmp($a->last_name, $b->last_name');
-usort($users, cadet_sort);
+
+usort($users, create_function('$a, $b', 'return strnatcasecmp($a->last_name, $b->last_name);'));
 
 foreach( $users as $user )
 {
