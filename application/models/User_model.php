@@ -28,5 +28,14 @@ class User_model extends CI_Model
         $this->db->where('email', $email);
         return $this->db->get('users')->row_array();
     }
+
+    /*
+     * Gets all the users from the database by last name in ascending order.
+     */
+    function get_sorted_users()
+    {
+        $this->db->order_by('last_name', 'asc');
+        return $this->db->get('users')->row_array();
+    }
 }
 
