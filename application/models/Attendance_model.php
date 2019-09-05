@@ -93,11 +93,11 @@ class Attendance_model extends CI_Model
      * @param event - either pt or llab
      * @param user - the id of the user to count for
      */
-    function get_event_total($event, $user)
+    function get_event_total($event, $id)
     {
         $this->db->from('attendance');
         $this->db->where($event, 1);
-        $this->db->where('user', $user);
+        $this->db->where('user', $id);
         $this->db->join('cadetEvent', 'cadetEvent.eventID = attendance.eventid');
         $this->db->where('YEAR(date) = YEAR(CURDATE())');
         if(date("m") >= 1 && date("m") < 6)
