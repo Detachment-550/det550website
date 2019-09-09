@@ -145,9 +145,12 @@
                     <select name="remove" class="form-control" id="remove" required>
                         <option value="">Choose...</option>
                         <?php
+                        usort($users, create_function('$a, $b', 'return strnatcasecmp($a->last_name, $b->last_name);'));
                         foreach($users as $user)
                         {
-                            echo "<option value='" . $user->id . "'>" . $user->first_name . " " . $user->last_name . "</option>";
+                            if($user->class != 'None' ) {
+                                echo "<option value='" . $user->id . "'>" . $user->last_name . ", " . $user->first_name . "</option>";
+                            }
                         }
                         ?>
                     </select><br>
@@ -161,9 +164,12 @@
                         <select name="transfer" class="form-control" id="transfer" required>
                             <option value="">Choose...</option>
                             <?php
+                            usort($users, create_function('$a, $b', 'return strnatcasecmp($a->last_name, $b->last_name);'));
                             foreach($users as $user)
                             {
-                                echo "<option value='" . $user->id . "'>" . $user->first_name . " " . $user->last_name . "</option>";
+                                if($user->class != 'None' ) {
+                                    echo "<option value='" . $user->id . "'>" . $user->last_name . ", " . $user->first_name . "</option>";
+                                }
                             }
                             ?>
                         </select>
@@ -198,9 +204,12 @@
                     <select name="user" id="cadet" class="form-control" required>
                         <option value="">Choose...</option>
                         <?php
+                        usort($users, create_function('$a, $b', 'return strnatcasecmp($a->last_name, $b->last_name);'));
                         foreach($users as $user)
                         {
-                            echo "<option value='" . $user->id . "'>" . $user->first_name . " " . $user->last_name . "</option>";
+                            if($user->class != 'None' ) {
+                                echo "<option value='" . $user->id . "'>" . $user->last_name . ", " . $user->first_name . "</option>";
+                            }
                         }
                         ?>
                     </select><br>

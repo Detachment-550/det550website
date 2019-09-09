@@ -15,3 +15,5 @@ application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
 /vendor/
+.idea/dataSources/24cae5e9-e272-415c-836c-609c39636e2d.xml
+.idea/workspace.xml
