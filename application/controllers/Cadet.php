@@ -271,8 +271,8 @@ class Cadet extends CI_Controller{
         }
 
         // Gets pt and llab attendance percentage
-        $pt = $this->Attendance_model->get_event_total('pt', $user->id);
-        $llab = $this->Attendance_model->get_event_total('llab', $user->id);
+        $pt = $this->Attendance_model->get_event_total('pt', $user->username);
+        $llab = $this->Attendance_model->get_event_total('llab', $user->username);
         $ptSum = $this->Cadetevent_model->get_event_total('pt');
         $llabSum = $this->Cadetevent_model->get_event_total('llab');
 

@@ -10,10 +10,12 @@
                     <select name="id" id="id" class="form-control" required>
                         <option value="">Choose...</option>
                         <?php
-                            foreach ($users as $user)
-                            {
-                                echo '<option value="' . $user->id . '">' . $user->first_name . ' ' . $user->last_name . '</option>';
+                        usort($users, create_function('$a, $b', 'return strnatcasecmp($a->last_name, $b->last_name);'));
+                        foreach ($users as $user) {
+                            if ($user->class != 'None') {
+                                echo '<option value="' . $user->id . '">' . $user->last_name . ', ' . $user->first_name . '</option>';
                             }
+                        }
                         ?>
                     </select>
                 </div>

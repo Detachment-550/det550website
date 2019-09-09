@@ -220,27 +220,20 @@ class Attendance extends CI_Controller
     {
         if (isset($_POST) && count($_POST) > 0)
         {
-            $user = $this->ion_auth->user($this->input->post('id'))->row();
 
-            if ($user !== NULL)
+            // Checks to make sure an attendance record doesn't already exists (prevents duplicates)
+            if ($this->Attendance_model->attendance_exists($user->id, $this->input->post('event')))
             {
-                // Checks to make sure an attendance record doesn't already exists (prevents duplicates)
-                if ($this->Attendance_model->attendance_exists($user->id, $this->input->post('event')))
-                {
-                    $params = array(
-                        'user' => $user->id,
-                        'eventid' => $this->input->post('event'),
-                    );
+                $params = array(
+                    'user' => $this->input->post('id'),
+                    'eventid' => $this->input->post('event'),
+                );
 
-                    $this->Attendance_model->add_attendance($params);
-                }
+                $this->Attendance_model->add_attendance($params);
+            }
 
-                redirect('cadetevent/event/' . $this->input->post('event'));
-            }
-            else
-            {
-                show_error("There is not user registered with the email: " . $this->input->post('email'));
-            }
+            redirect('cadetevent/event/' . $this->input->post('event'));
+
         }
         else
         {
