@@ -12,9 +12,12 @@
                     <select name="modify" id="modify" class="form-control" onchange="selectuser(this.value)" required>
                         <option value="">Choose...</option>
                         <?php
+                            usort($users, create_function('$a, $b', 'return strnatcasecmp($a->last_name, $b->last_name);'));
                             foreach($users as $user)
                             {
-                                echo "<option value='" . $user->id . "'>" . $user->first_name . " " . $user->last_name . "</option>";
+                                if($user->class != 'None' ) {
+                                    echo "<option value='" . $user->id . "'>" . $user->last_name . ", " . $user->first_name . "</option>";
+                                }
                             }
                         ?>
                         <br>

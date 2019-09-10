@@ -54,8 +54,8 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="comments">Comments</label>
-                <textarea rows="7" class="form-control" id="comments" name="comments" placeholder="Provide any information about the reason..." required></textarea>
+                <label for="to_cadet">For Cadet</label>
+                <textarea rows="1" class="form-control" id="comments" name="comments" placeholder="Enter the requesting Cadet's Last Name..." required></textarea>
             </div>
             <div class="form-group">
                 <label for="attachment">Optional Attachment (PDF Only)</label>

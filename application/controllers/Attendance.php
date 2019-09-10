@@ -323,7 +323,7 @@ class Attendance extends CI_Controller
                 'user' => $user->id,
                 'event' => $this->input->post('event'),
                 'memo_type' => $this->input->post('memo_type'),
-                'comments' => $this->input->post('comments'),
+                'to_cadet' => $this->input->post('to_cadet'),
             );
 
             $memo_id = $this->Memo_model->add_memo($params);
@@ -400,7 +400,7 @@ class Attendance extends CI_Controller
             'excused_absence' => 1,
             'user' => $memo['user'],
             'eventid' => $memo['event'],
-            'comments' => $memo['comments'],
+            'to_cadet' => $memo['to_cadet'],
         );
 
         $data['event_excused'] = $this->Attendance_model->add_attendance($params);
