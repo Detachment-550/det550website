@@ -108,7 +108,7 @@ class Attendance extends CI_Controller
                 {
                     $params = array(
                         'memod_absence' => 1,
-                        'comments' => $this->input->post('comments'),
+                        'to_cadet' => $this->input->post('to_cadet'),
                     );
                     $this->Attendance_model->update_attendance($this->input->post('cadet'),$this->input->post('event'),$params);
                 }
@@ -118,7 +118,7 @@ class Attendance extends CI_Controller
                         'user' => $this->input->post('cadet'),
                         'eventid' => $this->input->post('event'),
                         'memod_absence' => 1,
-                        'comments' => $this->input->post('comments'),
+                        'to_cadet' => $this->input->post('to_cadet'),
                     );
                     $this->Attendance_model->add_attendance($params);
                 }
@@ -129,7 +129,7 @@ class Attendance extends CI_Controller
                 {
                     $params = array(
                         'memod_absence' => 0,
-                        'comments' => $this->input->post('comments'),
+                        'to_cadet' => $this->input->post('to_cadet'),
                     );
                     $this->Attendance_model->update_attendance($this->input->post('cadet'),$this->input->post('event'),$params);
                 }
@@ -139,7 +139,7 @@ class Attendance extends CI_Controller
                         'user' => $this->input->post('cadet'),
                         'eventid' => $this->input->post('event'),
                         'memod_absence' => 0,
-                        'comments' => $this->input->post('comments'),
+                        'to_cadet' => $this->input->post('to_cadet'),
                     );
                     $this->Attendance_model->add_attendance($params);
                 }

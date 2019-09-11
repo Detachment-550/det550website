@@ -8,6 +8,7 @@
             <select class="form-control" name="event" id="event" required>
                 <option value="">Choose...</option>
                 <?php
+                    usort($events, create_function('$a, $b', 'return strnatcasecmp($a->date, $b->name);'));
                     foreach($events as $event)
                     {
                         echo '<option value="' . $event['eventID'] . '">' . $event['name'] . '</option>';
@@ -55,11 +56,11 @@
             </div>
             <div class="form-group">
                 <label for="to_cadet">For Cadet</label>
-                <textarea rows="1" class="form-control" id="comments" name="comments" placeholder="Enter the requesting Cadet's Last Name..." required></textarea>
+                <textarea rows="1" class="form-control" id="to_cadet" name="to_cadet" placeholder="Enter the requesting Cadet's Last Name..." required></textarea>
             </div>
             <div class="form-group">
-                <label for="attachment">Optional Attachment (PDF Only)</label>
-                <input type="file" class="form-control" name="attachment" id="attachment"/>
+                <label for="attachment">Memo Attachment (PDF Only)</label>
+                <input type="file" class="form-control" name="attachment" id="attachment" required/>
             </div>
             <button type="submit" class="btn btn-primary">Submit Memo</button>
         </form>
