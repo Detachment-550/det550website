@@ -55,8 +55,8 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="to_cadet">For Cadet</label>
-                <textarea rows="1" class="form-control" id="to_cadet" name="to_cadet" placeholder="Enter the requesting Cadet's Last Name..." required></textarea>
+                <label for="comments">For Cadet</label>
+                <textarea rows="1" class="form-control" id="comments" name="comments" placeholder="Enter the requesting Cadet's Last Name..." required></textarea>
             </div>
             <div class="form-group">
                 <label for="attachment">Memo Attachment (PDF Only)</label>
