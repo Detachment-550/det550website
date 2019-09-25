@@ -7,18 +7,17 @@ function selectuser(user) {
     if(user !== "")
     {
         $.ajax({
-            url: 'info',
+            url: '/index.php/cadet/info/' + user,
             method: 'post',
-            data: {user: user},
             dataType: 'json',
             success: function (response) {
                 if(response.admin)
                 {
-                    $('#admin').val('yes');
+                    $('#admin').val('1');
                 }
                 else
                 {
-                    $('#admin').val('no');
+                    $('#admin').val('0');
                 }
 
                 $('#rank').val(response.user.rank);
