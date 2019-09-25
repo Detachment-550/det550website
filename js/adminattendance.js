@@ -27,6 +27,9 @@ var memo_table = new Tabulator("#memo_table", {
                 response[x].attachment = '<a href="/index.php/attendance/download_memo_attachment/' + response[x].memo_id + '">Download Attachment</a>';
             }
         }
+
+
+
         return response; //return the tableData property of a response json object
     },
     columns:[ //Define Table Columns
@@ -40,7 +43,7 @@ var memo_table = new Tabulator("#memo_table", {
                 invalidPlaceholder:"No Date",
             }},
         {title:"Approved", field:"approved", visible: false},
-        {title:"Comments", field:"comments", formatter:"textarea"},
+        {title:"Memo For", field:"memo_for"},
         {title:"Attachment", field:"attachment",formatter:'html'},
         {title:"Approve", formatter:approve_button, width:100, align:"center", headerSort:false },
         {title:"Deny", formatter:deny_button, width:100, align:"center", headerSort:false },
@@ -81,7 +84,7 @@ var historical_memo_table = new Tabulator("#historical_memo_table", {
                 invalidPlaceholder:"No Date",
             }},
         {title:"Approved", field:"approved", visible: false},
-        {title:"Comments", field:"comments", formatter:"textarea"},
+        {title:"Memo For", field:"memo_for"},
         {title:"Attachments", field:"attachment", formatter:"html"},
 
     ]

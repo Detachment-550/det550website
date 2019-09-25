@@ -29,6 +29,7 @@ class Attendance extends CI_Controller
         $data['title'] = 'Cadet Events';
         $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
         $data['memo_types'] = $this->Memo_type_model->get_all_memo_types();
+        $data['users'] = $this->ion_auth->users()->result();
 
         // Loads the home page
         $this->load->view('templates/header', $data);
@@ -323,45 +324,38 @@ class Attendance extends CI_Controller
                 'user' => $user->id,
                 'event' => $this->input->post('event'),
                 'memo_type' => $this->input->post('memo_type'),
-                'comments' => $this->input->post('comments'),
+                'memo_for' => $this->input->post('memo_for'),
             );
 
             $memo_id = $this->Memo_model->add_memo($params);
 
-            if($this->input->post('attachment') !== NULL)
+            $config['upload_path']          = './memo_attachments/';
+            $config['allowed_types']        = 'pdf';
+            $config['max_size']             = 10000;
+            $config['file_name']            = $memo_id;
+
+            $this->load->library('upload', $config);
+
+            if ( ! $this->upload->do_upload('attachment'))
             {
-                $config['upload_path']          = './memo_attachments/';
-                $config['allowed_types']        = 'pdf';
-                $config['max_size']             = 1000;
-                $config['file_name']            = $memo_id;
+                $data['upload_errors'] = $this->upload->display_errors();
 
-                $this->load->library('upload', $config);
+                $data['title'] = 'Cadet Events';
+                $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
+                $data['memo_types'] = $this->Memo_type_model->get_all_memo_types();
 
-                if ( ! $this->upload->do_upload('attachment'))
-                {
-                    $data['upload_errors'] = $this->upload->display_errors();
-
-                    $data['title'] = 'Cadet Events';
-                    $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
-                    $data['memo_types'] = $this->Memo_type_model->get_all_memo_types();
-
-                    $this->load->view('templates/header', $data);
-                    $this->load->view('attendance/attendance');
-                    $this->load->view('templates/footer');
-                }
-                else
-                {
-                    $params = array(
-                        'attachment' => $this->upload->data('file_name'),
-                    );
-
-                    $this->Memo_model->update_memo($memo_id, $params);
-
-                    redirect('attendance/view');
-                }
+                $this->load->view('templates/header', $data);
+                $this->load->view('attendance/attendance');
+                $this->load->view('templates/footer');
             }
             else
             {
+                $params = array(
+                    'attachment' => $this->upload->data('file_name'),
+                );
+
+                $this->Memo_model->update_memo($memo_id, $params);
+
                 redirect('attendance/view');
             }
         }
@@ -376,7 +370,14 @@ class Attendance extends CI_Controller
      */
     function get_new_memos()
     {
-        echo json_encode($this->Memo_model->get_new_memos());
+        $memos = $this->Memo_model->get_new_memos();
+
+        for ($x = 0; $x < count($memos); $x++) {
+            $user = $this->ion_auth->user($memos[$x]['memo_for'])->row();
+            $memos[$x]['memo_for'] = $user->rank . ' ' . $user->last_name;
+        }
+
+        echo json_encode($memos);
     }
 
     /*
@@ -384,7 +385,14 @@ class Attendance extends CI_Controller
      */
     function get_all_memos()
     {
-        echo json_encode($this->Memo_model->get_all_memos());
+        $memos = $this->Memo_model->get_all_memos();
+
+        for ($x = 0; $x < count($memos); $x++) {
+            $user = $this->ion_auth->user($memos[$x]['memo_for'])->row();
+            $memos[$x]['memo_for'] = $user->rank . ' ' . $user->last_name;
+        }
+
+        echo json_encode($memos);
     }
 
     /*
