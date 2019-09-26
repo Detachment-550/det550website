@@ -12,8 +12,8 @@ class Attendance extends CI_Controller
             $this->load->model('Attendance_model');
             $this->load->model('Cadetevent_model');
             $this->load->model('User_model');
-            $this->load->model('Memo_type_model');
-            $this->load->model('Memo_model');
+            $this->load->model('Attendance_memo_type_model');
+            $this->load->model('Attendance_memo_model');
         }
         else
         {
@@ -28,7 +28,7 @@ class Attendance extends CI_Controller
     {
         $data['title'] = 'Cadet Events';
         $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
-        $data['memo_types'] = $this->Memo_type_model->get_all_memo_types();
+        $data['memo_types'] = $this->Attendance_memo_type_model->get_all_attendance_memo_types();
         $data['users'] = $this->ion_auth->users()->result();
 
         // Loads the home page
@@ -46,7 +46,7 @@ class Attendance extends CI_Controller
         $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
         $data['users'] = $this->ion_auth->users()->result();
         $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
-        $data['memo_types'] = $this->Memo_type_model->get_all_memo_types();
+        $data['memo_types'] = $this->Attendance_memo_type_model->get_all_attendance_memo_types();
 
         // Loads the home page
         $this->load->view('templates/header', $data);
@@ -276,7 +276,7 @@ class Attendance extends CI_Controller
      */
     function download_memo_attachment($memo_id)
     {
-        $memo = $this->Memo_model->get_memo($memo_id);
+        $memo = $this->Attendance_memo_model->get_memo($memo_id);
         $this->load->helper('download');
         force_download('./memo_attachments/' . $memo['attachment'], NULL);
 
@@ -290,7 +290,7 @@ class Attendance extends CI_Controller
     {
         $data['title'] = "Master Attendance";
         $data['events'] = $this->Cadetevent_model->get_current_cadetevents();
-        $data['memo_types'] = $this->Memo_type_model->get_all_memo_types();
+        $data['memo_types'] = $this->Attendance_memo_type_model->get_all_attendance_memo_types();
 
         // Loads the home page
         $this->load->view('templates/header', $data);
@@ -327,7 +327,7 @@ class Attendance extends CI_Controller
                 'memo_for' => $this->input->post('memo_for'),
             );
 
-            $memo_id = $this->Memo_model->add_memo($params);
+            $memo_id = $this->Attendance_memo_model->add_attendance_memo($params);
 
             $config['upload_path']          = './memo_attachments/';
             $config['allowed_types']        = 'pdf';
@@ -342,7 +342,7 @@ class Attendance extends CI_Controller
 
                 $data['title'] = 'Cadet Events';
                 $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
-                $data['memo_types'] = $this->Memo_type_model->get_all_memo_types();
+                $data['memo_types'] = $this->Attendance_memo_type_model->get_all_attendance_memo_types();
 
                 $this->load->view('templates/header', $data);
                 $this->load->view('attendance/attendance');
@@ -354,9 +354,9 @@ class Attendance extends CI_Controller
                     'attachment' => $this->upload->data('file_name'),
                 );
 
-                $this->Memo_model->update_memo($memo_id, $params);
+                $this->Attendance_memo_model->update_attendance_memo($memo_id, $params);
 
-                redirect('attendance/view');
+                redirect('attendance/memo_success/' . $memo_id);
             }
         }
         else
@@ -366,11 +366,26 @@ class Attendance extends CI_Controller
     }
 
     /*
+     * Shows a success page for submitting a memo.
+     *
+     * @param memo_id - the memo that was submitted
+     */
+    function memo_success($memo_id)
+    {
+        $data['title'] = 'Memo Submitted';
+        $data['memo'] = $this->Attendance_memo_model->get_attendance_memo($memo_id);
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('attendance/memo_success');
+        $this->load->view('templates/footer');
+    }
+
+    /*
      * Gets all of the memo's that have not been reviewed
      */
     function get_new_memos()
     {
-        $memos = $this->Memo_model->get_new_memos();
+        $memos = $this->Attendance_memo_model->get_new_memos();
 
         for ($x = 0; $x < count($memos); $x++) {
             $user = $this->ion_auth->user($memos[$x]['memo_for'])->row();
@@ -385,7 +400,7 @@ class Attendance extends CI_Controller
      */
     function get_all_memos()
     {
-        $memos = $this->Memo_model->get_all_memos();
+        $memos = $this->Attendance_memo_model->get_all_memos();
 
         for ($x = 0; $x < count($memos); $x++) {
             $user = $this->ion_auth->user($memos[$x]['memo_for'])->row();
@@ -402,7 +417,7 @@ class Attendance extends CI_Controller
      */
     function approve_memo($memo_id)
     {
-        $memo = $this->Memo_model->get_memo($memo_id);
+        $memo = $this->Attendance_memo_model->get_memo($memo_id);
 
         $params = array(
             'excused_absence' => 1,
@@ -412,7 +427,7 @@ class Attendance extends CI_Controller
         );
 
         $data['event_excused'] = $this->Attendance_model->add_attendance($params);
-        $data['memo_approved'] = $this->Memo_model->approve_memo($memo_id);
+        $data['memo_approved'] = $this->Attendance_memo_model->approve_memo($memo_id);
         echo json_encode($data);
     }
 
@@ -423,7 +438,7 @@ class Attendance extends CI_Controller
      */
     function deny_memo($memo_id)
     {
-        echo json_encode($this->Memo_model->deny_memo($memo_id));
+        echo json_encode($this->Attendance_memo_model->deny_memo($memo_id));
     }
 
     /*
@@ -433,7 +448,7 @@ class Attendance extends CI_Controller
      */
     function get_memo_type($memo_type_id)
     {
-        echo json_encode($this->Memo_type_model->get_memo_type($memo_type_id));
+        echo json_encode($this->Attendance_memo_type_model->get_memo_type($memo_type_id));
     }
 
     /*
@@ -448,7 +463,7 @@ class Attendance extends CI_Controller
                 'description' => $this->input->post('description'),
             );
 
-            $this->Memo_type_model->add_memo_type($params);
+            $this->Attendance_memo_type_model->add_memo_type($params);
 
             redirect('attendance/admin');
         }
@@ -470,7 +485,7 @@ class Attendance extends CI_Controller
                 'description' => $this->input->post('description'),
             );
 
-            $this->Memo_type_model->update_memo_type($this->input->post('memo_type'), $params);
+            $this->Attendance_memo_type_model->update_memo_type($this->input->post('memo_type'), $params);
 
             redirect('attendance/admin');
         }
