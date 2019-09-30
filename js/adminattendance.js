@@ -1,10 +1,10 @@
 var approve_button = function(cell, formatterParams){ //plain text value
-    return "<button class='btn-sm btn-success' type='button' onclick='approve_memo(" + cell.getRow().getData().memo_id +
+    return "<button class='btn-sm btn-success' type='button' onclick='approve_memo(" + cell.getRow().getData().attendance_memo_id +
         ")'>Approve</button>";
 };
 
 var deny_button = function(cell, formatterParams){ //plain text value
-    return "<button class='btn-sm btn-danger' type='button' onclick='deny_memo(" + cell.getRow().getData().memo_id +
+    return "<button class='btn-sm btn-danger' type='button' onclick='deny_memo(" + cell.getRow().getData().attendance_memo_id +
         ")'>Deny</button>";
 };
 
@@ -24,7 +24,8 @@ var memo_table = new Tabulator("#memo_table", {
             response[x].full_name = response[x].first_name + ' ' + response[x].last_name;
             if(response[x].attachment !== null)
             {
-                response[x].attachment = '<a href="/index.php/attendance/download_memo_attachment/' + response[x].memo_id + '">Download Attachment</a>';
+                response[x].attachment = '<a href="/index.php/attendance/download_memo_attachment/' +
+                    response[x].attendance_memo_id + '">Download Attachment</a>';
             }
         }
 
@@ -33,7 +34,7 @@ var memo_table = new Tabulator("#memo_table", {
         return response; //return the tableData property of a response json object
     },
     columns:[ //Define Table Columns
-        {title:"Memo ID", field:"memo_id", visible: false},
+        {title:"Memo ID", field:"attendance_memo_id", visible: false},
         {title:"Event ID", field:"event", visible: false},
         {title:"Event", field:"name"},
         {title:"User", field:"full_name"},
@@ -44,6 +45,7 @@ var memo_table = new Tabulator("#memo_table", {
             }},
         {title:"Approved", field:"approved", visible: false},
         {title:"Memo For", field:"memo_for"},
+        {title:"Comments", field:"comments", formatter:'textarea'},
         {title:"Attachment", field:"attachment",formatter:'html'},
         {title:"Approve", formatter:approve_button, width:100, align:"center", headerSort:false },
         {title:"Deny", formatter:deny_button, width:100, align:"center", headerSort:false },
@@ -67,13 +69,14 @@ var historical_memo_table = new Tabulator("#historical_memo_table", {
             response[x].full_name = response[x].first_name + ' ' + response[x].last_name;
             if(response[x].attachment !== null)
             {
-                response[x].attachment = '<a href="/index.php/attendance/download_memo_attachment/' + response[x].memo_id + '">Download Attachment</a>';
+                response[x].attachment = '<a href="/index.php/attendance/download_memo_attachment/' +
+                    response[x].attendance_memo_id + '">Download Attachment</a>';
             }
         }
         return response; //return the tableData property of a response json object
     },
     columns:[ //Define Table Columns
-        {title:"Memo ID", field:"memo_id", visible: false},
+        {title:"Memo ID", field:"attendance_memo_id", visible: false},
         {title:"Event ID", field:"event", visible: false},
         {title:"Event", field:"name"},
         {title:"User ID", field:"id",visible:false},
@@ -85,6 +88,7 @@ var historical_memo_table = new Tabulator("#historical_memo_table", {
             }},
         {title:"Approved", field:"approved", visible: false},
         {title:"Memo For", field:"memo_for"},
+        {title:"Comments", field:"comments", formatter:'textarea'},
         {title:"Attachments", field:"attachment", formatter:"html"},
 
     ]
@@ -93,9 +97,9 @@ var historical_memo_table = new Tabulator("#historical_memo_table", {
 /*
  * Approves a memo.
  */
-function approve_memo(memo_id) {
+function approve_memo(attendance_memo_id) {
     $.ajax({
-        url: '/index.php/attendance/approve_memo/' + memo_id,
+        url: '/index.php/attendance/approve_memo/' + attendance_memo_id,
         method: 'post',
         dataType: 'json',
         success: function (response) {
@@ -114,9 +118,9 @@ function approve_memo(memo_id) {
 /*
  * Denies a memo.
  */
-function deny_memo(memo_id) {
+function deny_memo(attendance_memo_id) {
     $.ajax({
-        url: '/index.php/attendance/deny_memo/' + memo_id,
+        url: '/index.php/attendance/deny_memo/' + attendance_memo_id,
         method: 'post',
         dataType: 'json',
         success: function (response) {

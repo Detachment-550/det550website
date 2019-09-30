@@ -73,6 +73,10 @@
                 <label for="attachment">Memo Attachment (PDF Only)</label>
                 <input type="file" class="form-control" name="attachment" id="attachment" required/>
             </div>
+            <div class="form-group">
+                <label for="comments">Additional Comments</label>
+                <textarea id="comments" name="comments" class="form-control" rows="5" placeholder="This is optional..."></textarea>
+            </div>
             <button type="submit" class="btn btn-primary">Submit Memo</button>
         </form>
     </div>

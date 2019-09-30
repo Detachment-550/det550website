@@ -276,7 +276,7 @@ class Attendance extends CI_Controller
      */
     function download_memo_attachment($memo_id)
     {
-        $memo = $this->Attendance_memo_model->get_memo($memo_id);
+        $memo = $this->Attendance_memo_model->get_attendance_memo($memo_id);
         $this->load->helper('download');
         force_download('./memo_attachments/' . $memo['attachment'], NULL);
 
@@ -325,6 +325,7 @@ class Attendance extends CI_Controller
                 'event' => $this->input->post('event'),
                 'memo_type' => $this->input->post('memo_type'),
                 'memo_for' => $this->input->post('memo_for'),
+                'comments' => $this->input->post('comments'),
             );
 
             $memo_id = $this->Attendance_memo_model->add_attendance_memo($params);
@@ -417,7 +418,7 @@ class Attendance extends CI_Controller
      */
     function approve_memo($memo_id)
     {
-        $memo = $this->Attendance_memo_model->get_memo($memo_id);
+        $memo = $this->Attendance_memo_model->get_attendance_memo($memo_id);
 
         $params = array(
             'excused_absence' => 1,
@@ -427,7 +428,7 @@ class Attendance extends CI_Controller
         );
 
         $data['event_excused'] = $this->Attendance_model->add_attendance($params);
-        $data['memo_approved'] = $this->Attendance_memo_model->approve_memo($memo_id);
+        $data['memo_approved'] = $this->Attendance_memo_model->approve_attendance_memo($memo_id);
         echo json_encode($data);
     }
 
@@ -438,7 +439,7 @@ class Attendance extends CI_Controller
      */
     function deny_memo($memo_id)
     {
-        echo json_encode($this->Attendance_memo_model->deny_memo($memo_id));
+        echo json_encode($this->Attendance_memo_model->deny_attendance_memo($memo_id));
     }
 
     /*
