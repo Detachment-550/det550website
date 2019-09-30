@@ -385,7 +385,7 @@ class Attendance extends CI_Controller
      */
     function get_new_memos()
     {
-        $memos = $this->Attendance_memo_model->get_new_memos();
+        $memos = $this->Attendance_memo_model->get_new_attendance_memos();
 
         for ($x = 0; $x < count($memos); $x++) {
             $user = $this->ion_auth->user($memos[$x]['memo_for'])->row();
@@ -400,7 +400,7 @@ class Attendance extends CI_Controller
      */
     function get_all_memos()
     {
-        $memos = $this->Attendance_memo_model->get_all_memos();
+        $memos = $this->Attendance_memo_model->get_all_attendance_memos();
 
         for ($x = 0; $x < count($memos); $x++) {
             $user = $this->ion_auth->user($memos[$x]['memo_for'])->row();
