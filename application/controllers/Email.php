@@ -30,54 +30,46 @@
          */
         function send()
         {
-            $this->load->helper('form');
+            if( $this->input->post('body') != null && $this->input->post('subject') != null)
+            {
+                $recipients = array();
+                // Goes to each selected group
+                if( $this->input->post('groups') !== null )
+                {
+                    foreach( $this->input->post('groups') as $group )
+                    {
+                        $members = $this->ion_auth->users($group)->result(); // get users from given group
 
-            mail($this->input->post('to'), $this->input->post('subject'), $this->input->post('body'), $headers);
-            //     if( $this->input->post('body') != null && $this->input->post('subject') != null)
-            //     {
-            //         $this->load->library('encryption');
-            //         $this->load->library('email');
+                        foreach( $members as $member )
+                        {
+                            $recipients[] = $member->email;
+                        }
+                    }
+                }
 
-            //         $recipients = array();
-            //         // Goes to each selected group
-            //         if( $this->input->post('groups') !== null )
-            //         {
-            //             foreach( $this->input->post('groups') as $group )
-            //             {
-            //                 $members = $this->ion_auth->users($group)->result(); // get users from given group
+                // Gets the other recipients put in the to section
+                if( $this->input->post('to') !== null )
+                {
+                    $additionalRecipients =  explode(";", $this->input->post('to'));
+                    foreach( $additionalRecipients as $recipient )
+                    {
+                        $recipients[] = $recipient;
+                    }
+                }
 
-            //                 foreach( $members as $member )
-            //                 {
-            //                     $recipients[] = $member->email;
-            //                 }
-            //             }
-            //         }
+                $headers = 'From: AFROTC Detachment 550 <noreply@det550.com>' . "\r\n";
+                $headers .= 'BCC: '. implode(",", $recipients) . "\r\n";
+                $headers .= "Content-type: text/html\r\n";
 
-            //         // Gets the other recipients put in the to section
-            //         if( $this->input->post('to') !== null )
-            //         {
-            //             $additionalRecipients =  explode(";", $this->input->post('to'));
-            //             foreach( $additionalRecipients as $recipient )
-            //             {
-            //                 $recipients[] = $recipient;
-            //             }
-            //         }
+                mail($this->input->post('to'), $this->input->post('subject'), $this->input->post('body'), $headers);
 
-            //         $this->email->bcc( $recipients );
-            //         $this->email->from('noreply@detachment550.org','Air Force ROTC Detachment 550');
-            //         $this->email->subject( $this->input->post('subject') );
-            //         $this->email->message( $this->input->post('body') );
-
-            //         //Send email
-            //         $this->email->send();
-
-            //         // Goes back to email page
-            //         redirect('email/view');
-            //     }
-            //     else
-            //     {
-            //         show_error('The email you are trying to send does not have a body and/or subject.');
-            //     }
+                // Goes back to email page
+                redirect('email/view');
+            }
+            else
+            {
+                show_error('The email you are trying to send does not have a body and/or subject.');
+            }
         }
 
     }
