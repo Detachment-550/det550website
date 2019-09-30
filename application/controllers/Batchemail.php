@@ -20,18 +20,18 @@ class Batchemail extends CI_Controller{
         {
             if( $email['day'] === date("Y-m-d") )
             {
-                $this->email->to($email['to']);
-                $this->email->from($email['from'],$email['title']);
-                $this->email->subject($email['subject']);
-                $this->email->message($email['message']);
-                $this->email->send();
+                $headers = 'From: ' . $email['from'] . ' <noreply@det550.com>' . "\r\n";
+                $headers .= 'BCC: '. $email['to'] . "\r\n";
+                $headers .= "Content-type: text/html\r\n";
+
+                mail(NULL, $email['subject'], $email['message'], $headers);
 
                 // Removes scheduled email from DB after sending it
                 $this->Batch_email_model->delete_batchemail( $email['uid'] );
             }
             else
             {
-                show_error( date("Y-m-d") . " is not " . $email['day']);
+                echo date("Y-m-d") . " is not " . $email['day'] . "<br>";
             }
         }
     }
