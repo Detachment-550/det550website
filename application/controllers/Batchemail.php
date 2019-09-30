@@ -21,10 +21,9 @@ class Batchemail extends CI_Controller{
             if( $email['day'] === date("Y-m-d") )
             {
                 $headers = 'From: ' . $email['from'] . ' <noreply@det550.com>' . "\r\n";
-                $headers .= 'BCC: '. $email['to'] . "\r\n";
                 $headers .= "Content-type: text/html\r\n";
 
-                mail(NULL, $email['subject'], $email['message'], $headers);
+                mail($email['to'], $email['subject'], $email['message'], $headers);
 
                 // Removes scheduled email from DB after sending it
                 $this->Batch_email_model->delete_batchemail( $email['uid'] );

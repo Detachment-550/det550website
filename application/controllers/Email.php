@@ -61,7 +61,7 @@
                 $headers .= 'BCC: '. implode(",", $recipients) . "\r\n";
                 $headers .= "Content-type: text/html\r\n";
 
-                mail($this->input->post('to'), $this->input->post('subject'), $this->input->post('body'), $headers);
+                mail(NULL, $this->input->post('subject'), $this->input->post('body'), $headers);
 
                 // Goes back to email page
                 redirect('email/view');
