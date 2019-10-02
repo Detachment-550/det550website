@@ -16,30 +16,21 @@ class Batchemail extends CI_Controller{
         // Sets the timezone to our time zone
         date_default_timezone_set( "America/New_York" );
 
-        $headers = 'From: AFROTC Detachment 550 <noreply@det550.com>' . "\r\n";
-        $headers .= "Content-type: text/html\r\n";
-        echo mail('messaj@rpi.edu', 'test', 'this is a test<br><br> <strong>trial</strong>', $headers);
-
         foreach( $this->Batch_email_model->get_all_batchemails() as $email )
         {
-            $headers = 'From: ' . $email['from'] . ' <noreply@det550.com>' . "\r\n";
-            $headers .= "Content-type: text/html\r\n";
-            echo mail('messaj@rpi.edu', 'test', 'this is a test<br><br> <strong>trial</strong>', $headers);
+            if( $email['day'] === date("Y-m-d") )
+            {
+                $headers = 'From: Detachment 550 Air Force ROTC <' . $email['from'] . '>' . "\r\n";
+                $headers .= "Content-type: text/html\r\n";
+                echo mail($email['to'], $email['subject'], $email['message'], $headers);
 
-//            if( $email['day'] === date("Y-m-d") )
-//            {
-//                $headers = 'From: ' . $email['from'] . ' <noreply@det550.com>' . "\r\n";
-//                $headers .= "Content-type: text/html\r\n";
-//
-//                mail($email['to'], $email['subject'], $email['message'], $headers);
-//
-//                // Removes scheduled email from DB after sending it
-//                $this->Batch_email_model->delete_batchemail( $email['uid'] );
-//            }
-//            else
-//            {
-//                echo date("Y-m-d") . " is not " . $email['day'] . "<br>";
-//            }
+                // Removes scheduled email from DB after sending it
+                $this->Batch_email_model->delete_batchemail( $email['uid'] );
+            }
+            else
+            {
+                echo date("Y-m-d") . " is not " . $email['day'] . "<br>";
+            }
         }
     }
 }
