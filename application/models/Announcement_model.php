@@ -15,7 +15,19 @@ class Announcement_model extends CI_Model
         $this->db->join('users', 'users.id = announcement.createdBy');
         return $this->db->get_where('announcement',array('uid'=>$uid))->row_array();
     }
-    
+
+    /*
+     * Get announcement by uid
+     */
+    function get_todays_announcements()
+    {
+        $this->db->where('DAY(date)', Date('d'));
+        $this->db->where('MONTH(date)', Date('m'));
+        $this->db->where('YEAR(date)', Date('Y'));
+        $this->db->join('users', 'users.id = announcement.createdBy');
+        return $this->db->get('announcement')->result_array();
+    }
+
     /*
      * Get last 5 announcements by date
      *

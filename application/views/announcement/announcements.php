@@ -13,8 +13,10 @@
             {
                 //print out the information for the post
                 echo "<div class='card-header'><a href=" . site_url("announcement/page/" . $announcement['uid']) . ">" . $announcement['title'] . "</a></div>";
-                echo "<div class='card-body'><h5 class='card-title'>" . $announcement['subject'] . "</h5>";
+                echo "<div class='card-body'>";
+                echo "<h5 class='card-title'>" . $announcement['subject'] . "</h5>";
                 echo $announcement['body'];
+                echo "<strong>Posted: " . Date('d M Y h:i', strtotime($announcement['date'])) . "</strong><br><br>";
 
                 // Make a button to read and understand post
                 echo form_open('acknowledge_post/add');
