@@ -70,4 +70,12 @@ class Join_announcement_group_model extends CI_Model
     {
         return $this->db->delete('announcement_group_jointable',array('id'=>$id));
     }
+
+    /*
+     * function to delete announcement_groups
+     */
+    function delete_announcement_groups($announcement_id)
+    {
+        return $this->db->delete('announcement_group_jointable',array('announcement'=>$announcement_id));
+    }
 }

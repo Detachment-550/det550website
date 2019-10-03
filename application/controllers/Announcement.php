@@ -10,6 +10,7 @@ class Announcement extends CI_Controller{
         {
             $this->load->model('Announcement_model');
             $this->load->model('Acknowledge_post_model');
+            $this->load->model('Join_announcement_group_model');
         }
         else
         {
@@ -25,7 +26,6 @@ class Announcement extends CI_Controller{
         if( $this->input->post('body') != null && $this->input->post('subject') != null)
         {
             $this->load->helper('form');
-            $this->load->model('Join_announcement_group_model');
 
             $user = $this->ion_auth->user()->row();
 
@@ -212,6 +212,7 @@ class Announcement extends CI_Controller{
     {
         if( $this->ion_auth->is_admin() )
         {
+            $this->Join_announcement_group_model->delete_announcement_groups( $this->input->post('announcement') );
             $this->Announcement_model->delete_announcement( $this->input->post('announcement') );
 
             redirect('cadet/view');
