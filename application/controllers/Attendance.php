@@ -244,21 +244,19 @@ class Attendance extends CI_Controller
 
     /*
      * Gets list of attendees for a given event.
+     *
+     * @param event - the event id of the event
      */
-    function attendees()
+    function attendees($event)
     {
-        if ($this->input->post('event') !== null) {
-            $data['title'] = 'Cadet Attendance';
-            $data['attendees'] = $this->Attendance_model->get_event_attendance($this->input->post('event'));
-            $data['event'] = $this->Cadetevent_model->get_cadetevent($this->input->post('event'));
+        $data['title'] = 'Cadet Attendance';
+        $data['attendees'] = $this->Attendance_model->get_event_attendance($event);
+        $data['event'] = $this->Cadetevent_model->get_cadetevent($event);
 
-            // Loads the home page
-            $this->load->view('templates/header', $data);
-            $this->load->view('attendance/viewattendees');
-            $this->load->view('templates/footer');
-        } else {
-            show_error('You must select an event to view the attendees of that event.');
-        }
+        // Loads the home page
+        $this->load->view('templates/header', $data);
+        $this->load->view('attendance/viewattendees');
+        $this->load->view('templates/footer');
     }
 
     /*
