@@ -221,16 +221,20 @@ class Attendance extends CI_Controller
     {
         if (isset($_POST) && count($_POST) > 0)
         {
+            $event_id = $this->input->post('event');
+            $user_id = $this->input->post('id');
 
-            $params = array(
-                'user' => $this->input->post('id'),
-                'eventid' => $this->input->post('event'),
-            );
+            if(!$this->Attendance_model->attendance_exists($user_id, $event_id))
+            {
+                $params = array(
+                    'user' => $user_id,
+                    'eventid' => $event_id,
+                );
 
-            $this->Attendance_model->add_attendance($params);
+                $this->Attendance_model->add_attendance($params);
+            }
 
             redirect('cadetevent/event/' . $this->input->post('event'));
-
         }
         else
         {
