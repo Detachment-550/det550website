@@ -87,25 +87,28 @@
         function daily_announcements()
         {
             $this->load->model('Announcement_model');
-
-            // Sets the timezone to our time zone
-            date_default_timezone_set( "America/New_York" );
-
-            $message = "<h1 style='text-align:center;'>Daily Announcements</h1>";
-            foreach($this->Announcement_model->get_todays_announcements() as $announcement)
+            $announcements = $this->Announcement_model->get_todays_announcements();
+            if(count($announcements) > 0)
             {
-                $message .= "<h2 style='text-align:center;'>" . $announcement['title'] . "</h2><p>" .
-                    "<strong>Subject:</strong> " . $announcement['subject'] . "</p><p>&nbsp;</p><p>&nbsp;</p>"
-                    . $announcement['body'] . "<br><hr><br>";
-            }
+                // Sets the timezone to our time zone
+                date_default_timezone_set( "America/New_York" );
 
-            $users = $this->ion_auth->users()->result(); // get all users
+                $message = "<h1 style='text-align:center;'>Daily Announcements</h1>";
+                foreach($announcements as $announcement)
+                {
+                    $message .= "<h2 style='text-align:center;'>" . $announcement['title'] . "</h2><p>" .
+                        "<strong>Subject:</strong> " . $announcement['subject'] . "</p><p>&nbsp;</p><p>&nbsp;</p>"
+                        . $announcement['body'] . "<br><hr><br>";
+                }
 
-            foreach( $users as $user )
-            {
-                $headers = 'From: Detachment 550 Air Force ROTC <noreply@det550.com>' . "\r\n";
-                $headers .= "Content-type: text/html\r\n";
-                echo mail($user->email, 'Wing Announcements', $message, $headers);
+                $users = $this->ion_auth->users()->result(); // get all users
+
+                foreach( $users as $user )
+                {
+                    $headers = 'From: Detachment 550 Air Force ROTC <noreply@det550.com>' . "\r\n";
+                    $headers .= "Content-type: text/html\r\n";
+                    echo mail($user->email, 'Wing Announcements', $message, $headers);
+                }
             }
         }
     }
