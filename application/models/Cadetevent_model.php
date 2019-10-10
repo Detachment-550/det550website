@@ -61,7 +61,7 @@ class Cadetevent_model extends CI_Model
      */
     function get_all_cadetevents()
     {
-        return $this->db->query('SELECT * FROM cadetEvent ORDER BY ABS( DATEDIFF( cadetEvent.date, NOW() ) )')->result_array();
+        return $this->db->query('SELECT * FROM cadetEvent ORDER BY ABS( DATEDIFF( CAST(cadetEvent.date as DATE), NOW() ) )')->result_array();
     }
 
     /*
