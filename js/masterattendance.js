@@ -2,6 +2,7 @@ var table;
 var weektable;
 var rows = Array();
 
+//TODO: Move this work to the server
 $.ajax({
     url: '/index.php/attendance/get_master',
     method: 'post',
@@ -345,7 +346,7 @@ function download()
 }
 
 // Downloads the job table to a pdf format
-function downloadweek()
+function download_week()
 {
     weektable.download("csv", "week_attendance.csv");
 }
