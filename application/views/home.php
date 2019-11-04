@@ -47,12 +47,10 @@
 <?php 
     foreach( $events as $event )
     {
-        echo form_open('attendance/attendees');      
         echo "<div class='card-body'>";
         echo "<h5 class='card-title'>" . $event['name'] . "</h5>";
-        echo "<p class='card-text'>" . $event['date'] . "</p>";
-        echo "<input type='text' name='event' value='" . $event['eventID'] . "' style='display:none;'>";
-        echo "<button type='submit' class='btn btn-sm btn-primary'>View Attendees</button></div></form>";
+        echo "<p class='card-text'>Date: " . Date('d M Y h:i', strtotime($event['date'])) . "</p>";
+        echo "<a href='/index.php/attendance/attendees/" . $event['eventID'] . "' class='btn btn-sm btn-primary'>View Attendees</a></div>";
 
     } 
 ?>
@@ -69,7 +67,8 @@
         echo "<div class='card-body'>";
         echo "<h5 class='card-title'><a href='" . site_url('announcement/page/' . $announcement['uid']) . "'>" . $announcement['title'] . "</a></h5>";
         echo "<p class='card-text'> " . $announcement['subject'] . '</p>';
-        echo "<p class='card-text'>" . $announcement['first_name'] . ' ' . $announcement['last_name'] . '</p></div>';
+        echo "<p>Date Posted: " . Date('d M Y h:i', strtotime($announcement['date'])) . "</p>";
+        echo "<p class='card-text'>Posted By: " . $announcement['first_name'] . ' ' . $announcement['last_name'] . '</p></div>';
     }
 ?>
             </div>

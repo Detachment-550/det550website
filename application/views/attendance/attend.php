@@ -37,10 +37,6 @@
     <br>
     <br>
 
-    <form action="/index.php/attendance/attendees" style="display: inline;" method="POST">
-        <input style="display:none;" type="text" name="event" value="<?php echo $event['eventID']; ?>">
-        <button class='btn btn-secondary' type='submit'>Show All Attendees</button>
-    </form>
-
+    <a class='btn btn-secondary' href="/index.php/attendance/attendees/<?php echo $event['eventID']; ?>">Show All Attendees</a>
     <a class='btn btn-warning' style="float: right;" href="/index.php/cadet/change_rfid">Add Cadet ID Card</a><br><br>
 </div>

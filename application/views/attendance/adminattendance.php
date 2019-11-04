@@ -1,5 +1,5 @@
-<link href="/application/third_party/tabulator/tabulator_bootstrap4.min.css" rel="stylesheet">
-<script type="text/javascript" src="/application/third_party/tabulator/tabulator.min.js"></script>
+<link href="/application/third_party/tabulator/css/bootstrap/tabulator_bootstrap4.min.css" rel="stylesheet">
+<script type="text/javascript" src="/application/third_party/tabulator/js/tabulator.min.js"></script>
 <script type="text/javascript" src="/application/third_party/moment/min/moment-with-locales.min.js"></script>
 
 <div class="jumbotron jumbotron-fluid">

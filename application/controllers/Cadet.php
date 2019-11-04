@@ -528,17 +528,10 @@ class Cadet extends CI_Controller{
     /*
      * Returns information about the selected user.
      */
-    function info()
+    function info($user)
     {
-        if( $this->input->post('user') !== null && $this->ion_auth->is_admin() )
-        {
-            $data['user'] = $this->ion_auth->user($this->input->post('user'))->row();
-            $data['admin'] = $this->ion_auth->is_admin($this->input->post('user'));
-        }
-        else
-        {
-            $data['error'] = "You must provide a user id to get information abou their account";
-        }
+        $data['user'] = $this->ion_auth->user($user)->row();
+        $data['admin'] = $this->ion_auth->is_admin($user);
 
         echo json_encode($data);
     }

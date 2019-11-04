@@ -1,6 +1,6 @@
 ![Tabulator Table](http://olifolkerd.github.io/tabulator/images/tabulator.png)
 
-### Version 4.2 Out Now!
+### Version 4.4 Out Now!
 
 An easy to use interactive table generation JavaScript library
 
@@ -36,8 +36,8 @@ Setting up tabulator could not be simpler.
 
 Include the library and the css
 ```html
-<link href="dist/css/tabulator.min.css" rel="stylesheet">
-<script type="text/javascript" src="dist/js/tabulator.min.js"></script>
+<link href="css/tabulator.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/tabulator.min.js"></script>
 ```
 
 Create an element to hold the table
@@ -66,8 +66,8 @@ npm install tabulator-tables --save
 ### CDN - UNPKG
 To access Tabulator directly from the UNPKG CDN servers, include the following two lines at the start of your project, instead of the localy hosted versions:
 ```html
-<link href="https://unpkg.com/tabulator-tables@4.2.0/dist/css/tabulator.min.css" rel="stylesheet">
-<script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.2.0/dist/js/tabulator.min.js"></script>
+<link href="https://unpkg.com/tabulator-tables@4.4.3/dist/css/tabulator.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.4.3/dist/js/tabulator.min.js"></script>
 ```
 
 Coming Soon
@@ -76,7 +76,6 @@ Tabulator is actively under development and I plan to have even more useful feat
 
 - Custom Row Templates
 - Additional Editors and Formatters
-- Print Styling
 - Multi Cell Editing
 - Cell Selection
 

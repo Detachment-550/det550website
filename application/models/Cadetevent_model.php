@@ -30,11 +30,13 @@ class Cadetevent_model extends CI_Model
         if(date("m") >= 1 && date("m") < 6)
         {
             $this->db->where('MONTH(date) > 0');
+            $this->db->where('date <= ' . Date('Ymd'));
             $query = $this->db->where('MONTH(date) < 6');
         }
         else
         {
             $this->db->where('MONTH(date) > 5');
+            $this->db->where('date <= ' . Date('Ymd'));
             $query = $this->db->where('MONTH(date) < 13');
         }
 
@@ -59,7 +61,7 @@ class Cadetevent_model extends CI_Model
      */
     function get_all_cadetevents()
     {
-        return $this->db->query('SELECT * FROM cadetEvent ORDER BY ABS( DATEDIFF( cadetEvent.date, NOW() ) )')->result_array();
+        return $this->db->query('SELECT * FROM cadetEvent ORDER BY ABS( DATEDIFF( CAST(cadetEvent.date as DATE), NOW() ) )')->result_array();
     }
 
     /*

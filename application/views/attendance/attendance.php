@@ -55,12 +55,27 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="comments">For Cadet</label>
-                <textarea rows="1" class="form-control" id="comments" name="comments" placeholder="Enter the requesting Cadet's Last Name..." required></textarea>
+                <label for="memo_for">Submit Memo To</label>
+                <select class="form-control" name="memo_for" id="memo_for" required>
+                    <option value="">Choose...</option>
+                    <?php
+                        foreach( $users as $user )
+                        {
+                            if($user->rank === 'Cadet')
+                            {
+                                echo "<option value='" . $user->id . "'>Cadet " . $user->last_name . "</option>";
+                            }
+                        }
+                    ?>
+                </select>
             </div>
             <div class="form-group">
                 <label for="attachment">Memo Attachment (PDF Only)</label>
                 <input type="file" class="form-control" name="attachment" id="attachment" required/>
+            </div>
+            <div class="form-group">
+                <label for="comments">Additional Comments</label>
+                <textarea id="comments" name="comments" class="form-control" rows="5" placeholder="This is optional..."></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Submit Memo</button>
         </form>

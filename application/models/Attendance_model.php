@@ -103,11 +103,13 @@ class Attendance_model extends CI_Model
         if(date("m") >= 1 && date("m") < 6)
         {
             $this->db->where('MONTH(date) > 0');
+            $this->db->where('date <= ' . Date('Ymd'));
             $query = $this->db->where('MONTH(date) < 6');
         }
         else
         {
             $this->db->where('MONTH(date) > 5');
+            $this->db->where('date <= ' . Date('Ymd'));
             $query = $this->db->where('MONTH(date) < 13');
         }
 
