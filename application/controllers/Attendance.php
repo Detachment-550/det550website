@@ -415,7 +415,7 @@ class Attendance extends CI_Controller
 
     /*
      * Approves a memo based on it's id.
-     *
+     * WIP FIX 11/07/2019
      * @param memo_id - the memo id
      */
     function approve_memo($memo_id)
