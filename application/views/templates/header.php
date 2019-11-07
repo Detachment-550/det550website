@@ -36,21 +36,28 @@
                 <a href="/index.php/announcement/view" class="nav-link">Announcements</a>
             </li>
             <li class="nav-item">
-                <a href="https://1drv.ms/u/s!ApNsxRotYiU4a5Pa0eTlsQ64xlg?e=4nZfRy" class="nav-link">OneDrive</a>
+                <a href="/index.php/attendance/view" class="nav-link">Event Attendance</a>
             </li>
             <li class="nav-item">
-                <a href="https://calendar.google.com/calendar?cid=aDBlM2lkOW5pYThhZDc0M2xwY2Zxa3Y3Z29AZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ" class="nav-link">Calender</a>
+                <a href="https://1drv.ms/u/s!AuvfGdTu423La0njOdUq_ubV2R8?e=eyODRf" class="nav-link">Photos</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://1drv.ms/u/s!AuvfGdTu423LggbFuMcGqLDuT68s?e=tm3aE7" class="nav-link">OneDrive</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://calendar.google.com/calendar?cid=aDBlM2lkOW5pYThhZDc0M2xwY2Zxa3Y3Z29AZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ" class="nav-link">Calendar</a>
             </li>
             <li class="nav-item">
                 <a href="/index.php/wiki/view" class="nav-link">Documentation</a>
             </li>
+            <li class="nav-item">
+                <a href="/index.php/cadet/wingstructure" class="nav-link">Wing Structure</a>
+            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> More</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a href="/index.php/attendance/view" class="dropdown-item">View Event Attendance</a>
                     <a href="https://rpi.account.box.com/login" class="dropdown-item">BOX</a>
                     <a href="/index.php/email/view" class="dropdown-item">Send Email</a>
-                    <a href="/index.php/cadet/wingstructure" class="dropdown-item">Org Chart</a>
                     <a href="/index.php/alumni/view" class="dropdown-item">View Alumni</a>
 
                     <?php
