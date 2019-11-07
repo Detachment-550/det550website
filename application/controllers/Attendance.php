@@ -423,13 +423,17 @@ class Attendance extends CI_Controller
         $memo = $this->Attendance_memo_model->get_attendance_memo($memo_id);
 
         $params = array(
-            'excused_absence' => 1,
             'user' => $memo['user'],
             'eventid' => $memo['event'],
+            'excused_absence' => 1,
             'comments' => $memo['comments'],
         );
 
-        $data['event_excused'] = $this->Attendance_model->add_attendance($params);
+        $status = $this->Attendance_model->get_attendance_status($params['user'],$params['eventid']);
+        if($status == NULL){
+            $data['event_excused'] = $this->Attendance_model->add_attendance($params);
+        }
+
         $data['memo_approved'] = $this->Attendance_memo_model->approve_attendance_memo($memo_id);
         echo json_encode($data);
     }
