@@ -415,7 +415,7 @@ class Attendance extends CI_Controller
 
     /*
      * Approves a memo based on it's id.
-     * WIP FIX 11/07/2019
+
      * @param memo_id - the memo id
      */
     function approve_memo($memo_id)
@@ -429,12 +429,13 @@ class Attendance extends CI_Controller
             'comments' => $memo['comments'],
         );
 
+        $data['memo_approved'] = $this->Attendance_memo_model->approve_attendance_memo($memo_id);
+
         $status = $this->Attendance_model->get_attendance_status($params['user'],$params['eventid']);
         if($status == NULL){
             $data['event_excused'] = $this->Attendance_model->add_attendance($params);
         }
 
-        $data['memo_approved'] = $this->Attendance_memo_model->approve_attendance_memo($memo_id);
         echo json_encode($data);
     }
 
