@@ -79,6 +79,16 @@
         
             <li><a class="toctree-l3" href="#take-attendance">Take Attendance</a></li>
         
+            <li><a class="toctree-l3" href="#edit-attendance-records">Edit Attendance Records</a></li>
+        
+            <li><a class="toctree-l3" href="#approvedeny-memos">Approve/Deny Memos</a></li>
+        
+            <li><a class="toctree-l3" href="#historical-memos">Historical Memos</a></li>
+        
+            <li><a class="toctree-l3" href="#create-a-memo-type">Create a Memo Type</a></li>
+        
+            <li><a class="toctree-l3" href="#edit-a-memo-type">Edit a Memo Type</a></li>
+        
         </ul>
     
 
@@ -121,7 +131,8 @@
             <div class="section">
               
                 <p>One of the primary functions for this web application is attendance tracking. There are several subsections of the 
-attendance tracking that users will interact with all with different functions.</p>
+attendance tracking that users will interact with all with different functions. To view this page you must be an admin 
+a member of the attendance group.</p>
 <h1 id="event-attendance">Event Attendance</h1>
 <p>The event attendance page is where users can view event attendees and submit memos for missed events.</p>
 <h2 id="view-event-attendees">View Event Attendees</h2>
@@ -212,7 +223,104 @@ Once clicking this you will be redirected to a page showing all of the cadets ma
 event your are taking attendance for (the timestamp of when the record was stored will also appear).</p>
 <h3 id="add-user-id-card">Add User ID Card</h3>
 <p>If this is the first time a user is using their card for attendance and they did not register their card when they 
-created their account on the website you may have to associate their card with their account. </p>
+created their account on the website you may have to associate their card with their account. To do this do the 
+following:</p>
+<ol>
+<li>On the event attendance page (the page where you are recording attendance for an event) click the yellow 'Add Cadet 
+ID Card' button. On the page you are redirected to it will have a form with the following inputs:<ul>
+<li>Select User</li>
+<li>Scan Card</li>
+</ul>
+</li>
+<li>Select the user account you would like to associate a card with. </li>
+<li>Select (click on) the scan card field.</li>
+<li>Scan the card into the card reader which is plugged into the computer you are using.</li>
+</ol>
+<p>Once you scan the card the form will automatically submit and the form will reset. You will now have to navigate back to
+the page to set the event attendance. </p>
+<p><em>Note: The user who registered their card will have to re scan their card for the event to be marked as present.</em></p>
+<p><em>Note: If the user tries to scan their card to attend an event and their card is not associated with an account you will
+be automatically redirected to this 'Connect RFID' page.</em></p>
+<h2 id="edit-attendance-records">Edit Attendance Records</h2>
+<p>Under the 'Modify Attendance' section on the 'Admin Attendance' page you will see a section labeled 'Modify Attendance 
+Records'. To manually change an attendance record do the following: </p>
+<ol>
+<li>Click on the button in this section labeled 'Modify Attendance'.</li>
+<li>You will now be redirected to a form titled 'Modify Attendance Records'. Here you will need to select the following:<ul>
+<li>Cadet<ul>
+<li>The user who you would like to modify an attendance record for</li>
+</ul>
+</li>
+<li>Event<ul>
+<li>The event you would like to modify the attendance record for</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Once you select the above values you will be shown the current record for that user on that given event. Change it to
+the status you would like the record to reflect (present, absent, excused). <ul>
+<li><em>Note: If you set it to present or excused you can optionally add comments to the record.</em></li>
+</ul>
+</li>
+<li>Click the 'Update Record' button and the attendance record will be updated in the database.</li>
+</ol>
+<p>You have now successfully updated an attendance record.</p>
+<h2 id="approvedeny-memos">Approve/Deny Memos</h2>
+<p>To approve or deny a memo navigate to the 'Admin Attendance' page and look for the section titled 'Review Attendance 
+Memos'. Here you will see a table with all of the pending memo requests. The following information for each request will
+be displayed:</p>
+<ul>
+<li>Event<ul>
+<li>The event the memo is for</li>
+</ul>
+</li>
+<li>User<ul>
+<li>The user who submitted the memo</li>
+</ul>
+</li>
+<li>Date<ul>
+<li>The date and time the memo was submitted</li>
+</ul>
+</li>
+<li>Memo For<ul>
+<li>Who the memo was submitted for</li>
+</ul>
+</li>
+<li>Comments</li>
+<li>Attachment<ul>
+<li>This will be a download link that when clicked will download the PDF that the user submitted with their memo</li>
+</ul>
+</li>
+</ul>
+<p>To approve or deny the memo simply click the corresponding button next to each row. </p>
+<p><em>Note: Denying a memo still saves the memo in historical memos. It just keeps the user marked as absent from the event.</em></p>
+<h2 id="historical-memos">Historical Memos</h2>
+<p>Here you can search through all memos ever submitted. You can filter this search be the event and the user. To filter 
+by either just select the user or event from the dropdown.</p>
+<h3 id="download-historical-memo-table">Download Historical Memo Table</h3>
+<p>If you would like to store the historical memo table click on the 'Download Table' button in the top right corner of the 
+'Historical Attendance Memos' section. This will download the table as a CSV file which you can open in excel.</p>
+<p><em>Note: Currently the PDFs associated with each excusal will not be exported in the excel file.</em></p>
+<h2 id="create-a-memo-type">Create a Memo Type</h2>
+<p>Here you can create a memo type that can be set for each memo submission. For example some current types are unexcused, 
+academics, family etc. </p>
+<p>To create a memo type do the following:</p>
+<ol>
+<li>Enter the label of the memo type.<ul>
+<li><em>Note: The label must be unique (not already exist) otherwise the system will not allow you to add the type.</em></li>
+</ul>
+</li>
+<li>Enter a description of what the memo type means or constitutes. For example, the 'Academic' type means that you were 
+unable to attend an event because of a class or test conflict.</li>
+<li>Click the 'Add Memo Type' button and the memo type will be added to the database.</li>
+</ol>
+<h2 id="edit-a-memo-type">Edit a Memo Type</h2>
+<p>Here you can change existing memo types. To edit a memo type do the following:</p>
+<ol>
+<li>Select the memo type you would like to change.</li>
+<li>Edit either the label or description of the memo type.</li>
+<li>Click the 'Update Memo Type' button and your changes will be saved.</li>
+</ol>
               
             </div>
           </div>
