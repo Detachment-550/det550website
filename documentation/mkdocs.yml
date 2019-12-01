@@ -1,0 +1,11 @@
+site_name: Detachment 550 Web Application
+theme: readthedocs
+repo_url: https://github.com/jmessare46/det550website/
+edit_uri: tree/master/documentation/docs/
+site_description: This site is an attendance and personel tracking system for AFROTC Detachment 550. This also functions
+  as a communication automation system.
+site_author: Joseph Messare
+nav:
+  - Home: index.md
+  - Attendance: attendance.md
+

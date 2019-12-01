@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Joseph Messare">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Attendance - Detachment 550 Web Application</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Attendance";
+    var mkdocs_page_input_path = "attendance.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Detachment 550 Web Application</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Attendance</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#event-attendance">Event Attendance</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#view-event-attendees">View Event Attendees</a></li>
+        
+            <li><a class="toctree-l3" href="#submit-an-attendance-memo">Submit an Attendance Memo</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l2"><a href="#admin-attendance">Admin Attendance</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#create-an-event">Create an Event</a></li>
+        
+            <li><a class="toctree-l3" href="#delete-an-event">Delete an Event</a></li>
+        
+            <li><a class="toctree-l3" href="#take-attendance">Take Attendance</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Detachment 550 Web Application</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Attendance</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/jmessare46/det550website/tree/master/documentation/docs/attendance.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p>One of the primary functions for this web application is attendance tracking. There are several subsections of the 
+attendance tracking that users will interact with all with different functions.</p>
+<h1 id="event-attendance">Event Attendance</h1>
+<p>The event attendance page is where users can view event attendees and submit memos for missed events.</p>
+<h2 id="view-event-attendees">View Event Attendees</h2>
+<p>In order to view the users who attended an event you will need to go the the Event Attendance link on the site. Here you
+will see a page with a section titled View Event Attendees. This is where any user can view all of the cadets who 
+attended a given event.</p>
+<h2 id="submit-an-attendance-memo">Submit an Attendance Memo</h2>
+<p>To submit an attendance memo complete the following steps:</p>
+<ol>
+<li>Navigate to the 'Event Attendance' link.</li>
+<li>Once at the Event Attendance page fill out the form titled 'Submit Memo' which will have the following fields:<ul>
+<li>Event</li>
+<li>Memo Reason</li>
+<li>Submit Memo To<ul>
+<li>Who you wish to view the memo</li>
+</ul>
+</li>
+<li>Memo Attachment<ul>
+<li><em>Note: This must be in a PDF file format otherwise it will not submit properly</em></li>
+</ul>
+</li>
+<li>Additional Comments</li>
+</ul>
+</li>
+<li>Once you have completed filling out this form click the 'Submit Memo' button and your memo will be visible to whoever 
+is responsible for reviewing and approving attendance memos</li>
+</ol>
+<h1 id="admin-attendance">Admin Attendance</h1>
+<p>The admin attendance page is where you can do the following to events:</p>
+<ul>
+<li>Create an event</li>
+<li>Delete an event</li>
+<li>Take attendance for and event</li>
+<li>Review attendance memos</li>
+<li>View historical attendance memos</li>
+<li>Create memo types</li>
+</ul>
+<h2 id="create-an-event">Create an Event</h2>
+<p>To create an event for the site you must fill out the form titled 'Create an Event'. In this form you will fill out the 
+following fields:</p>
+<ul>
+<li>Title</li>
+<li>Date</li>
+<li>Event Type</li>
+</ul>
+<p>Once you have filled out this form click the 'Submit' button and your event will be created and posted to the site. </p>
+<p><em>Note: You can create all events you know about prior to their occurrence. This will not effect user's attendance 
+percentages until the event has passed.</em>    </p>
+<h2 id="delete-an-event">Delete an Event</h2>
+<p>To delete an event go to the form under 'Modify Event'. Look for the section labeled 'Delete an Event'. To delete an 
+event do the following steps:</p>
+<ol>
+<li>Select the event you would like to delete<ul>
+<li>The events will be listed by event title and date</li>
+</ul>
+</li>
+<li>Click the 'Delete' button.</li>
+<li>Confirm that you are sure you would like to delete the event.</li>
+</ol>
+<p>Now the event along with all of it's attendance records will be deleted from the site.</p>
+<h2 id="take-attendance">Take Attendance</h2>
+<p>To take attendance for an event navigate to the 'Modify Attendance' section in the 'Admin Attendance' page. To set the 
+attendance for a given event do the following:</p>
+<ol>
+<li>Select the event from the dropdown.<ul>
+<li>Events will be listed by label</li>
+</ul>
+</li>
+<li>Click the select event button. <ul>
+<li>This will redirect you to the page where you can either scan or manually set attendance</li>
+</ul>
+</li>
+<li>You now have two options. <ol>
+<li>If you would like to manually set attendance select the user from section titled 'No RFID 
+Scanner? Select User:'. Here you will select the user and click the 'Submit' button below which will mark that user 
+as present for the event.</li>
+<li>If the user has their ID card with them you can have them scan in.<ul>
+<li><em>Note: You must have the text field labeled 'Scan RPI ID Card' selected (clicked on) to scan the ID</em></li>
+<li><em>Note: Once the user scans their card the form will auto submit. (It may take a few seconds)</em></li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="view-current-attendance-records">View Current Attendance Records</h3>
+<p>If you would like to see if the user's attendance was successfully recorded click on the 'Show All Attendees' button.
+Once clicking this you will be redirected to a page showing all of the cadets marked as present or excused for the 
+event your are taking attendance for (the timestamp of when the record was stored will also appear).</p>
+<h3 id="add-user-id-card">Add User ID Card</h3>
+<p>If this is the first time a user is using their card for attendance and they did not register their card when they 
+created their account on the website you may have to associate their card with their account. </p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/jmessare46/det550website/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>
