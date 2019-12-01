@@ -4,20 +4,26 @@
 <div class="jumbotron jumbotron-fluid">
 
     <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">Update Profile Picture</h5>
+        </div>
+
         <div class="card-body">
             <div class="alert alert-warning" role="alert" style="display: <?php if($error !== NULL) { echo "block";} else {echo "none";} ?>">
                 <?php echo $error; ?>
             </div>
             <?php echo form_open_multipart('cadet/uploadpic'); ?>
-            <p><strong>Profile Picture: </strong></p>
             <img class="card-img-top" id="profile" alt="Profile picture" src='<?php echo $picture; ?>'><br><br>
             <input type="file" name="profilepicture" required><br><br>
-            <button class="btn btn-sm btn-primary" type="submit" name="submit">Upload Picture</button><br><br>
+            <button class="btn btn-primary" type="submit" name="submit">Upload Picture</button><br><br>
             </form>
         </div>
     </div>
 
     <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">Update Profile Information</h5>
+        </div>
         <div class="card-body">
             <form action="/index.php/cadet/saveprofile" method="POST" onsubmit="return validate();">
                 <div>
@@ -45,28 +51,31 @@
                 <textarea id="afgoals" name="afgoals"><?php echo $user->afgoals; ?></textarea><br>
                 <strong>Awards and Achievements: </strong>
                 <textarea id="awards" name="awards"><?php echo $user->awards; ?></textarea><br>
-                <button class="btn btn-sm btn-primary" type="submit" name="submit">Update Profile</button>
+                <button class="btn btn-primary" type="submit" name="submit">Update Profile</button>
             </form><br>
         </div>
     </div>
     <div class="card">
-        <div class="card-body">
+        <div class="card-header">
             <h5 class="card-title">GroupMe</h5>
-            <div>
+        </div>
 
-                <button type="submit" onclick="location.href='https://oauth.groupme.com/oauth/login_dialog?client_id=RtiKTbtfkzIn40Czo6uh6NsBgksBg8DAeTzoY9cEYM1aIjos'" class="btn btn-sm btn-primary">
+        <div class="card-body">
+            <div>
+                <button type="submit" onclick="location.href='https://oauth.groupme.com/oauth/login_dialog?client_id=RtiKTbtfkzIn40Czo6uh6NsBgksBg8DAeTzoY9cEYM1aIjos'" class="btn btn-primary">
                     Link GroupMe
                 </button>
-
             </div>
-            </form>
         </div>
     </div>
 
     <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">Change Password</h5>
+        </div>
+
         <div class="card-body">
             <form action="/index.php/cadet/changepassword" method="POST">
-                <h5 class="card-title">Change Password</h5>
                 <div>
                     <strong>Old Password:</strong><br>
                     <input class="form-control" type="password" name="oldpass" id="oldpass" size="30"/>
@@ -79,13 +88,21 @@
                     <strong>Verify Password:</strong><br>
                     <input class="form-control" id="verpass" type="text" name="verpass" size="30"/>
                 </div><br>
-                <button class="btn btn-sm btn-primary" type="reset">Reset</button>
-                <button class="btn btn-sm btn-primary" type="submit" name="updatepass">Change Password</button>
+                <button class="btn btn-primary" type="reset">Reset</button>
+                <button class="btn btn-primary" type="submit" name="updatepass">Change Password</button>
             </form>
             <br>
+        </div>
+    </div>
 
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">Change Security Question</h5>
+        </div>
+
+        <div class="card-body">
             <form action="/index.php/cadet/security" method="POST">
-                <button type="submit" class="btn btn-sm btn-primary">Modify Security Question</button>
+                <button type="submit" class="btn btn-primary">Modify Security Question</button>
             </form>
         </div>
     </div>
