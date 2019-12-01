@@ -48,7 +48,10 @@
                 <a href="https://calendar.google.com/calendar?cid=aDBlM2lkOW5pYThhZDc0M2xwY2Zxa3Y3Z29AZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ" class="nav-link">Calendar</a>
             </li>
             <li class="nav-item">
-                <a href="/index.php/wiki/view" class="nav-link">Documentation</a>
+                <a href="/index.php/wiki/view" class="nav-link">Wiki</a>
+            </li>
+            <li class="nav-item">
+                <a href="/documentation/site/index.html" class="nav-link">Documentation</a>
             </li>
             <li class="nav-item">
                 <a href="/index.php/cadet/wingstructure" class="nav-link">Wing Structure</a>
