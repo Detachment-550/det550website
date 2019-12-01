@@ -2,6 +2,10 @@ One of the primary functions for this web application is attendance tracking. Th
 attendance tracking that users will interact with all with different functions. To view this page you must be an admin 
 a member of the attendance group.
 
+# View Attendance
+
+TODO
+
 # Event Attendance 
 
 The event attendance page is where users can view event attendees and submit memos for missed events.

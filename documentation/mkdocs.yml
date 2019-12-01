@@ -9,3 +9,10 @@ nav:
   - Home: index.md
   - Attendance: attendance.md
   - Profile: profile.md
+  - Directory: directory.md
+  - Announcements: announcements.md
+  - Wiki: wiki.md
+  - Email: email.md
+  - Administrator: admin.md
+  - Alumni: alumni.md
+  - Developer: developer.md
