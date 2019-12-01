@@ -1,4 +1,4 @@
-site_name: Detachment 550 Web Application
+site_name: Det 550 Web Application
 theme: readthedocs
 repo_url: https://github.com/jmessare46/det550website/
 edit_uri: tree/master/documentation/docs/
@@ -8,4 +8,4 @@ site_author: Joseph Messare
 nav:
   - Home: index.md
   - Attendance: attendance.md
-
+  - Profile: profile.md
