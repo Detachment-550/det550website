@@ -45,9 +45,9 @@ class Acknowledge_post extends CI_Controller{
         }
     }
 
-    /*
+    /**
      * Adding a new acknowledge_post
-     */
+     **/
     function add()
     {   
         if(isset($_POST) && count($_POST) > 0)     
