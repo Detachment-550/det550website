@@ -14,6 +14,7 @@ Password: P-l@Fe$nq6z-
 You will then have access to all of the back end side of the website.
 
 ## Production Site
+
 TODO
 
 # Filezilla
@@ -38,6 +39,9 @@ https://dotcio.rpi.edu/services/network-remote-access/vpn-connection-and-install
 ## Production Site
 
 The production's cPanel ssh login information is as follows: 
+
+```
+Username: g7afzsg72ror
+Password: F@lcons550
+```
    
-   Username: g7afzsg72ror
-   Password: F@lcons550
