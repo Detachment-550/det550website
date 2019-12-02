@@ -11,16 +11,21 @@ class Wiki_model extends CI_Model
         parent::__construct();
     }
     
-    /*
-     * Get wiki by name
+    /**
+     * Get wiki by name.
+     *
+     * @param int $id - wiki id
+     * @return int - index of wiki in wiki table
      */
     function get_wiki($id)
     {
         return $this->db->get_where('wiki',array('id'=>$id))->row_array();
     }
         
-    /*
-     * Get all wiki
+    /**
+     * Get all wikis.
+     *
+     * @return array - all existing wikis
      */
     function get_all_wikis()
     {
@@ -28,8 +33,11 @@ class Wiki_model extends CI_Model
         return $this->db->get('wiki')->result_array();
     }
         
-    /*
-     * function to add new wiki
+    /**
+     * Add wiki.
+     *
+     * @param wiki $params - parameters for new wiki
+     * @return int - id of created wiki
      */
     function add_wiki($params)
     {
@@ -37,8 +45,12 @@ class Wiki_model extends CI_Model
         return $this->db->insert_id();
     }
     
-    /*
-     * function to update wiki
+    /**
+     * Update wiki.
+     *
+     * @param int $id - wiki id
+     * @param wiki $params - updated wiki paramters
+     * @return wiki - updated wiki
      */
     function update_wiki($id,$params)
     {
@@ -46,8 +58,11 @@ class Wiki_model extends CI_Model
         return $this->db->update('wiki',$params);
     }
     
-    /*
-     * function to delete wiki
+    /**
+     * Delete wiki.
+     *
+     * @params int $id - wiki id
+     * @return int - deleted wiki id
      */
     function delete_wiki($id)
     {

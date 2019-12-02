@@ -7,8 +7,11 @@ class Announcement_model extends CI_Model
         parent::__construct();
     }
     
-    /*
-     * Get announcement by uid
+    /**
+     * Get announcement by id.
+     *
+     * @param int $uid - announcement id
+     * @return int - index of announcement
      */
     function get_announcement($uid)
     {
@@ -16,8 +19,10 @@ class Announcement_model extends CI_Model
         return $this->db->get_where('announcement',array('uid'=>$uid))->row_array();
     }
 
-    /*
-     * Get announcement by uid
+    /**
+     * Get announcement by uid.
+     *
+     * @return array - all announcements made in current day
      */
     function get_todays_announcements()
     {
@@ -28,10 +33,11 @@ class Announcement_model extends CI_Model
         return $this->db->get('announcement')->result_array();
     }
 
-    /*
-     * Get last 5 announcements by date
+    /**
+     * Get 5 most recent announcements by date.
      *
      * @param user - the user making this db query
+     * @return array - 5 most recent announcements
      */
     function get_last_five_announcements($user)
     {
@@ -46,12 +52,13 @@ class Announcement_model extends CI_Model
         return $this->db->get('announcement')->result_array();
     }
 
-    /*
-     * Returns a given 5 announcements.
+    /**
+     * Get next announcements sorted by date created.
      *
      * @param limit - the number of announcements to return
      * @param start - what row to start at in results
      * @param user - the id of the user looking for announcements
+     * @return array - next announcements
      */
     function get_specific_announcements( $limit, $start, $user )
     {
@@ -66,16 +73,20 @@ class Announcement_model extends CI_Model
         return $this->db->get('announcement')->result_array();
     }
 
-    /*
-     * Returns the total number of announcements
+    /**
+     * Returns the total number of announcements.
+     *
+     * @return int - number of announcements
      */
     public function record_count()
     {
         return $this->db->count_all("announcement");
     }
 
-    /*
-     * Get all announcement
+    /**
+     * Get all announcements sorted by date.
+     *
+     * @return array - all announcements
      */
     function get_all_announcements()
     {
@@ -83,8 +94,11 @@ class Announcement_model extends CI_Model
         return $this->db->get('announcement')->result_array();
     }
         
-    /*
-     * function to add new announcement
+    /**
+     * Adds new announcement.
+     *
+     * @param announcement $params - new anouncement parameters
+     * @return int - id of new announcement
      */
     function add_announcement($params)
     {
@@ -92,8 +106,12 @@ class Announcement_model extends CI_Model
         return $this->db->insert_id();
     }
     
-    /*
-     * function to update announcement
+    /**
+     * Updates an existing announcement.
+     *
+     * @param int $uid - announcement to edit id
+     * @param announcement $params - new parameters
+     * @return announcement - updated announcement
      */
     function update_announcement($uid,$params)
     {
@@ -101,8 +119,11 @@ class Announcement_model extends CI_Model
         return $this->db->update('announcement',$params);
     }
     
-    /*
-     * function to delete announcement
+    /**
+     * Delete announcement.
+     *
+     * @param int $uid - announcement id
+     * @return int - deleted announcement id
      */
     function delete_announcement($uid)
     {

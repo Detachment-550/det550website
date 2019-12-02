@@ -7,24 +7,32 @@ class Alumni_model extends CI_Model
         parent::__construct();
     }
 
-    /*
-     * Get alumni by name
+    /**
+     * Get alumni from table.
+     *
+     * @param int $id - alumni id
+     * @return int - index of alumni on table
      */
     function get_alumni($id)
     {
         return $this->db->get_where('alumni',array('alumni_id'=>$id))->row_array();
     }
 
-    /*
-     * Get all alumni
+    /**
+     * Get all alumni.
+     *
+     * @return array - alumni array
      */
     function get_all_alumni()
     {
         return $this->db->get('alumni')->result_array();
     }
 
-    /*
-     * function to add new alumni
+    /**
+     * Add new alumni.
+     *
+     * @param alumni $params - new alumni parameters
+     * @return int - id of newly added alumni
      */
     function add_alumni($params)
     {
@@ -32,8 +40,12 @@ class Alumni_model extends CI_Model
         return $this->db->insert_id();
     }
 
-    /*
-     * function to update alumni
+    /**
+     * Updates alumni.
+     *
+     * @param int $id - id of alumni
+     * @param alumni $params - new alumni parameters
+     * @return alumni - new alumni
      */
     function update_alumni($id,$params)
     {
@@ -42,8 +54,11 @@ class Alumni_model extends CI_Model
         return $this->db->update('alumni',$params);
     }
 
-    /*
-     * function to delete alumni
+    /**
+     * Deletes alumni.
+     *
+     * @param int $id - id of alumni
+     * @return alumni - deleted alumni
      */
     function delete_alumni($id)
     {

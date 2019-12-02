@@ -7,10 +7,11 @@ class User_model extends CI_Model
         parent::__construct();
     }
 
-    /*
+    /**
      * Gets a user by their RFID card.
      *
-     * @param rfid - the number associated with a user's RPI ID card
+     * @param int $rfid - rfid obtained from scanning RPI ID card
+     * @return users - found user
      */
     function find_user($rfid)
     {
@@ -18,10 +19,11 @@ class User_model extends CI_Model
         return $this->db->get('users')->row_array();
     }
 
-    /*
+    /**
      * Gets a user by their email.
      *
-     * @param email - the email associated with a user's account
+     * @param string $email - the email associated with a user's account
+     * @return users - found user
      */
     function find_user_email($email)
     {
@@ -29,8 +31,10 @@ class User_model extends CI_Model
         return $this->db->get('users')->row_array();
     }
 
-    /*
-     * Gets all the users from the database by last name in ascending order.
+    /**
+     * Get all users from the database by last name in ascending order.
+     *
+     * @return array - all users sorted by last name
      */
     function get_sorted_users()
     {

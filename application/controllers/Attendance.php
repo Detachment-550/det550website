@@ -21,8 +21,8 @@ class Attendance extends CI_Controller
         }
     }
 
-    /*
-     * Loads a view for the event page.
+    /**
+     * Loads the event page.
      */
     function view()
     {
@@ -37,8 +37,8 @@ class Attendance extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    /*
-     * Shows the admin view page to modify attendance records.
+    /**
+     * Shows the admin page to modify attendance records.
      */
     function admin()
     {
@@ -54,8 +54,8 @@ class Attendance extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    /*
-     * Shows the page to manually change attendance.
+    /**
+     * Shows page to manually change attendance.
      */
     function modify()
     {
@@ -69,8 +69,10 @@ class Attendance extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    /*
-     * Returns in json the status of the event attendance.
+    /**
+     * Get json of the event attendance.
+     *
+     * @return string - json encryption of current event attendance data
      */
     function status()
     {
@@ -86,8 +88,8 @@ class Attendance extends CI_Controller
         echo json_encode($data);
     }
 
-    /*
-     * Updates a cadets attendance record.
+    /**
+     * Updates a user's attendance record.
      */
     function update()
     {
@@ -154,8 +156,8 @@ class Attendance extends CI_Controller
         }
     }
 
-    /*
-     * Adding a new attendance
+    /**
+     * Creates attendance memo.
      */
     function memo()
     {
@@ -178,8 +180,8 @@ class Attendance extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    /*
-     * Adds an attendance record for a cadet based on their RPI ID.
+    /**
+     * Add attendance record via RFID Scanner.
      */
     function scan()
     {
@@ -214,8 +216,8 @@ class Attendance extends CI_Controller
         }
     }
 
-    /*
-     * Manually adds a new attendance record by entering a user's email.
+    /**
+     * Add attendance record via dropdown menu of cadets.
      */
     function add()
     {
@@ -242,10 +244,10 @@ class Attendance extends CI_Controller
         }
     }
 
-    /*
+    /**
      * Gets list of attendees for a given event.
      *
-     * @param event - the event id of the event
+     * @param int $event - the event id of the event
      */
     function attendees($event)
     {
@@ -259,8 +261,8 @@ class Attendance extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    /*
-     * Creates csv of attendance records.
+    /**
+     * Creates and downloads csv of attendance records.
      */
     function export()
     {
@@ -271,10 +273,10 @@ class Attendance extends CI_Controller
         force_download('attendance.csv', $file);
     }
 
-    /*
-     * Downloads the attached file to the memo.
+    /**
+     * Downloads attached PDF to the memo.
      *
-     * @param memo_id - the memo id
+     * @param int $memo_id- the memo id
      */
     function download_memo_attachment($memo_id)
     {
@@ -285,7 +287,7 @@ class Attendance extends CI_Controller
         redirect('attendance/admin');
     }
 
-    /*
+    /**
      * Shows master list of attendance.
      */
     function master()
@@ -300,8 +302,11 @@ class Attendance extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    /*
-     * Returns all of the master attendance records
+
+    /**
+     * Get json data for master attendance.
+     *
+     * @return string - json encryption of master attendance data
      */
     function get_master()
     {
@@ -313,8 +318,8 @@ class Attendance extends CI_Controller
         echo json_encode($data);
     }
 
-    /*
-     * Creates an memo.
+    /**
+     * Allows user to create attendance memo.
      */
     function create_memo()
     {
@@ -368,10 +373,10 @@ class Attendance extends CI_Controller
         }
     }
 
-    /*
+    /**
      * Shows a success page for submitting a memo.
      *
-     * @param memo_id - the memo that was submitted
+     * @param int $memo_id - id for submitted memo
      */
     function memo_success($memo_id)
     {
@@ -383,8 +388,10 @@ class Attendance extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    /*
-     * Gets all of the memo's that have not been reviewed
+    /**
+     * Get json data of memos that need to be approved
+     *
+     * @return string - json enryption
      */
     function get_new_memos()
     {
@@ -398,8 +405,10 @@ class Attendance extends CI_Controller
         echo json_encode($memos);
     }
 
-    /*
-     * Gets all of the memo's that have not been reviewed
+    /**
+     * Get json data of all memos.
+     *
+     * @return string - json enryption
      */
     function get_all_memos()
     {
@@ -413,10 +422,10 @@ class Attendance extends CI_Controller
         echo json_encode($memos);
     }
 
-    /*
-     * Approves a memo based on it's id.
+    /**
+     * Approves inputted memo.
 
-     * @param memo_id - the memo id
+     * @param int $memo_id - memo's id
      */
     function approve_memo($memo_id)
     {
@@ -439,28 +448,29 @@ class Attendance extends CI_Controller
         echo json_encode($data);
     }
 
-    /*
-     * Approves a memo based on it's id.
-     *
-     * @param memo_id - the memo id
+    /**
+     * Denies inputted memo.
+
+     * @param int $memo_id - memo's id
      */
     function deny_memo($memo_id)
     {
         echo json_encode($this->Attendance_memo_model->deny_attendance_memo($memo_id));
     }
 
-    /*
-     * Gets a memo type based on it's id.
+    /**
+     * Gets json data of a memo type
      *
-     * @param memo_type_id - the memo types id
+     * @param int $memo_type_id - memo types id
+     * @return string - json data
      */
     function get_memo_type($memo_type_id)
     {
         echo json_encode($this->Attendance_memo_type_model->get_memo_type($memo_type_id));
     }
 
-    /*
-     * Creates a memo type.
+    /**
+     * Creates a new memo type.
      */
     function create_memo_type()
     {
@@ -481,7 +491,7 @@ class Attendance extends CI_Controller
         }
     }
 
-    /*
+    /**
      * Updates a memo type.
      */
     function update_memo_type()

@@ -18,8 +18,8 @@ class Announcement extends CI_Controller{
         }
     }
 
-    /*
-     * Sends the announcement.
+    /**
+     * Sends post out via email and groupMe
      */
     function post()
     {
@@ -81,8 +81,8 @@ class Announcement extends CI_Controller{
         }
     }
 
-    /*
-     * Allows a user to create an announcement.
+    /**
+     * Allows user to create an announcement.
      */
     function create()
     {
@@ -97,8 +97,10 @@ class Announcement extends CI_Controller{
         $this->load->view('templates/footer');
     }
 
-    /*
-     * Shows the annoucement page.
+    /**
+     * Loads announcements per page.
+     *
+     * @params int $page - id of page the announcement to view
      */
     function view( $page = 0 )
     {
@@ -143,10 +145,10 @@ class Announcement extends CI_Controller{
         $this->load->view('templates/footer');
     }
 
-    /*
+    /**
      * Shows the announcement page.
      *
-     * @param page - the id of the announcement to view
+     * @param $page - the id of the announcement to view
      */
     function page( $page )
     {
@@ -172,8 +174,8 @@ class Announcement extends CI_Controller{
         $this->load->view('templates/footer');
     }
 
-    /*
-     * Loads the edit announcement page.
+    /**
+     * Loads edit announcement page.
      */
     function edit()
     {
@@ -186,8 +188,8 @@ class Announcement extends CI_Controller{
         $this->load->view('templates/footer');
     }
 
-    /*
-     * Loads the edit announcement page.
+    /**
+     * Updates announcement that was edited.
      */
     function update()
     {
@@ -205,7 +207,7 @@ class Announcement extends CI_Controller{
         redirect("announcement/page/" . $announcement['uid']);
     }
 
-    /*
+    /**
      * Deletes an announcement.
      */
     function remove()

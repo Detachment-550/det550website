@@ -7,7 +7,7 @@
             $this->load->library('session');
         }
 
-        /*
+        /**
          * Shows email page.
          */
         function view()
@@ -27,8 +27,8 @@
             }
         }
 
-        /*
-         * Sends email from email page
+        /**
+         * Sends email from email page.
          */
         function send()
         {
@@ -81,8 +81,8 @@
             }
         }
 
-        /*
-         * Sends all scheduled emails for the day
+        /**
+         * Sends daily wing email.
          */
         function daily_announcements()
         {
@@ -107,7 +107,7 @@
                 {
                     $headers = 'From: Detachment 550 Air Force ROTC <noreply@det550.com>' . "\r\n";
                     $headers .= "Content-type: text/html\r\n";
-                    echo mail($user->email, 'Wing Announcements', $message, $headers);
+                    echo mail($user->email, 'Wing Email', $message, $headers);
                 }
             }
         }

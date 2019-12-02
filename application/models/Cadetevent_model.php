@@ -11,16 +11,22 @@ class Cadetevent_model extends CI_Model
         parent::__construct();
     }
     
-    /*
+    /**
      * Get cadetevent by eventID
+     *
+     * @param int $eventID - event id
+     * @return cadetevent - desired event object
      */
     function get_cadetevent($eventID)
     {
         return $this->db->get_where('cadetEvent',array('eventID'=>$eventID))->row_array();
     }
     
-    /*
-     * Gets total of pt or llab in the current year
+    /**
+     * Gets current total of pt or llab in the current year.
+     *
+     * @param int $event - event id
+     * @return int - total count.
      */
     function get_event_total($event)
     {
@@ -43,30 +49,42 @@ class Cadetevent_model extends CI_Model
         return $query->count_all_results();
     }
     
-    /*
-     * Gets 5 closest cadetevents by date
+    /**
+     * Gets 5 closest cadetevents by date.
+     *
+     * @return array - 5 closest events
      */
     function get_last_five_events()
     {
         return $this->db->query('SELECT * FROM cadetEvent ORDER BY ABS( DATEDIFF( cadetEvent.date, NOW() ) ) LIMIT 5')->result_array();
     }
 
+    /**
+     * Gets x closest cadetevents by date.
+     *
+     * @param int $x - number of events
+     * @return array - x closest events
+     */
     function get_last_x_events($x)
     {
         return $this->db->query('SELECT * FROM cadetEvent ORDER BY ABS( DATEDIFF( cadetEvent.date, NOW() ) ) LIMIT '.$x)->result_array();
     }
 
-    /*
-     * Get all cadetevent
+    /**
+     * Get all cadetevent.
+     *
+     * @return array - all events
      */
     function get_all_cadetevents()
     {
         return $this->db->query('SELECT * FROM cadetEvent ORDER BY ABS( DATEDIFF( CAST(cadetEvent.date as DATE), NOW() ) )')->result_array();
     }
 
-    /*
-      * Get all cadetevent
-      */
+    /**
+     * Get all cadet events for the current semester.
+     *
+     * @return array - all current events
+     */
     function get_current_cadetevents()
     {
         $this->db->where('YEAR(date) = YEAR(CURDATE())');
@@ -85,8 +103,10 @@ class Cadetevent_model extends CI_Model
         return $this->db->get('cadetEvent')->result_array();
     }
 
-    /*
-     * Get events from the current week
+    /**
+     * Get events from the current week.
+     *
+     * @return array - all events this week
      */
     function get_week_events()
     {
@@ -97,8 +117,11 @@ class Cadetevent_model extends CI_Model
         return $this->db->get('cadetEvent')->result_array();
     }
 
-    /*
-     * function to add new cadetevent
+    /**
+     * Add new cadetevent.
+     *
+     * @param cadetevent $params - event parameters
+     * @return int - new event id
      */
     function add_cadetevent($params)
     {
@@ -106,8 +129,12 @@ class Cadetevent_model extends CI_Model
         return $this->db->insert_id();
     }
     
-    /*
-     * function to update cadetevent
+    /**
+     * Updated an existing event.
+     *
+     * @param int $eventID - event id
+     * @param cadetevent $params - updated event parameters
+     * @return cadetevent - updated event
      */
     function update_cadetevent($eventID,$params)
     {
@@ -115,8 +142,11 @@ class Cadetevent_model extends CI_Model
         return $this->db->update('cadetEvent',$params);
     }
     
-    /*
-     * function to delete cadetevent
+    /**
+     * Delete cadetevent.
+     *
+     * @params int $eventID - event id
+     * @return cadetevent - deleted event
      */
     function delete_cadetevent($eventID)
     {

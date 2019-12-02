@@ -16,8 +16,8 @@ class Wiki extends CI_Controller{
         }
     } 
 
-    /*
-     * Listing of wiki
+    /**
+     * Listing of wiki pages
      */
     function view()
     {
@@ -30,8 +30,8 @@ class Wiki extends CI_Controller{
         $this->load->view('templates/footer'); 
     }
 
-    /*
-     * Adding a new wiki
+    /**
+     * Adding a new wiki page
      */
     function add()
     {   
@@ -50,8 +50,8 @@ class Wiki extends CI_Controller{
         }
     }  
 
-    /*
-     * Editing a wiki
+    /**
+     * Editing a wiki.
      */
     function edit()
     {       
@@ -71,8 +71,8 @@ class Wiki extends CI_Controller{
         }
     } 
     
-    /*
-     * Saves changes made to the wiki.
+    /**
+     * Saves changes made to a wiki page.
      */
     function save()
     {
@@ -97,8 +97,8 @@ class Wiki extends CI_Controller{
         }
     }
 
-    /*
-     * Deleting wiki
+    /**
+     * Delete wiki page.
      */
     function remove()
     {

@@ -7,8 +7,11 @@ class Attendance_memo_model extends CI_Model
         parent::__construct();
     }
     
-    /*
-     * Get attendance_memo by name
+    /**
+     * Get attendance_memo.
+     *
+     * @param int $id - id of memo
+     * @return int - index of memo
      */
     function get_attendance_memo($id)
     {
@@ -19,8 +22,10 @@ class Attendance_memo_model extends CI_Model
         return $this->db->get('attendance_memo')->row_array();
     }
         
-    /*
-     * Get all attendance_memo
+    /**
+     * Get all attendance_memos
+     *
+     * @reuturn array - all memos
      */
     function get_all_attendance_memos()
     {
@@ -30,8 +35,10 @@ class Attendance_memo_model extends CI_Model
         return $this->db->get('attendance_memo')->result_array();
     }
 
-    /*
-     * Get all new attendance_memos
+    /**
+     * Get all un-reviewed attendance_memos
+     *
+     * @return array - all un-reviewed memos
      */
     function get_new_attendance_memos()
     {
@@ -41,8 +48,11 @@ class Attendance_memo_model extends CI_Model
         return $this->db->get('attendance_memo')->result_array();
     }
         
-    /*
-     * function to add new attendance_memo
+    /**
+     * Add new memo.
+     *
+     * @param memo $params - parameters for memo
+     * @return int - id of created memo
      */
     function add_attendance_memo($params)
     {
@@ -50,8 +60,12 @@ class Attendance_memo_model extends CI_Model
         return $this->db->insert_id();
     }
     
-    /*
-     * function to update attendance_memo
+    /**
+     * Updates existing memo.
+     *
+     * @param int $id - id of memo to change
+     * @param memo $params - updated memo parameters
+     * @return memo - updated memo
      */
     function update_attendance_memo($id,$params)
     {
@@ -59,18 +73,22 @@ class Attendance_memo_model extends CI_Model
         return $this->db->update('attendance_memo',$params);
     }
     
-    /*
-     * function to delete attendance_memo
+    /**
+     * Deletes memo.
+     *
+     * @param int $id - id of memo
+     * @return int - id of memo
      */
     function delete_attendance_memo($id)
     {
         return $this->db->delete('attendance_memo',array('attendance_memo_id'=>$id));
     }
 
-    /*
-     * Sets a attendance_memo to approved.
+    /**
+     * Approves attendance memo.
      *
-     * @param attendance_memo_id - the id of the attendance_memo
+     * @param int $attendance_memo_id - the id of the attendance_memo
+     * @return memo - approved memo
      */
     function approve_attendance_memo($attendance_memo_id)
     {
@@ -80,10 +98,11 @@ class Attendance_memo_model extends CI_Model
         return $this->db->update('attendance_memo');
     }
 
-    /*
-     * Sets a attendance_memo to denied.
+    /**
+     * Denies attendance memo.
      *
-     * @param attendance_memo_id - the id of the attendance_memo
+     * @param int $attendance_memo_id - the id of the attendance_memo
+     * @return memo - denied memo
      */
     function deny_attendance_memo($attendance_memo_id)
     {

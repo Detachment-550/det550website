@@ -12,8 +12,8 @@ class Group extends CI_Controller{
         }
     }
 
-    /*
-     * Shows the page where admins can create/edit/delete groups.
+    /**
+     * Shows admin page for create/edit/delete groups.
      */
     function adminview()
     {
@@ -32,8 +32,10 @@ class Group extends CI_Controller{
         }
     }
 
-    /*
-     * Retrieve group members.
+    /**
+     * Retrieve group members json data.
+     *
+     * @return string - json encryption of members in group
      */
     function members()
     {
@@ -43,7 +45,7 @@ class Group extends CI_Controller{
         echo json_encode($data);
     }
 
-    /*
+    /**
      * Adds a list of members to a group.
      */
     function addmembers()
@@ -65,7 +67,7 @@ class Group extends CI_Controller{
         }
     }
 
-    /*
+    /**
      * Removes a list of members from a group.
      */
     function removemembers()
@@ -87,8 +89,8 @@ class Group extends CI_Controller{
         }
     }
 
-    /*
-     * Deletes a given group.
+    /**
+     * Deletes a group.
      */
     function remove()
     {
@@ -103,8 +105,8 @@ class Group extends CI_Controller{
         }
     }
 
-    /*
-     * Creates a group.
+    /**
+     * Creates group.
      */
     function add()
     {

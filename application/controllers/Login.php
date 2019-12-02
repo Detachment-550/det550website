@@ -7,8 +7,8 @@ class Login extends CI_Controller {
         $this->load->model('User_model');
     }
 
-    /*
-     * Shows the login page.
+    /**
+     * Shows login page.
      */
     public function view()
     {
@@ -25,8 +25,8 @@ class Login extends CI_Controller {
         }
     }
     
-    /*
-     * Makes sure cadet is authorized to login.
+    /**
+     * Check if user is authorized to login.
      */
     function auth()
     {
@@ -59,7 +59,7 @@ class Login extends CI_Controller {
     }
     
     
-    /*
+    /**
      * Loads forgot password page.
      */
     function forgot()
@@ -70,8 +70,8 @@ class Login extends CI_Controller {
         $this->load->view('templates/footer');
     }
    
-    /*
-     * Displays the security question for a given cadet.
+    /**
+     * Displays the security question for a cadet.
      */
     function question()
     {
@@ -90,8 +90,8 @@ class Login extends CI_Controller {
 
     }
     
-    /*
-     * Resets user's password and emails them the new password.
+    /**
+     * Resets user's password; emails user the new password.
      */
     function resetpass()
     {
@@ -144,8 +144,8 @@ class Login extends CI_Controller {
         }
     }
     
-    /*
-     * Logs user out of website.
+    /**
+     * Logs user out.
      */
     function logout()
     {

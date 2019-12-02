@@ -12,7 +12,7 @@ class Groupme extends CI_Controller{
         }
     }
 
-    /*
+    /**
      * Saves cadets GroupMe access token to their profile
      */
     function auth()
