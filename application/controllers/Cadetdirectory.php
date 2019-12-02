@@ -12,7 +12,7 @@ class Cadetdirectory extends CI_Controller{
         }
     } 
 
-    /*
+    /**
      * Shows all cadets based on a given major.
      */
     function major()
@@ -28,7 +28,7 @@ class Cadetdirectory extends CI_Controller{
         $this->load->view('templates/footer'); 
     }
     
-    /*
+    /**
      * Shows all of the cadets in the detachment.
      */
     function view()
@@ -41,7 +41,7 @@ class Cadetdirectory extends CI_Controller{
         $this->load->view('templates/footer'); 
     }
     
-    /*
+    /**
      * Shows another cadet's profile.
      */
     function profile()

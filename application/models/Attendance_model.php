@@ -7,8 +7,11 @@ class Attendance_model extends CI_Model
         parent::__construct();
     }
     
-    /*
-     * Get attendance by user id
+    /**
+     * Get attendance for a user.
+     *
+     * @param int $user - id of user
+     * @return array - attendance for user
      */
     function get_attendance( $user )
     {
@@ -22,8 +25,12 @@ class Attendance_model extends CI_Model
         return $query->result_array();
     }
 
-    /*
-     * Get attendance status.
+    /**
+     * Get attendance status of a user for an event.
+     *
+     * @param int $user - user id
+     * @param int $id - event id
+     * @return int - index of user in attendance table
      */
     function get_attendance_status($user, $id)
     {
@@ -33,8 +40,10 @@ class Attendance_model extends CI_Model
         return $this->db->get('attendance')->row_array();
     }
 
-    /*
-     * Returns the master attendance.
+    /**
+     * Returns master attendance.
+     *
+     * @return array - master attendance
      */
     function get_attendance_records()
     {
@@ -57,8 +66,11 @@ class Attendance_model extends CI_Model
         return $this->db->get('users')->result_array();
     }
       
-    /*
-     * Get attendance by event
+    /**
+     * Get attendance by event.
+     *
+     * @param int @id - event id
+     * @return array - attendance for event
      */
     function get_event_attendance( $id )
     {
@@ -71,8 +83,11 @@ class Attendance_model extends CI_Model
         return $query->result_array();
     }
 
-    /*
-     * Get attendance by event
+    /**
+     * Exports attendance of a specific event as csv.
+     *
+     * @param int $id - id of event
+     * @return  file - csv final of attendance
      */
     function export_event_attendance( $id )
     {
@@ -87,11 +102,12 @@ class Attendance_model extends CI_Model
         return $file;
     }
 
-    /*
-     * Gets total of pt or llab in the current year.
+    /**
+     * Gets totals of pt or llab in the current year for a cadet.
      *
-     * @param event - either pt or llab
-     * @param user - the id of the user to count for
+     * @param cadetevent $event - either pt or llab
+     * @param int $user - the id of the user to count for
+     * @return int - resulting llab and pt totals
      */
     function get_event_total($event, $user)
     {
@@ -116,8 +132,10 @@ class Attendance_model extends CI_Model
         return $query->count_all_results();
     }
 
-    /*
-     * Get all attendance
+    /**
+     * Get all attendance records.
+     *
+     * @return array - all attendance records
      */
     function get_all_attendance()
     {
@@ -125,8 +143,11 @@ class Attendance_model extends CI_Model
         return $this->db->get('attendance')->result_array();
     }
         
-    /*
-     * function to add new attendance
+    /**
+     * Add new attendance record.
+     *
+     * @param attendance $params - parameters for added attendance
+     * @return int - id of new record
      */
     function add_attendance($params)
     {
@@ -134,11 +155,12 @@ class Attendance_model extends CI_Model
         return $this->db->insert_id();
     }
 
-    /*
+    /**
      * Checks whether or not an attendance record already exists.
      *
-     * @param user - the id of a user
-     * @param id - the event uid
+     * @param int $user - the id of a user
+     * @param int $id - the event uid
+     * @return bool - true if record exists false if not
      */
     function attendance_exists($user,$id)
     {
@@ -156,8 +178,13 @@ class Attendance_model extends CI_Model
         }
     }
 
-    /*
-     * function to update attendance
+    /**
+     * Updates attendance record.
+     *
+     * @param int $user - user id
+     * @param int $id - event id
+     * @param attendance $params - updated attendance record
+     * @return attendance - updated attendance record
      */
     function update_attendance($user,$id,$params)
     {
@@ -166,8 +193,12 @@ class Attendance_model extends CI_Model
         return $this->db->update('attendance',$params);
     }
     
-    /*
-     * function to delete attendance
+    /**
+     * Delete attendance record.
+     *
+     * @param int $user - user id
+     * @param int $event - event id
+     * @return attendance - deleted attendance record
      */
     function delete_attendance($user,$event)
     {

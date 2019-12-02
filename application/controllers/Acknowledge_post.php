@@ -14,8 +14,11 @@ class Acknowledge_post extends CI_Controller{
         {
             redirect('login/view');
         }
-    } 
+    }
 
+    /**
+     * For a given post get all the users who acknowledged post
+     */
     function view()
     {
 //        TODO: Fix this to work with new ion auth system
@@ -45,8 +48,8 @@ class Acknowledge_post extends CI_Controller{
         }
     }
 
-    /*
-     * Adding a new acknowledge_post
+    /**
+     * Function to add new post with acknowledgement criteria
      */
     function add()
     {   
@@ -73,8 +76,10 @@ class Acknowledge_post extends CI_Controller{
         }
     }
     
-    /*
+    /**
      * Returns the number of posts with a given uid
+     * @param int $announcement_id - id of post
+     * @return number of users that acknowledged the post
      */
     function get_acknowledge_count($announcement_id)
     {

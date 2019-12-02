@@ -376,8 +376,8 @@ class Auth extends CI_Controller
 	/**
 	 * Activate the user
 	 *
-	 * @param int         $id   The user ID
-	 * @param string|bool $code The activation code
+	 * @param int         $id   - user id
+	 * @param string|bool $code - activation code
 	 */
 	public function activate($id, $code = FALSE)
 	{
@@ -409,7 +409,7 @@ class Auth extends CI_Controller
 	/**
 	 * Deactivate the user
 	 *
-	 * @param int|string|null $id The user ID
+	 * @param int|string|null $id - user id
 	 */
 	public function deactivate($id = NULL)
 	{
@@ -580,7 +580,7 @@ class Auth extends CI_Controller
 	/**
 	 * Edit a user
 	 *
-	 * @param int|string $id
+	 * @param int|string $id - user id
 	 */
 	public function edit_user($id)
 	{
@@ -772,7 +772,7 @@ class Auth extends CI_Controller
 	/**
 	 * Edit a group
 	 *
-	 * @param int|string $id
+	 * @param int|string $id - group id
 	 */
 	public function edit_group($id)
 	{
@@ -841,7 +841,9 @@ class Auth extends CI_Controller
 	}
 
 	/**
-	 * @return array A CSRF key-value pair
+     * get CSRF data
+     *
+	 * @return array -  CSRF key-value pair
 	 */
 	public function _get_csrf_nonce()
 	{
@@ -855,7 +857,9 @@ class Auth extends CI_Controller
 	}
 
 	/**
-	 * @return bool Whether the posted CSRF token matches
+     * Checks if valid CSRF.
+     *
+	 * @return bool - true if CSRF token matches
 	 */
 	public function _valid_csrf_nonce(){
 		$csrfkey = $this->input->post($this->session->flashdata('csrfkey'));
@@ -867,13 +871,15 @@ class Auth extends CI_Controller
 	}
 
 	/**
-	 * @param string     $view
-	 * @param array|null $data
-	 * @param bool       $returnhtml
+     * Renders HTML for page.
+     *
+	 * @param string     $view - page trying to access
+	 * @param array|null $data - additional data
+	 * @param bool       $returnhtml - valid html check
 	 *
-	 * @return mixed
+	 * @return mixed - html of page
 	 */
-	public function _render_page($view, $data = NULL, $returnhtml = FALSE)//I think this makes more sense
+	public function _render_page($view, $data = NULL, $returnhtml = FALSE)
 	{
 
 		$viewdata = (empty($data)) ? $this->data : $data;

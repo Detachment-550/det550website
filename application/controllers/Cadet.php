@@ -16,8 +16,8 @@ class Cadet extends CI_Controller{
         }
     }
 
-    /*
-     * Selects a cadet to be modified
+    /**
+     * Selects user to be modified
      */
     function select()
     {
@@ -30,7 +30,7 @@ class Cadet extends CI_Controller{
         $this->load->view('templates/footer');
     }
 
-    /*
+    /**
      * Saves response to security question
      */
     function saveanswer()
@@ -53,7 +53,7 @@ class Cadet extends CI_Controller{
         }
     }
     
-    /*
+    /**
      * Shows the view of setting a cadet's security question.
      */
     function security()
@@ -66,7 +66,7 @@ class Cadet extends CI_Controller{
         $this->load->view('templates/footer');     
     }
     
-    /*
+    /**
      * Changes logged in user's password.
      */
     function changepassword()
@@ -102,8 +102,8 @@ class Cadet extends CI_Controller{
         }
     }
 
-    /*
-     * Updates a cadet's profile
+    /**
+     * Updates user's profile based on what the cadet enters.
      */
     function saveprofile()
     {
@@ -137,7 +137,7 @@ class Cadet extends CI_Controller{
     }
 
     
-    /*
+    /**
      * Saves a cadet's profile picture.
      */ 
     function uploadpic()
@@ -181,8 +181,8 @@ class Cadet extends CI_Controller{
         } 
     }
 
-    /*
-     * Editing a cadet
+    /**
+     * Edit user's profile.
      */
     function edit()
     {
@@ -208,7 +208,7 @@ class Cadet extends CI_Controller{
         $this->load->view('templates/footer'); 
     } 
     
-    /*
+    /**
      * Shows cadet's profile.
      */
     function profile()
@@ -240,8 +240,8 @@ class Cadet extends CI_Controller{
     }
     
     
-    /*
-     * Shows cadet's home page.
+    /**
+     * Shows home page with current greeting.
      */
     function home()
     {
@@ -302,8 +302,8 @@ class Cadet extends CI_Controller{
         $this->load->view('templates/footer');            
     }
     
-    /*
-     * Deleting cadet
+    /**
+     * Deletes a user.
      */
     function remove()
     {
@@ -316,8 +316,8 @@ class Cadet extends CI_Controller{
 
 
     
-    /*
-     * Updates a cadets permissions and rank
+    /**
+     * Updates a cadets admin permissions and rank.
      */
     function modify()
     {
@@ -350,8 +350,8 @@ class Cadet extends CI_Controller{
 
     }
     
-    /*
-     * Adding a new cadet
+    /**
+     * Add a new user.
      */
     function add()
     {
@@ -438,8 +438,8 @@ class Cadet extends CI_Controller{
         }
     }  
     
-    /*
-     * Shows the admin page.
+    /**
+     * Shows admin page.
      */
     function view()
     {
@@ -462,8 +462,8 @@ class Cadet extends CI_Controller{
         }
     }
     
-    /*
-     * Shows page to connect rfid to a cadet.
+    /**
+     * Shows page to connect RFID to a user.
      */
     function change_rfid()
     {
@@ -475,8 +475,8 @@ class Cadet extends CI_Controller{
         $this->load->view('templates/footer'); 
     }
     
-    /*
-     * Saves the rfid to a given cadet based off of a rin.
+    /**
+     * Saves the rfid to user.
      */
     function save_rfid()
     {
@@ -496,8 +496,8 @@ class Cadet extends CI_Controller{
         }
     }
     
-    /*
-     * Unlocks a users account
+    /**
+     * Unlocks a users account.
      */
     function unlock()
     {
@@ -513,7 +513,7 @@ class Cadet extends CI_Controller{
         }
     }
 
-    /*
+    /**
      * Shows the cadet wing structure page.
      */
     function wingstructure()
@@ -525,8 +525,11 @@ class Cadet extends CI_Controller{
         $this->load->view('templates/footer');
     }
 
-    /*
-     * Returns information about the selected user.
+    /**
+     * Returns json data of the inputted user.
+     *
+     * @params user $user - selected user
+     * @return string - json data
      */
     function info($user)
     {

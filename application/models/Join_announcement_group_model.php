@@ -7,24 +7,32 @@ class Join_announcement_group_model extends CI_Model
         parent::__construct();
     }
 
-    /*
-     * Get announcement_group by name
+    /**
+     * Get a group announcement.
+     *
+     * @param int $id - announcement id
+     * @return announcement_group_jointable - requested announcement
      */
     function get_announcement_group($id)
     {
         return $this->db->get_where('announcement_group_jointable',array('id'=>$id))->row_array();
     }
 
-    /*
-     * Get all announcement_group
+    /**
+     * Get all group announcements.
+     *
+     * @return array - all announcements
      */
     function get_all_announcement_groups()
     {
         return $this->db->get('announcement_group_jointable')->result_array();
     }
 
-    /*
-     * function to add new wiki
+    /**
+     * Add new group announcement.
+     *
+     * @param announcement_group_jointable $params - announcement parameters
+     * @return int - new event id
      */
     function add_announcement_group($params)
     {
@@ -32,11 +40,12 @@ class Join_announcement_group_model extends CI_Model
         return $this->db->insert_id();
     }
 
-    /*
-     * Checks to see if announcement group exists.
+    /**
+     * Checks to see if group announcement already exists.
      *
-     * @param group - the group id
-     * @param announcement - the announcement uid
+     * @param int $group - group id
+     * @param int $announcement - announcement uid
+     * @return bool - true if already exists, false otherwise
      */
     function exists($group, $announcement)
     {
@@ -54,8 +63,12 @@ class Join_announcement_group_model extends CI_Model
         }
     }
 
-    /*
-     * function to update announcement_groups
+    /**
+     * Update group announcement.
+     *
+     * @param int $id - announcement id
+     * @param announcement_group_jointable - updated announcement parameters
+     * @return int - updated announcement id
      */
     function update_announcement_group($id,$params)
     {
@@ -63,16 +76,22 @@ class Join_announcement_group_model extends CI_Model
         return $this->db->update('announcement_group_jointable',$params);
     }
 
-    /*
-     * function to delete announcement_groups
+    /**
+     * function to delete a group announcement
+     *
+     * @param int $id - announcement id
+     * @return int $id - deleted announcement id
      */
     function delete_announcement_group($id)
     {
         return $this->db->delete('announcement_group_jointable',array('id'=>$id));
     }
 
-    /*
-     * function to delete announcement_groups
+    /**
+     * Delete an announcement from a group announcement.
+     *
+     * @param int $announcement_id - announcement id
+     * @return int - announcement id
      */
     function delete_announcement_groups($announcement_id)
     {

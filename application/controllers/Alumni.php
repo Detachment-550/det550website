@@ -14,8 +14,8 @@ class Alumni extends CI_Controller{
         }
     }
 
-    /*
-     * Transfers an account to an alumni status
+    /**
+     * Function to create an allumni account from a normal account
      */
     function create()
     {
@@ -47,8 +47,8 @@ class Alumni extends CI_Controller{
         }
     }
 
-    /*
-     * Transfers an account to an alumni status
+    /**
+     * Modify existing alumni
      */
     function modify()
     {
@@ -67,7 +67,7 @@ class Alumni extends CI_Controller{
         }
     }
 
-    /*
+    /**
      * Updates an existing alumni record.
      */
     function edit()
@@ -94,8 +94,10 @@ class Alumni extends CI_Controller{
         }
     }
 
-    /*
-     * Returns json of a given alumni account
+    /**
+     * Accessor function to get json of alumni account
+     *
+     * @return string - json encryption of a given alumni account
      */
     function info()
     {
@@ -111,8 +113,8 @@ class Alumni extends CI_Controller{
         echo json_encode($data);
     }
 
-    /*
-     * Updates an existing alumni record.
+    /**
+     * Creates alumni account
      */
     function addalum()
     {
@@ -170,7 +172,7 @@ class Alumni extends CI_Controller{
         }
     }
 
-    /*
+    /**
      * Deletes an alumni record.
      */
     function remove()
@@ -186,7 +188,7 @@ class Alumni extends CI_Controller{
         }
     }
 
-    /*
+    /**
      * Shows the directory of all of the alumni.
      */
     function view()

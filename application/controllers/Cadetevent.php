@@ -16,7 +16,7 @@ class Cadetevent extends CI_Controller{
         }
     } 
 
-    /*
+    /**
      * Loads the cadet event page.
      */
     function view()
@@ -31,8 +31,10 @@ class Cadetevent extends CI_Controller{
         }
     }
 
-    /*
+    /**
      * Displays the event
+     *
+     * @param cadetevent $event - event to display
      */
     function event($event)
     {
@@ -46,7 +48,7 @@ class Cadetevent extends CI_Controller{
         $this->load->view('templates/footer');
     }
 
-    /*
+    /**
      * Adds a new cadet event.
      */
     function add()
@@ -87,7 +89,7 @@ class Cadetevent extends CI_Controller{
         }
     }
 
-    /*
+    /**
      * Deletes a cadet event.
      */
     function remove()
