@@ -4,7 +4,12 @@ a member of the attendance group.
 
 # View Attendance
 
-TODO
+This page brings up the current master attendance page to view semesterly and weekly attendance. Cadets are organized by AS Class with their attendance visually displayed in a table format. Additionally LLab and PT totals can be seen on the far right. 
+
+Attendnace Key:
+-green : Present
+-yellow : Excused
+-white : No Record/Absent
 
 # Event Attendance 
 
