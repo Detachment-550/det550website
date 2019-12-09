@@ -27,19 +27,29 @@ Modifying through phpMyAdmin
 
 # Remove a User
 
-TODO
+1. Under the "More", select "Admin"
+2. In the center heading labelled "Remove User", select the cadet in the drop down menu
+3. Select the "Remove" button
 
 # Transition User to an Alumni
 
-TODO
+1. Under the "More", select "Admin"
+2. In the center heading labelled "Make User an Alumni", select the alumnus in the drop down menu
+3. Select the "Transer" button
 
 # Delete an Announcement
 
-TODO
+1. Under the "More", select "Admin"
+2. In the left heading labelled "Additional Admin Links", select the announcement to be removed under the "Delete an Announcement" sub-heading
+3. Select the "Delete" button
 
 # Unlock a User Account
 
-TODO
+If a cadet attempts a number of incorrect consecutive attempts at logging in, their account becomes locked and an admin is required to unlock the account.
+
+1. Under the "More", select "Admin"
+2. In the left heading labelled "Additional Admin Links", select the cadet account under the "Unlock Cadet Account" sub-heading
+3. Select the "Unlock" button
 
 # Groups
 
