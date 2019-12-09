@@ -61,7 +61,6 @@ announcement.
 one inside.*
 
 ## Create a Group
-
 TODO
 
 ## Modify a Group
