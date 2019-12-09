@@ -2,7 +2,7 @@ One of the primary functions for this web application is attendance tracking. Th
 attendance tracking that users will interact with all with different functions. To view this page you must be an admin 
 a member of the attendance group.
 
-# View Attendance
+## View Attendance
 
 This page brings up the current master attendance page to view semesterly and weekly attendance. Cadets are organized by AS Class with their attendance visually displayed in a table format. Additionally LLab and PT totals can be seen on the far right. 
 
@@ -11,18 +11,18 @@ Attendnace Key:
 -yellow : Excused
 -white : No Record/Absent
 
-# Event Attendance 
+## Event Attendance 
 
 The event attendance page is where users can view event attendees and submit memos for missed events.
 
-## View Event Attendees
+### View Event Attendees
 
 In order to view the users who attended an event you will need to go the the Event Attendance link on the site. Here you
 will see a page with a section titled View Event Attendees. This is where any user can view all of the cadets who 
 attended a given event.
 
 
-## Submit an Attendance Memo 
+### Submit an Attendance Memo 
 
 To submit an attendance memo complete the following steps:
 
@@ -38,7 +38,7 @@ To submit an attendance memo complete the following steps:
 3. Once you have completed filling out this form click the 'Submit Memo' button and your memo will be visible to whoever 
 is responsible for reviewing and approving attendance memos
 
-# Admin Attendance
+## Admin Attendance
 
 The admin attendance page is where you can do the following to events:
 
@@ -49,7 +49,7 @@ The admin attendance page is where you can do the following to events:
 - View historical attendance memos
 - Create memo types
 
-## Create an Event
+### Create an Event
 
 To create an event for the site you must fill out the form titled 'Create an Event'. In this form you will fill out the 
 following fields:
@@ -63,7 +63,7 @@ Once you have filled out this form click the 'Submit' button and your event will
 *Note: You can create all events you know about prior to their occurrence. This will not effect user's attendance 
 percentages until the event has passed.*    
 
-## Delete an Event
+### Delete an Event
 
 To delete an event go to the form under 'Modify Event'. Look for the section labeled 'Delete an Event'. To delete an 
 event do the following steps:
@@ -75,7 +75,7 @@ event do the following steps:
 
 Now the event along with all of it's attendance records will be deleted from the site.
 
-## Take Attendance
+### Take Attendance
 
 To take attendance for an event navigate to the 'Modify Attendance' section in the 'Admin Attendance' page. To set the 
 attendance for a given event do the following:
@@ -92,13 +92,13 @@ attendance for a given event do the following:
         - *Note: You must have the text field labeled 'Scan RPI ID Card' selected (clicked on) to scan the ID*
         - *Note: Once the user scans their card the form will auto submit. (It may take a few seconds)*
 
-### View Current Attendance Records
+#### View Current Attendance Records
 
 If you would like to see if the user's attendance was successfully recorded click on the 'Show All Attendees' button.
 Once clicking this you will be redirected to a page showing all of the cadets marked as present or excused for the 
 event your are taking attendance for (the timestamp of when the record was stored will also appear).
 
-### Add User ID Card
+#### Add User ID Card
 
 If this is the first time a user is using their card for attendance and they did not register their card when they 
 created their account on the website you may have to associate their card with their account. To do this do the 
@@ -120,7 +120,7 @@ the page to set the event attendance.
 *Note: If the user tries to scan their card to attend an event and their card is not associated with an account you will
 be automatically redirected to this 'Connect RFID' page.*
 
-## Edit Attendance Records
+### Edit Attendance Records
 
 Under the 'Modify Attendance' section on the 'Admin Attendance' page you will see a section labeled 'Modify Attendance 
 Records'. To manually change an attendance record do the following: 
@@ -138,7 +138,7 @@ the status you would like the record to reflect (present, absent, excused).
 
 You have now successfully updated an attendance record.
 
-## Approve/Deny Memos
+### Approve/Deny Memos
 
 To approve or deny a memo navigate to the 'Admin Attendance' page and look for the section titled 'Review Attendance 
 Memos'. Here you will see a table with all of the pending memo requests. The following information for each request will
@@ -160,19 +160,19 @@ To approve or deny the memo simply click the corresponding button next to each r
 
 *Note: Denying a memo still saves the memo in historical memos. It just keeps the user marked as absent from the event.*
 
-## Historical Memos
+### Historical Memos
 
 Here you can search through all memos ever submitted. You can filter this search be the event and the user. To filter 
 by either just select the user or event from the dropdown.
 
-### Download Historical Memo Table
+#### Download Historical Memo Table
 
 If you would like to store the historical memo table click on the 'Download Table' button in the top right corner of the 
 'Historical Attendance Memos' section. This will download the table as a CSV file which you can open in excel.
 
 *Note: Currently the PDFs associated with each excusal will not be exported in the excel file.*
 
-## Create a Memo Type
+### Create a Memo Type
 
 Here you can create a memo type that can be set for each memo submission. For example some current types are unexcused, 
 academics, family etc. 
@@ -185,7 +185,7 @@ To create a memo type do the following:
 unable to attend an event because of a class or test conflict.
 3. Click the 'Add Memo Type' button and the memo type will be added to the database.
 
-## Edit a Memo Type
+### Edit a Memo Type
 
 Here you can change existing memo types. To edit a memo type do the following:
 

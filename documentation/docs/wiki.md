@@ -1,14 +1,14 @@
 The feature of the website allows for users to create documentation of their own on whatever they would like publicly 
 stored on the website.
 
-# Create a Wiki Page
+## Create a Wiki Page
 
 TODO - TEST!
 
-# Update a Wiki Page
+## Update a Wiki Page
 
 TODO
 
-# Delete a Wiki Page
+## Delete a Wiki Page
 
 TODO

@@ -1,7 +1,7 @@
 The announcements page is one of the main features of the web application. Here you can post announcements for all 
 user's to view. You can also edit any announcement that you have posted (only you have this ability).
 
-# Make an Announcement
+## Make an Announcement
 
 To make an announcement navigate to the 'Announcement' page and do the following steps:
 
@@ -19,7 +19,7 @@ Your announcement has now been posted to the site.
 
 *Note: Simultaneously the GroupMe channel titled announcements has been notified as well.*
 
-# Edit an Announcement
+## Edit an Announcement
 
 To edit an announcement you must be the creator of the announcement. To edit your own announcement do the following:
 
@@ -35,7 +35,7 @@ The changes you made to the announcement will be updated.
 *Note: This does not re-post the announcement anywhere so you may want to send out a message saying the information was 
 updated on the announcement.*
 
-# Read & Understood
+## Read & Understood
 
 This function was developed as a way to give users some system to track who has read the announcement. To mark an 
 announcement as 'Read & Understood' do the following:

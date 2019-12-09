@@ -2,12 +2,12 @@ Your profile is how others can quickly find out information about who you are an
 used to write promotions based on your awards and achievements. You're profile is viewable by clicking the 'Profile' 
 link on the website. 
 
-# Edit Profile
+## Edit Profile
 
 To edit your profile navigate to your profile by clicking the 'Profile' link. This will take you to a page where you can
 change all the information displayed on your profile except your AS class and flight. 
 
-## Change Profile Picture
+### Change Profile Picture
 
 To change your profile picture do the following:
 
@@ -20,27 +20,29 @@ To change your profile picture do the following:
     - Max width 1000 px
     - Max height 1000 px
  
-## Update Profile Information
+### Update Profile Information
 
 The following information is your profile information:
 
-- Email
-- Phone
-- Position
-- Major
-- Personal Goals
-- Bio
-- Air Force Goals
-- Awards & Achievements
+!!! info
+    - Email
+    - Phone
+    - Position
+    - Major
+    - Personal Goals
+    - Bio
+    - Air Force Goals
+    - Awards & Achievements
 
 To update your profile information do the following:
 
-1. Navigate to your profile page.
-2. Click the 'Edit Profile' button.
-3. Edit any of the above fields to represent the values you want.
-4. Click the 'Update Profile' button and your changes will be saved.
+!!! example "Directions"
+    1. Navigate to your profile page.
+    2. Click the 'Edit Profile' button.
+    3. Edit any of the above fields to represent the values you want.
+    4. Click the 'Update Profile' button and your changes will be saved.
 
-## Link GroupMe Account
+### Link GroupMe Account
 
 Currently this does nothing on the website however a developer could leverage your GroupMe account to send direct 
 messages and notifications. 
@@ -54,7 +56,7 @@ To link your GroupMe do the following:
 
 After this your GroupMe account will successfully be linked to your profile.
 
-## Change Your Password
+### Change Your Password
 
 To change you password do the following:
 
@@ -67,7 +69,7 @@ entered it correctly.
 
 After this your accounts password will be updated to the password you provided. 
 
-## Modify Your Security Question
+### Modify Your Security Question
 
 To modify your security question do the following:
 
@@ -75,7 +77,10 @@ To modify your security question do the following:
 2. Click the 'Edit Profile' button.
 3. Under the 'Change Security Question' section on this page click the 'Modify Security Question' button.
 4. On this page you will need to select a security question to answer and provide a response.
-    - *Note: The response you provide is case sensitive.*
+    
+    !!! tip "Note"
+        - The response you provide is case sensitive.
+        
 5. Once you have filled out both fields click the 'Save Answer' button. 
 
 After completing the above steps your new security question and answer will be stored on your profile.

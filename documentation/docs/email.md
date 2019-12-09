@@ -6,6 +6,7 @@ This functionality of the website gives users the ability to leverage the detach
 
 Mass emails can be sent out to various groups created on the website via the detachment email to ease collecting email lists and avoid dreaded reply-all statuses.
 To send an email complete the following steps:
+
 1. Navigate to the 'Send Email' link under the 'More' dropown
 2. Select the group you wish to email (CTL/CMD click to multiselect)
 3. Add additional addresses to send the email to and fillout the Subject and Body areas with the contents of your message.

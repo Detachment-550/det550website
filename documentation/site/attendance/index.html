@@ -1,190 +1,625 @@
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <meta name="author" content="Joseph Messare">
-  <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Attendance - Det 550 Web Application</title>
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
-  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
-  
-  <script>
-    // Current page data
-    var mkdocs_page_name = "Attendance";
-    var mkdocs_page_input_path = "attendance.md";
-    var mkdocs_page_url = null;
-  </script>
-  
-  <script src="../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../js/modernizr-2.8.3.min.js" defer></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script> 
-  
-</head>
 
-<body class="wy-body-for-nav" role="document">
 
-  <div class="wy-grid-for-nav">
 
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-      <div class="wy-side-nav-search">
-        <a href=".." class="icon icon-home"> Det 550 Web Application</a>
-        <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
-  </form>
-</div>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="This site is an attendance and personel tracking system for AFROTC Detachment 550. This also functions as a communication automation system.">
+      
+      
+      
+        <meta name="author" content="Joseph Messare">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.5.1">
+    
+    
+      
+        <title>Attendance - Det 550 Web Application</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.1b62728e.css">
+      
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.268332fc.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#view-attendance" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href=".." title="Det 550 Web Application" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
       </div>
-
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-	<ul class="current">
-	  
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="..">Home</a>
-	    </li>
-          
-            <li class="toctree-l1 current">
-		
-    <a class="current" href="./">Attendance</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l2"><a href="#view-attendance">View Attendance</a></li>
-    
-
-    <li class="toctree-l2"><a href="#event-attendance">Event Attendance</a></li>
-    
-        <ul>
-        
-            <li><a class="toctree-l3" href="#view-event-attendees">View Event Attendees</a></li>
-        
-            <li><a class="toctree-l3" href="#submit-an-attendance-memo">Submit an Attendance Memo</a></li>
-        
-        </ul>
-    
-
-    <li class="toctree-l2"><a href="#admin-attendance">Admin Attendance</a></li>
-    
-        <ul>
-        
-            <li><a class="toctree-l3" href="#create-an-event">Create an Event</a></li>
-        
-            <li><a class="toctree-l3" href="#delete-an-event">Delete an Event</a></li>
-        
-            <li><a class="toctree-l3" href="#take-attendance">Take Attendance</a></li>
-        
-            <li><a class="toctree-l3" href="#edit-attendance-records">Edit Attendance Records</a></li>
-        
-            <li><a class="toctree-l3" href="#approvedeny-memos">Approve/Deny Memos</a></li>
-        
-            <li><a class="toctree-l3" href="#historical-memos">Historical Memos</a></li>
-        
-            <li><a class="toctree-l3" href="#create-a-memo-type">Create a Memo Type</a></li>
-        
-            <li><a class="toctree-l3" href="#edit-a-memo-type">Edit a Memo Type</a></li>
-        
-        </ul>
-    
-
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../profile/">Profile</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../directory/">Directory</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../announcements/">Announcements</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../wiki/">Wiki</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../email/">Email</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../admin/">Administrator</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../alumni/">Alumni</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../developer/">Developer</a>
-	    </li>
-          
-        </ul>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
       </div>
-      &nbsp;
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="..">Det 550 Web Application</a>
-      </nav>
-
-      
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="..">Docs</a> &raquo;</li>
-    
-      
-    
-    <li>Attendance</li>
-    <li class="wy-breadcrumbs-aside">
-      
-        <a href="https://github.com/jmessare46/det550website/tree/master/documentation/docs/attendance.md"
-          class="icon icon-github"> Edit on GitHub</a>
-      
-    </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main">
-            <div class="section">
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Det 550 Web Application
+            </span>
+            <span class="md-header-nav__topic">
               
+                Attendance
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/jmessare46/det550website/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href=".." title="Det 550 Web Application" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    Det 550 Web Application
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/jmessare46/det550website/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Attendance
+      </label>
+    
+    <a href="./" title="Attendance" class="md-nav__link md-nav__link--active">
+      Attendance
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#view-attendance" class="md-nav__link">
+    View Attendance
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#event-attendance" class="md-nav__link">
+    Event Attendance
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#view-event-attendees" class="md-nav__link">
+    View Event Attendees
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#submit-an-attendance-memo" class="md-nav__link">
+    Submit an Attendance Memo
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#admin-attendance" class="md-nav__link">
+    Admin Attendance
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-an-event" class="md-nav__link">
+    Create an Event
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-an-event" class="md-nav__link">
+    Delete an Event
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#take-attendance" class="md-nav__link">
+    Take Attendance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edit-attendance-records" class="md-nav__link">
+    Edit Attendance Records
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#approvedeny-memos" class="md-nav__link">
+    Approve/Deny Memos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#historical-memos" class="md-nav__link">
+    Historical Memos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-memo-type" class="md-nav__link">
+    Create a Memo Type
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edit-a-memo-type" class="md-nav__link">
+    Edit a Memo Type
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../profile/" title="Profile" class="md-nav__link">
+      Profile
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../directory/" title="Directory" class="md-nav__link">
+      Directory
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../announcements/" title="Announcements" class="md-nav__link">
+      Announcements
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../wiki/" title="Wiki" class="md-nav__link">
+      Wiki
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../email/" title="Email" class="md-nav__link">
+      Email
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../admin/" title="Administrator" class="md-nav__link">
+      Administrator
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../alumni/" title="Alumni" class="md-nav__link">
+      Alumni
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../developer/" title="Developer" class="md-nav__link">
+      Developer
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#view-attendance" class="md-nav__link">
+    View Attendance
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#event-attendance" class="md-nav__link">
+    Event Attendance
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#view-event-attendees" class="md-nav__link">
+    View Event Attendees
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#submit-an-attendance-memo" class="md-nav__link">
+    Submit an Attendance Memo
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#admin-attendance" class="md-nav__link">
+    Admin Attendance
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-an-event" class="md-nav__link">
+    Create an Event
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-an-event" class="md-nav__link">
+    Delete an Event
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#take-attendance" class="md-nav__link">
+    Take Attendance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edit-attendance-records" class="md-nav__link">
+    Edit Attendance Records
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#approvedeny-memos" class="md-nav__link">
+    Approve/Deny Memos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#historical-memos" class="md-nav__link">
+    Historical Memos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-memo-type" class="md-nav__link">
+    Create a Memo Type
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edit-a-memo-type" class="md-nav__link">
+    Edit a Memo Type
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/jmessare46/det550website/tree/master/documentation/docs/attendance.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                  <h1>Attendance</h1>
+                
                 <p>One of the primary functions for this web application is attendance tracking. There are several subsections of the 
 attendance tracking that users will interact with all with different functions. To view this page you must be an admin 
 a member of the attendance group.</p>
-<h1 id="view-attendance">View Attendance</h1>
-<p>TODO</p>
-<h1 id="event-attendance">Event Attendance</h1>
+<h2 id="view-attendance">View Attendance<a class="headerlink" href="#view-attendance" title="Permanent link">&para;</a></h2>
+<p>This page brings up the current master attendance page to view semesterly and weekly attendance. Cadets are organized by AS Class with their attendance visually displayed in a table format. Additionally LLab and PT totals can be seen on the far right. </p>
+<p>Attendnace Key:
+-green : Present
+-yellow : Excused
+-white : No Record/Absent</p>
+<h2 id="event-attendance">Event Attendance<a class="headerlink" href="#event-attendance" title="Permanent link">&para;</a></h2>
 <p>The event attendance page is where users can view event attendees and submit memos for missed events.</p>
-<h2 id="view-event-attendees">View Event Attendees</h2>
+<h3 id="view-event-attendees">View Event Attendees<a class="headerlink" href="#view-event-attendees" title="Permanent link">&para;</a></h3>
 <p>In order to view the users who attended an event you will need to go the the Event Attendance link on the site. Here you
 will see a page with a section titled View Event Attendees. This is where any user can view all of the cadets who 
 attended a given event.</p>
-<h2 id="submit-an-attendance-memo">Submit an Attendance Memo</h2>
+<h3 id="submit-an-attendance-memo">Submit an Attendance Memo<a class="headerlink" href="#submit-an-attendance-memo" title="Permanent link">&para;</a></h3>
 <p>To submit an attendance memo complete the following steps:</p>
 <ol>
 <li>Navigate to the 'Event Attendance' link.</li>
@@ -205,7 +640,7 @@ attended a given event.</p>
 <li>Once you have completed filling out this form click the 'Submit Memo' button and your memo will be visible to whoever 
 is responsible for reviewing and approving attendance memos</li>
 </ol>
-<h1 id="admin-attendance">Admin Attendance</h1>
+<h2 id="admin-attendance">Admin Attendance<a class="headerlink" href="#admin-attendance" title="Permanent link">&para;</a></h2>
 <p>The admin attendance page is where you can do the following to events:</p>
 <ul>
 <li>Create an event</li>
@@ -215,7 +650,7 @@ is responsible for reviewing and approving attendance memos</li>
 <li>View historical attendance memos</li>
 <li>Create memo types</li>
 </ul>
-<h2 id="create-an-event">Create an Event</h2>
+<h3 id="create-an-event">Create an Event<a class="headerlink" href="#create-an-event" title="Permanent link">&para;</a></h3>
 <p>To create an event for the site you must fill out the form titled 'Create an Event'. In this form you will fill out the 
 following fields:</p>
 <ul>
@@ -226,7 +661,7 @@ following fields:</p>
 <p>Once you have filled out this form click the 'Submit' button and your event will be created and posted to the site. </p>
 <p><em>Note: You can create all events you know about prior to their occurrence. This will not effect user's attendance 
 percentages until the event has passed.</em>    </p>
-<h2 id="delete-an-event">Delete an Event</h2>
+<h3 id="delete-an-event">Delete an Event<a class="headerlink" href="#delete-an-event" title="Permanent link">&para;</a></h3>
 <p>To delete an event go to the form under 'Modify Event'. Look for the section labeled 'Delete an Event'. To delete an 
 event do the following steps:</p>
 <ol>
@@ -238,7 +673,7 @@ event do the following steps:</p>
 <li>Confirm that you are sure you would like to delete the event.</li>
 </ol>
 <p>Now the event along with all of it's attendance records will be deleted from the site.</p>
-<h2 id="take-attendance">Take Attendance</h2>
+<h3 id="take-attendance">Take Attendance<a class="headerlink" href="#take-attendance" title="Permanent link">&para;</a></h3>
 <p>To take attendance for an event navigate to the 'Modify Attendance' section in the 'Admin Attendance' page. To set the 
 attendance for a given event do the following:</p>
 <ol>
@@ -262,11 +697,11 @@ as present for the event.</li>
 </ol>
 </li>
 </ol>
-<h3 id="view-current-attendance-records">View Current Attendance Records</h3>
+<h4>View Current Attendance Records</h4>
 <p>If you would like to see if the user's attendance was successfully recorded click on the 'Show All Attendees' button.
 Once clicking this you will be redirected to a page showing all of the cadets marked as present or excused for the 
 event your are taking attendance for (the timestamp of when the record was stored will also appear).</p>
-<h3 id="add-user-id-card">Add User ID Card</h3>
+<h4>Add User ID Card</h4>
 <p>If this is the first time a user is using their card for attendance and they did not register their card when they 
 created their account on the website you may have to associate their card with their account. To do this do the 
 following:</p>
@@ -286,7 +721,7 @@ the page to set the event attendance. </p>
 <p><em>Note: The user who registered their card will have to re scan their card for the event to be marked as present.</em></p>
 <p><em>Note: If the user tries to scan their card to attend an event and their card is not associated with an account you will
 be automatically redirected to this 'Connect RFID' page.</em></p>
-<h2 id="edit-attendance-records">Edit Attendance Records</h2>
+<h3 id="edit-attendance-records">Edit Attendance Records<a class="headerlink" href="#edit-attendance-records" title="Permanent link">&para;</a></h3>
 <p>Under the 'Modify Attendance' section on the 'Admin Attendance' page you will see a section labeled 'Modify Attendance 
 Records'. To manually change an attendance record do the following: </p>
 <ol>
@@ -310,7 +745,7 @@ the status you would like the record to reflect (present, absent, excused). <ul>
 <li>Click the 'Update Record' button and the attendance record will be updated in the database.</li>
 </ol>
 <p>You have now successfully updated an attendance record.</p>
-<h2 id="approvedeny-memos">Approve/Deny Memos</h2>
+<h3 id="approvedeny-memos">Approve/Deny Memos<a class="headerlink" href="#approvedeny-memos" title="Permanent link">&para;</a></h3>
 <p>To approve or deny a memo navigate to the 'Admin Attendance' page and look for the section titled 'Review Attendance 
 Memos'. Here you will see a table with all of the pending memo requests. The following information for each request will
 be displayed:</p>
@@ -339,14 +774,14 @@ be displayed:</p>
 </ul>
 <p>To approve or deny the memo simply click the corresponding button next to each row. </p>
 <p><em>Note: Denying a memo still saves the memo in historical memos. It just keeps the user marked as absent from the event.</em></p>
-<h2 id="historical-memos">Historical Memos</h2>
+<h3 id="historical-memos">Historical Memos<a class="headerlink" href="#historical-memos" title="Permanent link">&para;</a></h3>
 <p>Here you can search through all memos ever submitted. You can filter this search be the event and the user. To filter 
 by either just select the user or event from the dropdown.</p>
-<h3 id="download-historical-memo-table">Download Historical Memo Table</h3>
+<h4>Download Historical Memo Table</h4>
 <p>If you would like to store the historical memo table click on the 'Download Table' button in the top right corner of the 
 'Historical Attendance Memos' section. This will download the table as a CSV file which you can open in excel.</p>
 <p><em>Note: Currently the PDFs associated with each excusal will not be exported in the excel file.</em></p>
-<h2 id="create-a-memo-type">Create a Memo Type</h2>
+<h3 id="create-a-memo-type">Create a Memo Type<a class="headerlink" href="#create-a-memo-type" title="Permanent link">&para;</a></h3>
 <p>Here you can create a memo type that can be set for each memo submission. For example some current types are unexcused, 
 academics, family etc. </p>
 <p>To create a memo type do the following:</p>
@@ -359,61 +794,86 @@ academics, family etc. </p>
 unable to attend an event because of a class or test conflict.</li>
 <li>Click the 'Add Memo Type' button and the memo type will be added to the database.</li>
 </ol>
-<h2 id="edit-a-memo-type">Edit a Memo Type</h2>
+<h3 id="edit-a-memo-type">Edit a Memo Type<a class="headerlink" href="#edit-a-memo-type" title="Permanent link">&para;</a></h3>
 <p>Here you can change existing memo types. To edit a memo type do the following:</p>
 <ol>
 <li>Select the memo type you would like to change.</li>
 <li>Edit either the label or description of the memo type.</li>
 <li>Click the 'Update Memo Type' button and your changes will be saved.</li>
 </ol>
+                
+                  
+                
               
-            </div>
+              
+                
+
+
+              
+            </article>
           </div>
-          <footer>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
   
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../profile/" class="btn btn-neutral float-right" title="Profile">Next <span class="icon icon-circle-arrow-right"></span></a>
-      
-      
-        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-      
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href=".." title="Home" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Home
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../profile/" title="Profile" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Profile
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
     </div>
   
-
-  <hr/>
-
-  <div role="contentinfo">
-    <!-- Copyright etc -->
-    
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
   </div>
-
-  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
       
-        </div>
-      </div>
-
-    </section>
-
-  </div>
-
-  <div class="rst-versions" role="note" style="cursor: pointer">
-    <span class="rst-current-version" data-toggle="rst-current-version">
+    </div>
+    
+      <script src="../assets/javascripts/application.8e03edeb.js"></script>
       
-          <a href="https://github.com/jmessare46/det550website/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
       
-      
-        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
-      
-      
-        <span style="margin-left: 15px"><a href="../profile/" style="color: #fcfcfc">Next &raquo;</a></span>
-      
-    </span>
-</div>
-    <script>var base_url = '..';</script>
-    <script src="../js/theme.js" defer></script>
-      <script src="../search/main.js" defer></script>
-
-</body>
+    
+  </body>
 </html>

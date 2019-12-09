@@ -1,5 +1,6 @@
 site_name: Det 550 Web Application
-theme: readthedocs
+theme:
+  name: 'material'
 repo_url: https://github.com/jmessare46/det550website/
 edit_uri: tree/master/documentation/docs/
 site_description: This site is an attendance and personel tracking system for AFROTC Detachment 550. This also functions
@@ -16,3 +17,27 @@ nav:
   - Administrator: admin.md
   - Alumni: alumni.md
   - Developer: developer.md
+markdown_extensions:
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+  - toc:
+      toc_depth: 3
+      permalink: True
+  - codehilite
+  - meta
+  - admonition
+  - attr_list
