@@ -3,11 +3,27 @@ with administrative privileges will see this page as an option for them in their
 
 # Add a User
 
-TODO
+1. Under the "More", select "Admin"
+2. On the farthest left heading labeled "Add User", fill in the information
+
+Cadets must use their RPI email.
 
 # Modify a User's Information
 
-TODO
+There are two way to modify a user's information. Modifying through the det website limits you to changing their admin privileges, rank, flight and AS class. Modifying through phpMyAdmin allows you to change the primary information of the cadet, such as their name or email. 
+
+Modifying through the Det550.com:
+1. Under the "More", select "Admin"
+2. In the center heading, select "Modify Cadet Info"
+3. Under the drop down menu, select the cadet and input changes
+
+Modifying through phpMyAdmin
+1. Sign into GoDaddy.com using afrotcdet550@gmail.com
+2. Within the second section labelled "Web Hosting", select "Manage" from the "Economy Linux Hosting with cPanel"
+3. Select "phpMyAdmin", the second tab next to "Dashboard" at the top of the website
+4. After being redirected, select "afrotc_mitr" and then "users"
+5. From here, search for the user under the search bar
+6. Double click the information you want to modify, and start changing
 
 # Remove a User
 
