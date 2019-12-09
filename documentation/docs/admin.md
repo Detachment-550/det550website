@@ -61,13 +61,23 @@ announcement.
 one inside.*
 
 ## Create a Group
-TODO
+
+1. Under the "More", select "Admin"
+2. In the left heading labelled "Additional Admin Links", under "Create/Modify/Delete a Group", select "Edit Group"
+3. Title your group under "Group Label" and fill in the description under "Group Description"
+4. To add members, refer to the instruction in the next section below
 
 ## Modify a Group
 
-TODO
+1. Under the "More", select "Admin"
+2. In the left heading labelled "Additional Admin Links", select "Create/Modify/Delete a Group"
+3. Select the drop down menu and find your target group
+4. From here, select the members you want to add under "Add Members" and select the "Add Members" button
+5. You can do the same and remove members under "Remove Members"
 
 ## Delete a Group
 
-TODO
-
+1. Under the "More", select "Admin"
+2. In the left heading labelled "Additional Admin Links", select "Create/Modify/Delete a Group"
+3. In the drop down menu under "Delete Group", select the group you want to delete
+4. Select the "Delete Group" button to submit the changes
