@@ -16,7 +16,7 @@ stored on the website.
 2. Go to documentaion/docs
 3. Choose the wiki you want to edit
 4. Inside the md file, click the pencil mark at the top right of the textbox.
-  - Hovering over the pencil reveals "Edit this file"
+  -- Hovering over the pencil reveals "Edit this file"
 5. After editting the Wiki, select "Commit changes" at the bottom of the screen
 
 ## Delete a Wiki Page
