@@ -43,4 +43,14 @@
         {
             return $this->belongsTo('Event_model');
         }
+
+        /**
+         * Gets the user the attendance record is for.
+         *
+         * @return BelongsTo
+         */
+        public function user()
+        {
+            return $this->belongsTo('User_model');
+        }
     }

@@ -123,7 +123,7 @@ class Announcement extends CI_Controller{
         $user = $this->ion_auth->user()->row();
 
         // TODO: Make these announcements user specific based on the announcements groups
-        $data["announcements"] = Announcement_model::limit($config["per_page"])->offset($config["per_page"] * $page)
+        $data["announcements"] = Announcement_model::with('acknowledgements')->limit($config["per_page"])->offset($config["per_page"] * $page)
             ->orderBy('created_at','desc')->get();
         $data["links"] = $this->pagination->create_links();
         $data['ackposts'] = Acknowledge_post_model::all();

@@ -16,11 +16,8 @@ class Acknowledge_post extends CI_Controller{
      */
     function view()
     {
-//        TODO: Fix this to work with new ion auth system
-        if(isset($_POST) && count($_POST) > 0)     
+        if(isset($_POST) && count($_POST) > 0)
         {
-            $this->load->model('Announcement_model');
-
             $data['title'] = "Acknowledgements";
             $data['announcement'] = Announcement_model::with('acknowledgements.user')
                 ->find($this->input->post('event'));
@@ -45,8 +42,13 @@ class Acknowledge_post extends CI_Controller{
             $user = $this->ion_auth->user()->row();
 
             // Ignores duplicate entries
-            $post_acknowledgement = Acknowledge_post_model::firstOrCreate(
-                ['user_id' => $user->id, 'announcement_id' => $this->input->post('announcementid')]);
+            if(!Acknowledge_post_model::where('user_id', '=', $user->id)->where('announcement_id', '=', $this->input->post('announcementid'))->exists());
+            {
+                $ack_post = new Acknowledge_post_model();
+                $ack_post->user_id = $user->id;
+                $ack_post->announcement_id = $this->input->post('announcementid');
+                $ack_post->save();
+            }
             
             redirect('announcement/view');
         }

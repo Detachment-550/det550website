@@ -82,56 +82,51 @@ class Attendance extends CI_Controller
     {
         if (isset($_POST) && count($_POST) > 0)
         {
-            $status = $this->Attendance_model->get_attendance_status($this->input->post('cadet'),$this->input->post('event'));
+            $attendance_record = Attendance_model::where('user_id', '=', $this->input->post('cadet'))
+                ->where('event_id', '=', $this->input->post('event'))->first();
 
             if($this->input->post('record') === 'a')
             {
                 // Delete the cadet attendance record if it exists
-                if( $status !== NULL)
+                if( $attendance_record !== NULL)
                 {
-                    $this->Attendance_model->delete_attendance($this->input->post('cadet'),$this->input->post('event'));
+                    $attendance_record->delete();
                 }
             }
             else if($this->input->post('record') === 'e')
             {
-                if( $status !== NULL)
+                if( $attendance_record !== NULL)
                 {
-                    $params = array(
-                        'excused_absence' => 1,
-                        'comments' => $this->input->post('comments'),
-                    );
-                    $this->Attendance_model->update_attendance($this->input->post('cadet'),$this->input->post('event'),$params);
+                    $attendance_record->excused_absence = 1;
+                    $attendance_record->comments = $this->input->post('comments');
+                    $attendance_record->save();
                 }
                 else
                 {
-                    $params = array(
-                        'user' => $this->input->post('cadet'),
-                        'eventid' => $this->input->post('event'),
-                        'excused_absence' => 1,
-                        'comments' => $this->input->post('comments'),
-                    );
-                    $this->Attendance_model->add_attendance($params);
+                    $attendance_record = new Attendance_model();
+                    $attendance_record->excused_absence = 1;
+                    $attendance_record->comments = $this->input->post('comments');
+                    $attendance_record->user_id = $this->input->post('cadet');
+                    $attendance_record->event_id = $this->input->post('event');
+                    $attendance_record->save();
                 }
             }
             else
             {
-                if( $status !== NULL)
+                if( $attendance_record !== NULL)
                 {
-                    $params = array(
-                        'excused_absence' => 0,
-                        'comments' => $this->input->post('comments'),
-                    );
-                    $this->Attendance_model->update_attendance($this->input->post('cadet'),$this->input->post('event'),$params);
+                    $attendance_record->excused_absence = 0;
+                    $attendance_record->comments = $this->input->post('comments');
+                    $attendance_record->save();
                 }
                 else
                 {
-                    $params = array(
-                        'user' => $this->input->post('cadet'),
-                        'eventid' => $this->input->post('event'),
-                        'excused_absence' => 0,
-                        'comments' => $this->input->post('comments'),
-                    );
-                    $this->Attendance_model->add_attendance($params);
+                    $attendance_record = new Attendance_model();
+                    $attendance_record->excused_absence = 0;
+                    $attendance_record->comments = $this->input->post('comments');
+                    $attendance_record->user_id = $this->input->post('cadet');
+                    $attendance_record->event_id = $this->input->post('event');
+                    $attendance_record->save();
                 }
             }
 
@@ -148,7 +143,7 @@ class Attendance extends CI_Controller
      */
     function memo()
     {
-        if ($this->Attendance_model->attendance_exists($this->input->post('cadet'), $this->input->post('event')) === 0) {
+        if (Attendance_model::where('user_id', '=', $this->input->post('cadet'))->where('event_id', '=', $this->input->post('event'))->exists()) {
             $params = array(
                 'user' => $this->input->post('cadet'),
                 'eventid' => $this->input->post('event'),
@@ -158,8 +153,8 @@ class Attendance extends CI_Controller
         }
 
         $data['title'] = 'Set Attendance';
-        $data['event'] = $this->Cadetevent_model->get_cadetevent($this->input->post('event'));
-        $data['cadets'] = $this->Cadet_model->get_all_cadets();
+        $data['event'] = Event_model::find($this->input->post('event'));
+        $data['cadets'] = User_model::all();
 
         // Loads the home page
         $this->load->view('templates/header', $data);
@@ -174,23 +169,14 @@ class Attendance extends CI_Controller
     {
         if (isset($_POST) && count($_POST) > 0)
         {
-            $user = $this->User_model->find_user($this->input->post('rfid')); // Finds user based on their RPI ID
+            $user = User_model::where('rfid', '=', $this->input->post('rfid'))->first(); // Finds user based on their RPI ID
 
             // Makes sure a given RPI ID card is associated with a user
-            if ($user !== NULL)
+            if (User_model::where('rfid', '=', $this->input->post('rfid'))->exists())
             {
                 // Checks to prevent duplicate attendance records
-                if (!$this->Attendance_model->attendance_exists($user['id'], $this->input->post('event')))
-                {
-                    $params = array(
-                        'user' => $user['id'],
-                        'eventid' => $this->input->post('event'),
-                    );
-
-                    $this->Attendance_model->add_attendance($params);
-                }
-
-                redirect('cadetevent/event/' . $this->input->post('event'));
+                $attendance_record = Attendance_model::firstOrCreate(['user_id' => $user->id, 'event_id' => $this->input->post('event')]);
+                redirect('cadetevent/event/' . $attendance_record->event_id);
             }
             else
             {
@@ -210,20 +196,12 @@ class Attendance extends CI_Controller
     {
         if (isset($_POST) && count($_POST) > 0)
         {
-            $event_id = $this->input->post('event');
-            $user_id = $this->input->post('id');
+            $attendance_record = Attendance_model::firstOrCreate([
+                'user_id' => $this->input->post('id'),
+                'event_id' => $this->input->post('event')
+            ]);
 
-            if(!$this->Attendance_model->attendance_exists($user_id, $event_id))
-            {
-                $params = array(
-                    'user' => $user_id,
-                    'eventid' => $event_id,
-                );
-
-                $this->Attendance_model->add_attendance($params);
-            }
-
-            redirect('cadetevent/event/' . $this->input->post('event'));
+            redirect('cadetevent/event/' . $attendance_record->event_id);
         }
         else
         {
@@ -234,13 +212,12 @@ class Attendance extends CI_Controller
     /**
      * Gets list of attendees for a given event.
      *
-     * @param int $event - the event id of the event
+     * @param int $event_id The event id of the event
      */
-    function attendees($event)
+    function attendees(int $event_id)
     {
         $data['title'] = 'Cadet Attendance';
-        $data['attendees'] = $this->Attendance_model->get_event_attendance($event);
-        $data['event'] = $this->Cadetevent_model->get_cadetevent($event);
+        $data['event'] = Event_model::with('attendees.user')->find($event_id);
 
         // Loads the home page
         $this->load->view('templates/header', $data);
@@ -254,22 +231,19 @@ class Attendance extends CI_Controller
     function export()
     {
         $file = $this->Attendance_model->export_event_attendance($this->input->post('event'));
-
-        // Load the download helper and send the file to your desktop
-        $this->load->helper('download');
         force_download('attendance.csv', $file);
     }
 
     /**
      * Downloads attached PDF to the memo.
      *
-     * @param int $memo_id- the memo id
+     * @param int $memo_id The memo id
      */
-    function download_memo_attachment($memo_id)
+    function download_memo_attachment(int $memo_id)
     {
-        $memo = $this->Attendance_memo_model->get_attendance_memo($memo_id);
+        $memo = Attendance_memo_model::find($memo_id);
         $this->load->helper('download');
-        force_download('./memo_attachments/' . $memo['attachment'], NULL);
+        force_download('./memo_attachments/' . $memo->attachment, NULL);
 
         redirect('attendance/admin');
     }
@@ -281,7 +255,7 @@ class Attendance extends CI_Controller
     {
         $data['title'] = "Master Attendance";
         $data['events'] = $this->Cadetevent_model->get_current_cadetevents();
-        $data['memo_types'] = $this->Attendance_memo_type_model->get_all_attendance_memo_types();
+        $data['memo_types'] = Attendance_memo_type_model::all();
 
         // Loads the home page
         $this->load->view('templates/header', $data);
@@ -292,8 +266,6 @@ class Attendance extends CI_Controller
 
     /**
      * Get json data for master attendance.
-     *
-     * @return string - json encryption of master attendance data
      */
     function get_master()
     {
@@ -313,21 +285,18 @@ class Attendance extends CI_Controller
         if(isset($_POST) && count($_POST) > 0)
         {
             $user = $this->ion_auth->user()->row();
-
-            $params = array(
-                'user' => $user->id,
-                'event' => $this->input->post('event'),
-                'memo_type' => $this->input->post('memo_type'),
-                'memo_for' => $this->input->post('memo_for'),
-                'comments' => $this->input->post('comments'),
-            );
-
-            $memo_id = $this->Attendance_memo_model->add_attendance_memo($params);
+            $memo = new Attendance_memo_model();
+            $memo->user_id = $user->id;
+            $memo->event_id = $this->input->post('event');
+            $memo->memo_type_id = $this->input->post('memo_type');
+            $memo->memo_for_id = $this->input->post('memo_for');
+            $memo->comments = $this->input->post('comments');
+            $memo->save();
 
             $config['upload_path']          = './memo_attachments/';
             $config['allowed_types']        = 'pdf';
             $config['max_size']             = 10000;
-            $config['file_name']            = $memo_id;
+            $config['file_name']            = $memo->id;
 
             $this->load->library('upload', $config);
 
@@ -336,8 +305,8 @@ class Attendance extends CI_Controller
                 $data['upload_errors'] = $this->upload->display_errors();
 
                 $data['title'] = 'Cadet Events';
-                $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
-                $data['memo_types'] = $this->Attendance_memo_type_model->get_all_attendance_memo_types();
+                $data['events'] = Event_model::all();
+                $data['memo_types'] = Attendance_memo_type_model::all();
 
                 $this->load->view('templates/header', $data);
                 $this->load->view('attendance/attendance');
@@ -345,13 +314,10 @@ class Attendance extends CI_Controller
             }
             else
             {
-                $params = array(
-                    'attachment' => $this->upload->data('file_name'),
-                );
+                $memo->attachment = $this->upload->data('file_name');
+                $memo->save();
 
-                $this->Attendance_memo_model->update_attendance_memo($memo_id, $params);
-
-                redirect('attendance/memo_success/' . $memo_id);
+                redirect('attendance/memo_success/' . $memo->id);
             }
         }
         else
@@ -363,12 +329,12 @@ class Attendance extends CI_Controller
     /**
      * Shows a success page for submitting a memo.
      *
-     * @param int $memo_id - id for submitted memo
+     * @param int $memo_id The id for submitted memo
      */
-    function memo_success($memo_id)
+    function memo_success(int $memo_id)
     {
         $data['title'] = 'Memo Submitted';
-        $data['memo'] = $this->Attendance_memo_model->get_attendance_memo($memo_id);
+        $data['memo'] = Attendance_memo_model::find($memo_id);
 
         $this->load->view('templates/header', $data);
         $this->load->view('attendance/memo_success');
@@ -377,83 +343,62 @@ class Attendance extends CI_Controller
 
     /**
      * Get json data of memos that need to be approved
-     *
-     * @return string - json enryption
      */
     function get_new_memos()
     {
-        $memos = $this->Attendance_memo_model->get_new_attendance_memos();
-
-        for ($x = 0; $x < count($memos); $x++) {
-            $user = $this->ion_auth->user($memos[$x]['memo_for'])->row();
-            $memos[$x]['memo_for'] = $user->rank . ' ' . $user->last_name;
-        }
-
-        echo json_encode($memos);
+        echo Attendance_memo_model::with('created_by', 'memo_for', 'event')->whereNull('approved')
+            ->get()->toJson();
     }
 
     /**
      * Get json data of all memos.
-     *
-     * @return string - json enryption
      */
     function get_all_memos()
     {
-        $memos = $this->Attendance_memo_model->get_all_attendance_memos();
-
-        for ($x = 0; $x < count($memos); $x++) {
-            $user = $this->ion_auth->user($memos[$x]['memo_for'])->row();
-            $memos[$x]['memo_for'] = $user->rank . ' ' . $user->last_name;
-        }
-
-        echo json_encode($memos);
+        echo Attendance_memo_model::with('created_by', 'memo_for', 'event')->get()->toJson();
     }
 
     /**
      * Approves inputted memo.
 
-     * @param int $memo_id - memo's id
+     * @param int $memo_id The memo's id
      */
-    function approve_memo($memo_id)
+    function approve_memo(int $memo_id)
     {
-        $memo = $this->Attendance_memo_model->get_attendance_memo($memo_id);
-
-        $params = array(
-            'user' => $memo['user'],
-            'eventid' => $memo['event'],
-            'excused_absence' => 1,
-            'comments' => $memo['comments'],
-        );
-
-        $data['memo_approved'] = $this->Attendance_memo_model->approve_attendance_memo($memo_id);
-
-        $status = $this->Attendance_model->get_attendance_status($params['user'],$params['eventid']);
-        if($status == NULL){
-            $data['event_excused'] = $this->Attendance_model->add_attendance($params);
-        }
+        $memo = Attendance_memo_model::find($memo_id);
+        $attendance_record = new Attendance_model();
+        $attendance_record->user_id = $memo->user_id;
+        $attendance_record->event_id = $memo->event_id;
+        $attendance_record->comments = $memo->comments;
+        $attendance_record->excused_absence = 1;
+        $attendance_record->save();
+        $data['memo_approved'] = TRUE;
+        $data['event_excused'] = TRUE;
 
         echo json_encode($data);
     }
 
     /**
      * Denies inputted memo.
-
-     * @param int $memo_id - memo's id
+     *
+     * @param int $memo_id The memo's id
      */
-    function deny_memo($memo_id)
+    function deny_memo(int $memo_id)
     {
-        echo json_encode($this->Attendance_memo_model->deny_attendance_memo($memo_id));
+        $memo = Attendance_memo_model::find($memo_id);
+        $memo->approved = 0;
+        $memo->save();
+        echo $memo->toJson();
     }
 
     /**
      * Gets json data of a memo type
      *
-     * @param int $memo_type_id - memo types id
-     * @return string - json data
+     * @param int $memo_type_id The memo types id
      */
-    function get_memo_type($memo_type_id)
+    function get_memo_type(int $memo_type_id)
     {
-        echo json_encode($this->Attendance_memo_type_model->get_memo_type($memo_type_id));
+        echo Attendance_memo_type_model::find($memo_type_id)->toJson();
     }
 
     /**
@@ -463,12 +408,10 @@ class Attendance extends CI_Controller
     {
         if (isset($_POST) && count($_POST) > 0)
         {
-            $params = array(
-                'label' => $this->input->post('label'),
-                'description' => $this->input->post('description'),
-            );
-
-            $this->Attendance_memo_type_model->add_memo_type($params);
+            $memo_type = new Attendance_memo_type_model();
+            $memo_type->label = $this->input->post('label');
+            $memo_type->description = $this->input->post('description');
+            $memo_type->save();
 
             redirect('attendance/admin');
         }
@@ -485,12 +428,10 @@ class Attendance extends CI_Controller
     {
         if (isset($_POST) && count($_POST) > 0)
         {
-            $params = array(
-                'label' => $this->input->post('label'),
-                'description' => $this->input->post('description'),
-            );
-
-            $this->Attendance_memo_type_model->update_memo_type($this->input->post('memo_type'), $params);
+            $memo_type = Attendance_memo_type_model::find($this->input->post('memo_type'));
+            $memo_type->label = $this->input->post('label');
+            $memo_type->description = $this->input->post('description');
+            $memo_type->save();
 
             redirect('attendance/admin');
         }

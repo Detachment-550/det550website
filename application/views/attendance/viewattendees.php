@@ -2,7 +2,7 @@
 
 <body>
 <div class="jumbotron container-fluid">
-    <h2><?php echo $event['name']; ?> Attendees</h2>
+    <h2><?php echo $event->name; ?> Attendees</h2>
     <strong>* Note: 1 = Yes | 0 = No</strong>
 <table>
   <tr>
@@ -11,12 +11,12 @@
     <th>Excused</th>
   </tr>
 <?php 
-    foreach( $attendees as $attendee )
+    foreach( $event->attendees as $attendee )
     {
         echo "<tr>";
-        echo "<td>" . $attendee['rank'] . ' ' . $attendee['last_name'] . "</td>";
-        echo "<td>" . date("m/d/Y H:i:s", strtotime($attendee['time'])) . "</td>";
-        if($attendee['excused_absence'] === '0')
+        echo "<td>" . $attendee->user->rank . ' ' . $attendee->user->last_name . "</td>";
+        echo "<td>" . date("m/d/Y H:i:s", strtotime($attendee->created_at)) . "</td>";
+        if($attendee->excused_absence === 0)
         {
             echo "<td>x</td>";
         }
@@ -30,7 +30,7 @@
 </table><br>
 
     <form method="POST" action="/index.php/attendance/export">
-        <input type="text" name="event" value="<?php echo $event['eventID']; ?>" style="display: none;"/>
+        <input type="text" name="event" value="<?php echo $event->id; ?>" style="display: none;"/>
         <button class="btn btn-sm btn-primary" type="submit" name="submit">Export to Excel</button>
     </form>
 

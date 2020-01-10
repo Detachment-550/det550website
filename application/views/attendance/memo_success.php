@@ -5,8 +5,8 @@
         Your memo was submitted!<br><br>
 <!--        TODO: Make this work-->
 <!--        <p><strong>Memo Type: </strong> --><?php //echo $memo['memo_type']; ?><!--</p>-->
-        <p><strong>Event: </strong> <?php echo $memo['name']; ?></p>
-        <p><strong>Memo Sent To: </strong> <?php echo $memo['rank'] . ' ' . $memo['last_name']; ?></p>
-        <iframe src="/memo_attachments/<?php echo $memo['attachment']; ?>" style="width: 100%;height:500px"></iframe>
+        <p><strong>Event: </strong> <?php echo $memo->event->name; ?></p>
+        <p><strong>Memo Sent To: </strong> <?php echo $memo->memo_for->rank . ' ' . $memo->memo_for->last_name; ?></p>
+        <iframe src="/memo_attachments/<?php echo $memo->attachment; ?>" style="width: 100%;height:500px"></iframe>
     </div>
 </div>

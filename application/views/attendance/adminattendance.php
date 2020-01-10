@@ -41,7 +41,7 @@
                             <?php
                                 foreach($events as $event)
                                 {
-                                    echo "<option value='" . $event['eventID']."'>" . $event['name'] . " " . $event['date'] . "</option>";
+                                    echo "<option value='" . $event->id."'>" . $event->name . " " . $event->date . "</option>";
                                 }
                             ?>
                         </select>
@@ -61,7 +61,7 @@
                             <?php
                                 foreach( $events as $event )
                                 {
-                                    echo "<option value='" . $event['eventID'] . "'>" . $event['name'] . "</option>";
+                                    echo "<option value='" . $event->id . "'>" . $event->name . "</option>";
                                 }
                             ?>
                         </select>
@@ -111,7 +111,7 @@
                 <?php
                     foreach( $events as $event )
                     {
-                        echo "<option value='" . $event['eventID'] . "'>" . $event['name'] . "</option>";
+                        echo "<option value='" . $event->id . "'>" . $event->name . "</option>";
                     }
                 ?>
             </select>
@@ -144,7 +144,7 @@
                     <?php
                         foreach( $memo_types as $memo_type )
                         {
-                            echo "<option value='" . $memo_type['memo_type_id'] . "'>" . $memo_type['label'] . "</option>";
+                            echo "<option value='" . $memo_type->id . "'>" . $memo_type->label . "</option>";
                         }
                     ?>
                 </select>

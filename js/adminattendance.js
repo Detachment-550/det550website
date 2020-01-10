@@ -15,36 +15,19 @@ var memo_table = new Tabulator("#memo_table", {
     ajaxContentType:"json",
     height: "400px",
     index:'excuse_id',
-    ajaxResponse:function(url, params, response){
-        //url - the URL of the request
-        //params - the parameters passed with the request
-        //response - the JSON object returned in the body of the response.
-        for(var x = 0; x < response.length; x++)
-        {
-            response[x].full_name = response[x].first_name + ' ' + response[x].last_name;
-            if(response[x].attachment !== null)
-            {
-                response[x].attachment = '<a href="/index.php/attendance/download_memo_attachment/' +
-                    response[x].attendance_memo_id + '">Download Attachment</a>';
-            }
-        }
-
-
-
-        return response; //return the tableData property of a response json object
-    },
-    columns:[ //Define Table Columns
+    ajaxResponse: memo_format,
+    columns:[
         {title:"Memo ID", field:"attendance_memo_id", visible: false},
-        {title:"Event ID", field:"event", visible: false},
-        {title:"Event", field:"name"},
+        {title:"Event ID", field:"event_id", visible: false},
+        {title:"Event", field:"event.name"},
         {title:"User", field:"full_name"},
-        {title:"Date", field:"date_created", align:"center", formatter:"datetime", formatterParams:{
+        {title:"Date", field:"created_at", align:"center", formatter:"datetime", formatterParams:{
                 inputFormat:"YYYY-MM-DD hh:mm:ss",
                 outputFormat:"M/D/YY h:mm A",
                 invalidPlaceholder:"No Date",
             }},
         {title:"Approved", field:"approved", visible: false},
-        {title:"Memo For", field:"memo_for"},
+        {title:"Memo For", field:"memo_for_name"},
         {title:"Comments", field:"comments", formatter:'textarea'},
         {title:"Attachment", field:"attachment",formatter:'html'},
         {title:"Approve", formatter:approve_button, width:100, align:"center", headerSort:false },
@@ -60,42 +43,47 @@ var historical_memo_table = new Tabulator("#historical_memo_table", {
     ajaxContentType:"json",
     height: "400px",
     index:'excuse_id',
-    ajaxResponse:function(url, params, response){
-        //url - the URL of the request
-        //params - the parameters passed with the request
-        //response - the JSON object returned in the body of the response.
-        for(var x = 0; x < response.length; x++)
-        {
-            response[x].full_name = response[x].first_name + ' ' + response[x].last_name;
-            if(response[x].attachment !== null)
-            {
-                response[x].attachment = '<a href="/index.php/attendance/download_memo_attachment/' +
-                    response[x].attendance_memo_id + '">Download Attachment</a>';
-            }
-        }
-        return response; //return the tableData property of a response json object
-    },
-    columns:[ //Define Table Columns
+    ajaxResponse: memo_format,
+    columns:[
         {title:"Memo ID", field:"attendance_memo_id", visible: false},
-        {title:"Event ID", field:"event", visible: false},
-        {title:"Event", field:"name"},
-        {title:"User ID", field:"id",visible:false},
+        {title:"Event ID", field:"event_id", visible: false},
+        {title:"Event", field:"event.name"},
+        {title:"User ID", field:"user_id",visible:false},
         {title:"User", field:"full_name"},
-        {title:"Date", field:"date_created", align:"center", formatter:"datetime", formatterParams:{
+        {title:"Date", field:"created_at", align:"center", formatter:"datetime", formatterParams:{
                 inputFormat:"YYYY-MM-DD hh:mm:ss",
                 outputFormat:"M/D/YY h:mm A",
                 invalidPlaceholder:"No Date",
             }},
         {title:"Approved", field:"approved", visible: false},
-        {title:"Memo For", field:"memo_for"},
+        {title:"Memo For", field:"memo_for_name"},
         {title:"Comments", field:"comments", formatter:'textarea'},
         {title:"Attachments", field:"attachment", formatter:"html"},
 
     ]
 });
 
-/*
+/**
+ * Formats the json response of memos for tabulator
+ */
+function memo_format(url, params, response){
+    for(var x = 0; x < response.length; x++)
+    {
+        response[x].full_name = response[x].created_by.first_name + ' ' + response[x].created_by.last_name;
+        response[x].memo_for_name = response[x].memo_for.first_name + ' ' + response[x].memo_for.last_name;
+        if(response[x].attachment !== null)
+        {
+            response[x].attachment = '<a href="/index.php/attendance/download_memo_attachment/' +
+                response[x].id + '">Download Attachment</a>';
+        }
+    }
+    return response;
+}
+
+/**
  * Approves a memo.
+ *
+ * @param attendance_memo_id
  */
 function approve_memo(attendance_memo_id) {
     $.ajax({
@@ -115,8 +103,10 @@ function approve_memo(attendance_memo_id) {
     });
 }
 
-/*
+/**
  * Denies a memo.
+ *
+ * @param attendance_memo_id
  */
 function deny_memo(attendance_memo_id) {
     $.ajax({
@@ -136,10 +126,10 @@ function deny_memo(attendance_memo_id) {
     });
 }
 
-/*
+/**
  * Sets a filter on the historical memo page based on user.
  *
- * @param user - the user id
+ * @param user The user id
  */
 function filter_user(user) {
     if(user === "")
@@ -152,10 +142,10 @@ function filter_user(user) {
     }
 }
 
-/*
+/**
  * Sets a filter on the historical memo page based on user.
  *
- * @param user - the user id
+ * @param event The event to filter by
  */
 function filter_event(event) {
     if(event === "")
@@ -168,17 +158,17 @@ function filter_event(event) {
     }
 }
 
-/*
+/**
  * Downloads the table in an csv format.
  */
 function download_historical_table() {
     historical_memo_table.download('csv', 'historical_memos.csv');
 }
 
-/*
+/**
  * Gets the memo type's information.
  *
- * @param memo_type - the memo type id
+ * @param memo_type The memo type id
  */
 function get_memo_type(memo_type) {
     if(memo_type !== "")

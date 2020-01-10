@@ -22,7 +22,7 @@
                 <?php
                     foreach($events as $event)
                     {
-                        echo '<option value="' . $event['eventID'] . '">' . $event['name'] . '</option>';
+                        echo '<option value="' . $event->id . '">' . $event->name . '</option>';
                     }
                 ?>
             </select><br>
