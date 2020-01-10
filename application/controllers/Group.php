@@ -4,8 +4,6 @@ class Group extends CI_Controller{
     function __construct()
     {
         parent::__construct();
-        $this->load->library('session'); 
-        
         if( !$this->ion_auth->logged_in() )
         {
             redirect('login/view');
@@ -34,8 +32,6 @@ class Group extends CI_Controller{
 
     /**
      * Retrieve group members json data.
-     *
-     * @return string - json encryption of members in group
      */
     function members()
     {

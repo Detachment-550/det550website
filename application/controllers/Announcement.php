@@ -4,15 +4,7 @@ class Announcement extends CI_Controller{
     function __construct()
     {
         parent::__construct();
-        $this->load->library('session');
-
-        if( $this->ion_auth->logged_in() )
-        {
-            $this->load->model('Announcement_model');
-            $this->load->model('Acknowledge_post_model');
-            $this->load->model('Join_announcement_group_model');
-        }
-        else
+        if( !$this->ion_auth->logged_in() )
         {
             redirect('login/view');
         }
@@ -29,29 +21,24 @@ class Announcement extends CI_Controller{
 
             $user = $this->ion_auth->user()->row();
 
-            $params = array(
-                'title'     => $this->input->post('title'),
-                'subject'   => $this->input->post('subject'),
-                'body'      => $this->input->post('body'),
-                'createdBy' => $user->id
-            );
-
-            $id = $this->Announcement_model->add_announcement( $params );
+            $announcement = new Announcement_model();
+            $announcement->title = $this->input->post('title');
+            $announcement->subject = $this->input->post('subject');
+            $announcement->body = $this->input->post('body');
+            $announcement->created_by_id = $user->id;
+            $announcement->save();
 
             // Goes to each selected group and sends announcement as email
             if( $this->input->post('groups') !== null )
             {
                 // Encrypts the email
                 $this->load->library('encryption');
-
                 foreach( $this->input->post('groups') as $group )
                 {
-                    $params = array(
-                        'announcement'  => $id,
-                        'group'         => $group,
-                    );
-
-                    $this->Join_announcement_group_model->add_announcement_group($params);
+                    $announcement_group = new Announcement_group_model();
+                    $announcement_group->announcement_id = $announcement->id;
+                    $announcement_group->group_id = $group;
+                    $announcement_group->save();
                 }
             }
 
@@ -59,10 +46,10 @@ class Announcement extends CI_Controller{
             $url = "https://api.groupme.com/v3/bots/post";
             $fields = [
                 'bot_id'    => "b83da12e82339a292c0173442d",
-                'text'      => "Title: " . $this->input->post('title') . "
-                Subject: " . $this->input->post('subject') . "
+                'text'      => "Title: " . $announcement->title . "
+                Subject: " . $announcement->subject . "
 
-                Link: " . site_url("announcement/page/" . $id ),
+                Link: " . site_url("announcement/page/" . $announcement->id ),
             ];
             $fields_string = http_build_query($fields);
             $ch = curl_init();
@@ -88,7 +75,7 @@ class Announcement extends CI_Controller{
     {
         $data['title'] = 'Make an Announcement';
 
-        $data['announcements'] =  $this->Announcement_model->get_all_announcements();
+        $data['announcements'] = Announcement_model::all();
         $data['groups'] = $this->ion_auth->groups()->result();
 
         // Loads the home page
@@ -110,7 +97,7 @@ class Announcement extends CI_Controller{
         $config = array();
         $config["base_url"] = site_url('announcement/view');
 
-        $config["total_rows"] = $this->Announcement_model->record_count();
+        $config["total_rows"] = Announcement_model::count();
         $config["per_page"] = 10;
         $config["num_tag_open"] = "<li class='page-item'>";
         $config["num_tag_close"] = "</li>";
@@ -135,9 +122,11 @@ class Announcement extends CI_Controller{
         $this->pagination->initialize($config);
         $user = $this->ion_auth->user()->row();
 
-        $data["announcements"] = $this->Announcement_model->get_specific_announcements($config["per_page"], $page, $user->id);
+        // TODO: Make these announcements user specific based on the announcements groups
+        $data["announcements"] = Announcement_model::limit($config["per_page"])->offset($config["per_page"] * $page)
+            ->orderBy('created_at','desc')->get();
         $data["links"] = $this->pagination->create_links();
-        $data['ackposts'] = $this->Acknowledge_post_model->get_all_acknowledge_posts();
+        $data['ackposts'] = Acknowledge_post_model::all();
 
         // Loads the home page
         $this->load->view('templates/header', $data);
@@ -148,18 +137,18 @@ class Announcement extends CI_Controller{
     /**
      * Shows the announcement page.
      *
-     * @param $page - the id of the announcement to view
+     * @param int $page The id of the announcement to view
      */
-    function page( $page )
+    function page( int $page )
     {
         $data['title'] = 'Announcements';
         $user = $this->ion_auth->user()->row();
 
-        $data['ackposts'] = $this->Acknowledge_post_model->get_all_acknowledge_posts();
-        $data["announcement"] = $this->Announcement_model->get_announcement($page);
+        $data['ackposts'] = Acknowledge_post_model::all();
+        $data["announcement"] = Announcement_model::with('created_by')->find($page);
         $data['users'] = $this->ion_auth->users()->row();
 
-        if($data['announcement']['createdBy'] == $user->id)
+        if($data['announcement']->created_by_id == $user->id)
         {
             $data['mypost'] = TRUE;
         }
@@ -180,7 +169,7 @@ class Announcement extends CI_Controller{
     function edit()
     {
         $data['title'] = 'Edit Announcement';
-        $data['announcement'] = $this->Announcement_model->get_announcement($this->input->post('announcement'));
+        $data['announcement'] = Announcement_model::find($this->input->post('announcement'));
 
         // Loads the home page
         $this->load->view('templates/header', $data);
@@ -194,17 +183,13 @@ class Announcement extends CI_Controller{
     function update()
     {
         $data['title'] = 'Edit Announcement';
-        $announcement = $this->Announcement_model->get_announcement($this->input->post('announcement'));
+        $announcement = Announcement_model::find($this->input->post('announcement'));
+        $announcement->title = $this->input->post('title');
+        $announcement->subject = $this->input->post('subject');
+        $announcement->body = $this->input->post('body');
+        $announcement->save();
 
-        $params = array(
-            'title'     => $this->input->post('title'),
-            'subject'   => $this->input->post('subject'),
-            'body'      => $this->input->post('body'),
-        );
-
-        $this->Announcement_model->update_announcement( $announcement['uid'], $params );
-
-        redirect("announcement/page/" . $announcement['uid']);
+        redirect("announcement/page/" . $announcement->id);
     }
 
     /**
@@ -214,8 +199,8 @@ class Announcement extends CI_Controller{
     {
         if( $this->ion_auth->is_admin() )
         {
-            $this->Join_announcement_group_model->delete_announcement_groups( $this->input->post('announcement') );
-            $this->Announcement_model->delete_announcement( $this->input->post('announcement') );
+            Announcement_group_model::where('announcement_id', '=', $this->input->post('announcement'))->delete();
+            Announcement_model::find( $this->input->post('announcement') )->delete();
 
             redirect('cadet/view');
         }

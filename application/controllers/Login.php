@@ -4,7 +4,6 @@ class Login extends CI_Controller {
     function __construct()
     {
         parent::__construct();
-        $this->load->model('User_model');
     }
 
     /**
@@ -116,7 +115,7 @@ class Login extends CI_Controller {
                 'loginattempt' => 0
             );
 
-            $this->ion_auth->update($user['id'], $params);
+            $this->ion_auth->update($user->id, $params);
 
             $message = "<h2>Password Reset</h2>
                         <p>The below is your temporary password please change it as soon as possible!</p>
@@ -140,7 +139,8 @@ class Login extends CI_Controller {
         }
         else
         {
-            show_error( "The email you provided does not match the primary email we have on record for " . $cadet['firstName'] . " " . $cadet['lastName'] );
+            show_error( "The email you provided does not match the primary email we have on record for " .
+                $user->first_name . " " . $user->last_name );
         }
     }
     
@@ -150,7 +150,6 @@ class Login extends CI_Controller {
     function logout()
     {
         $this->ion_auth->logout();
-
         redirect('login/view');
     }
 

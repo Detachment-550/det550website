@@ -1,45 +1,35 @@
 <?php
+    defined('BASEPATH') OR exit('No direct script access allowed');
 
-class User_model extends CI_Model
-{
-    function __construct()
-    {
-        parent::__construct();
-    }
+    use Illuminate\Database\Eloquent\Model;
 
     /**
-     * Gets a user by their RFID card.
-     *
-     * @param int $rfid - rfid obtained from scanning RPI ID card
-     * @return users - found user
+     * Class Test
      */
-    function find_user($rfid)
+    class User_model extends Model
     {
-        $this->db->where('rfid', $rfid);
-        return $this->db->get('users')->row_array();
-    }
+        /**
+         * @var string
+         */
+        protected $table = 'users';
 
-    /**
-     * Gets a user by their email.
-     *
-     * @param string $email - the email associated with a user's account
-     * @return users - found user
-     */
-    function find_user_email($email)
-    {
-        $this->db->where('email', $email);
-        return $this->db->get('users')->row_array();
-    }
+        /**
+         * @var string
+         */
+        protected $primaryKey = 'id';
 
-    /**
-     * Get all users from the database by last name in ascending order.
-     *
-     * @return array - all users sorted by last name
-     */
-    function get_sorted_users()
-    {
-        $this->db->order_by('last_name', 'asc');
-        return $this->db->get('users')->row_array();
-    }
-}
+        /**
+         * @var bool
+         */
+        public $incrementing = TRUE;
 
+        /**
+         * @var string
+         */
+        protected $keyType = 'int';
+
+        /**
+         * @var bool
+         */
+        public $timestamps = FALSE;
+    }

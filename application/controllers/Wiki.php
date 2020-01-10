@@ -4,13 +4,7 @@ class Wiki extends CI_Controller{
     function __construct()
     {
         parent::__construct();
-        $this->load->library('session'); 
-        
-        if( $this->ion_auth->logged_in() )
-        {
-            $this->load->model('wiki_model');
-        }
-        else
+        if( !$this->ion_auth->logged_in() )
         {
             redirect('login/view');
         }
@@ -22,7 +16,7 @@ class Wiki extends CI_Controller{
     function view()
     {
         $data['title'] = 'Detachment Wiki';
-        $data['wikis'] = $this->wiki_model->get_all_wikis();
+        $data['wikis'] = Wiki_model::all();
         $data['admin'] = $this->ion_auth->is_admin();
 
         $this->load->view('templates/header', $data);
@@ -36,12 +30,11 @@ class Wiki extends CI_Controller{
     function add()
     {   
         if(isset($_POST) && count($_POST) > 0)     
-        {   
-            $params = array(
-				'name' => $this->input->post('name'),
-            );
-            
-            $this->wiki_model->add_wiki($params);
+        {
+            $wiki = new Wiki_model();
+            $wiki->name = $this->input->post('name');
+            $wiki->save();
+
             redirect('wiki/view');
         }
         else
@@ -58,8 +51,7 @@ class Wiki extends CI_Controller{
         if( $this->input->post('wiki') !== null )
         {
             $data['title'] = 'Edit Detachment Wiki';
-            
-            $data['wiki'] = $this->wiki_model->get_wiki($this->input->post('wiki'));
+            $data['wiki'] = Wiki_model::find($this->input->post('wiki'));
 
             $this->load->view('templates/header', $data);
             $this->load->view('editwiki');
@@ -78,13 +70,11 @@ class Wiki extends CI_Controller{
     {
         if( $this->input->post('modifiedwiki') !== null )
         {
-            $params = array(
-                'body' => $this->input->post('savewiki'),
-            );
-            
-            $this->wiki_model->update_wiki($this->input->post('modifiedwiki'), $params);
+            $wiki = Wiki_model::find($this->input->post('modifiedwiki'));
+            $wiki->body = $this->input->post('savewiki');
+            $wiki->save();
 
-            $data['wikis'] = $this->wiki_model->get_all_wikis();
+            $data['wikis'] = Wiki_model::all();
             $data['title'] = "Documentation";
             $data['admin'] = $this->ion_auth->is_admin();
             $this->load->view('templates/header', $data);
@@ -102,12 +92,12 @@ class Wiki extends CI_Controller{
      */
     function remove()
     {
-        $wiki = $this->wiki_model->get_wiki($this->input->post('wiki'));
+        $wiki = Wiki_model::find($this->input->post('wiki'));
 
         // check if the wiki exists before trying to delete it
-        if(isset($wiki['id']))
+        if(isset($wiki->id))
         {
-            $this->wiki_model->delete_wiki($this->input->post('wiki'));
+            $wiki->delete();
             redirect('wiki/view');
         }
         else

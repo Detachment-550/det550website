@@ -4,13 +4,7 @@ class Cadetevent extends CI_Controller{
     function __construct()
     {
         parent::__construct();
-        $this->load->library('session'); 
-        
-        if( $this->ion_auth->logged_in() )
-        {
-            $this->load->model('Cadetevent_model');
-        }
-        else
+        if( !$this->ion_auth->logged_in() )
         {
             redirect('login/view');
         }
@@ -34,11 +28,11 @@ class Cadetevent extends CI_Controller{
     /**
      * Displays the event
      *
-     * @param cadetevent $event - event to display
+     * @param int $event The event to display
      */
-    function event($event)
+    function event(int $event)
     {
-        $data['event'] = $this->Cadetevent_model->get_cadetevent( $event );
+        $data['event'] = Event_model::find( $event );
         $data['users'] = $this->ion_auth->users()->result(); // get all users
         $data['title'] = 'Set Attendance';
 
@@ -72,15 +66,15 @@ class Cadetevent extends CI_Controller{
                 $pt = 0;
                 $llab = 0;
             }
-            $params = array(
-				'name' => $this->input->post('name'),
-				'date' => $this->input->post('date'),
-				'pt' => $pt,
-				'llab' => $llab,
-                'created_by' => $user->id,
-            );
-            
-            $this->Cadetevent_model->add_cadetevent($params);
+
+            $event = new Event_model();
+            $event->name = $this->input->post('name');
+            $event->date = $this->input->post('date');
+            $event->pt = $pt;
+            $event->llab = $llab;
+            $event->created_by_id = $user->id;
+            $event->save();
+
             redirect('attendance/view');
         }
         else
@@ -96,8 +90,7 @@ class Cadetevent extends CI_Controller{
     {
         if(isset($_POST) && count($_POST) > 0)
         {
-            $this->Cadetevent_model->delete_cadetevent($this->input->post('event'));
-
+            Event_model::find($this->input->post('event'))->delete();
             redirect('attendance/view');
         }
         else

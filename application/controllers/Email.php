@@ -4,7 +4,6 @@
         function __construct()
         {
             parent::__construct();
-            $this->load->library('session');
         }
 
         /**
@@ -87,7 +86,7 @@
         function daily_announcements()
         {
             $this->load->model('Announcement_model');
-            $announcements = $this->Announcement_model->get_todays_announcements();
+            $announcements = Announcement_model::whereDate('created_at', '=', Date('Y-m-d', strtotime('now')));
             if(count($announcements) > 0)
             {
                 // Sets the timezone to our time zone
@@ -96,9 +95,9 @@
                 $message = "<h1 style='text-align:center;'>Daily Announcements</h1>";
                 foreach($announcements as $announcement)
                 {
-                    $message .= "<h2 style='text-align:center;'>" . $announcement['title'] . "</h2><p>" .
-                        "<strong>Subject:</strong> " . $announcement['subject'] . "</p><p>&nbsp;</p><p>&nbsp;</p>"
-                        . $announcement['body'] . "<br><hr><br>";
+                    $message .= "<h2 style='text-align:center;'>" . $announcement->title . "</h2><p>" .
+                        "<strong>Subject:</strong> " . $announcement->subject . "</p><p>&nbsp;</p><p>&nbsp;</p>"
+                        . $announcement->body . "<br><hr><br>";
                 }
 
                 $users = $this->ion_auth->users()->result(); // get all users

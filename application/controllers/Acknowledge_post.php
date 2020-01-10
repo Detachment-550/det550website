@@ -4,13 +4,8 @@ class Acknowledge_post extends CI_Controller{
     function __construct()
     {
         parent::__construct();
-        $this->load->library('session'); 
-        
-        if( $this->ion_auth->logged_in() )
-        {
-            $this->load->model('Acknowledge_post_model');
-        }
-        else
+
+        if( !$this->ion_auth->logged_in() )
         {
             redirect('login/view');
         }
@@ -26,17 +21,9 @@ class Acknowledge_post extends CI_Controller{
         {
             $this->load->model('Announcement_model');
 
-            $data['title'] = "Acknowledgements"; 
-            $data['announcement'] = $this->Announcement_model->get_announcement($this->input->post('event'));
-            $data['acknowledgements'] = $this->Acknowledge_post_model->get_event_acknowledge_posts($this->input->post('event'));
-
-            $users = NULL;
-            foreach( $data['acknowledgements'] as $ack )
-            {
-                $users[] = $this->ion_auth->user($ack['user'])->row();
-            }
-            
-            $data['users'] = $users;
+            $data['title'] = "Acknowledgements";
+            $data['announcement'] = Announcement_model::with('acknowledgements.user')
+                ->find($this->input->post('event'));
             
             $this->load->view('templates/header', $data);
             $this->load->view('announcement/acknowledged.php');
@@ -58,15 +45,8 @@ class Acknowledge_post extends CI_Controller{
             $user = $this->ion_auth->user()->row();
 
             // Ignores duplicate entries
-            if( $this->Acknowledge_post_model->acknowledge_post_exists( $user->id, $this->input->post('announcementid') ) <= 0 )
-            {
-                $params = array(
-                    'user' =>  $user->id,
-                    'announcement_id' => $this->input->post('announcementid')
-                );
-                
-                $this->Acknowledge_post_model->add_acknowledge_post($params);
-            }
+            $post_acknowledgement = Acknowledge_post_model::firstOrCreate(
+                ['user_id' => $user->id, 'announcement_id' => $this->input->post('announcementid')]);
             
             redirect('announcement/view');
         }
@@ -78,12 +58,14 @@ class Acknowledge_post extends CI_Controller{
     
     /**
      * Returns the number of posts with a given uid
-     * @param int $announcement_id - id of post
+     *
+     * @param int $announcement_id Id of post
+     *
      * @return number of users that acknowledged the post
      */
-    function get_acknowledge_count($announcement_id)
+    function get_acknowledge_count(int $announcement_id)
     {
-        return $this->Acknowledge_post_model->get_acknowledge_post_count($announcement_id);
+        return Announcement_model::with('acknowledgements')->find($announcement_id)->count();
     }
     
 }

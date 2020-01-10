@@ -5,17 +5,7 @@ class Attendance extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->library('session');
-
-        if ( $this->ion_auth->logged_in() )
-        {
-            $this->load->model('Attendance_model');
-            $this->load->model('Cadetevent_model');
-            $this->load->model('User_model');
-            $this->load->model('Attendance_memo_type_model');
-            $this->load->model('Attendance_memo_model');
-        }
-        else
+        if ( !$this->ion_auth->logged_in() )
         {
             redirect('login/view');
         }
@@ -27,8 +17,8 @@ class Attendance extends CI_Controller
     function view()
     {
         $data['title'] = 'Cadet Events';
-        $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
-        $data['memo_types'] = $this->Attendance_memo_type_model->get_all_attendance_memo_types();
+        $data['events'] = Event_model::all();
+        $data['memo_types'] = Attendance_memo_type_model::all();
         $data['users'] = $this->ion_auth->users()->result();
 
         // Loads the home page
@@ -43,10 +33,9 @@ class Attendance extends CI_Controller
     function admin()
     {
         $data['title'] = 'Modify Attendance';
-        $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
+        $data['events'] = Event_model::all();
         $data['users'] = $this->ion_auth->users()->result();
-        $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
-        $data['memo_types'] = $this->Attendance_memo_type_model->get_all_attendance_memo_types();
+        $data['memo_types'] = Attendance_memo_type_model::all();
 
         // Loads the home page
         $this->load->view('templates/header', $data);
@@ -60,7 +49,7 @@ class Attendance extends CI_Controller
     function modify()
     {
         $data['title'] = 'Modify Attendance';
-        $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
+        $data['events'] = Event_model::all();
         $data['users'] = $this->ion_auth->users()->result();
 
         // Loads the home page
@@ -71,8 +60,6 @@ class Attendance extends CI_Controller
 
     /**
      * Get json of the event attendance.
-     *
-     * @return string - json encryption of current event attendance data
      */
     function status()
     {

@@ -10,10 +10,7 @@ class Cadet extends CI_Controller{
         {
             redirect('login/view');
         }
-        else
-        {
-            $this->load->model('Cadetevent_model');
-        }
+
     }
 
     /**
@@ -176,7 +173,6 @@ class Cadet extends CI_Controller{
 
             $this->ion_auth->update($user->id, $params);
 
-            $data = array('upload_data' => $this->upload->data()); 
             redirect('cadet/edit');
         } 
     }
@@ -247,13 +243,11 @@ class Cadet extends CI_Controller{
     {
         $data['title'] = "Home";
 
-        $this->load->model('Announcement_model');
-        $this->load->model('Attendance_model');
-
         $user = $this->ion_auth->user()->row();
 
-        $data['events'] =  $this->Cadetevent_model->get_last_five_events();
-        $data['announcements'] =  $this->Announcement_model->get_last_five_announcements($user->id);
+        $data['events'] =  Event_model::orderBy('created_at', 'desc')->take(5)->get();
+        // TODO: Make these announcements specific to the user
+        $data['announcements'] = Announcement_model::with('created_by')->orderBy('created_at', 'desc')->take(5)->get();
         $data['admin'] = $this->ion_auth->is_admin();
 
         $hour = intval(date("H"));
@@ -270,30 +264,44 @@ class Cadet extends CI_Controller{
             $data['greeting'] = "Good Evening " . $user->rank . " " . $user->last_name;
         }
 
+        //TODO: Fix this
         // Gets pt and llab attendance percentage
-        $pt = $this->Attendance_model->get_event_total('pt', $user->id);
-        $llab = $this->Attendance_model->get_event_total('llab', $user->id);
-        $ptSum = $this->Cadetevent_model->get_event_total('pt');
-        $llabSum = $this->Cadetevent_model->get_event_total('llab');
+//        $pt = Attendance_model::whereHas(['event' => function ($query) {
+//            $query->where('pt', '=', 1);
+//        }])->where('user_id', '=', $user->id)->count();
+//
+//        $llab = Attendance_model::whereHas(['event' => function ($query) {
+//            $query->where('llab', '=', 1);
+//        }])->where('user_id', '=', $user->id)->count();
+//
+//        $pt_sum = Attendance_model::whereHas(['event' => function ($query) {
+//            $query->where('pt', '=', 1);
+//        }])->count();
+//
+//        $llab_sum = Attendance_model::whereHas(['event' => function ($query) {
+//            $query->where('pt', '=', 1);
+//        }])->count();
+        $pt_sum = 0;
+        $llab_sum = 0;
 
         // Checks to see if no pt events have occurred yet
-        if($ptSum == 0)
+        if($pt_sum == 0)
         {
             $data['ptperc'] = number_format(0, 2);
         }
         else
         {
-            $data['ptperc'] = number_format(($pt / $ptSum) * 100, 2);
+            $data['ptperc'] = number_format(($pt / $pt_sum) * 100, 2);
         }
 
         // Checks to see if no llab  events have occurred yet
-        if($llabSum == 0)
+        if($llab_sum == 0)
         {
             $data['llabperc'] = number_format(0, 2);
         }
         else
         {
-            $data['llabperc'] = number_format(($llab / $llabSum) * 100, 2);
+            $data['llabperc'] = number_format(($llab / $llab_sum) * 100, 2);
         }
 
         // Loads the home page 
@@ -449,8 +457,8 @@ class Cadet extends CI_Controller{
             $this->load->model('Announcement_model');
 
             $data['users'] = $this->ion_auth->users()->result();
-            $data['events'] = $this->Cadetevent_model->get_all_cadetevents();
-            $data['announcements'] = $this->Announcement_model->get_all_announcements();
+            $data['events'] = Event_model::all();
+            $data['announcements'] = Announcement_model::all();
             
             $this->load->view('templates/header', $data);
             $this->load->view('admin/admin');

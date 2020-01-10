@@ -44,13 +44,13 @@
                 <div class="card-header">
     		      Events
                 </div>
-<?php 
+<?php
     foreach( $events as $event )
     {
         echo "<div class='card-body'>";
-        echo "<h5 class='card-title'>" . $event['name'] . "</h5>";
-        echo "<p class='card-text'>Date: " . Date('d M Y h:i', strtotime($event['date'])) . "</p>";
-        echo "<a href='/index.php/attendance/attendees/" . $event['eventID'] . "' class='btn btn-sm btn-primary'>View Attendees</a></div>";
+        echo "<h5 class='card-title'>" . $event->name . "</h5>";
+        echo "<p class='card-text'>Date: " . Date('d M Y h:i', strtotime($event->created_at)) . "</p>";
+        echo "<a href='/index.php/attendance/attendees/" . $event->id . "' class='btn btn-sm btn-primary'>View Attendees</a></div>";
 
     } 
 ?>
@@ -65,10 +65,10 @@
     foreach( $announcements as $announcement )
     {
         echo "<div class='card-body'>";
-        echo "<h5 class='card-title'><a href='" . site_url('announcement/page/' . $announcement['uid']) . "'>" . $announcement['title'] . "</a></h5>";
-        echo "<p class='card-text'> " . $announcement['subject'] . '</p>';
-        echo "<p>Date Posted: " . Date('d M Y h:i', strtotime($announcement['date'])) . "</p>";
-        echo "<p class='card-text'>Posted By: " . $announcement['first_name'] . ' ' . $announcement['last_name'] . '</p></div>';
+        echo "<h5 class='card-title'><a href='" . site_url('announcement/page/' . $announcement->id) . "'>" . $announcement->title . "</a></h5>";
+        echo "<p class='card-text'> " . $announcement->subject . '</p>';
+        echo "<p>Date Posted: " . Date('d M Y h:i', strtotime($announcement->created_at)) . "</p>";
+        echo "<p class='card-text'>Posted By: " . $announcement->created_by->first_name . ' ' . $announcement->created_by->last_name . '</p></div>';
     }
 ?>
             </div>

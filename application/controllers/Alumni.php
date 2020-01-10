@@ -4,11 +4,7 @@ class Alumni extends CI_Controller{
     function __construct()
     {
         parent::__construct();
-        if($this->ion_auth->logged_in())
-        {
-            $this->load->model('Alumni_model');
-        }
-        else
+        if(!$this->ion_auth->logged_in())
         {
             redirect('login/view');
         }
@@ -23,18 +19,16 @@ class Alumni extends CI_Controller{
         {
             $user = $this->ion_auth->user($this->input->post('transfer'))->row();
 
-            $params = array(
-                'rank' => $user->rank,
-                'email' => $user->email,
-                'first_name' => $user->first_name,
-                'last_name' => $user->last_name,
-                'phone' => $user->phone,
-                'major' => $user->major,
-                'position' => $user->position,
-                'image' => $user->image,
-            );
-
-            $this->Alumni_model->add_alumni($params);
+            $alumni = new Alumni_model();
+            $alumni->rank = $user->rank;
+            $alumni->email = $user->email;
+            $alumni->first_name = $user->first_name;
+            $alumni->last_name = $user->last_name;
+            $alumni->phone = $user->phone;
+            $alumni->major = $user->major;
+            $alumni->position = $user->position;
+            $alumni->image = $user->image;
+            $alumni->save();
 
             $this->ion_auth->delete_user($user->id);
 
@@ -55,7 +49,7 @@ class Alumni extends CI_Controller{
         if( $this->ion_auth->is_admin() )
         {
             $data['title'] = "Modify Alumni";
-            $data['alumni'] = $this->Alumni_model->get_all_alumni();
+            $data['alumni'] = Alumni_model::all();
 
             $this->load->view('templates/header', $data);
             $this->load->view('alumni/editalumni');
@@ -75,17 +69,16 @@ class Alumni extends CI_Controller{
 //        TODO: Add ability to edit alumni picture
         if( $this->ion_auth->is_admin() && isset($_POST) && count($_POST) > 0 )
         {
-            $params = array(
-                'rank' => $this->input->post('rank'),
-                'email' => $this->input->post('email'),
-                'first_name' => $this->input->post('firstname'),
-                'last_name' => $this->input->post('lastname'),
-                'phone' => $this->input->post('phone'),
-                'major' => $this->input->post('major'),
-                'position' => $this->input->post('position'),
-            );
+            $alumni = Alumni_model::find($this->input->post('alumni'));
+            $alumni->rank = $this->input->post('rank');
+            $alumni->email = $this->input->post('email');
+            $alumni->first_name = $this->input->post('firstname');
+            $alumni->last_name = $this->input->post('lastname');
+            $alumni->phone = $this->input->post('phone');
+            $alumni->major = $this->input->post('major');
+            $alumni->position = $this->input->post('position');
+            $alumni->save();
 
-            $this->Alumni_model->update_alumni($this->input->post('alumni'), $params);
             redirect('alumni/modify');
         }
         else
@@ -96,14 +89,12 @@ class Alumni extends CI_Controller{
 
     /**
      * Accessor function to get json of alumni account
-     *
-     * @return string - json encryption of a given alumni account
      */
     function info()
     {
         if( $this->ion_auth->is_admin() && isset($_POST) && count($_POST) > 0 )
         {
-            $data['alumni'] = $this->Alumni_model->get_alumni($this->input->post('alumni'));
+            $data['alumni'] = Alumni_model::find($this->input->post('alumni'));
         }
         else
         {
@@ -120,29 +111,28 @@ class Alumni extends CI_Controller{
     {
         if( $this->ion_auth->is_admin() && isset($_POST) && count($_POST) > 0 )
         {
-            $params = array(
-                'rank' => $this->input->post('rank'),
-                'email' => $this->input->post('email'),
-                'first_name' => $this->input->post('firstname'),
-                'last_name' => $this->input->post('lastname'),
-                'phone' => $this->input->post('phone'),
-                'major' => $this->input->post('major'),
-                'position' => $this->input->post('position'),
-            );
 
-            $id = $this->Alumni_model->add_alumni($params);
+            $alumni = new Alumni_model();
+            $alumni->rank = $this->input->post('rank');
+            $alumni->email = $this->input->post('email');
+            $alumni->first_name = $this->input->post('firstname');
+            $alumni->last_name = $this->input->post('lastname');
+            $alumni->phone = $this->input->post('phone');
+            $alumni->major = $this->input->post('major');
+            $alumni->position = $this->input->post('position');
+            $alumni->save();
 
             $config['upload_path']      = 'images/';
             $config['allowed_types']    = 'jpeg|jpg|png';
             $config['max_size']         = 100000;
             $config['max_width']        = 20000;
             $config['max_height']       = 20000;
-            $config['file_name']        = 'alum' . $id;
+            $config['file_name']        = 'alum' . $alumni->id;
 
             // If old profile picture exists delete it
-            if(is_file('./images/' . 'alum' . $id))
+            if(is_file('./images/' . 'alum' . $alumni->id))
             {
-                unlink('./images/'. 'alum' . $id);
+                unlink('./images/'. 'alum' . $alumni->id);
             }
 
             // Uploads image
@@ -157,11 +147,8 @@ class Alumni extends CI_Controller{
             }
             else
             {
-                $params = array(
-                    'image' => $this->upload->data('file_name'),
-                );
-
-                $this->Alumni_model->update_alumni($id, $params);
+                $alumni->image = $this->upload->data('file_name');
+                $alumni->save();
 
                 redirect('alumni/modify');
             }
@@ -179,7 +166,7 @@ class Alumni extends CI_Controller{
     {
         if( $this->ion_auth->is_admin() && isset($_POST) && count($_POST) > 0 )
         {
-            $this->Alumni_model->delete_alumni($this->input->post('alumni'));
+            Alumni_model::find($this->input->post('alumni'))->delete();
             redirect('alumni/modify');
         }
         else
@@ -194,7 +181,7 @@ class Alumni extends CI_Controller{
     function view()
     {
         $data['title'] = "Alumni Directory";
-        $data['alumni'] = $this->Alumni_model->get_all_alumni();
+        $data['alumni'] = Alumni_model::all();
 
         $this->load->view('templates/header', $data);
         $this->load->view('alumni/alumnidirectory');

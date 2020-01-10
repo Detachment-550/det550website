@@ -4,8 +4,6 @@ class Cadetdirectory extends CI_Controller{
     function __construct()
     {
         parent::__construct();
-        $this->load->library('session'); 
-        
         if( !$this->ion_auth->logged_in() )
         {
             redirect('login/view');

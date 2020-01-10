@@ -58,7 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database', 'pagination', 'ion_auth');
+$autoload['libraries'] = array('database', 'pagination', 'ion_auth', 'session');
 
 /*
 | -------------------------------------------------------------------
@@ -132,4 +132,6 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array();
+$autoload['model'] = array('Acknowledge_post_model', 'Alumni_model', 'Announcement_group_model', 'Announcement_model',
+    'Attendance_memo_model', 'Attendance_memo_type_model', 'Attendance_model', 'Event_model', 'User_model', 'Ion_auth_model',
+    'Wiki_model');
