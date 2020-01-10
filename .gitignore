@@ -21,3 +21,4 @@ application/logs/*
 .idea/workspace.xml
 *.xml
 .idea/workspace.xml
+/vendor/
