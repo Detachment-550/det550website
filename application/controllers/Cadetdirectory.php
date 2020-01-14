@@ -32,7 +32,7 @@ class Cadetdirectory extends CI_Controller{
     function view()
     {
         $data['title'] = 'Cadet Directory';
-        $data['users'] = $this->ion_auth->users()->result();
+        $data['users'] = User_model::orderBy('last_name', 'asc')->get();
 
         $this->load->view('templates/header', $data);
         $this->load->view('directory');

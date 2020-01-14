@@ -8,7 +8,6 @@
             <select class="form-control" name="event" id="event" required>
                 <option value="">Choose...</option>
                 <?php
-                    usort($events, create_function('$a, $b', 'return strnatcasecmp($a->date, $b->name);'));
                     foreach($events as $event)
                     {
                         echo '<option value="' . $event->id . '">' . $event->name . '</option>';

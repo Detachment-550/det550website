@@ -5,8 +5,6 @@
     <h1 class="display-4"> Detachment Directory </h1><br>
 <?php
 
-usort($users, create_function('$a, $b', 'return strnatcasecmp($a->last_name, $b->last_name);'));
-
 foreach( $users as $user )
 {
     if($user->class != 'None' ){
