@@ -38,6 +38,40 @@ class Cadetdirectory extends CI_Controller{
         $this->load->view('directory');
         $this->load->view('templates/footer'); 
     }
+
+
+    /**
+     * Shows all of the cadets in the detachment.
+     */
+    function search()
+    {
+        if(isset($_POST) && count($_POST) > 0)
+        {
+            $search_field = $this->input->post('search_field');
+            if($search_field === 'last_name')
+            {
+                $data['title'] = 'Cadet Directory';
+                $data['users'] = User_model::orderBy('last_name', 'asc')
+                    ->where('last_name', 'like', '%' . $this->input->post('search_value') . '%')
+                    ->get();
+            }
+            else if($search_field === 'major')
+            {
+                $data['title'] = 'Cadet Directory';
+                $data['users'] = User_model::orderBy('last_name', 'asc')
+                    ->where('major', 'like', '%' . $this->input->post('search_value') . '%')
+                    ->get();
+            }
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('directory');
+            $this->load->view('templates/footer');
+        }
+        else
+        {
+            show_error('You must provide a search value and field to filter the directory view');
+        }
+    }
     
     /**
      * Shows another cadet's profile.
@@ -75,5 +109,5 @@ class Cadetdirectory extends CI_Controller{
         $this->load->view('cadet/profile');
         $this->load->view('templates/footer');   
     }
-    
+
 }

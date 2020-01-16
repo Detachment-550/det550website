@@ -2,7 +2,24 @@
 
 <!--TODO: Use boot strap card decks here to manage the card sizes -->
 <div class="jumbotron">
-    <h1 class="display-4"> Detachment Directory </h1><br>
+    <h1 class="display-4">Detachment Directory</h1>
+    <br>
+    <div class="shadow-sm p-3 mb-5 bg-white rounded">
+        <form method="POST" action="/index.php/cadetdirectory/search">
+            <div class="form-group">
+                <label for="field">Search Field</label>
+                <select id="field" name="search_field" class="form-control">
+                    <option selected value="last_name">Last Name</option>
+                    <option value="major">Major</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="search_value" placeholder="Enter search value..." id="search_value">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+            <a href="/index.php/cadetdirectory/view" class="btn btn-secondary">Reset</a>
+        </form>
+    </div>
 <?php
 
 foreach( $users as $user )
