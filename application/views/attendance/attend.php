@@ -40,3 +40,5 @@
     <a class='btn btn-secondary' href="/index.php/attendance/attendees/<?php echo $event->id; ?>">Show All Attendees</a>
     <a class='btn btn-warning' style="float: right;" href="/index.php/cadet/change_rfid">Add Cadet ID Card</a><br><br>
 </div>
+
+<script type="text/javascript" src="/js/attend.js"></script>

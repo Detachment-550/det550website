@@ -1,3 +1,5 @@
+$('#setevent').select2();
+
 var approve_button = function(cell, formatterParams){ //plain text value
     if(cell.getRow().getData().event_id !== '')
     {

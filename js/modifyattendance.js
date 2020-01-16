@@ -1,33 +1,35 @@
-// Shows the input and populates the attendance status based on the selected cadet and event
+$('#event').select2();
+$('#cadet').select2();
+
+/**
+ * Shows the input and populates the attendance status based on the selected cadet and event.
+ */
 function populate()
 {
     if($('#cadet').val() !== "" && $('#event').val() !== "")
     {
         $.ajax({
-            url: '/index.php/attendance/status',
+            url: '/index.php/attendance/status/' + $('#cadet').val() + '/' + $('#event').val(),
             method: 'post',
-            data: {
-                cadet: $('#cadet').val(),
-                event: $('#event').val(),
-            },
             dataType: 'json',
             success: function (response) {
-                if(response.status === null)
+                console.log(response);
+                if(response === null)
                 {
                     $('#record').val('a');
                     $('#comment').css('display', 'none');
                 }
-                else if(response.status.excused_absence === "0")
+                else if(response.excused_absence === "0")
                 {
                     $('#record').val('p');
                     $('#comment').css('display', 'block');
-                    $('#comments').val(response.status.comments);
+                    $('#comments').val(response.comments);
                 }
-                else if(response.status.excused_absence === "1")
+                else if(response.excused_absence === "1")
                 {
                     $('#record').val('e');
                     $('#comment').css('display', 'block');
-                    $('#comments').val(response.status.comments);
+                    $('#comments').val(response.comments);
                 }
 
                 $('#hiderecord').css('display','block');
@@ -48,10 +50,10 @@ function populate()
     }
 }
 
-/*
+/**
  * Display's or hides the comments section.
  * 
- * @param value - present absent or excused value
+ * @param value Present absent or excused value (p, a, or e)
  */
 function newattendance(value)
 {

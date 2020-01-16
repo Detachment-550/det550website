@@ -41,7 +41,7 @@
                             <?php
                                 foreach($events as $event)
                                 {
-                                    echo "<option value='" . $event->id."'>" . $event->name . " " . $event->date . "</option>";
+                                    echo "<option value='" . $event->id . "'>" . $event->name . " - " . Date('m/d/Y H:i', strtotime($event->date)) . "</option>";
                                 }
                             ?>
                         </select>
@@ -61,7 +61,7 @@
                             <?php
                                 foreach( $events as $event )
                                 {
-                                    echo "<option value='" . $event->id . "'>" . $event->name . "</option>";
+                                    echo "<option value='" . $event->id . "'>" . $event->name . " - " . Date('m/d/Y H:i', strtotime($event->date)) . "</option>";
                                 }
                             ?>
                         </select>
@@ -111,7 +111,7 @@
                 <?php
                     foreach( $events as $event )
                     {
-                        echo "<option value='" . $event->id . "'>" . $event->name . "</option>";
+                        echo "<option value='" . $event->id . "'>" . $event->name . " - " . Date('m/d/Y H:i', strtotime($event->date)) . "</option>";
                     }
                 ?>
             </select>

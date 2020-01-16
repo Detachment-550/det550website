@@ -10,7 +10,7 @@
                 <?php
                     foreach($events as $event)
                     {
-                        echo '<option value="' . $event->id . '">' . $event->name . ' ' . Date('Y-m-d', strtotime($event->date)) . '</option>';
+                        echo '<option value="' . $event->id . '">' . $event->name . ' - ' . Date('Y-m-d', strtotime($event->date)) . '</option>';
                     }
                 ?>
             </select>
@@ -31,12 +31,12 @@
                 }
             ?>
             <div class="form-group">
-                <label for="event">Select Event</label>
-                <select id="event" name="event" class="form-control">
+                <label for="select_event">Select Event</label>
+                <select id="select_event" name="event" class="form-control">
                     <option selected value="">No Event</option>
                     <?php
                         foreach ($events as $event) {
-                            echo '<option value="' . $event->id . '">' . $event->name . ' ' . Date('Y-m-d', strtotime($event->date)) . '</option>';
+                            echo '<option value="' . $event->id . '">' . $event->name . ' - ' . Date('Y-m-d', strtotime($event->date)) . '</option>';
                         }
                     ?>
                 </select>
@@ -80,3 +80,5 @@
         </form>
     </div>
 </div>
+
+<script type="text/javascript" src="/js/attendance.js"></script>

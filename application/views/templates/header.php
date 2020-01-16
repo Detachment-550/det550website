@@ -1,5 +1,3 @@
-<?php $this->load->helper('url'); ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

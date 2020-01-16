@@ -60,19 +60,20 @@ class Attendance extends CI_Controller
 
     /**
      * Get json of the event attendance.
+     *
+     * @param int $user_id The user id
+     * @param int $event_id The event id
      */
-    function status()
+    function status(int $user_id, int $event_id)
     {
-        if (isset($_POST) && count($_POST) > 0)
+        if(Attendance_model::where('event_id', '=', $event_id)->where('user_id', '=', $user_id)->exists())
         {
-            $data['status'] = $this->Attendance_model->get_attendance_status($this->input->post('cadet'), $this->input->post('event'));
+            echo Attendance_model::where('event_id', '=', $event_id)->where('user_id', '=', $user_id)->first()->toJson();
         }
         else
         {
-            $data['error'] = "You must provide the rin and event id to get the event status";
+            echo json_encode(NULL);
         }
-
-        echo json_encode($data);
     }
 
     /**
@@ -195,10 +196,13 @@ class Attendance extends CI_Controller
     {
         if (isset($_POST) && count($_POST) > 0)
         {
-            $attendance_record = Attendance_model::firstOrCreate([
-                'user_id' => $this->input->post('id'),
-                'event_id' => $this->input->post('event')
-            ]);
+            if(!Attendance_model::where('event_id', '=', $this->input->post('event'))->where('user_id', '=', $this->input->post('id'))->exists())
+            {
+                $attendance_record = new Attendance_model();
+                $attendance_record->user_id = $this->input->post('id');
+                $attendance_record->event_id = $this->input->post('event');
+                $attendance_record->save();
+            }
 
             redirect('cadetevent/event/' . $attendance_record->event_id);
         }
@@ -253,7 +257,6 @@ class Attendance extends CI_Controller
     function master()
     {
         $data['title'] = "Master Attendance";
-        $data['events'] = $this->Cadetevent_model->get_current_cadetevents();
         $data['memo_types'] = Attendance_memo_type_model::all();
 
         // Loads the home page
@@ -268,12 +271,21 @@ class Attendance extends CI_Controller
      */
     function get_master()
     {
-        $data['record'] = $this->Attendance_model->get_attendance_records();
-        $data['events'] = $this->Cadetevent_model->get_current_cadetevents();
-        $data['weekevents'] = $this->Cadetevent_model->get_week_events();
-        $data['users'] = $this->ion_auth->users()->result(); // get all users
-
+        $data['events'] = Event_model::whereYear('date', '=', Date('Y', strtotime('now')))
+            ->with('attendees.user', 'attendees.event')->get();
+        $data['users'] = User_model::all();
         echo json_encode($data);
+    }
+
+    /**
+     * Gets the weekly events.
+     */
+    function weekly_events()
+    {
+        echo Attendance_model::whereHas('event', function($query) {
+            $query->whereDate('date', '<', Date('Y-m-d', strtotime('next Sunday')))
+                ->whereDate('date', '>=', Date('Y-m-d', strtotime('this Sunday')));
+        })->with('event', 'user')->get()->toJson();
     }
 
     /**

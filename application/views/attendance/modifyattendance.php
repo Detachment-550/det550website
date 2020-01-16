@@ -1,4 +1,3 @@
-<script src='/js/modifyattendance.js'></script>
 <link rel="stylesheet" type="text/css" href="/css/modifyattendance.css">
 
 <div class="jumbotron">
@@ -22,7 +21,7 @@
                 <?php
                     foreach($events as $event)
                     {
-                        echo '<option value="' . $event->id . '">' . $event->name . '</option>';
+                        echo '<option value="' . $event->id . '">' . $event->name . ' - ' . Date('m/d/Y H:i', strtotime($event->date)) . '</option>';
                     }
                 ?>
             </select><br>
@@ -45,3 +44,5 @@
         </form>
     </div>
 </div>
+
+<script src='/js/modifyattendance.js'></script>

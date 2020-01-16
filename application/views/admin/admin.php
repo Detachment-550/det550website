@@ -1,5 +1,5 @@
-<script src='<?php echo base_url("js/addCadet.js"); ?>'></script>
-<link rel="stylesheet" type="text/css" href="<?php echo base_url("css/admin.css"); ?>">
+<script src='/js/addCadet.js'></script>
+<link rel="stylesheet" type="text/css" href="/css/admin.css">
 
 <body>
 <div class="jumbotron jumbotron-fluid">
@@ -7,9 +7,9 @@
         <div class="col-4">
             <div class="card">
                 <div id="memWrapper" class="card-body">
-<!--                    TODO: Check to see if user exists before adding it in a validation form -->
+                    <!--                    TODO: Check to see if user exists before adding it in a validation form -->
                     <h5 id="memHeader" class="card-title">Add User</h5>
-                    <?php echo form_open('cadet/add'); ?>
+                    <form action="/index.php/cadet/add" method="POST">
                     <div class="form-group">
                         <label for="firstname">First Name:</label>
                         <input class="form-control" type="text" name="firstname" size="30" id="firstname" placeholder="Enter first name..." required/>
@@ -131,7 +131,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Modify User Info</h5>
-                    <?php echo form_open('cadet/select'); ?>
+                    <form action="/index.php/cadet/select" method="POST">
                     <button class="btn btn-warning" type="submit" name="submit">Modify Cadet Info</button>
                     </form>
                 </div>
@@ -140,37 +140,35 @@
             <div id="makeuser" class="card">
                 <div id="memWrapper" class="card-body">
                     <h5 id="memHeader" class="card-title">Remove User</h5>
-                    <?php echo form_open('cadet/remove'); ?>
+                    <form action="/index.php/cadet/remove" method="POST">
                     <label for="remove">Select User</label>
                     <select name="remove" class="form-control" id="remove" required>
                         <option value="">Choose...</option>
                         <?php
-                        usort($users, create_function('$a, $b', 'return strnatcasecmp($a->last_name, $b->last_name);'));
-                        foreach($users as $user)
-                        {
-                            if($user->class != 'None' ) {
-                                echo "<option value='" . $user->id . "'>" . $user->last_name . ", " . $user->first_name . "</option>";
-                            }
-                        }
-                        ?>
-                    </select><br>
-                    <button class="btn btn-danger" name="submit" type="submit">Remove</button>
-                    </form>
-                    <br>
-                    <h5 id="memHeader" class="card-title">Make User an Alumni</h5>
-                    <?php echo form_open('alumni/create'); ?>
-                    <div class="form-group">
-                        <label for="transfer">Select User</label>
-                        <select name="transfer" class="form-control" id="transfer" required>
-                            <option value="">Choose...</option>
-                            <?php
-                            usort($users, create_function('$a, $b', 'return strnatcasecmp($a->last_name, $b->last_name);'));
                             foreach($users as $user)
                             {
                                 if($user->class != 'None' ) {
                                     echo "<option value='" . $user->id . "'>" . $user->last_name . ", " . $user->first_name . "</option>";
                                 }
                             }
+                        ?>
+                    </select><br>
+                    <button class="btn btn-danger" name="submit" type="submit">Remove</button>
+                    </form>
+                    <br>
+                    <h5 id="memHeader" class="card-title">Make User an Alumni</h5>
+                    <form action="/index.php/alumni/create" method="POST">
+                    <div class="form-group">
+                        <label for="transfer">Select User</label>
+                        <select name="transfer" class="form-control" id="transfer" required>
+                            <option value="">Choose...</option>
+                            <?php
+                                foreach($users as $user)
+                                {
+                                    if($user->class != 'None' ) {
+                                        echo "<option value='" . $user->id . "'>" . $user->last_name . ", " . $user->first_name . "</option>";
+                                    }
+                                }
                             ?>
                         </select>
                     </div>
@@ -185,43 +183,43 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Additional Admin Links</h4>
-                    <?php echo form_open('announcement/remove'); ?>
-                    <label for="announcement">Delete an Announcement</label>
-                    <select name="announcement" id="announcement" class="form-control" required>
-                        <option value="">Choose...</option>
-                        <?php
-                        foreach($announcements as $announcement)
-                        {
-                            echo "<option value='" . $announcement['uid'] . "'>" . $announcement['title'] . " " . $announcement['date'] . "</option>";
-                        }
-                        ?>
-                    </select><br>
-                    <button onClick="return confirm('Are you sure you want to delete this Announcement?')" class="btn btn-danger" type="submit" name="dannouncement">Delete</button>
+                    <form action="/index.php/announcement/remove" method="POST">
+                        <label for="announcement">Delete an Announcement</label>
+                        <select name="announcement" id="announcement" class="form-control" required>
+                            <option value="">Choose...</option>
+                            <?php
+                                foreach($announcements as $announcement)
+                                {
+                                    echo "<option value='" . $announcement['uid'] . "'>" . $announcement['title'] . " " . $announcement['date'] . "</option>";
+                                }
+                            ?>
+                        </select><br>
+                        <button onClick="return confirm('Are you sure you want to delete this Announcement?')" class="btn btn-danger" type="submit" name="dannouncement">Delete</button>
                     </form><br><br>
 
-                    <?php echo form_open('cadet/unlock'); ?>
-                    <label for="cadet">Unlock Cadet Account</label>
-                    <select name="user" id="cadet" class="form-control" required>
-                        <option value="">Choose...</option>
-                        <?php
-                        usort($users, create_function('$a, $b', 'return strnatcasecmp($a->last_name, $b->last_name);'));
-                        foreach($users as $user)
-                        {
-                            if($user->class != 'None' ) {
-                                echo "<option value='" . $user->id . "'>" . $user->last_name . ", " . $user->first_name . "</option>";
-                            }
-                        }
-                        ?>
-                    </select><br>
-                    <button class="btn btn-success" type="submit" name="unlock">Unlock</button>
+                    <form action="/index.php/cadet/unlock" method="POST">
+                        <label for="cadet">Unlock Cadet Account</label>
+                        <select name="user" id="cadet" class="form-control" required>
+                            <option value="">Choose...</option>
+                            <?php
+                                foreach($users as $user)
+                                {
+                                    if($user->class != 'None' ) {
+                                        echo "<option value='" . $user->id . "'>" . $user->last_name . ", " . $user->first_name . "</option>";
+                                    }
+                                }
+                            ?>
+                        </select><br>
+                        <button class="btn btn-success" type="submit" name="unlock">Unlock</button>
                     </form><br><br>
 
                     <h6>Create/Modify/Delete a Group</h6>
-                    <?php echo anchor('group/adminview', 'Edit Group', 'class="btn btn-primary"'); ?>
+                    <a href="/index.php/group/adminview" class="btn btn-primary">Edit Group</a>
                     <br><br>
                 </div>
             </div>
         </div>
     </div>
 </div>
-</body>
+
+<script type="text/javascript" src="/js/admin.js"></script>
