@@ -1,3 +1,8 @@
+/**
+ * Validates the new user before submitting the form.
+ *
+ * @return {boolean}
+ */
 function validateNewUser()
 {
     var fail = 0;

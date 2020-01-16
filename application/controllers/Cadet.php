@@ -247,7 +247,8 @@ class Cadet extends CI_Controller{
 
         $data['events'] =  Event_model::orderBy('created_at', 'desc')->take(5)->get();
         // TODO: Make these announcements specific to the user
-        $data['announcements'] = Announcement_model::with('created_by')->orderBy('created_at', 'desc')->take(5)->get();
+        $data['announcements'] = Announcement_model::with('created_by')
+            ->orderBy('created_at', 'desc')->take(5)->get();
         $data['admin'] = $this->ion_auth->is_admin();
 
         $hour = intval(date("H"));
@@ -348,7 +349,6 @@ class Cadet extends CI_Controller{
         }
     }
 
-
     
     /**
      * Updates a cadets admin permissions and rank.
@@ -431,7 +431,8 @@ class Cadet extends CI_Controller{
                 $this->ion_auth->register($username, $pass, $email, $params);
 
                 $message = "<h2>New Account Password</h2>
-                        <p>Your new account has been created! Below is your new temporary password please log on and change it as soon as possible!</p>
+                        <p>Your new account has been created! Below is your new temporary password please log on and 
+                        change it as soon as possible!</p>
                         <br><br>
                         <p>Temporary Password: " . $pass . "</p>" . "
                         <p>There are a few things you will need to do once you log on:</p>
@@ -445,10 +446,6 @@ class Cadet extends CI_Controller{
                         <div>--<br class=\"\" />Very Respectfully,</div>
                         <div>&nbsp;</div>
                         <div>ECPA Flight</div>";
-
-                // Load email library
-                $this->load->library('email');
-                $this->load->library('encryption');
 
                 $this->email->to($this->input->post('email'));
                 $this->email->from('noreply@detachment550.org','Air Force ROTC Detachment 550');

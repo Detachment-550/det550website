@@ -1,9 +1,8 @@
 //TODO: Add logic to prevent all users from being removed from the admin group
-
-/*
+/**
  * Retrieves all of the members of a given group.
  *
- * @param value - the group's id
+ * @param value The group's id
  */
 function select( value ) {
     $.ajax({
@@ -49,6 +48,10 @@ function select( value ) {
                 $("#add").css('display', 'block');
                 $("#remove").css('display', 'block');
             }
+        },
+        error: function (response) {
+            console.log(response);
+            alert('Error: Something went wrong');
         }
     });
 }

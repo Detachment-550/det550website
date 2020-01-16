@@ -9,7 +9,11 @@ tinymce.init({
     fontsize_formats: '8pt 10pt 11pt 12pt 14pt 18pt 24pt 36pt'
   });
 
-//TODO: Figre out what this does
+/**
+ * Validates the form.
+ *
+ * @return {boolean}
+ */
 function validateForm()
 {
     var fail = 0;
@@ -29,12 +33,11 @@ function validateForm()
     }
 }
 
-/*
+/**
  * Validates the form input and stores the masked phone number.
  */
 function validate()
 {
     $('#pphone').val($('#phone').cleanVal()); // Cleans the masked input
-
     return true;
 }

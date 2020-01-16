@@ -1,5 +1,9 @@
-$('#event').select2();
-$('#cadet').select2();
+$('#event').select2({
+    theme: "bootstrap"
+});
+$('#cadet').select2({
+    theme: "bootstrap"
+});
 
 /**
  * Shows the input and populates the attendance status based on the selected cadet and event.

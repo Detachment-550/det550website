@@ -20,7 +20,7 @@ foreach( $users as $user )
         echo "<div class='card' style='display:inline-block;text-align:center;'>";
 
         // This needs to be fixed with cadet's picture
-        echo "  <img class='img-fluid' style='height:200px;width:200px;' src='" . $file . "' alt='Cadet Profile Picture'>";
+        echo "  <img class='img-fluid' style='height:200px;width:250px;' src='" . $file . "' alt='Cadet Profile Picture'>";
         echo "<div class='card-body'>";
         if(strpos($user->class, "None") !== false)
         {
@@ -34,7 +34,7 @@ foreach( $users as $user )
         echo form_open('cadetdirectory/profile');
         echo "<input value='" . $user->id . "' name='id' style='display:none;' readonly>";
         echo "<button class='btn btn-sm btn-primary' type='submit'>View Profile</button></form></div>";
-        echo '<div class="card-footer"><small class="text-muted">' . wordwrap($user->major, 40,  "<br />\n") . '</small></div></div>';
+        echo '<div class="card-footer"><small class="text-muted">' . substr($user->major, 0, 32) . '</small></div></div>';
 
     }
 }

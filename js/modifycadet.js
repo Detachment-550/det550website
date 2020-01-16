@@ -1,7 +1,7 @@
-/*
+/**
  * Retrieves a user's information.
  *
- * @param user - the user id of the user who's information you're looking for
+ * @param user The user id of the user who's information you're looking for
  */
 function selectuser(user) {
     if(user !== "")
