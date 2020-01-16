@@ -1,11 +1,25 @@
 var approve_button = function(cell, formatterParams){ //plain text value
-    return "<button class='btn-sm btn-success' type='button' onclick='approve_memo(" + cell.getRow().getData().attendance_memo_id +
-        ")'>Approve</button>";
+    if(cell.getRow().getData().event_id !== '')
+    {
+        return "<button class='btn-sm btn-success' type='button' onclick='approve_memo(" + cell.getRow().getData().id +
+            ")'>Approve</button>";
+    }
+    else
+    {
+        return '';
+    }
 };
 
 var deny_button = function(cell, formatterParams){ //plain text value
-    return "<button class='btn-sm btn-danger' type='button' onclick='deny_memo(" + cell.getRow().getData().attendance_memo_id +
-        ")'>Deny</button>";
+    if(cell.getRow().getData().event_id !== '')
+    {
+        return "<button class='btn-sm btn-danger' type='button' onclick='deny_memo(" + cell.getRow().getData().id +
+            ")'>Deny</button>";
+    }
+    else
+    {
+        return '';
+    }
 };
 
 var memo_table = new Tabulator("#memo_table", {
@@ -14,10 +28,13 @@ var memo_table = new Tabulator("#memo_table", {
     ajaxURL:"/index.php/attendance/get_new_memos",
     ajaxContentType:"json",
     height: "400px",
-    index:'excuse_id',
+    index:'id',
     ajaxResponse: memo_format,
+    initialSort:[
+        {column:"created_at", dir:"desc"}, //sort by this first
+    ],
     columns:[
-        {title:"Memo ID", field:"attendance_memo_id", visible: false},
+        {title:"Memo ID", field:"id", visible: false},
         {title:"Event ID", field:"event_id", visible: false},
         {title:"Event", field:"event.name"},
         {title:"User", field:"full_name"},
@@ -44,6 +61,9 @@ var historical_memo_table = new Tabulator("#historical_memo_table", {
     height: "400px",
     index:'excuse_id',
     ajaxResponse: memo_format,
+    initialSort:[
+        {column:"created_at", dir:"desc"}, //sort by this first
+    ],
     columns:[
         {title:"Memo ID", field:"attendance_memo_id", visible: false},
         {title:"Event ID", field:"event_id", visible: false},

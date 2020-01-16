@@ -1,6 +1,15 @@
 This site is a fork of MITR project website that was built to track and simply ROTC life. This site tracks ROTC 
 attendance and provides a centralized communication system.
 
+## Technology Used
+- [Select2](https://select2.org/)
+- [CodeIgniter](https://codeigniter.com/user_guide/index.html)
+- [Bootstrap](https://getbootstrap.com/docs/4.4/getting-started/introduction/)
+- [MomentJS](https://momentjs.com/)
+- [jQuery](https://jquery.com/)
+- [Tabulator](http://tabulator.info/docs/4.5)
+- [Tiny MCE](https://www.tiny.cloud/docs/)
+
 ## Access the cPanel database
 
 ### Development Site

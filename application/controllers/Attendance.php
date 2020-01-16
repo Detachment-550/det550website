@@ -17,9 +17,9 @@ class Attendance extends CI_Controller
     function view()
     {
         $data['title'] = 'Cadet Events';
-        $data['events'] = Event_model::all();
+        $data['events'] = Event_model::orderBy('date', 'desc')->get();
         $data['memo_types'] = Attendance_memo_type_model::all();
-        $data['users'] = $this->ion_auth->users()->result();
+        $data['users'] = User_model::orderBy('last_name', 'asc')->get();
 
         // Loads the home page
         $this->load->view('templates/header', $data);
@@ -144,17 +144,16 @@ class Attendance extends CI_Controller
     function memo()
     {
         if (Attendance_model::where('user_id', '=', $this->input->post('cadet'))->where('event_id', '=', $this->input->post('event'))->exists()) {
-            $params = array(
-                'user' => $this->input->post('cadet'),
-                'eventid' => $this->input->post('event'),
-                'memod_absence' => 1
-            );
-            $this->Attendance_model->add_attendance($params);
+            $attendance = new Attendance_model();
+            $attendance->user_id = $this->input->post('cadet');
+            $attendance->event_id = $this->input->post('event');
+            $attendance->excused_absence = 1;
+            $attendance->save();
         }
 
         $data['title'] = 'Set Attendance';
         $data['event'] = Event_model::find($this->input->post('event'));
-        $data['cadets'] = User_model::all();
+        $data['cadets'] = User_model::orderBy('last_name','desc')->get();
 
         // Loads the home page
         $this->load->view('templates/header', $data);
@@ -287,11 +286,19 @@ class Attendance extends CI_Controller
             $user = $this->ion_auth->user()->row();
             $memo = new Attendance_memo_model();
             $memo->user_id = $user->id;
-            $memo->event_id = $this->input->post('event');
-            $memo->memo_type_id = $this->input->post('memo_type');
+
+            if($this->input->post('event') === '')
+            {
+                $memo->event_id = NULL;
+            }
+            else
+            {
+                $memo->event_id = $this->input->post('event');
+            }
+
+            $memo->attendance_memo_type_id = $this->input->post('memo_type');
             $memo->memo_for_id = $this->input->post('memo_for');
             $memo->comments = $this->input->post('comments');
-            $memo->save();
 
             $config['upload_path']          = './memo_attachments/';
             $config['allowed_types']        = 'pdf';
@@ -305,8 +312,9 @@ class Attendance extends CI_Controller
                 $data['upload_errors'] = $this->upload->display_errors();
 
                 $data['title'] = 'Cadet Events';
-                $data['events'] = Event_model::all();
+                $data['events'] = Event_model::orderBy('date', 'desc')->get();
                 $data['memo_types'] = Attendance_memo_type_model::all();
+                $data['users'] = User_model::orderBy('last_name', 'asc')->get();
 
                 $this->load->view('templates/header', $data);
                 $this->load->view('attendance/attendance');
@@ -334,7 +342,7 @@ class Attendance extends CI_Controller
     function memo_success(int $memo_id)
     {
         $data['title'] = 'Memo Submitted';
-        $data['memo'] = Attendance_memo_model::find($memo_id);
+        $data['memo'] = Attendance_memo_model::with('event', 'memo_for', 'attendance_memo_type')->find($memo_id);
 
         $this->load->view('templates/header', $data);
         $this->load->view('attendance/memo_success');
@@ -347,7 +355,7 @@ class Attendance extends CI_Controller
     function get_new_memos()
     {
         echo Attendance_memo_model::with('created_by', 'memo_for', 'event')->whereNull('approved')
-            ->get()->toJson();
+            ->whereNotNull('event_id')->get()->toJson();
     }
 
     /**

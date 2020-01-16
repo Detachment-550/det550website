@@ -10,7 +10,7 @@
                 <?php
                     foreach($events as $event)
                     {
-                        echo '<option value="' . $event->id . '">' . $event->name . '</option>';
+                        echo '<option value="' . $event->id . '">' . $event->name . ' ' . Date('Y-m-d', strtotime($event->date)) . '</option>';
                     }
                 ?>
             </select>
@@ -32,11 +32,11 @@
             ?>
             <div class="form-group">
                 <label for="event">Select Event</label>
-                <select id="event" name="event" class="form-control" required>
-                    <option value="">Choose...</option>
+                <select id="event" name="event" class="form-control">
+                    <option selected value="">No Event</option>
                     <?php
                         foreach ($events as $event) {
-                            echo '<option value="' . $event->id . '">' . $event->name . '</option>';
+                            echo '<option value="' . $event->id . '">' . $event->name . ' ' . Date('Y-m-d', strtotime($event->date)) . '</option>';
                         }
                     ?>
                 </select>

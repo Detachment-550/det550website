@@ -10,7 +10,10 @@
     <link rel="stylesheet" href="/application/third_party/bootstrap-4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="/application/third_party/bootstrap-4.3.1/css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="/application/third_party/bootstrap-4.3.1/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="/application/third_party/select2-4.0.12/css/select2.min.css">
+
     <script type="text/javascript" src="/application/third_party/bootstrap-4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/application/third_party/select2-4.0.12/js/select2.full.min.js"></script>
     <script type="text/javascript" src="/application/third_party/tinymce/jquery.tinymce.min.js"></script>
     <script type="text/javascript" src="/application/third_party/tinymce/tinymce.min.js"></script>
 </head>
