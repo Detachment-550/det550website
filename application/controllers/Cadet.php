@@ -264,25 +264,51 @@ class Cadet extends CI_Controller{
             $data['greeting'] = "Good Evening " . $user->rank . " " . $user->last_name;
         }
 
-        //TODO: Fix this
-        // Gets pt and llab attendance percentage
-//        $pt = Attendance_model::whereHas(['event' => function ($query) {
-//            $query->where('pt', '=', 1);
-//        }])->where('user_id', '=', $user->id)->count();
-//
-//        $llab = Attendance_model::whereHas(['event' => function ($query) {
-//            $query->where('llab', '=', 1);
-//        }])->where('user_id', '=', $user->id)->count();
-//
-//        $pt_sum = Attendance_model::whereHas(['event' => function ($query) {
-//            $query->where('pt', '=', 1);
-//        }])->count();
-//
-//        $llab_sum = Attendance_model::whereHas(['event' => function ($query) {
-//            $query->where('pt', '=', 1);
-//        }])->count();
-        $pt_sum = 0;
-        $llab_sum = 0;
+        // Gets pt and llab attendance percentage for the logged in user
+        if(date("m") >= 1 && date("m") < 6)
+        {
+            $pt = Attendance_model::whereHas('event', function ($query) {
+                $query->where('pt', '=', 1)->whereYear('date', '=', Date('Y', strtotime('now')))
+                    ->whereMonth('date', '<', 6);
+            })->where('user_id', '=', $user->id)->count();
+
+            $llab = Attendance_model::whereHas('event', function ($query) {
+                $query->where('llab', '=', 1)->whereYear('date', '=', Date('Y', strtotime('now')))
+                    ->whereMonth('date', '<', 6);
+            })->where('user_id', '=', $user->id)->count();
+
+            $pt_sum = Attendance_model::whereHas('event', function ($query) {
+                $query->where('pt', '=', 1)->whereYear('date', '=', Date('Y', strtotime('now')))
+                    ->whereMonth('date', '<', 6);
+            })->count();
+
+            $llab_sum = Attendance_model::whereHas('event', function ($query) {
+                $query->where('pt', '=', 1)->whereYear('date', '=', Date('Y', strtotime('now')))
+                    ->whereMonth('date', '<', 6);
+            })->count();
+        }
+        else
+        {
+            $pt = Attendance_model::whereHas('event', function ($query) {
+                $query->where('pt', '=', 1)->whereYear('date', '=', Date('Y', strtotime('now')))
+                    ->whereMonth('date', '>=', 6);
+            })->where('user_id', '=', $user->id)->count();
+
+            $llab = Attendance_model::whereHas('event', function ($query) {
+                $query->where('llab', '=', 1)->whereYear('date', '=', Date('Y', strtotime('now')))
+                    ->whereMonth('date', '>=', 6);
+            })->where('user_id', '=', $user->id)->count();
+
+            $pt_sum = Attendance_model::whereHas('event', function ($query) {
+                $query->where('pt', '=', 1)->whereYear('date', '=', Date('Y', strtotime('now')))
+                    ->whereMonth('date', '>=', 6);
+            })->count();
+
+            $llab_sum = Attendance_model::whereHas('event', function ($query) {
+                $query->where('pt', '=', 1)->whereYear('date', '=', Date('Y', strtotime('now')))
+                    ->whereMonth('date', '>=', 6);
+            })->count();
+        }
 
         // Checks to see if no pt events have occurred yet
         if($pt_sum == 0)
@@ -536,10 +562,9 @@ class Cadet extends CI_Controller{
     /**
      * Returns json data of the inputted user.
      *
-     * @params user $user - selected user
-     * @return string - json data
+     * @param int $user The selected user id
      */
-    function info($user)
+    function info(int $user)
     {
         $data['user'] = $this->ion_auth->user($user)->row();
         $data['admin'] = $this->ion_auth->is_admin($user);
