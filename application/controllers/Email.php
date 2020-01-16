@@ -85,8 +85,7 @@
          */
         function daily_announcements()
         {
-            $this->load->model('Announcement_model');
-            $announcements = Announcement_model::whereDate('created_at', '=', Date('Y-m-d', strtotime('now')));
+            $announcements = Announcement_model::whereDate('created_at', '=', Date('Y-m-d', strtotime('now')))->get();
             if(count($announcements) > 0)
             {
                 // Sets the timezone to our time zone
@@ -108,6 +107,8 @@
                     $headers .= "Content-type: text/html\r\n";
                     echo mail($user->email, 'Wing Email', $message, $headers);
                 }
+
+                echo 'Announcements sent...';
             }
         }
     }
