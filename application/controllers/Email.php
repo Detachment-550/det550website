@@ -85,12 +85,12 @@
          */
         function daily_announcements()
         {
+            // Sets the timezone to our time zone
+            date_default_timezone_set( "America/New_York" );
             $announcements = Announcement_model::whereDate('created_at', '=', Date('Y-m-d', strtotime('now')))->get();
+
             if(count($announcements) > 0)
             {
-                // Sets the timezone to our time zone
-                date_default_timezone_set( "America/New_York" );
-
                 $message = "<h1 style='text-align:center;'>Daily Announcements</h1>";
                 foreach($announcements as $announcement)
                 {
@@ -99,8 +99,7 @@
                         . $announcement->body . "<br><hr><br>";
                 }
 
-                $users = $this->ion_auth->users()->result(); // get all users
-
+                $users = User_model::all(); // get all users
                 foreach( $users as $user )
                 {
                     $headers = 'From: Detachment 550 Air Force ROTC <noreply@det550.com>' . "\r\n";
