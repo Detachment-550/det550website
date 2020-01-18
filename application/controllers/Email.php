@@ -85,10 +85,9 @@
          */
         function daily_announcements()
         {
-            // Sets the timezone to our time zone
-            date_default_timezone_set( "America/New_York" );
-            $announcements = Announcement_model::whereDate('created_at', '=', Date('Y-m-d', strtotime('now')))->get();
+            date_default_timezone_set( "America/New_York" ); // Sets the timezone to our time zone
 
+            $announcements = Announcement_model::whereDate('created_at', '=', Date('Y-m-d', strtotime('now')))->get();
             if(count($announcements) > 0)
             {
                 $message = "<h1 style='text-align:center;'>Daily Announcements</h1>";
