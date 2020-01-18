@@ -267,25 +267,118 @@ class Attendance extends CI_Controller
 
 
     /**
-     * Get json data for master attendance.
+     * Get json data for master attendance for a given date range.
+     *
+     * @param string $start_date
+     * @param string $end_date
      */
-    function get_master()
+    function get_attendance_records(string $start_date, string $end_date)
     {
-        $data['events'] = Event_model::whereYear('date', '=', Date('Y', strtotime('now')))
-            ->with('attendees.user', 'attendees.event')->get();
-        $data['users'] = User_model::all();
-        echo json_encode($data);
-    }
+        $sql_start_date = Date('Y-m-d', strtotime($start_date));
+        $sql_end_date = Date('Y-m-d', strtotime($end_date));
 
-    /**
-     * Gets the weekly events.
-     */
-    function weekly_events()
-    {
-        echo Attendance_model::whereHas('event', function($query) {
-            $query->whereDate('date', '<', Date('Y-m-d', strtotime('next Sunday')))
-                ->whereDate('date', '>=', Date('Y-m-d', strtotime('this Sunday')));
-        })->with('event', 'user')->get()->toJson();
+        $events = Event_model::whereDate('date', '>=', $sql_start_date)->whereDate('date', '<=', $sql_end_date)
+            ->with('attendees.user', 'attendees.event')->get();
+
+        // Adds a column for the name of the cadet
+        $column = NULL;
+        $column['title'] = 'Cadet';
+        $column['field'] = 'name';
+        $column['download'] = TRUE;
+        $column['headerVertical'] = TRUE;
+        $data['columns'][] = $column;
+
+        // Adds a column for the AS class
+        $column = NULL;
+        $column['title'] = 'AS Class';
+        $column['field'] = 'class';
+        $column['download'] = FALSE;
+        $column['headerVertical'] = TRUE;
+        $data['columns'][] = $column;
+
+
+        // Adds columns for each event
+        foreach ($events as $event) {
+            $column = NULL;
+            $column['title'] = $event->name;
+            $column['field'] = '' . $event->id;
+            $column['download'] = TRUE;
+            $column['formatter'] = 'color';
+            $column['headerVertical'] = TRUE;
+            $data['columns'][] = $column;
+        }
+
+        // Adds a column for the PT total for a given cadet
+        $column = NULL;
+        $column['title'] = 'PT Total';
+        $column['field'] = 'pt';
+        $column['download'] = TRUE;
+        $column['align'] = 'center';
+        $column['headerVertical'] = FALSE;
+        $data['columns'][] = $column;
+
+        // Adds a column for the LLAB total for a given cadet
+        $column = NULL;
+        $column['title'] = 'LLAB Total';
+        $column['field'] = 'llab';
+        $column['download'] = TRUE;
+        $column['align'] = 'center';
+        $column['headerVertical'] = FALSE;
+        $data['columns'][] = $column;
+
+        $users = User_model::orderBy('last_name', 'asc')->get();
+        $user_records = array();
+        foreach ($users as $user) {
+            $user_record = NULL;
+            $user_record['name'] = $user->rank . ' ' . $user->last_name;
+            $user_record['class'] = $user->class;
+
+            // Gets the users attendance record for each event and stores it
+            foreach ($events as $event)
+            {
+                $attendance = Attendance_model::whereHas('event', function ($query) use ($event, $sql_end_date, $sql_start_date) {
+                    $query->where('event_id', '=', $event->id)->whereDate('date', '>=', $sql_start_date)
+                        ->whereDate('date', '<=', $sql_end_date);
+                })->with('event')->where('user_id', '=', $user->id)->first();
+
+                if($attendance === NULL)
+                {
+                    $user_record[$event->id] = 'white';
+                }
+                else if($attendance->excused_absence === 1)
+                {
+                    $user_record[$event->id] = 'yellow';
+                }
+                else
+                {
+                    $user_record[$event->id] = 'green';
+                }
+            }
+
+            $user_pt_count = Attendance_model::whereHas('event', function ($query) use ($sql_end_date, $sql_start_date) {
+                $query->whereDate('date', '>=', $sql_start_date)->whereDate('date', '<=', $sql_end_date)->where('pt', '=', 1);
+            })->with('event')->where('user_id', '=', $user->id)->count();
+
+            $pt_total = Event_model::whereDate('date', '>=', $sql_start_date)->whereDate('date', '<=', $sql_end_date)
+                ->where('pt', '=', 1)->count();
+
+            $user_record['pt'] = $user_pt_count . '/' . $pt_total;
+
+            $user_llab_count = Attendance_model::whereHas('event', function ($query) use ($sql_end_date, $sql_start_date) {
+                $query->whereDate('date', '>=', $sql_start_date)->whereDate('date', '<=', $sql_end_date)->where('llab', '=', 1);
+            })->with('event')->where('user_id', '=', $user->id)->count();
+
+            $llab_total = Event_model::whereDate('date', '>=', $sql_start_date)->whereDate('date', '<=', $sql_end_date)
+                ->where('llab', '=', 1)->count();
+
+            $user_record['llab'] = $user_llab_count . '/' . $llab_total;
+
+            array_push($user_records, $user_record);
+        }
+
+        $data['user_records'] = $user_records;
+
+        echo json_encode($data);
     }
 
     /**

@@ -1,7 +1,3 @@
-<link href="/application/third_party/tabulator/css/bootstrap/tabulator_bootstrap4.min.css" rel="stylesheet">
-<script type="text/javascript" src="/application/third_party/tabulator/js/tabulator.min.js"></script>
-<script type="text/javascript" src="/application/third_party/moment/min/moment-with-locales.min.js"></script>
-
 <div class="jumbotron jumbotron-fluid">
     <div class="shadow p-3 mb-5 bg-white rounded" style="margin: 15px;">
         <h2>Create an Event</h2>
