@@ -409,6 +409,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#windows-development-set-up" class="md-nav__link">
+    Windows Development Set Up
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mac-os-development-set-up" class="md-nav__link">
+    Mac OS Development Set Up
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#site-configuration" class="md-nav__link">
+    Site Configuration
+  </a>
+  
+</li>
+      
       
       
       
@@ -499,6 +520,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#windows-development-set-up" class="md-nav__link">
+    Windows Development Set Up
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mac-os-development-set-up" class="md-nav__link">
+    Mac OS Development Set Up
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#site-configuration" class="md-nav__link">
+    Site Configuration
+  </a>
+  
+</li>
+      
       
       
       
@@ -561,6 +603,108 @@ be accomplished by going to the following website
 <div class="codehilite"><pre><span></span><span class="n">Username</span><span class="o">:</span> <span class="n">g7afzsg72ror</span>
 <span class="n">Password</span><span class="o">:</span> <span class="n">F</span><span class="err">@</span><span class="n">lcons550</span>
 </pre></div>
+
+<h2 id="windows-development-set-up">Windows Development Set Up<a class="headerlink" href="#windows-development-set-up" title="Permanent link">&para;</a></h2>
+<h4>Local Database Configuration</h4>
+<ol>
+<li>First install MYSQL for windows community edition at the following link: 
+<a href="https://dev.mysql.com/downloads/installer/">Windows MySQL Installer</a></li>
+<li>Run through the installation process and remember what you set your root password to because you will need it later.</li>
+<li>Go into the project and edit the following file application/config/database.php.</li>
+<li>In this file fill out the following information according to what you configured in the installation of your version 
+of MYSQL.</li>
+<li>At this point you will need to change the way the database is configured for authentication. Use the following 
+command with your username and password for the database user who will access the shelterenterprise database TODO Find command.</li>
+<li>Then copy the schema located in the repository sql/shelterenterprises.sql and run that code under a schema titled 
+shelterenterprise. This will structure your database for the website.</li>
+</ol>
+<h4>Local PHP Configuration</h4>
+<ol>
+<li>Download the latest version of php at the following link: <a href="https://windows.php.net/download/">PHP Download</a></li>
+<li>Extract the zip folder to a folder where you'd like to store PHP. </li>
+<li>Go in this folder and find the file titled 'php.ini - development' and create a new document in the same directory called 
+php.ini. This will be the configuration settings file of your local PHP environment.</li>
+<li>Edit this file and uncomment the following line:</li>
+</ol>
+<div class="codehilite"><pre><span></span><span class="x">extension_dir = &quot;ext&quot;</span>
+</pre></div>
+
+<p>to allows the computer to find the extensions 
+like mysqli that you will need.
+5. You must then find the line: </p>
+<div class="codehilite"><pre><span></span><span class="x">;extension=mysqli</span>
+</pre></div>
+
+<p>Uncomment it to allow php to use that extension. (To uncomment remove the ';')
+6. Now if you were to attempt to run the site you will most likely get the following error: </p>
+<div class="codehilite"><pre><span></span><span class="x">Message: mysqli::real_connect(): The server requested authentication method unknown to the client [caching_sha2_password]</span>
+</pre></div>
+
+<p>To fix this use one of the following sql commands under your schema shelterenterprise:</p>
+<div class="codehilite"><pre><span></span><span class="k">ALTER</span> <span class="k">USER</span> <span class="s1">&#39;mysqlUsername&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span> 
+<span class="n">IDENTIFIED</span> <span class="k">WITH</span> <span class="n">mysql_native_password</span> 
+<span class="k">BY</span> <span class="s1">&#39;mysqlUsernamePassword&#39;</span><span class="p">;</span>
+</pre></div>
+
+<p>or if you are creating a user for the database:</p>
+<div class="codehilite"><pre><span></span> <span class="k">CREATE</span> <span class="k">USER</span> <span class="s1">&#39;jeffrey&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span> 
+ <span class="n">IDENTIFIED</span> <span class="k">WITH</span> <span class="n">mysql_native_password</span> 
+ <span class="k">BY</span> <span class="s1">&#39;password&#39;</span><span class="p">;</span>
+</pre></div>
+
+<p>To run your locally hosted site run the following in your terminal. 
+Note: you can use any port you wish to that is not already in use. Using port 8040 is not required. If you do choose to 
+use a different port just update the application/config/config.php file accordingly.</p>
+<div class="codehilite"><pre><span></span><span class="err">&quot;C:\Path to your php exe\php.exe&quot; -S localhost:8040 -t C:\Path to the project folder\shelterenterprises</span>
+</pre></div>
+
+<p>Now your windows environment should be ready to develop! I highly recommend using PHP Storm for your IDE.</p>
+<h2 id="mac-os-development-set-up">Mac OS Development Set Up<a class="headerlink" href="#mac-os-development-set-up" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Now if you were to attempt to run the site you will most likely get the following error: </li>
+</ol>
+<div class="codehilite"><pre><span></span><span class="x">Message: mysqli::real_connect(): The server requested authentication method unknown to the client [caching_sha2_password]</span>
+</pre></div>
+
+<p>To fix this use one of the following sql commands under your schema shelterenterprise:</p>
+<div class="codehilite"><pre><span></span><span class="k">ALTER</span> <span class="k">USER</span> <span class="s1">&#39;mysqlUsername&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span> 
+<span class="n">IDENTIFIED</span> <span class="k">WITH</span> <span class="n">mysql_native_password</span> 
+<span class="k">BY</span> <span class="s1">&#39;mysqlUsernamePassword&#39;</span><span class="p">;</span>
+</pre></div>
+
+<p>or if you are creating a user for the database:</p>
+<div class="codehilite"><pre><span></span> <span class="k">CREATE</span> <span class="k">USER</span> <span class="s1">&#39;jeffrey&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span> 
+ <span class="n">IDENTIFIED</span> <span class="k">WITH</span> <span class="n">mysql_native_password</span> 
+ <span class="k">BY</span> <span class="s1">&#39;password&#39;</span><span class="p">;</span>
+</pre></div>
+
+<p><mark class="critic">TODO</mark></p>
+<h2 id="site-configuration">Site Configuration<a class="headerlink" href="#site-configuration" title="Permanent link">&para;</a></h2>
+<p>At this point you have configured your environment for development and are sitting at the login screen. However there 
+are no registered users in the site currently. Run the following in your SQL command line under the shelterenterprise 
+schema:</p>
+<p>TODO: Update this to work with the current users structure
+<div class="codehilite"><pre><span></span><span class="c1">## Creates the groups needed for the application</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="ss">`groups`</span> <span class="p">(</span><span class="ss">`id`</span><span class="p">,</span> <span class="ss">`name`</span><span class="p">,</span> <span class="ss">`description`</span><span class="p">)</span> <span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;admin&#39;</span><span class="p">,</span><span class="s1">&#39;Administrator&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;members&#39;</span><span class="p">,</span><span class="s1">&#39;General User&#39;</span><span class="p">);</span>
+
+<span class="c1">## Creates an admin user to login as</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="ss">`users`</span> <span class="p">(</span><span class="ss">`id`</span><span class="p">,</span> <span class="ss">`ip_address`</span><span class="p">,</span> <span class="ss">`username`</span><span class="p">,</span> <span class="ss">`password`</span><span class="p">,</span><span class="ss">`activation_code`</span><span class="p">,</span> <span class="ss">`created_on`</span><span class="p">)</span> <span class="k">VALUES</span>
+<span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span><span class="s1">&#39;admin&#39;</span><span class="p">,</span><span class="s1">&#39;$2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;1268889823&#39;</span><span class="p">);</span>
+
+<span class="c1">## Adds the admin user to the general user group and the admin group</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="ss">`users_groups`</span> <span class="p">(</span><span class="ss">`id`</span><span class="p">,</span> <span class="ss">`user_id`</span><span class="p">,</span> <span class="ss">`group_id`</span><span class="p">)</span> <span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+</pre></div>
+<mark class="critic">TODO: Finish the SQL command above</mark></p>
+<p>Now refresh the page and you will be able to log in as </p>
+<div class="codehilite"><pre><span></span><span class="n">username</span><span class="o">:</span> <span class="n">admin</span>
+<span class="n">password</span><span class="o">:</span> <span class="n">password</span>
+</pre></div>
+
+<p>and you are ready to develop on the shelter enterprise supply chain management application! </p>
                 
                   
                 
