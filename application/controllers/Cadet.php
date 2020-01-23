@@ -266,49 +266,33 @@ class Cadet extends CI_Controller{
         }
 
         // Gets pt and llab attendance percentage for the logged in user
-        if(date("m") >= 1 && date("m") < 6)
+        if(date("m") >= 1 && date("m") <= 6)
         {
             $pt = Attendance_model::whereHas('event', function ($query) {
-                $query->where('pt', '=', 1)->whereYear('date', '=', Date('Y', strtotime('now')))
-                    ->whereMonth('date', '<', 6);
-            })->where('user_id', '=', $user->id)->count();
+                $query->whereMonth('date', '<=', 6)->where('pt', '=', 1);
+            })->with('event')->where('user_id', '=', $user->id)->count();
+
+            $pt_sum = Event_model::whereMonth('date', '<=', 6)->where('pt', '=', 1)->count();
 
             $llab = Attendance_model::whereHas('event', function ($query) {
-                $query->where('llab', '=', 1)->whereYear('date', '=', Date('Y', strtotime('now')))
-                    ->whereMonth('date', '<', 6);
-            })->where('user_id', '=', $user->id)->count();
+                $query->whereMonth('date', '<=', 6)->where('llab', '=', 1);
+            })->with('event')->where('user_id', '=', $user->id)->count();
 
-            $pt_sum = Attendance_model::whereHas('event', function ($query) {
-                $query->where('pt', '=', 1)->whereYear('date', '=', Date('Y', strtotime('now')))
-                    ->whereMonth('date', '<', 6);
-            })->count();
-
-            $llab_sum = Attendance_model::whereHas('event', function ($query) {
-                $query->where('pt', '=', 1)->whereYear('date', '=', Date('Y', strtotime('now')))
-                    ->whereMonth('date', '<', 6);
-            })->count();
+            $llab_sum = Event_model::whereMonth('date', '<=', 6)->where('llab', '=', 1)->count();
         }
         else
         {
             $pt = Attendance_model::whereHas('event', function ($query) {
-                $query->where('pt', '=', 1)->whereYear('date', '=', Date('Y', strtotime('now')))
-                    ->whereMonth('date', '>=', 6);
-            })->where('user_id', '=', $user->id)->count();
+                $query->whereMonth('date', '>', 6)->where('pt', '=', 1);
+            })->with('event')->where('user_id', '=', $user->id)->count();
+
+            $pt_sum = Event_model::whereMonth('date', '>', 6)->where('pt', '=', 1)->count();
 
             $llab = Attendance_model::whereHas('event', function ($query) {
-                $query->where('llab', '=', 1)->whereYear('date', '=', Date('Y', strtotime('now')))
-                    ->whereMonth('date', '>=', 6);
-            })->where('user_id', '=', $user->id)->count();
+                $query->whereMonth('date', '>', 6)->where('llab', '=', 1);
+            })->with('event')->where('user_id', '=', $user->id)->count();
 
-            $pt_sum = Attendance_model::whereHas('event', function ($query) {
-                $query->where('pt', '=', 1)->whereYear('date', '=', Date('Y', strtotime('now')))
-                    ->whereMonth('date', '>=', 6);
-            })->count();
-
-            $llab_sum = Attendance_model::whereHas('event', function ($query) {
-                $query->where('pt', '=', 1)->whereYear('date', '=', Date('Y', strtotime('now')))
-                    ->whereMonth('date', '>=', 6);
-            })->count();
+            $llab_sum = Event_model::whereMonth('date', '>', 6)->where('llab', '=', 1)->count();
         }
 
         // Checks to see if no pt events have occurred yet
