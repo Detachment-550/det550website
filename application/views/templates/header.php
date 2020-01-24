@@ -49,6 +49,7 @@
     <script src="/application/vendor/ashoverscroll/jquery-asHoverScroll.js"></script>
     <script type="text/javascript" src="/application/vendor/moment/moment/min/moment-with-locales.min.js"></script>
     <script type="text/javascript" src="/application/third_party/tabulator/dist/js/tabulator.min.js"></script>
+    <script type="text/javascript" src="/application/third_party/tinymce/tinymce.min.js"></script>
 
     <title><?php echo $title; ?></title>
 
