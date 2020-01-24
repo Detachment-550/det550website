@@ -134,10 +134,39 @@
             <div>
                 <ul class="site-menu" data-plugin="menu">
                     <li class="site-menu-category">General</li>
+                    <li class="site-menu-item has-sub">
+                        <a href="javascript:void(0)">
+                            <i class="site-menu-icon fa-calendar-check-o" aria-hidden="true"></i>
+                            <span class="site-menu-title">Attendance</span>
+                            <span class="site-menu-arrow"></span>
+                        </a>
+                        <ul class="site-menu-sub">
+                            <li class="site-menu-item">
+                                <a href="/index.php/attendance/view">
+                                    <span class="site-menu-title">Event Attendance</span>
+                                </a>
+                            </li>
+                            <?php
+                                if( $this->ion_auth->is_admin() || $this->session->userdata('attendance') )
+                                {
+                                    echo '<li class="site-menu-item">
+                                            <a href="/index.php/attendance/admin">
+                                                <span class="site-menu-title">Admin Attendance</span>
+                                            </a>
+                                        </li>';
+                                    echo '<li class="site-menu-item">
+                                            <a href="/index.php/attendance/master">
+                                                <span class="site-menu-title">View Attendance</span>
+                                            </a>
+                                        </li>';
+                                }
+                            ?>
+                        </ul>
+                    </li>
                     <li class="site-menu-item">
                         <a href="/index.php/cadet/profile">
                             <i class="site-menu-icon fa-user" aria-hidden="true"></i>
-                            <span class="site-menu-title">Profile</span>
+                            <span class="site-menu-title">My Profile</span>
                         </a>
                     </li>
                     <li class="site-menu-item">
@@ -148,103 +177,94 @@
                     </li>
                     <li class="site-menu-item">
                         <a href="/index.php/announcement/view">
-                            <i class="site-menu-icon md-blur-circular" aria-hidden="true"></i>
+                            <i class="site-menu-icon fa-comment" aria-hidden="true"></i>
                             <span class="site-menu-title">Announcement</span>
                         </a>
                     </li>
                     <li class="site-menu-item">
-                        <a href="/index.php/attendance/view">
-                            <i class="site-menu-icon md-blur-circular" aria-hidden="true"></i>
-                            <span class="site-menu-title">Event Attendance</span>
-                        </a>
-                    </li>
-                    <li class="site-menu-item">
-                        <a href="https://1drv.ms/u/s!AuvfGdTu423La0njOdUq_ubV2R8?e=eyODRf">
-                            <i class="site-menu-icon md-blur-circular" aria-hidden="true"></i>
-                            <span class="site-menu-title">Photos</span>
-                        </a>
-                    </li>
-                    <li class="site-menu-item">
-                        <a href="https://1drv.ms/u/s!AuvfGdTu423LggbFuMcGqLDuT68s?e=tm3aE7">
-                            <i class="site-menu-icon md-blur-circular" aria-hidden="true"></i>
-                            <span class="site-menu-title">OneDrive</span>
-                        </a>
-                    </li>
-                    <li class="site-menu-item">
-                        <a href="https://calendar.google.com/calendar?cid=aDBlM2lkOW5pYThhZDc0M2xwY2Zxa3Y3Z29AZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ">
-                            <i class="site-menu-icon md-blur-circular" aria-hidden="true"></i>
-                            <span class="site-menu-title">Calendar</span>
-                        </a>
-                    </li>
-                    <li class="site-menu-item">
                         <a href="/index.php/wiki/view">
-                            <i class="site-menu-icon md-blur-circular" aria-hidden="true"></i>
+                            <i class="site-menu-icon fa-newspaper-o" aria-hidden="true"></i>
                             <span class="site-menu-title">Wiki</span>
                         </a>
                     </li>
                     <li class="site-menu-item">
                         <a href="/documentation/site/index.html">
-                            <i class="site-menu-icon md-blur-circular" aria-hidden="true"></i>
+                            <i class="site-menu-icon fa-book" aria-hidden="true"></i>
                             <span class="site-menu-title">Documentation</span>
                         </a>
                     </li>
                     <li class="site-menu-item">
                         <a href="/index.php/cadet/wingstructure">
-                            <i class="site-menu-icon md-blur-circular" aria-hidden="true"></i>
+                            <i class="site-menu-icon fa-fighter-jet" aria-hidden="true"></i>
                             <span class="site-menu-title">Wing Structure</span>
                         </a>
                     </li>
-                    <li class="site-menu-item">
-                        <a href="https://rpi.account.box.com/login">
-                            <i class="site-menu-icon md-blur-circular" aria-hidden="true"></i>
-                            <span class="site-menu-title">Box</span>
-                        </a>
-                    </li>
+
                     <li class="site-menu-item">
                         <a href="/index.php/email/view">
-                            <i class="site-menu-icon md-blur-circular" aria-hidden="true"></i>
+                            <i class="site-menu-icon fa-envelope" aria-hidden="true"></i>
                             <span class="site-menu-title">Send Email</span>
                         </a>
                     </li>
-                    <li class="site-menu-item">
-                        <a href="/index.php/alumni/view">
-                            <i class="site-menu-icon md-blur-circular" aria-hidden="true"></i>
-                            <span class="site-menu-title">View Alumni</span>
-                        </a>
-                    </li>
-                    <?php
-                        if( $this->ion_auth->is_admin() )
-                        {
-                            echo '<li class="site-menu-item">
-                                <a href="/index.php/cadet/view">
-                                    <i class="site-menu-icon md-blur-circular" aria-hidden="true"></i>
-                                    <span class="site-menu-title">Admin</span>
-                                </a>
-                            </li>';
-                            echo '<li class="site-menu-item">
-                                <a href="/index.php/alumni/modify">
-                                    <i class="site-menu-icon md-blur-circular" aria-hidden="true"></i>
-                                    <span class="site-menu-title">Admin</span>
-                                </a>
-                            </li>';
-                        }
 
-                        if( $this->ion_auth->is_admin() || $this->session->userdata('attendance') )
-                        {
-                            echo '<li class="site-menu-item">
-                                <a href="/index.php/attendance/admin">
-                                    <i class="site-menu-icon md-blur-circular" aria-hidden="true"></i>
-                                    <span class="site-menu-title">Admin Attendance</span>
+                    <li class="site-menu-item has-sub">
+                        <a href="javascript:void(0)">
+                            <i class="site-menu-icon fa-external-link" aria-hidden="true"></i>
+                            <span class="site-menu-title">External Links</span>
+                            <span class="site-menu-arrow"></span>
+                        </a>
+                        <ul class="site-menu-sub">
+                            <li class="site-menu-item">
+                                <a href="https://rpi.account.box.com/login">
+                                    <span class="site-menu-title">Box</span>
                                 </a>
-                            </li>';
-                            echo '<li class="site-menu-item">
-                                <a href="/index.php/attendance/master">
-                                    <i class="site-menu-icon md-blur-circular" aria-hidden="true"></i>
-                                    <span class="site-menu-title">View Attendance</span>
+                            </li>
+                            <li class="site-menu-item">
+                                <a href="https://1drv.ms/u/s!AuvfGdTu423La0njOdUq_ubV2R8?e=eyODRf">
+                                    <span class="site-menu-title">Photos</span>
                                 </a>
-                            </li>';
-                        }
-                    ?>
+                            </li>
+                            <li class="site-menu-item">
+                                <a href="https://1drv.ms/u/s!AuvfGdTu423LggbFuMcGqLDuT68s?e=tm3aE7">
+                                    <span class="site-menu-title">OneDrive</span>
+                                </a>
+                            </li>
+                            <li class="site-menu-item">
+                                <a href="https://calendar.google.com/calendar?cid=aDBlM2lkOW5pYThhZDc0M2xwY2Zxa3Y3Z29AZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ">
+                                    <span class="site-menu-title">Calendar</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="site-menu-item has-sub">
+                        <a href="javascript:void(0)">
+                            <i class="site-menu-icon wb-table" aria-hidden="true"></i>
+                            <span class="site-menu-title">Alumni</span>
+                            <span class="site-menu-arrow"></span>
+                        </a>
+                        <ul class="site-menu-sub">
+                            <li class="site-menu-item">
+                                <a href="/index.php/alumni/view">
+                                    <span class="site-menu-title">View Alumni</span>
+                                </a>
+                            </li>
+                            <?php
+                                if( $this->ion_auth->is_admin() )
+                                {
+                                    echo '<li class="site-menu-item">
+                                        <a href="/index.php/cadet/view">
+                                            <span class="site-menu-title">Admin</span>
+                                        </a>
+                                    </li>';
+                                    echo '<li class="site-menu-item">
+                                        <a href="/index.php/alumni/modify">
+                                            <span class="site-menu-title">Modify Alumni</span>
+                                        </a>
+                                    </li>';
+                                }
+                            ?>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
