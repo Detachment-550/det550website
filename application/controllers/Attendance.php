@@ -294,6 +294,7 @@ class Attendance extends CI_Controller
         $column['field'] = 'class';
         $column['download'] = FALSE;
         $column['headerVertical'] = TRUE;
+        $column['visible'] = FALSE;
         $data['columns'][] = $column;
 
 

@@ -2,13 +2,20 @@ This site is a fork of MITR project website that was built to track and simply R
 attendance and provides a centralized communication system.
 
 ## Technology Used
-- [Select2](https://select2.org/)
-- [CodeIgniter](https://codeigniter.com/user_guide/index.html)
-- [Bootstrap](https://getbootstrap.com/docs/4.4/getting-started/introduction/)
-- [MomentJS](https://momentjs.com/)
-- [jQuery](https://jquery.com/)
-- [Tabulator](http://tabulator.info/docs/4.5)
-- [Tiny MCE](https://www.tiny.cloud/docs/)
+- [Select2](https://select2.org/): Used for the searchable dropdowns
+- [CodeIgniter](https://codeigniter.com/user_guide/index.html): The framework which the site runs on
+- [Bootstrap](https://getbootstrap.com/docs/4.4/getting-started/introduction/): The front end html and css framework the 
+site uses
+- [MomentJS](https://momentjs.com/): Used to format dates in JS
+- [jQuery](https://jquery.com/): Used to simplify JS code
+- [Tabulator](http://tabulator.info/docs/4.5): Used for displaying table information
+- [Tiny MCE](https://www.tiny.cloud/docs/): Used as a word editor in the web
+- [MySQL](https://dev.mysql.com/downloads/installer/): Database language
+- [PHP](https://windows.php.net/download/): Server code language
+- [Eloquent](https://laravel.com/docs/master/eloquent): Database Object Relational Model 
+- [MkDocs](): Used to create the html for the documentation from the Markdown
+- [MkDocs Material Theme](https://github.com/squidfunk/mkdocs-material): Used to give a theme to the documentation
+- [Python MkDocs Extension](https://squidfunk.github.io/mkdocs-material/extensions/pymdown/)
 
 ## Access the cPanel database
 
@@ -24,7 +31,9 @@ You will then have access to all of the back end side of the website.
 
 ### Production Site
 
-TODO
+To manage the cPanel account for the Production site use this 
+[cPanel](https://a2plcpnl0892.prod.iad2.secureserver.net:2083/cpsess1856006599/frontend/paper_lantern/index.html?login=1&post_login=23064285561848) 
+link.
 
 ## Filezilla
 
@@ -52,6 +61,12 @@ The production's cPanel ssh login information is as follows:
 ```
 Username: g7afzsg72ror
 Password: F@lcons550
+```
+
+To log on you must use the server IP address and use SSH protocol: 
+
+```bash
+107.180.9.193
 ```
    
 ## Windows Development Set Up
