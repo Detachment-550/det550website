@@ -1,7 +1,6 @@
 <link rel="stylesheet" type="text/css" href="/css/profile.css">
 
 <body>
-<div class="jumbotron container-fluid">
     <h1 class="display-4"><?php echo $heading; ?></h1>
     <div class="container">
         <div class="row">
@@ -69,5 +68,4 @@
             </div>
         </div>
     </div>
-</div>
 </body>

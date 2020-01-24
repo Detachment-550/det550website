@@ -1,4 +1,3 @@
-<div class="jumbotron jumbotron-fluid">
     <div class="shadow p-3 mb-5 bg-white rounded" style="margin: 15px;">
         <h2>Create an Event</h2>
         <form action="/index.php/cadetevent/add" method="POST">
@@ -159,6 +158,5 @@
             </div>
         </form>
     </div>
-</div>
 
 <script type="text/javascript" src="/js/adminattendance.js"></script>

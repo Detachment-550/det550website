@@ -1,8 +1,6 @@
 <script src="/application/third_party/jQuery-Mask-Plugin/dist/jquery.mask.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/css/editprofile.css">
 
-<div class="jumbotron jumbotron-fluid">
-
     <div class="card">
         <div class="card-header">
             <h5 class="card-title">Update Profile Picture</h5>
@@ -106,6 +104,5 @@
             </form>
         </div>
     </div>
-</div>
 
 <script src="/js/editProfile.js"></script>

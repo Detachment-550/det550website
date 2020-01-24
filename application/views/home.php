@@ -34,7 +34,6 @@
 </style>
 
 
-<div class="jumbotron jumbotron-fluid">
     <h1 class="display-4">
         <?php echo $greeting; ?>
     </h1>
@@ -91,4 +90,3 @@
             </div>
         </div>
     </div>
-</div>

@@ -1,7 +1,6 @@
 <script src="/js/modifycadet.js"></script>
 <link rel="stylesheet" type="text/css" href="/css/modifycadet.css">
 
-<div class="jumbotron jumbotron-fluid">
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">Modify User's Info</h4>
@@ -98,4 +97,3 @@
             </form>
         </div>
     </div>
-</div>

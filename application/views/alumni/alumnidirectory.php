@@ -1,9 +1,7 @@
 <link rel="stylesheet" type="text/css" href="/css/alumdirectory.css">
 
-<!--TODO: Use boot strap card decks here to manage the card sizes -->
-<div class="jumbotron">
-    <h1 class="display-4"> Alumni Directory </h1><br>
-    <?php
+<h1 class="display-4"> Alumni Directory </h1><br>
+<?php
     foreach( $alumni as $alum )
     {
         if( is_file('./images/' . $alum['image']) )
@@ -28,5 +26,4 @@
         echo "<br><strong>Job: </strong>" . $alum['position'] . "</p></div>";
         echo '<br><div class="card-footer"><small class="text-muted">' . $alum['major'] . '</small></div></div>';
     }
-    ?>
-</div>
+?>

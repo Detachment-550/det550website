@@ -5,7 +5,6 @@
 <link href="/application/third_party/tabulator/css/tabulator_simple.min.css" rel="stylesheet">
 
 
-<div class="jumbotron" style="height: -webkit-fill-available; overflow: auto; padding: 5px;">
     <div class="shadow p-3 mb-5 bg-white rounded" style="margin: 5px;">
         <div>
             <h1 style="display: inline;">Semester Attendance</h1>
@@ -25,4 +24,3 @@
         <div id="weekattendance"></div>
     </div>
 
-    </div>

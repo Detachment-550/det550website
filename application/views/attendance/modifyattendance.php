@@ -1,6 +1,5 @@
 <link rel="stylesheet" type="text/css" href="/css/modifyattendance.css">
 
-<div class="jumbotron">
     <div class="shadow p-3 mb-5 bg-white rounded" style="margin: 15px;">
         <h1>Modify Attendance Records</h1>
         <form action="/index.php/attendance/update" method="POST">
@@ -43,6 +42,5 @@
             <button class="btn btn-primary" type="submit" id="save">Update Record</button>
         </form>
     </div>
-</div>
 
 <script src='/js/modifyattendance.js'></script>

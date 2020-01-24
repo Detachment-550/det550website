@@ -1,6 +1,5 @@
 <link rel="stylesheet" type="text/css" href="/css/attendance.css">
 
-<div class="jumbotron container-fluid">
     <div class="shadow p-3 mb-5 bg-white rounded" style="margin: 5px;">
         <h1>View Event Attendees</h1>
         <label for="event">Select Event</label>
@@ -78,6 +77,5 @@
             <button type="submit" class="btn btn-primary">Submit Memo</button>
         </form>
     </div>
-</div>
 
 <script type="text/javascript" src="/js/attendance.js"></script>

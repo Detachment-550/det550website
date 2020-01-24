@@ -1,12 +1,10 @@
 <link rel="stylesheet" type="text/css" href="/css/announcement.css">
 
-<body>
-<div class="jumbotron container-fluid">
-    <div class='card'>
+<div class='card'>
     <div class='card-header'><?php echo $announcement->title; ?></div>
     <div class='card-body'><h5 class='card-title'><?php echo $announcement->subject; ?></h5>
         <?php echo $announcement->body; ?>
-            <p class='card-text'>Posted by: <?php echo $announcement->created_by->rank . ' ' . $announcement->created_by->last_name; ?></p>
+        <p class='card-text'>Posted by: <?php echo $announcement->created_by->rank . ' ' . $announcement->created_by->last_name; ?></p>
         <?php
             if($mypost)
             {
@@ -29,7 +27,6 @@
             echo '<input type="submit" name="count" value="'. count($announcement->acknowledgements) .'"/></form>';
             echo "</div>";
         ?>
-        </div>
     </div>
 </div>
 

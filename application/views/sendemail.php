@@ -1,7 +1,6 @@
 <script src="/js/sendemail.js"></script>
 <link rel="stylesheet" type="text/css" href="/css/sendemail.css">
 
-<div class="jumbotron container-fluid">
     <h1 class="display-4"> Send an Email </h1>
     <div class="card">
         <div class="card-body">
@@ -43,4 +42,3 @@
             <br>
         </div>
     </div>
-</div>

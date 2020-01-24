@@ -8,22 +8,6 @@ class Cadetdirectory extends CI_Controller{
         {
             redirect('login/view');
         }
-    } 
-
-    /**
-     * Shows all cadets based on a given major.
-     */
-    function major()
-    {
-//        TODO: Make this searchable again
-        $data['title'] = 'Cadet Directory';
-
-        $data['users'] = $this->ion_auth->users()->row();
-        $data['selected'] = $this->input->post('showcadets');
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('directory');
-        $this->load->view('templates/footer'); 
     }
     
     /**

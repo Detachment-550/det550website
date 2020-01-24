@@ -1,6 +1,5 @@
 <link rel="stylesheet" type="text/css" href="/css/acknowledged.css">
 
-<div class="jumbotron container-fluid">
     <h2><?php echo $announcement->title; ?> HUA</h2>
 
 <table>
@@ -18,4 +17,3 @@
         echo "</tr>";
     }
 ?>
-</div>

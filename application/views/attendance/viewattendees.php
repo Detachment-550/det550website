@@ -1,7 +1,5 @@
 <link rel="stylesheet" type="text/css" href="/css/viewattendees.css">
 
-<body>
-<div class="jumbotron container-fluid">
     <h2><?php echo $event->name; ?> Attendees</h2>
     <strong>* Note: 1 = Yes | 0 = No</strong>
 <table>
@@ -33,6 +31,3 @@
         <input type="text" name="event" value="<?php echo $event->id; ?>" style="display: none;"/>
         <button class="btn btn-sm btn-primary" type="submit" name="submit">Export to Excel</button>
     </form>
-
-</div>
-</body>

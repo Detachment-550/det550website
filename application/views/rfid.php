@@ -1,6 +1,5 @@
 <link rel="stylesheet" type="text/css" href="/css/rfid.css">
 
-<div class="jumbotron container-fluid">
     <h1 class="display-4"> Connect RFID </h1>
     <div class="card">
         <div class="card-body">
@@ -29,4 +28,3 @@
             </form>
         </div>
     </div>
-</div>

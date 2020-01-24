@@ -1,7 +1,6 @@
 <link rel="stylesheet" type="text/css" href="/css/directory.css">
 
 <!--TODO: Use boot strap card decks here to manage the card sizes -->
-<div class="jumbotron">
     <h1 class="display-4">Detachment Directory</h1>
     <br>
     <div class="shadow-sm p-3 mb-5 bg-white rounded">
@@ -56,4 +55,3 @@ foreach( $users as $user )
     }
 }
 ?>
-</div>
