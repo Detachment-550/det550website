@@ -77,7 +77,7 @@ class Login extends CI_Controller {
         if(isset($_POST) && $_POST > 0)
         {
             $data['title'] = 'Security Question';
-            $data['user'] = $this->User_model->find_user_email(trim($this->input->post('email')));
+            $data['user'] = User_model::where('email', '=', trim($this->input->post('email')))->first();
 
             $this->load->view('cadet/passwordreset', $data);
             $this->load->view('templates/footer');
@@ -94,9 +94,9 @@ class Login extends CI_Controller {
      */
     function resetpass()
     {
-        $user = $this->User_model->find_user_email(trim($this->input->post('email')));
+        $user = User_model::where('email', '=', trim($this->input->post('email')))->first();
         
-        if(strcmp($this->input->post('answer'), $user['answer']) == 0)
+        if(strcmp($this->input->post('answer'), $user->answer) == 0)
         {
             // Generates random password
             $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
@@ -121,11 +121,6 @@ class Login extends CI_Controller {
                         <p>The below is your temporary password please change it as soon as possible!</p>
                         <br><br>
                         <p>Temporary Password: " . $pass . "</p>";
-            
-            $this->load->library('encryption');
-
-            // Load email library
-            $this->load->library('email');
 
             $this->email->bcc($user['email']);
             $this->email->from('noreply@detachment550.org','Air Force ROTC Detachment 550');

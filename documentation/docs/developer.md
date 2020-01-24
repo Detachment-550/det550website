@@ -2,7 +2,7 @@ This site is a fork of MITR project website that was built to track and simply R
 attendance and provides a centralized communication system.
 
 ## Technology Used
-- [Select2](https://select2.org/): Used for the searchable dropdowns
+- [Select2](https://select2.org/): Used for the searchable drop downs
 - [CodeIgniter](https://codeigniter.com/user_guide/index.html): The framework which the site runs on
 - [Bootstrap](https://getbootstrap.com/docs/4.4/getting-started/introduction/): The front end html and css framework the 
 site uses
@@ -13,9 +13,10 @@ site uses
 - [MySQL](https://dev.mysql.com/downloads/installer/): Database language
 - [PHP](https://windows.php.net/download/): Server code language
 - [Eloquent](https://laravel.com/docs/master/eloquent): Database Object Relational Model 
-- [MkDocs](): Used to create the html for the documentation from the Markdown
+- [MkDocs](https://www.mkdocs.org/): Used to create the html for the documentation from the Markdown
 - [MkDocs Material Theme](https://github.com/squidfunk/mkdocs-material): Used to give a theme to the documentation
-- [Python MkDocs Extension](https://squidfunk.github.io/mkdocs-material/extensions/pymdown/)
+- [Python MkDocs Extension](https://squidfunk.github.io/mkdocs-material/extensions/pymdown/): Gives you added features 
+for the styling of the documentation
 
 ## Access the cPanel database
 
