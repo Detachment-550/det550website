@@ -22,22 +22,32 @@
                 width: 40%;
             }
         }
+        .jumbotron{
+            height: 100vh;
+            margin: 0;
+        }
     </style>
 
 </head>
 
 <body class="text-center">
-<div class="card" style="margin:auto;padding: 10px;width:80%;">
-    <div class="card-body">
-        <form action="/index.php/login/question" method="POST">
-            <h5 class="card-title">Password Reset</h5>
-            <p>(sends new temporary password to your email)</p><br>
+<div class="jumbotron-fluid jumbotron">
+    <div class="container">
+        <div class="card" style="margin:auto;padding: 10px;width:80%;">
+            <div class="card-body">
+                <form action="/index.php/login/question" method="POST">
+                    <h5 class="card-title">Password Reset</h5>
+                    <p>(sends new temporary password to your email)</p><br>
 
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input class="form-control" type="text" placeholder="Enter your email..." name="email" id="email" required>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input class="form-control" type="text" placeholder="Enter your email..." name="email" id="email" required>
+                    </div>
+                    <a class="btn btn-secondary" href="/index.php">Go Back</a>
+                    <button class="btn btn-primary" type="submit" name="submit">Reset Password</button>
+                </form>
             </div>
-            <button class="btn btn-sm btn-primary" type="submit" name="submit">Reset Password</button>
-        </form>
+        </div>
     </div>
 </div>
+
