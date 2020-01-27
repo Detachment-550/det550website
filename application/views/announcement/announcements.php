@@ -1,9 +1,7 @@
 <link rel="stylesheet" type="text/css" href="/css/announcements.css">
 
+<a class="btn btn-primary float-right" href="/index.php/announcement/create">Make an Announcement</a>
 <h1 class="display-4">Announcements</h1>
-<br>
-<a class="btn btn-primary" href="/index.php/announcement/create">Make an Announcement</a>
-<br>
 <br>
 <div class='card'>
     <?php

@@ -8,15 +8,15 @@ site_description: This site is an attendance and personel tracking system for AF
 site_author: Joseph Messare
 nav:
   - Home: index.md
+  - Installation: developer.md
   - Attendance: attendance.md
   - Profile: profile.md
-  - Directory: directory.md
+  - Directory: installation.md
   - Announcements: announcements.md
   - Wiki: wiki.md
   - Email: email.md
   - Administrator: admin.md
   - Alumni: alumni.md
-  - Developer: developer.md
 markdown_extensions:
   - pymdownx.arithmatex
   - pymdownx.betterem:

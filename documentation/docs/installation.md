@@ -2,7 +2,7 @@ This site is a fork of MITR project website that was built to track and simply R
 attendance and provides a centralized communication system.
 
 ## Technology Used
-- [Select2](https://select2.org/): Used for the searchable drop downs
+- [Bootstrap Select](https://developer.snapappointments.com/bootstrap-select/): Used for the searchable drop downs
 - [CodeIgniter](https://codeigniter.com/user_guide/index.html): The framework which the site runs on
 - [Bootstrap](https://getbootstrap.com/docs/4.4/getting-started/introduction/): The front end html and css framework the 
 site uses
