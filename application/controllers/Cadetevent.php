@@ -75,7 +75,7 @@ class Cadetevent extends CI_Controller{
             $event->created_by_id = $user->id;
             $event->save();
 
-            redirect('attendance/view');
+            redirect('attendance/admin');
         }
         else
         {            
@@ -91,7 +91,7 @@ class Cadetevent extends CI_Controller{
         if(isset($_POST) && count($_POST) > 0)
         {
             Event_model::find($this->input->post('event'))->delete();
-            redirect('attendance/view');
+            redirect('attendance/admin');
         }
         else
         {

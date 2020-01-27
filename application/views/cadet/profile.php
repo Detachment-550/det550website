@@ -18,6 +18,7 @@
                             <strong>Flight: </strong> <?php echo $user->flight; ?><br>
                             <strong>Position: </strong> <?php echo $user->position; ?><br>
                             <strong>Major: </strong> <?php echo $user->major; ?><br>
+                            <strong>Class: </strong> <?php echo $user->class; ?><br>
                         </p>
                         <?php
                             if( $myprofile === true)
@@ -31,13 +32,6 @@
             </div>
 
             <div class="col-8">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Class:</h5>
-                        <p class="card-text"><?php echo $user->class; ?></p>
-                    </div>
-                </div>
-
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Bio:</h5>
