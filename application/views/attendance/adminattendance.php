@@ -31,7 +31,7 @@
                 <div class="form-group">
                     <label for="event">Delete an Event</label>
                     <form action="/index.php/cadetevent/remove" method="POST">
-                        <select name="event" id="event" class="form-control" required>
+                        <select name="event" id="event" class="form-control bootstrap-select" data-live-search="true" required>
                             <option value="">Choose...</option>
                             <?php
                                 foreach($events as $event)
@@ -51,7 +51,7 @@
                 <form action="/index.php/cadetevent/view" method="POST">
                     <div class="form-group">
                         <label for="setevent">Set Event Attendance</label>
-                        <select name="event" id="setevent" class="form-control" required>
+                        <select name="event" id="setevent" class="form-control bootstrap-select" data-live-search="true" required>
                             <option value="">Choose...</option>
                             <?php
                                 foreach( $events as $event )
@@ -88,7 +88,7 @@
         <br>
         <div class="form-group">
             <label for="user">Select a User</label>
-            <select class="form-control" name="user" onchange="set_filters()" id="historical_user" required>
+            <select class="form-control bootstrap-select" data-live-search="true" name="user" onchange="set_filters()" id="historical_user" required>
                 <option value="">Choose...</option>
                 <?php
                     foreach( $users as $user )
@@ -101,7 +101,7 @@
 
         <div class="form-group">
             <label for="event">Select an Event</label>
-            <select class="form-control" name="event" onchange="set_filters()" id="historical_event" required>
+            <select class="form-control bootstrap-select" data-live-search="true" name="event" onchange="set_filters()" id="historical_event" required>
                 <option value="">Choose...</option>
                 <?php
                     foreach( $events as $event )

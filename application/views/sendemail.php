@@ -7,7 +7,7 @@
             <form action="/index.php/email/send" method="POST">
                 <div class="form-group">
                     <label class="card-text" for="grouplist"><b>Mail Groups (Ctl/Command Click to multiselect)</b></label>
-                    <select id="grouplist" class="form-control" name="groups[]" multiple>
+                    <select id="grouplist" class="form-control bootstrap-select" name="groups[]" multiple>
                         <option value="null" selected>No Groups [Default]</option>
                         <?php
                             // Lists groups available to be emailed

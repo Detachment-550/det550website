@@ -16,10 +16,9 @@
             <label for="email">No RFID Scanner? Select User:</label>
             <div class="form-group">
                 <label for="id">Select User:</label>
-                <select name="id" id="id" class="form-control" required>
+                <select name="id" id="id" class="form-control bootstrap-select" required>
                     <option value="">Choose...</option>
                     <?php
-                        usort($users, create_function('$a, $b', 'return strnatcasecmp($a->last_name, $b->last_name);'));
                         foreach ($users as $user) {
                             if ($user->class != 'None') {
                                 echo '<option value="' . $user->id . '">' . $user->last_name . ', ' . $user->first_name . '</option>';

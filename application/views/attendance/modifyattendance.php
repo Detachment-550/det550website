@@ -4,7 +4,7 @@
         <h1>Modify Attendance Records</h1>
         <form action="/index.php/attendance/update" method="POST">
             <label for="cadet">Cadet</label>
-            <select class="form-control" name="cadet" id="cadet" onchange="populate()">
+            <select class="form-control bootstrap-select" name="cadet" id="cadet" onchange="populate()">
                 <option value="">Choose...</option>
                 <?php
                     foreach($users as $user)
@@ -15,7 +15,7 @@
             </select><br>
 
             <label for="event">Event</label>
-            <select class="form-control" name="event" id="event" onchange="populate()">
+            <select class="form-control bootstrap-select" name="event" id="event" onchange="populate()">
                 <option value="">Choose...</option>
                 <?php
                     foreach($events as $event)

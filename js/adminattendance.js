@@ -1,7 +1,3 @@
-$('#setevent').select2();
-$('#historical_user').select2();
-$('#historical_event').select2();
-
 var approve_button = function(cell, formatterParams){ //plain text value
     if(cell.getRow().getData().event_id !== '')
     {

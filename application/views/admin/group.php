@@ -24,10 +24,10 @@
             <h5 class="card-text">Modify Group</h5>
             <div class="form-group">
                 <label for="selectgroup">Select Group</label>
-                <select id="selectgroup" name="group" onchange="select(this.value)" id="members" class="form-control" required>
+                <select id="selectgroup" name="group" onchange="select(this.value)" id="members" class="form-control bootstrap-select" required>
                     <option value="">Choose...</option>
                     <?php
-                        foreach( $groups as $group )
+                        foreach( $groups as $group)
                         {
                             echo "<option value='" . $group->id . "'> " . $group->name . "</option>";
                         }
@@ -57,7 +57,7 @@
             <form action="/index.php/group/remove" method="POST">
                 <div class="form-group">
                     <label for="selectgroup">Select Group</label>
-                    <select id="selectgroup" name="group" class="form-control" required>
+                    <select id="selectgroup" name="group" class="form-control bootstrap-select" required>
                         <option value="">Choose...</option>
                         <?php
                             foreach( $groups as $group )

@@ -34,7 +34,7 @@
                     </div>
                     <div class="form-group">
                         <label for="rank">Rank:</label>
-                        <select name="rank" id="rank" class="form-control" required>
+                        <select name="rank" id="rank" class="form-control bootstrap-select" required>
                             <option value="">Choose...</option>
                             <option value="None">None</option>
                             <optgroup label="ROTC Ranks">
@@ -140,7 +140,7 @@
                 <h5 id="memHeader" class="card-title">Remove User</h5>
                 <form action="/index.php/cadet/remove" method="POST">
                     <label for="remove">Select User</label>
-                    <select name="remove" class="form-control" id="remove" required>
+                    <select name="remove" class="form-control bootstrap-select" id="remove" required>
                         <option value="">Choose...</option>
                         <?php
                             foreach($users as $user)
@@ -158,7 +158,7 @@
                 <form action="/index.php/alumni/create" method="POST">
                     <div class="form-group">
                         <label for="transfer">Select User</label>
-                        <select name="transfer" class="form-control" id="transfer" required>
+                        <select name="transfer" class="form-control bootstrap-select" id="transfer" required>
                             <option value="">Choose...</option>
                             <?php
                                 foreach($users as $user)
@@ -183,7 +183,7 @@
                 <h4 class="card-title">Additional Admin Links</h4>
                 <form action="/index.php/announcement/remove" method="POST">
                     <label for="announcement">Delete an Announcement</label>
-                    <select name="announcement" id="announcement" class="form-control" required>
+                    <select name="announcement" id="announcement" class="form-control bootstrap-select" required>
                         <option value="">Choose...</option>
                         <?php
                             foreach($announcements as $announcement)
@@ -197,7 +197,7 @@
 
                 <form action="/index.php/cadet/unlock" method="POST">
                     <label for="cadet">Unlock Cadet Account</label>
-                    <select name="user" id="cadet" class="form-control" required>
+                    <select name="user" id="cadet" class="form-control bootstrap-select" required>
                         <option value="">Choose...</option>
                         <?php
                             foreach($users as $user)

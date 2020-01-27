@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico">
     <title><?php echo $title; ?></title>
     <link href='https://fonts.googleapis.com/css?family=Cabin' rel='stylesheet'>

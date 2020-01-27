@@ -47,5 +47,14 @@
 
 <script src="/js/v1.js"></script>
 
+<!-- Makes any select with this class a bootstrap select object with a size of 5 -->
+<script>
+    $('.bootstrap-select').selectpicker({
+        size: 5,
+        liveSearch: true, // When set to true, adds a search box to the top of the selectpicker dropdown.
+        liveSearchNormalize: true, // Setting liveSearchNormalize to true allows for accent-insensitive searching.
+    });
+</script>
+
 </body>
 </html>

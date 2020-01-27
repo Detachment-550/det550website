@@ -142,14 +142,18 @@ $.ajax({
     }
 });
 
-// Downloads the job table to a pdf format
+/**
+ * Downloads the job table to a pdf format.
+ */
 function download()
 {
     table.download("csv", "master_attendance.csv");
 }
 
-// Downloads the job table to a pdf format
+/**
+ * Downloads the job table to a pdf format
+ */
 function download_week()
 {
-    weektable.download("csv", "week_attendance.csv");
+    week_table.download("csv", "week_attendance.csv");
 }

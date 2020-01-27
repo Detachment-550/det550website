@@ -3,7 +3,7 @@
     <div class="shadow p-3 mb-5 bg-white rounded" style="margin: 5px;">
         <h1>View Event Attendees</h1>
         <label for="event">Select Event</label>
-        <select class="form-control" name="event" id="event" required>
+        <select class="form-control bootstrap-select" name="event" id="event" required>
             <option value="">Choose...</option>
             <?php
                 foreach($events as $event)
@@ -30,7 +30,7 @@
             ?>
             <div class="form-group">
                 <label for="select_event">Select Event</label>
-                <select id="select_event" name="event" class="form-control">
+                <select id="select_event" name="event" class="form-control bootstrap-select">
                     <option selected value="">No Event</option>
                     <?php
                         foreach ($events as $event) {
@@ -53,7 +53,7 @@
             </div>
             <div class="form-group">
                 <label for="memo_for">Submit Memo To</label>
-                <select class="form-control" name="memo_for" id="memo_for" required>
+                <select class="form-control bootstrap-select" name="memo_for" id="memo_for" required>
                     <option value="">Choose...</option>
                     <?php
                         foreach( $users as $user )
