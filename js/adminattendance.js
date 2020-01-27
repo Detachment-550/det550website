@@ -1,4 +1,6 @@
 $('#setevent').select2();
+$('#historical_user').select2();
+$('#historical_event').select2();
 
 var approve_button = function(cell, formatterParams){ //plain text value
     if(cell.getRow().getData().event_id !== '')
@@ -150,33 +152,18 @@ function deny_memo(attendance_memo_id) {
 
 /**
  * Sets a filter on the historical memo page based on user.
- *
- * @param user The user id
  */
-function filter_user(user) {
-    if(user === "")
-    {
-        historical_memo_table.clearFilter(true);
-    }
-    else
-    {
-        historical_memo_table.setFilter('id', '=', user);
-    }
-}
+function set_filters() {
+    historical_memo_table.clearFilter(true);
 
-/**
- * Sets a filter on the historical memo page based on user.
- *
- * @param event The event to filter by
- */
-function filter_event(event) {
-    if(event === "")
+    if($('#historical_event').val() !== '')
     {
-        historical_memo_table.clearFilter(true);
+        historical_memo_table.addFilter('event_id', '=', $('#historical_event').val());
     }
-    else
+
+    if($('#historical_user').val() !== '')
     {
-        historical_memo_table.setFilter('event', '=', event);
+        historical_memo_table.addFilter('user_id', '=', $('#historical_user').val());
     }
 }
 

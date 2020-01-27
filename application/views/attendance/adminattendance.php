@@ -88,7 +88,7 @@
         <br>
         <div class="form-group">
             <label for="user">Select a User</label>
-            <select class="form-control" name="user" onchange="filter_user(this.value)" required>
+            <select class="form-control" name="user" onchange="set_filters()" id="historical_user" required>
                 <option value="">Choose...</option>
                 <?php
                     foreach( $users as $user )
@@ -101,7 +101,7 @@
 
         <div class="form-group">
             <label for="event">Select an Event</label>
-            <select class="form-control" name="event" onchange="filter_event(this.value)" required>
+            <select class="form-control" name="event" onchange="set_filters()" id="historical_event" required>
                 <option value="">Choose...</option>
                 <?php
                     foreach( $events as $event )
