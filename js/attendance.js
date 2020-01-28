@@ -21,7 +21,18 @@ function check_memo_user_event(event_id) {
                 console.log(response);
                 if(response !== null)
                 {
-
+                    $('#submit_memo').prop('disabled', true);
+                    notie.alert({
+                        type: 'warning', // optional, default = 4, enum: [1, 2, 3, 4, 5, 'success', 'warning', 'error', 'info', 'neutral']
+                        text: 'There is already an attendance record for this event',
+                        stay: false, // optional, default = false
+                        time: 3, // optional, default = 3, minimum = 1,
+                        position: 'top' // optional, default = 'top', enum: ['top', 'bottom']
+                    });
+                }
+                else
+                {
+                    $('#submit_memo').prop('disabled', false);
                 }
             },
             error: function (response) {

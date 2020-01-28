@@ -30,6 +30,7 @@
     <link href="/application/third_party/tabulator/dist/css/tabulator.min.css" rel="stylesheet">
     <link href="/application/third_party/tabulator/dist/css/bootstrap/tabulator_bootstrap4.min.css" rel="stylesheet">
     <link href="/application/vendor/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+    <link href="/application/vendor/notie/notie.min.css" rel="stylesheet">
 
     <!-- Fonts -->
     <link rel="stylesheet" href="/application/fonts/weather-icons/weather-icons.css">
@@ -52,6 +53,7 @@
     <script type="text/javascript" src="/application/third_party/tabulator/dist/js/tabulator.min.js"></script>
     <script type="text/javascript" src="/application/third_party/tinymce/tinymce.min.js"></script>
     <script type="text/javascript" src="/application/vendor/bootstrap-select/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="/application/vendor/notie/notie.min.js"></script>
 
     <title><?php echo $title; ?></title>
 
@@ -255,11 +257,6 @@
                                 if( $this->ion_auth->is_admin() )
                                 {
                                     echo '<li class="site-menu-item">
-                                        <a href="/index.php/cadet/view">
-                                            <span class="site-menu-title">Admin</span>
-                                        </a>
-                                    </li>';
-                                    echo '<li class="site-menu-item">
                                         <a href="/index.php/alumni/modify">
                                             <span class="site-menu-title">Modify Alumni</span>
                                         </a>
@@ -268,6 +265,17 @@
                             ?>
                         </ul>
                     </li>
+                    <?php
+                        if( $this->ion_auth->is_admin() )
+                        {
+                            echo ' <li class="site-menu-item">
+                                    <a href="/index.php/cadet/view">
+                                        <i class="site-menu-icon fa-gears" aria-hidden="true"></i>
+                                        <span class="site-menu-title">Admin</span>
+                                    </a>
+                                </li>';
+                        }
+                    ?>
                 </ul>
             </div>
         </div>

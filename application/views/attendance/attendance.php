@@ -79,7 +79,7 @@
                 <label for="comments">Additional Comments</label>
                 <textarea id="comments" name="comments" class="form-control" rows="5" placeholder="This is optional..."></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Submit Memo</button>
+            <button type="submit" id="submit_memo" class="btn btn-primary">Submit Memo</button>
         </form>
     </div>
 </div>
