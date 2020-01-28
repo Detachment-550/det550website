@@ -42,7 +42,7 @@ class Acknowledge_post extends CI_Controller{
             $user = $this->ion_auth->user()->row();
 
             // Ignores duplicate entries
-            if(!Acknowledge_post_model::where('user_id', '=', $user->id)->where('announcement_id', '=', $this->input->post('announcementid'))->exists());
+            if(!Acknowledge_post_model::where('user_id', '=', $user->id)->where('announcement_id', '=', $this->input->post('announcementid'))->exists())
             {
                 $ack_post = new Acknowledge_post_model();
                 $ack_post->user_id = $user->id;
