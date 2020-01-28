@@ -58,9 +58,26 @@ var historical_memo_table = new Tabulator("#historical_memo_table", {
     layout:"fitColumns",
     ajaxURL:"/index.php/attendance/get_all_memos",
     ajaxContentType:"json",
-    height: "400px",
     index:'excuse_id',
-    ajaxResponse: memo_format,
+    pagination:'remote',
+    paginationSize:5,
+    paginationSizeSelector:[5, 10, 20, 40],
+    ajaxURLGenerator:function(url, config, params){
+        return url + "/" + params.page + "/" + params.size;
+    },
+    ajaxResponse: function(url, params, response){
+        for(var x = 0; x < response.data.length; x++)
+        {
+            response.data[x].full_name = response.data[x].created_by.first_name + ' ' + response.data[x].created_by.last_name;
+            response.data[x].memo_for_name = response.data[x].memo_for.first_name + ' ' + response.data[x].memo_for.last_name;
+            if(response.data[x].attachment !== null)
+            {
+                response.data[x].attachment = '<a href="/index.php/attendance/download_memo_attachment/' +
+                    response.data[x].id + '">Download Attachment</a>';
+            }
+        }
+        return response;
+    },
     initialSort:[
         {column:"created_at", dir:"desc"}, //sort by this first
     ],

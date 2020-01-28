@@ -186,37 +186,11 @@
                         </a>
                     </li>
                     <li class="site-menu-item">
-                        <a href="/index.php/announcement/view">
-                            <i class="site-menu-icon fa-comment" aria-hidden="true"></i>
-                            <span class="site-menu-title">Announcement</span>
-                        </a>
-                    </li>
-                    <li class="site-menu-item">
-                        <a href="/index.php/wiki/view">
-                            <i class="site-menu-icon fa-newspaper-o" aria-hidden="true"></i>
-                            <span class="site-menu-title">Wiki</span>
-                        </a>
-                    </li>
-                    <li class="site-menu-item">
-                        <a href="/documentation/site/index.html">
-                            <i class="site-menu-icon fa-book" aria-hidden="true"></i>
-                            <span class="site-menu-title">Documentation</span>
-                        </a>
-                    </li>
-                    <li class="site-menu-item">
                         <a href="/index.php/cadet/wingstructure">
                             <i class="site-menu-icon fa-fighter-jet" aria-hidden="true"></i>
                             <span class="site-menu-title">Wing Structure</span>
                         </a>
                     </li>
-
-                    <li class="site-menu-item">
-                        <a href="/index.php/email/view">
-                            <i class="site-menu-icon fa-envelope" aria-hidden="true"></i>
-                            <span class="site-menu-title">Send Email</span>
-                        </a>
-                    </li>
-
                     <li class="site-menu-item has-sub">
                         <a href="javascript:void(0)">
                             <i class="site-menu-icon fa-external-link" aria-hidden="true"></i>
@@ -281,6 +255,32 @@
                                 </li>';
                         }
                     ?>
+                    <li class="site-menu-category">Communication</li>
+                    <li class="site-menu-item">
+                        <a href="/index.php/email/view">
+                            <i class="site-menu-icon fa-envelope" aria-hidden="true"></i>
+                            <span class="site-menu-title">Send Email</span>
+                        </a>
+                    </li>
+                    <li class="site-menu-item">
+                        <a href="/index.php/announcement/view">
+                            <i class="site-menu-icon fa-comment" aria-hidden="true"></i>
+                            <span class="site-menu-title">Announcement</span>
+                        </a>
+                    </li>
+                    <li class="site-menu-category">FAQ</li>
+                    <li class="site-menu-item">
+                        <a href="/index.php/wiki/view">
+                            <i class="site-menu-icon fa-newspaper-o" aria-hidden="true"></i>
+                            <span class="site-menu-title">Wiki</span>
+                        </a>
+                    </li>
+                    <li class="site-menu-item">
+                        <a href="/documentation/site/index.html">
+                            <i class="site-menu-icon fa-book" aria-hidden="true"></i>
+                            <span class="site-menu-title">Documentation</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

@@ -468,10 +468,24 @@ class Attendance extends CI_Controller
 
     /**
      * Get json data of all memos.
+     *
+     * @param int $page What page you are viewing
+     * @param int $size The size of the page you are viewing
      */
-    function get_all_memos()
+    function get_all_memos(int $page, int $size)
     {
-        echo Attendance_memo_model::with('created_by', 'memo_for', 'event')->get()->toJson();
+        // What row in the database to start the search at
+        $offset = intval($size) * (intval($page) - 1);
+
+        $data['data'] = Attendance_memo_model::with('created_by', 'memo_for', 'event')
+            ->orderBy('created_at', 'desc')->limit($size)->offset($offset)->get();
+
+        // Total number of available pages
+        $data['last_page'] = ceil(Attendance_memo_model::with('created_by', 'memo_for', 'event')->count() / $size);
+
+        $data['page'] = $page;
+        $data['pagination_size'] = $size;
+        echo json_encode($data);
     }
 
     /**
