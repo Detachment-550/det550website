@@ -13,8 +13,10 @@ class Attendance extends CI_Controller
 
     /**
      * Loads the event page.
+     *
+     * @param string $page
      */
-    function view()
+    function view(string $page = 'attendance')
     {
         $data['title'] = 'Cadet Events';
         $data['events'] = Event_model::orderBy('date', 'desc')->get();
@@ -23,7 +25,7 @@ class Attendance extends CI_Controller
 
         // Loads the home page
         $this->load->view('templates/header', $data);
-        $this->load->view('attendance/attendance');
+        $this->load->view('attendance/' . $page);
         $this->load->view('templates/footer');
     }
 

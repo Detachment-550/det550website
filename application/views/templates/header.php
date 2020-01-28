@@ -151,6 +151,11 @@
                                     <span class="site-menu-title">Event Attendance</span>
                                 </a>
                             </li>
+                            <li class="site-menu-item">
+                                <a href="/index.php/attendance/view/submit_memo">
+                                    <span class="site-menu-title">Submit Memo</span>
+                                </a>
+                            </li>
                             <?php
                                 if( $this->ion_auth->is_admin() || $this->session->userdata('attendance') )
                                 {
@@ -161,7 +166,7 @@
                                         </li>';
                                     echo '<li class="site-menu-item">
                                             <a href="/index.php/attendance/master">
-                                                <span class="site-menu-title">View Attendance</span>
+                                                <span class="site-menu-title">Master Attendance</span>
                                             </a>
                                         </li>';
                                 }
