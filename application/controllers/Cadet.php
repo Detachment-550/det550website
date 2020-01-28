@@ -461,7 +461,6 @@ class Cadet extends CI_Controller{
         if( $this->ion_auth->is_admin() )
         {
             $data['title'] = 'Admin Page';
-            $this->load->model('Announcement_model');
 
             $data['users'] = $this->ion_auth->users()->result();
             $data['events'] = Event_model::all();
