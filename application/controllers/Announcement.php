@@ -97,8 +97,8 @@ class Announcement extends CI_Controller{
         $config = array();
         $config["base_url"] = site_url('announcement/view');
 
-        $config["total_rows"] = Announcement_model::count();
         $config["per_page"] = 10;
+        $config["total_rows"] = ceil(Announcement_model::count() / $config['per_page']);
         $config["num_tag_open"] = "<li class='page-item'>";
         $config["num_tag_close"] = "</li>";
         $config["cur_tag_open"] = "<li class='page-item active'><a class='page-link'>";
@@ -120,7 +120,6 @@ class Announcement extends CI_Controller{
         $config["attributes"] = array('class' => 'page-link');
 
         $this->pagination->initialize($config);
-        $user = $this->ion_auth->user()->row();
 
         // TODO: Make these announcements user specific based on the announcements groups
         $data["announcements"] = Announcement_model::with('acknowledgements')->limit($config["per_page"])->offset($config["per_page"] * $page)
