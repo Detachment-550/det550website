@@ -431,16 +431,13 @@ class Cadet extends CI_Controller{
                         <div>&nbsp;</div>
                         <div>ECPA Flight</div>";
 
-                $this->email->to($this->input->post('email'));
-                $this->email->from('noreply@detachment550.org','Air Force ROTC Detachment 550');
-                $this->email->subject('New Cadet Account');
-                $this->email->message($message);
+                $headers = 'From: Detachment 550 Air Force ROTC <noreply@det550.com>' . "\r\n";
+                $headers .= "Content-type: text/html\r\n";
 
                 // Send email
-                $this->email->send();
+                echo mail($this->input->post('email'), 'New Cadet Account', $message, $headers);
 
                 redirect('cadet/view');
-
             }
             else
             {            

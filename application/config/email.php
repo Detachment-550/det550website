@@ -6,7 +6,7 @@
     $config['smtp_host']        = 'localhost';
     $config['smtp_auth']        = FALSE;                     // Whether to use SMTP authentication, boolean TRUE/FALSE. If this option is omited or if it is NULL, then SMTP authentication is used when both $config['smtp_user'] and $config['smtp_pass'] are non-empty strings.
     $config['smtp_user']        = 'afrotcdet550@gmail.com';
-    $config['smtp_pass']        = 'silverfalcons550';
+    $config['smtp_pass']        = 'zgesbvnqofaqvtbl';
     $config['smtp_port']        = 25;
     $config['smtp_timeout']     = 30;                       // (in seconds)
     $config['smtp_crypto']      = '';                       // '' or 'tls' or 'ssl'
