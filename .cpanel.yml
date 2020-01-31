@@ -2,14 +2,15 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/g7afzsg72ror/public_html/
+    - export APPPATH=/home/g7afzsg72ror/public_html/application/
     - /bin/cp -R css  $DEPLOYPATH
     - /bin/cp -R js   $DEPLOYPATH
     - /bin/cp -R sql  $DEPLOYPATH
-    - /bin/cp -R application/controllers  $DEPLOYPATH
-    - /bin/cp -R application/models       $DEPLOYPATH
-    - /bin/cp -R application/views        $DEPLOYPATH
-    - /bin/cp -R application/third_party  $DEPLOYPATH
-    - /bin/cp -R application/vendor       $DEPLOYPATH
-    - /bin/cp -R application/libraries    $DEPLOYPATH
+    - /bin/cp -R application/controllers  $APPPATH
+    - /bin/cp -R application/models       $APPPATH
+    - /bin/cp -R application/views        $APPPATH
+    - /bin/cp -R application/third_party  $APPPATH
+    - /bin/cp -R application/vendor       $APPPATH
+    - /bin/cp -R application/libraries    $APPPATH
 
 # NOTE: Config files are not transfered with this file this must be done manually
