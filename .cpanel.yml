@@ -1,0 +1,15 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/user/public_html/
+    - /bin/cp -R css  $DEPLOYPATH
+    - /bin/cp -R js   $DEPLOYPATH
+    - /bin/cp -R sql  $DEPLOYPATH
+    - /bin/cp -R application/controllers  $DEPLOYPATH
+    - /bin/cp -R application/models       $DEPLOYPATH
+    - /bin/cp -R application/views        $DEPLOYPATH
+    - /bin/cp -R application/third_party  $DEPLOYPATH
+    - /bin/cp -R application/vendor       $DEPLOYPATH
+    - /bin/cp -R application/libraries    $DEPLOYPATH
+
+# NOTE: Config files are not transfered with this file this must be done manually
