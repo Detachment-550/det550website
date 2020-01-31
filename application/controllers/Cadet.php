@@ -462,7 +462,7 @@ class Cadet extends CI_Controller{
             $data['users'] = $this->ion_auth->users()->result();
             $data['events'] = Event_model::all();
             $data['announcements'] = Announcement_model::all();
-            
+            echo 'test';
             $this->load->view('templates/header', $data);
             $this->load->view('admin/admin');
             $this->load->view('templates/footer'); 
