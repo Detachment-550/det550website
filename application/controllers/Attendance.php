@@ -407,6 +407,7 @@ class Attendance extends CI_Controller
             $memo->attendance_memo_type_id = $this->input->post('memo_type');
             $memo->memo_for_id = $this->input->post('memo_for');
             $memo->comments = $this->input->post('comments');
+            $memo->save();
 
             $config['upload_path']          = './memo_attachments/';
             $config['allowed_types']        = 'pdf';
@@ -423,6 +424,7 @@ class Attendance extends CI_Controller
                 $data['events'] = Event_model::orderBy('date', 'desc')->get();
                 $data['memo_types'] = Attendance_memo_type_model::all();
                 $data['users'] = User_model::orderBy('last_name', 'asc')->get();
+                $this->email_memo($memo->id);
 
                 $this->load->view('templates/header', $data);
                 $this->load->view('attendance/attendance');
@@ -432,6 +434,7 @@ class Attendance extends CI_Controller
             {
                 $memo->attachment = $this->upload->data('file_name');
                 $memo->save();
+                $this->email_memo($memo->id);
 
                 redirect('attendance/memo_success/' . $memo->id);
             }
@@ -440,6 +443,77 @@ class Attendance extends CI_Controller
         {
             show_error("You must provide an memo type, event, and comments to create a memo memo");
         }
+    }
+
+
+    /**
+     * Emails the memo to the user it is designated for.
+     *
+     * @param int $memo_id The id of the submitted memo
+     *
+     * @return bool
+     */
+    function email_memo(int $memo_id)
+    {
+        $memo = Attendance_memo_model::with('memo_for', 'event', 'attendance_memo_type', 'created_by')->find($memo_id);
+
+        $message = '<h1 style="text-align: center;">Memorandum For Record</h1>
+                    <br>
+                    <p><strong>Submitted By:</strong> ' . $memo->memo_for->rank . ' ' . $memo->memo_for->last_name . '</p>
+                    <p><strong>Event:</strong> ' . $memo->event->name . '</p>
+                    <p><strong>Reason:</strong> ' . $memo->attendance_memo_type->label . '</p>
+                    <p><strong>Date:</strong> ' . Date('Y-m-d H:i:s', strtotime($memo->created_at . ' -5 hours')) . '</p>
+                    <p><strong>Comments:</strong></p>';
+
+        if($memo->comments === '')
+        {
+            $message .= '<p>N/a</p>';
+        }
+        else
+        {
+            $message .= '<p>' . $memo->comments . '</p>';
+        }
+
+        $path = './memo_attachments/';
+        $filename = $memo->id . '.pdf';
+        $file = $path . "/" . $filename;
+
+        $to = $memo->memo_for->email;
+        $subject = "AFROTC Memo";
+        $random_hash = md5(date('r', time()));
+        $headers = "From:noreply@det550.com\r\n" .
+            "X-Mailer: PHP" . phpversion() . "\r\n" .
+            "MIME-Version: 1.0\r\n";
+        $headers .= "Content-Type: multipart/mixed; boundary = $random_hash\r\n\r\n";
+
+        if(file_exists($file))
+        {
+            $content = file_get_contents($file);
+            $content = chunk_split(base64_encode($content));
+
+            //plain text
+            $body = "--$random_hash\r\n";
+            $body .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+            $body .= "Content-Transfer-Encoding: base64\r\n\r\n";
+            $body .= chunk_split(base64_encode($message));
+
+            //attachment
+            $body .= "--$random_hash\r\n";
+            $body .="Content-Type: application/octet-stream; name=".$filename."\r\n";
+            $body .="Content-Disposition: attachment; filename=".$filename."\r\n";
+            $body .="Content-Transfer-Encoding: base64\r\n";
+            $body .="X-Attachment-Id: ".rand(1000,99999)."\r\n\r\n";
+            $body .= $content;
+
+        }else{
+            //plain text
+            $body = "--$random_hash\r\n";
+            $body .= "Content-Type: text/html; charset=utf-8\r\n"; // use different content types here
+            $body .= "Content-Transfer-Encoding: base64\r\n\r\n";
+            $body .= chunk_split(base64_encode($message));
+        }
+
+        return mail($to, $subject, $body, $headers);
     }
 
     /**
