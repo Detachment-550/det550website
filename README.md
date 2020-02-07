@@ -1,5 +1,10 @@
 # AFROTC Detachment 550 Cadet Website
-Fork of MITR project website that was built to track and simply ROTC life. This site tracks ROTC attendance and provides a centrailized communication system.
+Fork of [MITR project website](https://github.com/tans2/mitr-group-4) that was built to track and simply ROTC life. This site tracks ROTC attendance and provides a centrailized communication system.
+
+A special thanks goes out to the following for starting this project:
+   - [Andrew Son](https://github.com/sonj2)
+   - [Jon Gay](https://github.com/jtgjohn)
+   - [Stephanie Tan](https://github.com/tans2)
 
 ## Attendance
 TODO
