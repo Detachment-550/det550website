@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.5.1">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.6.0">
     
     
       
@@ -54,7 +54,7 @@
     
       
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
     
@@ -357,15 +357,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mac-os-development-set-up" class="md-nav__link">
-    Mac OS Development Set Up
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#site-configuration" class="md-nav__link">
-    Site Configuration
+  <a href="#digital-ocean-development-set-up" class="md-nav__link">
+    Digital Ocean Development Set Up
   </a>
   
 </li>
@@ -540,15 +533,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mac-os-development-set-up" class="md-nav__link">
-    Mac OS Development Set Up
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#site-configuration" class="md-nav__link">
-    Site Configuration
+  <a href="#digital-ocean-development-set-up" class="md-nav__link">
+    Digital Ocean Development Set Up
   </a>
   
 </li>
@@ -685,54 +671,137 @@ use a different port just update the application/config/config.php file accordin
 </pre></div>
 
 <p>Now your windows environment should be ready to develop! I highly recommend using PHP Storm for your IDE.</p>
-<h2 id="mac-os-development-set-up">Mac OS Development Set Up<a class="headerlink" href="#mac-os-development-set-up" title="Permanent link">&para;</a></h2>
+<h2 id="digital-ocean-development-set-up">Digital Ocean Development Set Up<a class="headerlink" href="#digital-ocean-development-set-up" title="Permanent link">&para;</a></h2>
+<p>To configure and run the site from digital ocean follow these steps:</p>
 <ol>
-<li>Now if you were to attempt to run the site you will most likely get the following error: </li>
+<li>
+<p>Install the docker application from the <a href="https://docs.docker.com/install/">Docker Site</a></p>
+</li>
+<li>
+<p>Then you will navigate to the location you would like to run the site from in your terminal. Here you will use the 
+following bash commands: </p>
+<div class="codehilite"><pre><span></span>mkdir ~/afrotc_site <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ~/afrotc_site
+curl -LO https://raw.githubusercontent.com/bitnami/bitnami-docker-codeigniter/master/docker-compose.yml
+docker-compose up
+</pre></div>
+
+<p>Once you run these commands it you will have a running instance of docker on localhost. You will need to look at the 
+generated docker-compose.yml file to check which port this site is running on. Then you can test the site is running by
+navigating to localhost:{The Port In the YAML File} in your browser.</p>
+</li>
+<li>
+<p>Now create a folder called myapp inside the afrotc_site directory you created.</p>
+</li>
+<li>
+<p>Next you will need to move the site code into this folder. To do this you will need to download the code from the 
+<a href="https://github.com/jmessare46/det550website.git">Det 550 Repository</a> and move that code to the myapp folder you 
+created.</p>
+</li>
+<li>
+<p>We need to install MYSQL on your docker instance to do so run the following:</p>
+<div class="codehilite"><pre><span></span>docker pull mysql:8.0.1
+docker run --name my-own-mysql -e <span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">={</span>enter a password<span class="o">}</span> -d mysql:8.0.1
+</pre></div>
+
+</li>
+<li>
+<p>We also need to install PhpMyAdmin on your docker instance to do so run the following:</p>
+<div class="codehilite"><pre><span></span>docker pull phpmyadmin/phpmyadmin:latest
+docker run --name my-own-phpmyadmin -d --link my-own-mysql:db -p <span class="m">8081</span>:80 phpmyadmin/phpmyadmin
+</pre></div>
+
+</li>
+<li>
+<p>Now update the docker-compose.yml file located where you first created the myapp folder. Use the below settings in your docker-compose.yml file:</p>
+<div class="codehilite"><pre><span></span> <span class="nt">version</span><span class="p">:</span> <span class="s">&#39;2&#39;</span>
+    <span class="nt">services</span><span class="p">:</span>
+      <span class="nt">myapp</span><span class="p">:</span>
+        <span class="nt">image</span><span class="p">:</span> <span class="s">&#39;bitnami/codeigniter:3.1.11&#39;</span>
+        <span class="nt">environment</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">CODEIGNITER_PROJECT_NAME=myapp</span>
+        <span class="nt">ports</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="s">&#39;8000:8000&#39;</span>
+        <span class="nt">volumes</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="s">&#39;.:/app&#39;</span>
+        <span class="nt">depends_on</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">mysql</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">phpmyadmin</span>
+      <span class="nt">phpmyadmin</span><span class="p">:</span>
+        <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">phpmyadmin/phpmyadmin:latest</span>
+        <span class="nt">ports</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="s">&#39;8181:80&#39;</span>
+        <span class="nt">environment</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">PMA_ARBITRARY=1</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">PMA_HOST=mysql</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">PMA_VERBOSE=mysql</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">PMA_USER=root</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">PMA_PASSWORD=Mess1998</span>
+        <span class="nt">depends_on</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">mysql</span>
+      <span class="nt">mysql</span><span class="p">:</span>
+        <span class="nt">image</span><span class="p">:</span> <span class="s">&#39;mysql:8.0.1&#39;</span>
+        <span class="nt">environment</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">MYSQL_ROOT_PASSWORD=Mess1998</span>
+</pre></div>
+
+</li>
+<li>
+<p>Once these changes are saved run:</p>
+<div class="codehilite"><pre><span></span>docker-compose up
+</pre></div>
+
+<p>Your site should now be running at localhost:8000. You will now need to instantiate the database with some fake data to 
+use for development. </p>
+</li>
+<li>
+<p>Your PhpMyAdmin instance (a visual representation of MySQL) will be located at localhost:8181. Use the <a href="./../../sql/developer_data_dump.sql">Developer 
+Database</a> dump file to upload the fake data to your phpmyadmin.</p>
+<ol>
+<li>First click the new button in the top right and create a database named 'afrotc_mitr'.</li>
+<li>Click on this database.</li>
+<li>Click the 'Import' button.</li>
+<li>Choose the <a href="./../../sql/developer_data_dump.sql">Developer Database</a> file. </li>
+<li>Click the 'go' button and all of the database will have been uploaded.</li>
 </ol>
-<div class="codehilite"><pre><span></span><span class="x">Message: mysqli::real_connect(): The server requested authentication method unknown to the client [caching_sha2_password]</span>
+</li>
+<li>
+<p>Finally, you may have to modify the code you got from the repository to connect to your database. Enter the password
+that you provided when installin MySQL above in the <a href="../../application/config/database.php">database.php</a> file. Make 
+sure you config file contains the following: </p>
+<div class="codehilite"><pre><span></span><span class="err">$db[&#39;default&#39;] = array(</span>
+<span class="err">    &#39;dsn&#39;   =&gt; &#39;&#39;,</span>
+<span class="err">    &#39;hostname&#39; =&gt; &#39;localhost&#39;,</span>
+<span class="err">    &#39;username&#39; =&gt; &#39;root&#39;,</span>
+<span class="err">    &#39;password&#39; =&gt; &#39;{your MySQL password}&#39;,</span>
+<span class="err">    &#39;database&#39; =&gt; &#39;afrotc_mitr&#39;,</span>
+<span class="err">    &#39;dbdriver&#39; =&gt; &#39;mysqli&#39;,</span>
+<span class="err">    &#39;dbprefix&#39; =&gt; &#39;&#39;,</span>
+<span class="err">    &#39;pconnect&#39; =&gt; FALSE,</span>
+<span class="err">    &#39;db_debug&#39; =&gt; (ENVIRONMENT !== &#39;production&#39;),</span>
+<span class="err">    &#39;cache_on&#39; =&gt; FALSE,</span>
+<span class="err">    &#39;cachedir&#39; =&gt; &#39;&#39;,</span>
+<span class="err">    &#39;char_set&#39; =&gt; &#39;utf8&#39;,</span>
+<span class="err">    &#39;dbcollat&#39; =&gt; &#39;utf8_general_ci&#39;,</span>
+<span class="err">    &#39;swap_pre&#39; =&gt; &#39;&#39;,</span>
+<span class="err">    &#39;encrypt&#39; =&gt; FALSE,</span>
+<span class="err">    &#39;compress&#39; =&gt; FALSE,</span>
+<span class="err">    &#39;stricton&#39; =&gt; FALSE,</span>
+<span class="err">    &#39;failover&#39; =&gt; array(),</span>
+<span class="err">    &#39;save_queries&#39; =&gt; TRUE</span>
+<span class="err">);</span>
 </pre></div>
 
-<p>To fix this use one of the following sql commands under your schema shelterenterprise:</p>
-<div class="codehilite"><pre><span></span><span class="k">ALTER</span> <span class="k">USER</span> <span class="s1">&#39;mysqlUsername&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span> 
-<span class="n">IDENTIFIED</span> <span class="k">WITH</span> <span class="n">mysql_native_password</span> 
-<span class="k">BY</span> <span class="s1">&#39;mysqlUsernamePassword&#39;</span><span class="p">;</span>
+
+<p>That's it you should be ready to develop. Just use the below docker command while in the directory you built to run the 
+site.</p>
+<div class="codehilite"><pre><span></span>docker-compose up
 </pre></div>
 
-<p>or if you are creating a user for the database:</p>
-<div class="codehilite"><pre><span></span> <span class="k">CREATE</span> <span class="k">USER</span> <span class="s1">&#39;jeffrey&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span> 
- <span class="n">IDENTIFIED</span> <span class="k">WITH</span> <span class="n">mysql_native_password</span> 
- <span class="k">BY</span> <span class="s1">&#39;password&#39;</span><span class="p">;</span>
-</pre></div>
-
-<p><mark class="critic">TODO</mark></p>
-<h2 id="site-configuration">Site Configuration<a class="headerlink" href="#site-configuration" title="Permanent link">&para;</a></h2>
-<p>At this point you have configured your environment for development and are sitting at the login screen. However there 
-are no registered users in the site currently. Run the following in your SQL command line under the shelterenterprise 
-schema:</p>
-<p>TODO: Update this to work with the current users structure
-<div class="codehilite"><pre><span></span><span class="c1">## Creates the groups needed for the application</span>
-<span class="k">INSERT</span> <span class="k">INTO</span> <span class="ss">`groups`</span> <span class="p">(</span><span class="ss">`id`</span><span class="p">,</span> <span class="ss">`name`</span><span class="p">,</span> <span class="ss">`description`</span><span class="p">)</span> <span class="k">VALUES</span>
-<span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;admin&#39;</span><span class="p">,</span><span class="s1">&#39;Administrator&#39;</span><span class="p">),</span>
-<span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;members&#39;</span><span class="p">,</span><span class="s1">&#39;General User&#39;</span><span class="p">);</span>
-
-<span class="c1">## Creates an admin user to login as</span>
-<span class="k">INSERT</span> <span class="k">INTO</span> <span class="ss">`users`</span> <span class="p">(</span><span class="ss">`id`</span><span class="p">,</span> <span class="ss">`ip_address`</span><span class="p">,</span> <span class="ss">`username`</span><span class="p">,</span> <span class="ss">`password`</span><span class="p">,</span><span class="ss">`activation_code`</span><span class="p">,</span> <span class="ss">`created_on`</span><span class="p">)</span> <span class="k">VALUES</span>
-<span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span><span class="s1">&#39;admin&#39;</span><span class="p">,</span><span class="s1">&#39;$2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;1268889823&#39;</span><span class="p">);</span>
-
-<span class="c1">## Adds the admin user to the general user group and the admin group</span>
-<span class="k">INSERT</span> <span class="k">INTO</span> <span class="ss">`users_groups`</span> <span class="p">(</span><span class="ss">`id`</span><span class="p">,</span> <span class="ss">`user_id`</span><span class="p">,</span> <span class="ss">`group_id`</span><span class="p">)</span> <span class="k">VALUES</span>
-<span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
-<span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
-</pre></div>
-<mark class="critic">TODO: Finish the SQL command above</mark></p>
-<p>Now refresh the page and you will be able to log in as </p>
-<div class="codehilite"><pre><span></span><span class="n">username</span><span class="o">:</span> <span class="n">admin</span>
-<span class="n">password</span><span class="o">:</span> <span class="n">password</span>
-</pre></div>
-
-<p>and you are ready to develop on the shelter enterprise supply chain management application! </p>
+</li>
+</ol>
                 
                   
+                
                 
               
               
@@ -800,7 +869,7 @@ schema:</p>
       
     </div>
     
-      <script src="../assets/javascripts/application.8e03edeb.js"></script>
+      <script src="../assets/javascripts/application.808e90bb.js"></script>
       
       <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
       
