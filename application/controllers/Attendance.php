@@ -171,13 +171,19 @@ class Attendance extends CI_Controller
     {
         if (isset($_POST) && count($_POST) > 0)
         {
-            $user = User_model::where('rfid', '=', $this->input->post('rfid'))->first(); // Finds user based on their RPI ID
-
             // Makes sure a given RPI ID card is associated with a user
             if (User_model::where('rfid', '=', $this->input->post('rfid'))->exists())
             {
+                $user = User_model::where('rfid', '=', $this->input->post('rfid'))->first(); // Finds user based on their RPI ID
                 // Checks to prevent duplicate attendance records
-                $attendance_record = Attendance_model::firstOrCreate(['user_id' => $user->id, 'event_id' => $this->input->post('event')]);
+                if (!Attendance_model::where('user_id', '=', $user->id)->where('event_id', '=', $this->input->post('event'))->exists())
+                {
+                    $attendance_record = new Attendance_model();
+                    $attendance_record->user_id = $user->id;
+                    $attendance_record->event_id = $this->input->post('event');
+                    $attendance_record->save();
+                }
+
                 redirect('cadetevent/event/' . $attendance_record->event_id);
             }
             else
@@ -190,6 +196,7 @@ class Attendance extends CI_Controller
             show_error("You must provide an RPI ID scan to attend an event");
         }
     }
+
 
     /**
      * Add attendance record via dropdown menu of cadets.
