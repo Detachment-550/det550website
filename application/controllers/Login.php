@@ -11,25 +11,19 @@ class Login extends CI_Controller {
      */
     public function view()
     {
-//        if( $this->ion_auth->logged_in() )
-//        {
-////            redirect('cadet/home');
-//        }
-//        else
-//        {
+        if( $this->ion_auth->logged_in() )
+        {
+            redirect('cadet/home');
+        }
+        else
+        {
             $data['title'] = 'Login';
 
             $this->load->view('login', $data);
             $this->load->view('templates/footer');
-//        }
+        }
     }
-
-
-    function test()
-    {
-        echo 'helllo';
-    }
-
+    
     /**
      * Check if user is authorized to login.
      */

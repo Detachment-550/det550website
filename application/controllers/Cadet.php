@@ -531,6 +531,24 @@ class Cadet extends CI_Controller{
     {
         $data['title'] = 'Cadet Wing Structure';
 
+        //passes the "orgchart" picture file name to the view if it exists.
+        if(is_file('./images/orgchart.jpeg'))
+        {
+            $data['picture_location'] = '/images/orgchart.jpeg';
+        }
+        else if(is_file('./images/orgchart.jpg'))
+        {
+            $data['picture_location'] = '/images/orgchart.jpg';
+        }
+        else if(is_file('./images/orgchart.png'))
+        {
+            $data['picture_location'] = '/images/orgchart.png';
+        }
+        else
+        {
+            $data['picture_location'] = '';
+        }
+
         $this->load->view('templates/header', $data);
         $this->load->view('wingstructure');
         $this->load->view('templates/footer');
@@ -548,4 +566,42 @@ class Cadet extends CI_Controller{
 
         echo json_encode($data);
     }
+    function uploadwingpic()
+    {
+//        TODO: Fix this so instead of manipulating a name the file name is stored on the cadet's profile
+        $user = $this->ion_auth->user(107)->row();
+
+        $config['upload_path']      = 'images/';
+        $config['allowed_types']    = 'jpeg|jpg|png';
+        $config['max_size']         = 2048;
+        $config['max_width']        = 1000;
+        $config['max_height']       = 1000;
+        $config['file_name']        = 'orgchart';
+
+        // If old profile picture exists delete it
+        if(is_file('./images/orgchart.jpeg') || is_file('./images/orgchart.jpg') || is_file('./images/orgchart.png'))
+        {
+            unlink('./images/orgchart.jpeg');
+            unlink('./images/orgchart.jpg');
+            unlink('./images/orgchart.png');
+        }
+
+        // Uploads image
+        $this->load->library('upload', $config);
+        if( !$this->upload->do_upload('wingpicture') )
+        {
+            $data['error'] = $this->upload->display_errors();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('wingstructure');
+            $this->load->view('templates/footer');
+        }
+        else
+        {
+            redirect('cadet/wingstructure');
+        }
+    }
+
 }
+
+
