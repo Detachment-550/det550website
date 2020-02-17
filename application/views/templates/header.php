@@ -89,7 +89,9 @@
             <span class="hamburger-bar"></span>
         </button>
         <div class="navbar-brand navbar-brand-center">
-            <img class="navbar-brand-logo" src="/images/default.jpeg" title="logo">
+            <a href="/index.php/cadet/home" title="Home" role="button">
+                <img class="navbar-brand-logo" src="/images/default.jpeg" title="logo">
+            </a>
             <span class="navbar-brand-text"> DET 550</span>
         </div>
     </div>
