@@ -15,10 +15,19 @@
             echo "<strong>Posted: " . Date('d M Y h:i', strtotime($announcement->created_at)) . "</strong><br><br>";
 
             // Make a button to read and understand post
+            $color = 'red';
+            $user = $this->ion_auth->user()->row();
+            foreach( $announcement->acknowledgements as $acknowledgement )
+            {
+                if ($acknowledgement->user->id == $user->id)
+                {
+                    $color = 'green';
+                }
+            }
             echo form_open('acknowledge_post/add');
             echo "<input type='text' value='" . $announcement->id . "' style='display:none;' name='announcementid'/>";
             echo "<button class='btn btn-sm btn-primary' type='submit' name='" . $announcement->id .
-                "' style='float:left;'>Read and Understood</button></form>";
+                "' style='float:left; background-color: $color'>Read and Understood</button></form>";
 
             // Print out the number of people that have read and understood the post
             // When it is clicked it prints out the list of people that have
