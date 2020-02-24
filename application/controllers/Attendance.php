@@ -355,7 +355,7 @@ class Attendance extends CI_Controller
                 {
                     $user_record[$event->id] = 'white';
                 }
-                else if($attendance->excused_absence === 1)
+                else if($attendance->excused_absence == 1)
                 {
                     $user_record[$event->id] = 'yellow';
                 }
