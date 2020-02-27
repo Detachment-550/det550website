@@ -35,3 +35,12 @@ Password: P-l@Fe$nq6z-
 You will also need to have the vpn running a connection to the rpi vpn in order to ssh in to the file system. This can 
 be accomplished by going to the following website 
 https://dotcio.rpi.edu/services/network-remote-access/vpn-connection-and-installation and follow the instructions.
+
+## Editing Wiki Pages 
+To edit wiki pages, first you must install Python 3.8 and mkdocs theme.
+Open Command Prompt. 
+Cd into the directory of the .MD file you want to edit.
+Enter mkdocs serve into the command prompt.
+If you get an error along the lines of ".yml file is missing," type mkdocs new (enter in filepath) and try again.
+Go to Localhost:8000 to get a live preview of the page.
+Change the text in an IDE and see the results live in a browser tab. 
