@@ -184,7 +184,7 @@ class Attendance extends CI_Controller
                     $attendance_record->save();
                 }
 
-                redirect('cadetevent/event/' . $attendance_record->event_id);
+                redirect('cadetevent/event/' . $this->input->post('event'));
             }
             else
             {
