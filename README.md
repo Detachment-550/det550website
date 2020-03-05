@@ -6,14 +6,15 @@ A special thanks goes out to the following for starting this project:
    - [Jon Gay](https://github.com/jtgjohn)
    - [Stephanie Tan](https://github.com/tans2)
 
-## Attendance
-TODO
+## Detachment 550 Cyberflight Contributors 
 
-## Users 
-TODO
-
-## Admin Functions
-TODO
+   - [Cooper "Swen" Swenson](https://github.com/Son0fSwen)
+   - [Kaleb Mendoza](https://github.com/kapeab)
+   - [William Hawkins](https://github.com/will-hawkins)
+   - Leon Lei
+   - [Phu Thai](https://github.com/BluThaitanium)
+   - Jae Park
+   - Nishant Srivastava
 
 
 ## Access the cPanel database
