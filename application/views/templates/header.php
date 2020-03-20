@@ -267,7 +267,7 @@
                     <li class="site-menu-item">
                         <a href="/index.php/announcement/view">
                             <i class="site-menu-icon fa-comment" aria-hidden="true"></i>
-                            <span class="site-menu-title">Announcement</span>
+                            <span class="site-menu-title">Announcements</span>
                         </a>
                     </li>
                     <li class="site-menu-category">FAQ</li>
