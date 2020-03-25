@@ -24,10 +24,9 @@
                     $color = 'green';
                 }
             }
-            echo form_open('acknowledge_post/add');
-            echo "<input type='text' value='" . $announcement->id . "' style='display:none;' name='announcementid'/>";
-            echo "<button class='btn btn-sm btn-primary' type='submit' name='" . $announcement->id .
-                "' style='float:left; background-color: $color'>Read and Understood</button></form>";
+            
+            echo "<button class='btn btn-sm btn-primary' id='acknowledge_post" . $announcement->id . "' onclick=acknowledge_post(" . $announcement->id . ") type='button' name='" . $announcement->id .
+                "' style='float:left; background-color: $color'>Read and Understood</button>";
 
             // Print out the number of people that have read and understood the post
             // When it is clicked it prints out the list of people that have
@@ -41,3 +40,4 @@
     ?>
 </div>
 
+<script type="text/javascript" src="/js/announcements.js"></script>
