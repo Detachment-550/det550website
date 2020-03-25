@@ -188,7 +188,7 @@
                         <?php
                             foreach($announcements as $announcement)
                             {
-                                echo "<option value='" . $announcement['uid'] . "'>" . $announcement['title'] . " " . $announcement['date'] . "</option>";
+                                echo "<option value='" . $announcement->id . "'>" . $announcement->title . " " . Date('m/d/Y', strtotime($announcement->created_at)) . "</option>";
                             }
                         ?>
                     </select><br>
