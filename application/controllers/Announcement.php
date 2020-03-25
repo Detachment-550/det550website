@@ -43,7 +43,7 @@ class Announcement extends CI_Controller{
             }
 
             // Sends the announcement to groupMe
-            $url = "https://api.groupme.com/v3/bots/post";
+//            $url = "https://api.groupme.com/v3/bots/post";
             $fields = [
                 'bot_id'    => "b83da12e82339a292c0173442d",
                 'text'      => "Title: " . $announcement->title . "
@@ -189,5 +189,19 @@ class Announcement extends CI_Controller{
         {
             show_error("You must be an admin to delete an announcement");
         }
+    }
+
+    function searchannouncement()
+    {
+        if (isset($_POST) && count($_POST) > 0) {
+            $data['title'] = "Announcements";
+            $data['announcement'] = Announcement_model::orderBy('id', 'desc')
+                ->where('title', 'like',  $this->input->post('search_value') )
+                ->get();
+        }
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('announcement/announcements');
+        $this->load->view('templates/footer');
     }
 }

@@ -3,9 +3,22 @@
 <a class="btn btn-primary float-right" href="/index.php/announcement/create">Make an Announcement</a>
 <h1 class="display-4">Announcements</h1>
 <br>
+<div class="shadow-sm p-3 mb-5 bg-white rounded">
+    <form method="POST" action="/index.php/announcement/searchannouncement">
+        <div class="form-group">
+            <label for="field">Announcements Search</label>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" name="search_value" placeholder="Enter search value..." id="search_value">
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+        <a href="/index.php/announcement/view" class="btn btn-secondary">Reset</a>
+    </form>
+</div>
+<br>
 <div class='card'>
     <?php
-        foreach($announcements as $announcement)
+    foreach($announcements as $announcement)
         {
             //print out the information for the post
             echo "<div class='card-header'><a href=" . site_url("announcement/page/" . $announcement->id) . ">" . $announcement->title . "</a></div>";

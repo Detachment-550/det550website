@@ -136,126 +136,62 @@ use a different port just update the application/config/config.php file accordin
 
 Now your windows environment should be ready to develop! I highly recommend using PHP Storm for your IDE.
 
-## Digital Ocean Development Set Up
+## Mac OS Development Set Up
 
-To configure and run the site from digital ocean follow these steps:
+6. Now if you were to attempt to run the site you will most likely get the following error: 
 
-1. Install the docker application from the [Docker Site](https://docs.docker.com/install/)
+```php
+Message: mysqli::real_connect(): The server requested authentication method unknown to the client [caching_sha2_password]
+```
 
-2. Then you will navigate to the location you would like to run the site from in your terminal. Here you will use the 
-following bash commands: 
+To fix this use one of the following sql commands under your schema shelterenterprise:
 
-    ```bash
-    mkdir ~/afrotc_site && cd ~/afrotc_site
-    curl -LO https://raw.githubusercontent.com/bitnami/bitnami-docker-codeigniter/master/docker-compose.yml
-    docker-compose up
-    ```
+```sql
+ALTER USER 'mysqlUsername'@'localhost' 
+IDENTIFIED WITH mysql_native_password 
+BY 'mysqlUsernamePassword';
+```
 
-    Once you run these commands it you will have a running instance of docker on localhost. You will need to look at the 
-    generated docker-compose.yml file to check which port this site is running on. Then you can test the site is running by
-    navigating to localhost:{The Port In the YAML File} in your browser.
+or if you are creating a user for the database:
 
-3. Now create a folder called myapp inside the afrotc_site directory you created.
+```sql
+ CREATE USER 'jeffrey'@'localhost' 
+ IDENTIFIED WITH mysql_native_password 
+ BY 'password';
+```
 
-4. Next you will need to move the site code into this folder. To do this you will need to download the code from the 
-[Det 550 Repository](https://github.com/jmessare46/det550website.git) and move that code to the myapp folder you 
-created.
+{==TODO==}
 
-5. We need to install MYSQL on your docker instance to do so run the following:
 
-    ```bash
-    docker pull mysql:8.0.1
-    docker run --name my-own-mysql -e MYSQL_ROOT_PASSWORD={enter a password} -d mysql:8.0.1
-    ```
+## Site Configuration
+At this point you have configured your environment for development and are sitting at the login screen. However there 
+are no registered users in the site currently. Run the following in your SQL command line under the shelterenterprise 
+schema:
 
-6. We also need to install PhpMyAdmin on your docker instance to do so run the following:
+TODO: Update this to work with the current users structure
+```mysql
+## Creates the groups needed for the application
+INSERT INTO `groups` (`id`, `name`, `description`) VALUES
+(1,'admin','Administrator'),
+(2,'members','General User');
 
-    ```bash
-    docker pull phpmyadmin/phpmyadmin:latest
-    docker run --name my-own-phpmyadmin -d --link my-own-mysql:db -p 8081:80 phpmyadmin/phpmyadmin
-    ```
+## Creates an admin user to login as
+INSERT INTO `users` (`id`, `ip_address`, `username`, `password`,`activation_code`, `created_on`) VALUES
+('1','127.0.0.1','admin','$2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa','','1268889823');
 
-7. Now update the docker-compose.yml file located where you first created the myapp folder. Use the below settings in your docker-compose.yml file:
+## Adds the admin user to the general user group and the admin group
+INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
+(1,1,1),
+(2,1,2);
 
-    ```yaml
-     version: '2'
-        services:
-          myapp:
-            image: 'bitnami/codeigniter:3.1.11'
-            environment:
-              - CODEIGNITER_PROJECT_NAME=myapp
-            ports:
-              - '8000:8000'
-            volumes:
-              - '.:/app'
-            depends_on:
-              - mysql
-              - phpmyadmin
-          phpmyadmin:
-            image: phpmyadmin/phpmyadmin:latest
-            ports:
-              - '8181:80'
-            environment:
-              - PMA_ARBITRARY=1
-              - PMA_HOST=mysql
-              - PMA_VERBOSE=mysql
-              - PMA_USER=root
-              - PMA_PASSWORD=Mess1998
-            depends_on:
-              - mysql
-          mysql:
-            image: 'mysql:8.0.1'
-            environment:
-                - MYSQL_ROOT_PASSWORD=Mess1998
-    ``` 
+```
+{==TODO: Finish the SQL command above==}
 
-8. Once these changes are saved run:
+Now refresh the page and you will be able to log in as 
 
-    ```bash 
-    docker-compose up
-    ```
+```
+username: admin
+password: password
+```
 
-    Your site should now be running at localhost:8000. You will now need to instantiate the database with some fake data to 
-    use for development. 
-
-9. Your PhpMyAdmin instance (a visual representation of MySQL) will be located at localhost:8181. Use the [Developer 
-Database](./../../sql/developer_data_dump.sql) dump file to upload the fake data to your phpmyadmin.
-    
-    1. First click the new button in the top right and create a database named 'afrotc_mitr'.
-    2. Click on this database.
-    3. Click the 'Import' button.
-    4. Choose the [Developer Database](./../../sql/developer_data_dump.sql) file. 
-    5. Click the 'go' button and all of the database will have been uploaded.
-    
-10. Finally, you may have to modify the code you got from the repository to connect to your database. Enter the password
-that you provided when installin MySQL above in the [database.php](../../application/config/database.php) file. Make 
-sure you config file contains the following: 
-
-        $db['default'] = array(
-            'dsn'	=> '',
-            'hostname' => 'localhost',
-            'username' => 'root',
-            'password' => '{your MySQL password}',
-            'database' => 'afrotc_mitr',
-            'dbdriver' => 'mysqli',
-            'dbprefix' => '',
-            'pconnect' => FALSE,
-            'db_debug' => (ENVIRONMENT !== 'production'),
-            'cache_on' => FALSE,
-            'cachedir' => '',
-            'char_set' => 'utf8',
-            'dbcollat' => 'utf8_general_ci',
-            'swap_pre' => '',
-            'encrypt' => FALSE,
-            'compress' => FALSE,
-            'stricton' => FALSE,
-            'failover' => array(),
-            'save_queries' => TRUE
-        );
-    
-    That's it you should be ready to develop. Just use the below docker command while in the directory you built to run the 
-    site.
-    
-    ```bash
-    docker-compose up
-    ```
+and you are ready to develop on the shelter enterprise supply chain management application! 
