@@ -10,7 +10,11 @@ function acknowledge_post(announcement_id) {
             url: '/index.php/acknowledge_post/add/' + announcement_id,
             method: 'post',
             success: function (response) {
-                $color = 'green';
+                var count = document.getElementById('acknowledge_count_' + announcement_id).value; 
+                count = parseInt(count, 10); //it defaults to 10 
+                count++;
+                document.getElementById('acknowledge_count_' + announcement_id).value = count;
+                document.getElementById('acknowledge_post_' + announcement_id).style.backgroundColor = 'green';
                 console.log(response);
                 notie.alert({
                     type: 'success',

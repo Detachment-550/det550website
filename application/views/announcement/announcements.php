@@ -25,14 +25,14 @@
                 }
             }
             
-            echo "<button class='btn btn-sm btn-primary' id='acknowledge_post" . $announcement->id . "' onclick=acknowledge_post(" . $announcement->id . ") type='button' name='" . $announcement->id .
+            echo "<button class='btn btn-sm btn-primary' id='acknowledge_post_" . $announcement->id . "' onclick=acknowledge_post(" . $announcement->id . ") type='button' name='" . $announcement->id .
                 "' style='float:left; background-color: $color'>Read and Understood</button>";
 
             // Print out the number of people that have read and understood the post
             // When it is clicked it prints out the list of people that have
             echo form_open('acknowledge_post/view');
             echo "<input type='text' style='display:none;' name='event' value='" . $announcement->id . "'>";
-            echo '<input type="submit" name="count" value="'. count($announcement->acknowledgements) .'"/></form>';
+            echo '<input type="submit" name="count" id="acknowledge_count_' . $announcement->id . '" value="'. count($announcement->acknowledgements) .'"/></form>';
             echo "</div>";
         }
 

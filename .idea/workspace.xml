@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a10f04bf-3585-4a00-af03-7007ec7ae3a9" name="Default Changelist" comment="Started to implement Eloquent ORM in the website to simplify the database structure.">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/270cc261-28c5-42ba-b0d7-133ec786c8d2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/270cc261-28c5-42ba-b0d7-133ec786c8d2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/announcement/announcements.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/announcement/announcements.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/attend.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,6 +132,9 @@
       <workItem from="1567863300355" duration="14334000" />
       <workItem from="1568214652729" duration="5322000" />
       <workItem from="1585173819248" duration="1819000" />
+      <workItem from="1585247815308" duration="613000" />
+      <workItem from="1585352811544" duration="599000" />
+      <workItem from="1585499233668" duration="2000" />
     </task>
     <task id="LOCAL-00001" summary="fixed messare's goof.">
       <created>1567723452959</created>

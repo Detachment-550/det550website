@@ -14,10 +14,6 @@
                 echo "</form>";
             }
 
-            // Make a button to read and understand post
-            echo form_open('acknowledge_post/add'); //we call this function when button is clicked
-            echo "<input type='text' value='" . $announcement->id . "' style='display:none;' name='announcementid'/>";
-
             $color = 'red';
             $user = $this->ion_auth->user()->row();
             foreach( $announcement->acknowledgements as $acknowledgement )
@@ -27,16 +23,17 @@
                     $color = 'green';
                 }
             }
-            echo "<button class='btn btn-sm btn-primary' type='submit' name='" . $announcement->id .
-                "' style='float:left;background-color:$color'>Read and Understood</button></form>";
+            echo "<button class='btn btn-sm btn-primary' id='acknowledge_post_" . $announcement->id . "' onclick=acknowledge_post(" . $announcement->id . ") type='button' name='" . $announcement->id .
+                "' style='float:left; background-color: $color'>Read and Understood</button>";
 
             // Print out the number of people that have read and understood the post
             // When it is clicked it prints out the list of people that have
             echo form_open('acknowledge_post/view');
             echo "<input type='text' style='display:none;' name='event' value='" . $announcement->id . "'>";
-            echo '<input type="submit" name="count" value="'. count($announcement->acknowledgements) .'"/></form>';
+            echo '<input type="submit" name="count" id="acknowledge_count_' . $announcement->id . '" value="'. count($announcement->acknowledgements) .'"/></form>';
             echo "</div>";
         ?>
     </div>
 </div>
 
+<script type="text/javascript" src="/js/announcements.js"></script>
