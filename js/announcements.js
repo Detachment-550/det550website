@@ -20,13 +20,13 @@ function acknowledge_post(announcement_id) {
                     type: 'success',
                     text: 'Post is acknowledged',
                 });
-                // TODO: Change the front end to a green color
-                // TODO: Increment the count of acknowledgements by 1
             },
             error: function (response) {
                 console.log(response);
-                // TODO: Change this alert to a notie alert but use the error class instead of the success class
-                alert("Error: There was a problem checking to see if there is an announcement");
+                notie.alert({
+                    type: 'error',
+                    text: 'There was a problem checking to see if there is an announcement',
+                });
             }
         });
         
