@@ -328,7 +328,37 @@ class Cadet extends CI_Controller{
     {
         if( $this->ion_auth->is_admin() )
         {
-            $this->ion_auth->delete_user($this->input->post('remove'));
+            $user = User_model::with('events', 'attendance_records', 'announcements', 'attendance_memos', 'acknowledge_posts')
+                ->find($this->input->post('remove'));
+
+            foreach ($user->events as $event)
+            {
+                $event->created_by_id = NULL;
+                $event->save();
+            }
+            //delete all attendance records pertaining to a given cadet
+            foreach ($user->attendance_records as $attendance_record)
+            {
+                $attendance_record->delete();
+            }
+
+            foreach ($user->announcements as $announcement)
+            {
+                $announcement->created_by_id = NULL;
+                $announcement->save();
+            }
+
+            foreach ($user->attendance_memos as $attendance_memo)
+            {
+                $attendance_memo->delete();
+            }
+
+            foreach ($user->acknowledge_posts as $acknowledge_post)
+            {
+                $acknowledge_post->delete();
+            }
+            
+            $user->delete();
             redirect('cadet/view');
         }
     }

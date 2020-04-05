@@ -35,27 +35,21 @@ class Acknowledge_post extends CI_Controller{
     /**
      * Function to add new post with acknowledgement criteria
      */
-    function add()
+    function add(int $announcement_id)
     {   
-        if(isset($_POST) && count($_POST) > 0)     
-        {
-            $user = $this->ion_auth->user()->row();
+        $user = $this->ion_auth->user()->row();
 
-            // Ignores duplicate entries
-            if(!Acknowledge_post_model::where('user_id', '=', $user->id)->where('announcement_id', '=', $this->input->post('announcementid'))->exists())
-            {
-                $ack_post = new Acknowledge_post_model();
-                $ack_post->user_id = $user->id;
-                $ack_post->announcement_id = $this->input->post('announcementid');
-                $ack_post->save();
-            }
-            
-            redirect('announcement/view');
+        // Ignores duplicate entries
+        if(!Acknowledge_post_model::where('user_id', '=', $user->id)->where('announcement_id', '=', $announcement_id)->exists())
+        {
+            $ack_post = new Acknowledge_post_model();
+            $ack_post->user_id = $user->id;
+            $ack_post->announcement_id = $announcement_id;
+            $ack_post->save();
+            echo json_encode($ack_post);
         }
-        else
-        {            
-            show_error("There was a problem adding an announcement");
-        }
+        
+        echo json_encode(NULL);
     }
     
     /**
