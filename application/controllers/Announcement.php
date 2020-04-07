@@ -149,19 +149,8 @@ class Announcement extends CI_Controller{
                 ->orderBy('created_at','desc')->get();
         }
         else{
-            $config["base_url"] = site_url('announcement/search');
-            $config["per_page"] = 5;
-            $config["total_rows"] = Announcement_model::all()->count();
-            $config["cur_tag_open"] = "<li class='page-item active'><a class='page-link'>";
-            $config["cur_tag_close"] = '</a></li>';
-            $config["full_tag_open"] = "<nav aria-label='navigation' class='nav'><ul class='pagination'>";
-            $config["full_tag_close"] = "</ul></nav>";
-            $config["attributes"] = array('class' => 'page-link');
-
-            $this->pagination->initialize($config);
-
-            $data["announcements"] = Announcement_model::with('acknowledgements')->limit($config["per_page"])
-                ->offset($page)->orderBy('created_at','desc')->get();
+            $data["announcements"] = Announcement_model::with('acknowledgements')
+                ->orderBy('created_at','desc')->get();
         }
 
         $data["links"] = $this->pagination->create_links();

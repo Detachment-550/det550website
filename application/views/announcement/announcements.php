@@ -7,7 +7,7 @@
     <form method="POST" action="/index.php/announcement/search">
         <div class="form-group">
             <label for="field">Search Field</label>
-            <select id="field" name="post_select" class="form-control">
+            <select id="field" name="post_select" class="form-control" required>
                 <option selected value="">Please Select a Search Option..</option>
                 <option value="title">Announcement Title</option>
                 <option value="subject">Subject of Announcement</option>
@@ -15,10 +15,10 @@
             </select>
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" name="post_value" placeholder="Enter search value..." id="post_value">
+            <input type="text" class="form-control" name="post_value" placeholder="Enter search value..." id="post_value" required>
         </div>
         <button type="submit" class="btn btn-primary">Search</button>
-        <a href="/index.php/announcement/view" class="btn btn-secondary">Reset</a>
+        <a href="/index.php/announcement/view" class="btn btn-secondary">Reset Page</a>
     </form>
 </div>
 
@@ -45,9 +45,15 @@
                     $color = 'green';
                 }
             }
-            
-            echo "<button class='btn btn-sm btn-primary' id='acknowledge_post_" . $announcement->id . "' onclick=acknowledge_post(" . $announcement->id . ") type='button' name='" . $announcement->id .
-                "' style='float:left; background-color: $color'>Read and Understood</button>";
+
+            if ($acknowledgement->user->id == $user->id){
+                echo "<button class='btn btn-sm btn-primary' id='acknowledge_post_" . $announcement->id . "' type='button' name='" . $announcement->id .
+                    "' style='float:left; background-color: $color'>Read and Understood</button>";
+            }
+            else{
+                echo "<button class='btn btn-sm btn-primary' id='acknowledge_post_" . $announcement->id . "' onclick=acknowledge_post(" . $announcement->id . ") type='button' name='" . $announcement->id .
+                    "' style='float:left; background-color: $color'>Read and Understood</button>";
+            }
 
             // Print out the number of people that have read and understood the post
             // When it is clicked it prints out the list of people that have
