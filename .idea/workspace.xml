@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a10f04bf-3585-4a00-af03-7007ec7ae3a9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Cadet.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Cadet.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Announcement.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Announcement.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,18 +66,6 @@
         <option value="JavaScript File" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>user</find>
-      <find>memo</find>
-      <find>comments</find>
-      <find>to_cadet</find>
-      <find>to_cad</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>comments</replace>
-    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
@@ -157,7 +145,7 @@
       <workItem from="1567356522612" duration="13664000" />
       <workItem from="1567863300355" duration="14334000" />
       <workItem from="1568214652729" duration="5322000" />
-      <workItem from="1586260298157" duration="2244000" />
+      <workItem from="1586260298157" duration="4018000" />
     </task>
     <task id="LOCAL-00001" summary="fixed messare's goof.">
       <created>1567723452959</created>
@@ -208,7 +196,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586268360893</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Added announcement search feature to website (updated 2)">
+      <created>1586268840651</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1586268840651</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -222,17 +217,18 @@
     <MESSAGE value="Memo submission bug&#10; -changing comments -&gt; to_cadet back end fix" />
     <MESSAGE value="Added announcement search feature to website" />
     <MESSAGE value="Added announcement search feature to website (updated)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added announcement search feature to website (updated)" />
+    <MESSAGE value="Added announcement search feature to website (updated 2)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added announcement search feature to website (updated 2)" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="331" y="0" key="CommitChangelistDialog2" timestamp="1586268359994">
+    <state x="307" y="0" key="CommitChangelistDialog2" timestamp="1586268839955">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="331" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1586268359994" />
-    <state x="361" y="146" key="Vcs.Push.Dialog.v2" timestamp="1586268458299">
+    <state x="307" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1586268839955" />
+    <state x="361" y="146" key="Vcs.Push.Dialog.v2" timestamp="1586268892971">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="146" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1586268458299" />
+    <state x="361" y="146" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1586268892971" />
     <state x="477" y="204" key="git4idea.merge.GitPullDialog" timestamp="1586097802970">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
