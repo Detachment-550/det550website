@@ -1,5 +1,5 @@
 # AFROTC Detachment 550 Cadet Website
-Fork of MITR project website that was built to track and simply ROTC life. This site tracks ROTC attendance and provides a centrailized communication system.
+Fork of [MITR project](https://github.com/tans2/mitr-group-4) website that was built to track and simply ROTC life. This site tracks ROTC attendance and provides a centrailized communication system.
 
 ## Detachment 550 Cyberflight Contributors 
 
@@ -10,7 +10,10 @@ Fork of MITR project website that was built to track and simply ROTC life. This 
    - [Phu Thai](https://github.com/BluThaitanium)
    - Jae Park
    - Nishant Srivastava
-
+   - [Joe Messare](https://github.com/jmessare46)
+   - [John Gay](https://github.com/jtgjohn)
+   - [Andrew Son](https://github.com/sonj2)
+   - [Stephanie Tan](https://github.com/tans2)
 
 ## Access the cPanel database
 First you have to go the cPanel site 'https://union.rpi.edu:2083/' where you can log in with the following credentials:
