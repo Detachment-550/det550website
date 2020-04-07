@@ -2,22 +2,30 @@
 
 <a class="btn btn-primary float-right" href="/index.php/announcement/create">Make an Announcement</a>
 <h1 class="display-4">Announcements</h1>
-<br>
+
 <div class="shadow-sm p-3 mb-5 bg-white rounded">
-    <form method="POST" action="/index.php/announcement/searchannouncement">
+    <form method="POST" action="/index.php/announcement/search">
         <div class="form-group">
-            <label for="field">Announcements Search</label>
+            <label for="field">Search Field</label>
+            <select id="field" name="post_select" class="form-control">
+                <option selected value="">Please Select a Search Option..</option>
+                <option value="title">Announcement Title</option>
+                <option value="subject">Subject of Announcement</option>
+                <option value="body">Body of Announcement</option>
+            </select>
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" name="search_value" placeholder="Enter search value..." id="search_value">
+            <input type="text" class="form-control" name="post_value" placeholder="Enter search value..." id="post_value">
         </div>
         <button type="submit" class="btn btn-primary">Search</button>
         <a href="/index.php/announcement/view" class="btn btn-secondary">Reset</a>
     </form>
 </div>
+
 <br>
 <div class='card'>
     <?php
+
     foreach($announcements as $announcement)
         {
             //print out the information for the post
