@@ -144,9 +144,9 @@ class Cadet extends CI_Controller{
         
         $config['upload_path']      = 'images/';
         $config['allowed_types']    = 'jpeg|jpg|png';
-        $config['max_size']         = 0;
-        $config['max_width']        = 0;
-        $config['max_height']       = 0;
+        $config['max_size']         = 2048;
+        $config['max_width']        = 1000;
+        $config['max_height']       = 1000;
         $config['file_name']        = $user->id;
 
         // If old profile picture exists delete it

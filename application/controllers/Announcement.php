@@ -43,7 +43,7 @@ class Announcement extends CI_Controller{
             }
 
             // Sends the announcement to groupMe
-//            $url = "https://api.groupme.com/v3/bots/post";
+            $url = "https://api.groupme.com/v3/bots/post";
             $fields = [
                 'bot_id'    => "b83da12e82339a292c0173442d",
                 'text'      => "Title: " . $announcement->title . "
@@ -142,7 +142,7 @@ class Announcement extends CI_Controller{
         {
             $post_title = strtoupper($this->input->post('post_value'));
             $data["announcements"] = Announcement_model::with('acknowledgements')->limit($config["per_page"])
-                ->where(mb_convert_case('title', MB_CASE_UPPER, "UTF-8"), 'like', '%' . $post_title . '%')
+                ->where(strtoupper('title'), 'like', '%' . $post_title . '%')
                 ->offset($page)->orderBy('created_at','desc')->get();
         }
         elseif($search_field === 'subject')
@@ -249,17 +249,5 @@ class Announcement extends CI_Controller{
         }
     }
 
-    function searchannouncement()
-    {
-        if (isset($_POST) && count($_POST) > 0) {
-            $data['title'] = "Announcements";
-            $data['announcement'] = Announcement_model::orderBy('id', 'desc')
-                ->where('title', 'like',  $this->input->post('search_value') )
-                ->get();
-        }
 
-        $this->load->view('templates/header', $data);
-        $this->load->view('announcement/announcements');
-        $this->load->view('templates/footer');
-    }
 }
