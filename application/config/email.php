@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed.');
 
     $config['useragent']        = 'PHPMailer';              // Mail engine switcher: 'CodeIgniter' or 'PHPMailer'
-    $config['protocol']         = 'mail';                   // 'mail', 'sendmail', or 'smtp'
+    $config['protocol']         = 'sendmail';                   // 'mail', 'sendmail', or 'smtp'
     $config['mailpath']         = '/usr/sbin/sendmail';
     $config['smtp_host']        = 'localhost';
     $config['smtp_auth']        = FALSE;                     // Whether to use SMTP authentication, boolean TRUE/FALSE. If this option is omited or if it is NULL, then SMTP authentication is used when both $config['smtp_user'] and $config['smtp_pass'] are non-empty strings.

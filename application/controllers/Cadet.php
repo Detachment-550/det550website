@@ -554,6 +554,52 @@ class Cadet extends CI_Controller{
         }
     }
 
+    function uploadwingpic()
+    {
+//        TODO: Fix this so instead of manipulating a name the file name is stored on the cadet's profile
+        $user = $this->ion_auth->user()->row();
+
+        $config['upload_path']      = './images/';
+        $config['allowed_types']    = 'pdf|jpg|png';
+        $config['max_size']         = 2048;
+        $config['max_width']        = 1000;
+        $config['max_height']       = 1000;
+        $config['file_name']        = 'orgchart';
+
+        // If old profile picture exists delete it
+        if(is_file('./images/orgchart.pdf'))
+        {
+            unlink('./images/orgchart.pdf');
+        }
+        else if(is_file('./images/orgchart.jpg'))
+        {
+            unlink('./images/orgchart.jpg');
+        }
+        else if(is_file('./images/orgchart.png'))
+        {
+            unlink('./images/orgchart.png');
+        }
+        else if(is_file('./images/orgchart.jpeg'))
+        {
+            unlink('./images/orgchart.jpeg');
+        }
+
+        // Uploads image
+        $this->load->library('upload', $config);
+        if( !$this->upload->do_upload('wingpicture') )
+        {
+            $data['error'] = $this->upload->display_errors();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('wingstructure');
+            $this->load->view('templates/footer');
+        }
+        else
+        {
+            redirect('cadet/wingstructure');
+        }
+    }
+
     /**
      * Shows the cadet wing structure page.
      */
@@ -562,21 +608,25 @@ class Cadet extends CI_Controller{
         $data['title'] = 'Cadet Wing Structure';
 
         //passes the "orgchart" picture file name to the view if it exists.
-        if(is_file('./images/orgchart.jpeg'))
+        if(is_file('./images/orgchart.pdf'))
         {
-            $data['picture_location'] = '/images/orgchart.jpeg';
+            $data['picture_location'] = base_url("images/orgchart.pdf");
         }
         else if(is_file('./images/orgchart.jpg'))
         {
-            $data['picture_location'] = '/images/orgchart.jpg';
+            $data['picture_location'] = base_url("images/orgchart.jpg");
         }
-        else if(is_file('./images/orgchart.png'))
+        else if(is_file('./images/orgchart.PNG'))
         {
-            $data['picture_location'] = '/images/orgchart.png';
+            $data['picture_location'] = base_url("images/orgchart.PNG");
+        }
+        else if(is_file('./images/orgchart.jpeg'))
+        {
+            $data['picture_location'] = base_url("images/orgchart.jpeg");
         }
         else
         {
-            $data['picture_location'] = '';
+            $data['picture_location'] = ' ';
         }
 
         $this->load->view('templates/header', $data);
@@ -595,41 +645,6 @@ class Cadet extends CI_Controller{
         $data['admin'] = $this->ion_auth->is_admin($user);
 
         echo json_encode($data);
-    }
-    function uploadwingpic()
-    {
-//        TODO: Fix this so instead of manipulating a name the file name is stored on the cadet's profile
-        $user = $this->ion_auth->user(107)->row();
-
-        $config['upload_path']      = 'images/';
-        $config['allowed_types']    = 'jpeg|jpg|png';
-        $config['max_size']         = 2048;
-        $config['max_width']        = 1000;
-        $config['max_height']       = 1000;
-        $config['file_name']        = 'orgchart';
-
-        // If old profile picture exists delete it
-        if(is_file('./images/orgchart.jpeg') || is_file('./images/orgchart.jpg') || is_file('./images/orgchart.png'))
-        {
-            unlink('./images/orgchart.jpeg');
-            unlink('./images/orgchart.jpg');
-            unlink('./images/orgchart.png');
-        }
-
-        // Uploads image
-        $this->load->library('upload', $config);
-        if( !$this->upload->do_upload('wingpicture') )
-        {
-            $data['error'] = $this->upload->display_errors();
-
-            $this->load->view('templates/header', $data);
-            $this->load->view('wingstructure');
-            $this->load->view('templates/footer');
-        }
-        else
-        {
-            redirect('cadet/wingstructure');
-        }
     }
 
 }

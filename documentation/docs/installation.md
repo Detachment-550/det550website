@@ -220,13 +220,13 @@ created.
 
 9. Your PhpMyAdmin instance (a visual representation of MySQL) will be located at localhost:8181. Use the [Developer 
 Database](./../../sql/developer_data_dump.sql) dump file to upload the fake data to your phpmyadmin.
-    
+
     1. First click the new button in the top right and create a database named 'afrotc_mitr'.
     2. Click on this database.
     3. Click the 'Import' button.
     4. Choose the [Developer Database](./../../sql/developer_data_dump.sql) file. 
     5. Click the 'go' button and all of the database will have been uploaded.
-    
+
 10. Finally, you may have to modify the code you got from the repository to connect to your database. Enter the password
 that you provided when installin MySQL above in the [database.php](../../application/config/database.php) file. Make 
 sure you config file contains the following: 
@@ -252,10 +252,70 @@ sure you config file contains the following:
             'failover' => array(),
             'save_queries' => TRUE
         );
-    
+
     That's it you should be ready to develop. Just use the below docker command while in the directory you built to run the 
     site.
-    
+
     ```bash
     docker-compose up
     ```
+    
+## Mac OS Development Set Up
+
+6. Now if you were to attempt to run the site you will most likely get the following error: 
+
+```php
+Message: mysqli::real_connect(): The server requested authentication method unknown to the client [caching_sha2_password]
+```
+
+To fix this use one of the following sql commands under your schema shelterenterprise:
+
+```sql
+ALTER USER 'mysqlUsername'@'localhost' 
+IDENTIFIED WITH mysql_native_password 
+BY 'mysqlUsernamePassword';
+```
+
+or if you are creating a user for the database:
+
+```sql
+ CREATE USER 'jeffrey'@'localhost' 
+ IDENTIFIED WITH mysql_native_password 
+ BY 'password';
+```
+
+{==TODO==}
+
+
+## Site Configuration
+At this point you have configured your environment for development and are sitting at the login screen. However there 
+are no registered users in the site currently. Run the following in your SQL command line under the shelterenterprise 
+schema:
+
+TODO: Update this to work with the current users structure
+```mysql
+## Creates the groups needed for the application
+INSERT INTO `groups` (`id`, `name`, `description`) VALUES
+(1,'admin','Administrator'),
+(2,'members','General User');
+
+## Creates an admin user to login as
+INSERT INTO `users` (`id`, `ip_address`, `username`, `password`,`activation_code`, `created_on`) VALUES
+('1','127.0.0.1','admin','$2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa','','1268889823');
+
+## Adds the admin user to the general user group and the admin group
+INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
+(1,1,1),
+(2,1,2);
+
+```
+{==TODO: Finish the SQL command above==}
+
+Now refresh the page and you will be able to log in as 
+
+```
+username: admin
+password: password
+```
+
+and you are ready to develop on the shelter enterprise supply chain management application! 
