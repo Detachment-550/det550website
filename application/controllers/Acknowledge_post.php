@@ -7,7 +7,8 @@ class Acknowledge_post extends CI_Controller{
 
         if( !$this->ion_auth->logged_in() )
         {
-            redirect('login/view');
+	        $this->session->set_flashdata('redirect_url', current_url());
+	        redirect('login/view');
         }
     }
 

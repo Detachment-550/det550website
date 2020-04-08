@@ -17,6 +17,11 @@ class Login extends CI_Controller {
         }
         else
         {
+	        if($this->session->flashdata('redirect_url') !== NULL)
+	        {
+		        $this->session->keep_flashdata('redirect_url');
+	        }
+	        
             $data['title'] = 'Login';
 
             $this->load->view('login', $data);
@@ -37,19 +42,31 @@ class Login extends CI_Controller {
         // Checks that the password given is correct and that the user isn't locked out of the account
         if( !$this->ion_auth->is_max_login_attempts_exceeded($identity) && $this->ion_auth->login($identity, $password) )
         {
-            redirect('cadet/home');
+	        if($this->session->flashdata('redirect_url') !== NULL)
+	        {
+		        redirect($this->session->flashdata('redirect_url'));
+	        }
+	        else
+	        {
+		        redirect('cadet/home');
+	        }
         }
         else
         {
             // If you are locked out of the account show error
             if( $this->ion_auth->is_max_login_attempts_exceeded($identity) )
             {
-                $data['error'] = "You have been locked out of your account due to 5 incorrect password entries. 
+	            $data['error'] = "You have been locked out of your account due to 5 incorrect password entries.
                 Please reach out to a site admin or up your chain of commend to resolve this issue.";
             }
             else
             {
-                $data['error'] = "Your email or password is incorrect.";
+	            if($this->session->flashdata('redirect_url') !== NULL)
+	            {
+		            $this->session->keep_flashdata('redirect_url');
+	            }
+	
+	            $data['error'] = "Your email or password is incorrect.";
             }
 
             $this->load->view('login', $data);
