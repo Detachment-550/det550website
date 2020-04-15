@@ -45,15 +45,11 @@
                     $color = 'green';
                 }
             }
-
-            if ($acknowledgement->user->id == $user->id){
+            
                 echo "<button class='btn btn-sm btn-primary' id='acknowledge_post_" . $announcement->id . "' type='button' name='" . $announcement->id .
                     "' style='float:left; background-color: $color'>Read and Understood</button>";
-            }
-            else{
-                echo "<button class='btn btn-sm btn-primary' id='acknowledge_post_" . $announcement->id . "' onclick=acknowledge_post(" . $announcement->id . ") type='button' name='" . $announcement->id .
+                echo "<button class='btn btn-sm btn-primary' id='acknowledge_post_" . $announcement->id . "' onclick=acknowledge_post(" . $announcement->d . ") type='button' name='" . $announcement->id .
                     "' style='float:left; background-color: $color'>Read and Understood</button>";
-            }
 
             // Print out the number of people that have read and understood the post
             // When it is clicked it prints out the list of people that have
