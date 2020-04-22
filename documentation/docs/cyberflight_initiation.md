@@ -2,7 +2,7 @@
 
 #### In order to first begin we must first download a few things
 
- - [PHPStorm](https://windows.php.net/download/) - This is the development enviornment we will use to edit the website code. 
+ - [PHPStorm](https://www.jetbrains.com/phpstorm/download/#section=windows) - This is the development enviornment we will use to edit the website code. 
  - [MySQL](https://dev.mysql.com/downloads/installer/)
  - [Github](https://github.com/)
  - [FileZilla](https://filezilla-project.org/) - This is a tool for sending your files to the live site.
