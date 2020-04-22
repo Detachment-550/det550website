@@ -11,12 +11,13 @@ nav:
   - Installation: installation.md
   - Attendance: attendance.md
   - Profile: profile.md
-  - Directory: installation.md
+  - Directory: directory.md
   - Announcements: announcements.md
   - Wiki: wiki.md
   - Email: email.md
   - Administrator: admin.md
   - Alumni: alumni.md
+  - Cyber Flight Initiation: cyberflight_initiation.md
   - Return to Site: ../../
 markdown_extensions:
   - pymdownx.arithmatex
