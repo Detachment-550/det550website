@@ -94,7 +94,7 @@ Now your windows environment should be ready to develop! I highly recommend usin
 #### General
 ```
 Protocol: SFTP - SSH File Transfer Protocol
-Host: 107.180.9.193
+Host: Det550.com
 Logon Type: Normal
 User: g7afzsg72ror
 Password: F@lcons550
