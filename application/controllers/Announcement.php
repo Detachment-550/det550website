@@ -119,7 +119,7 @@ class Announcement extends CI_Controller{
     }
 
     /**
-     * @param int $page = 0
+     * @param int $page
      *
      * Searches through specified announcement data and sends to user
      */
@@ -127,42 +127,31 @@ class Announcement extends CI_Controller{
 
         $data['title'] = 'Announcements';
 
-        $config["base_url"] = site_url('announcement/search');
-        $config["per_page"] = 50;
-        $config["total_rows"] = Announcement_model::all()->count();
-        $config["cur_tag_open"] = "<li class='page-item active'><a class='page-link'>";
-        $config["cur_tag_close"] = '</a></li>';
-        $config["full_tag_open"] = "<nav aria-label='navigation' class='nav'><ul class='pagination'>";
-        $config["full_tag_close"] = "</ul></nav>";
-        $config["attributes"] = array('class' => 'page-link');
-
-        $this->pagination->initialize($config);
-
         $search_field = $this->input->post('post_select');
         if($search_field === 'title')
         {
             $post_title = strtoupper($this->input->post('post_value'));
-            $data["announcements"] = Announcement_model::with('acknowledgements')->limit($config["per_page"])
+            $data["announcements"] = Announcement_model::with('acknowledgements')
                 ->where(strtoupper('title'), 'like', '%' . $post_title . '%')
-                ->offset($page)->orderBy('created_at','desc')->get();
+                ->orderBy('created_at','desc')->get();
         }
         elseif($search_field === 'subject')
         {
             $post_subject = ucwords($this->input->post('post_value'));
-            $data["announcements"] = Announcement_model::with('acknowledgements')->limit($config["per_page"])
+            $data["announcements"] = Announcement_model::with('acknowledgements')
                 ->where('subject', 'like', '%' . $post_subject . '%')
-                ->offset($page)->orderBy('created_at','desc')->get();
+                ->orderBy('created_at','desc')->get();
         }
         elseif($search_field === 'body')
         {
             $post_body = ucfirst($this->input->post('post_value'));
-            $data["announcements"] = Announcement_model::with('acknowledgements')->limit($config["per_page"])
+            $data["announcements"] = Announcement_model::with('acknowledgements')
                 ->where('body', 'like', '%' . $post_body . '%')
-                ->offset($page)->orderBy('created_at','desc')->get();
+                ->orderBy('created_at','desc')->get();
         }
         else{
-            $data["announcements"] = Announcement_model::with('acknowledgements')->limit($config["per_page"])
-                ->offset($page)->orderBy('created_at','desc')->get();
+            $data["announcements"] = Announcement_model::with('acknowledgements')
+                ->orderBy('created_at','desc')->get();
         }
 
         $data["links"] = $this->pagination->create_links();

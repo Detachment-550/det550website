@@ -90,19 +90,15 @@ shelterenterprise. This will structure your database for the website.
 3. Go in this folder and find the file titled 'php.ini - development' and create a new document in the same directory called 
 php.ini. This will be the configuration settings file of your local PHP environment.
 4. Edit this file and uncomment the following line:
-
 ```php
 extension_dir = "ext"
 ```
-
-to allows the computer to find the extensions 
+this allows the computer to find the extensions 
 like mysqli that you will need.
 5. You must then find the line: 
-
 ```php
 ;extension=mysqli
 ```
-
 Uncomment it to allow php to use that extension. (To uncomment remove the ';')
 6. Now if you were to attempt to run the site you will most likely get the following error: 
 
