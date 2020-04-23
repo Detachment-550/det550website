@@ -7,15 +7,43 @@
     <form method="POST" action="/index.php/announcement/search">
         <div class="form-group">
             <label for="field">Search Field</label>
-            <select id="field" name="post_select" class="form-control" required>
-                <option selected value="">Please Select a Search Option..</option>
-                <option value="title">Announcement Title</option>
-                <option value="subject">Subject of Announcement</option>
-                <option value="body">Body of Announcement</option>
+            <select id="field" name="post_select" class="form-control" required><?php
+                if(isset($post_select)) {
+
+                    if ($post_select == 'title') {
+                        echo '<option selected value="title">Announcement Title</option>';
+                        echo '<option value="subject">Subject of Announcement</option>';
+                        echo '<option value="body">Body of Announcement</option>';
+
+                    } elseif ($post_select == 'subject') {
+                        echo '<option selected value="subject">Subject of Announcement</option>';
+                        echo '<option value="title">Announcement Title</option>';
+                        echo '<option value="body">Body of Announcement</option>';
+
+                    } elseif ($post_select == 'body') {
+                        echo '<option selected value="body">Body of Announcement</option>';
+                        echo '<option value="title">Announcement Title</option>';
+                        echo '<option value="subject">Subject of Announcement</option>';
+
+                    }
+                }
+                else
+                {
+                    echo '<option selected value="">Please Select a Search Option..</option>';
+                    echo '<option value="title">Announcement Title</option>';
+                    echo '<option value="subject">Subject of Announcement</option>';
+                    echo '<option value="body">Body of Announcement</option>';
+                }
+                ?>
             </select>
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" name="post_value" placeholder="Enter search value..." id="post_value" required>
+            <input type="text" class="form-control" name="post_value" placeholder="Enter search value..." value="<?php
+                if(isset($post_value))
+                {
+                    echo $post_value;
+                }
+            ?>" id="post_value" required>
         </div>
         <button type="submit" class="btn btn-primary">Search</button>
         <a href="/index.php/announcement/view" class="btn btn-secondary">Reset Page</a>
