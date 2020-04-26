@@ -18,16 +18,33 @@ class Alumni extends CI_Controller{
     {
         if( isset($_POST) && count($_POST) > 0 && $this->ion_auth->is_admin() )
         {
+            $alumni = new Alumni_model();
+            $alumni->rank = 'rank';
+            $alumni->email = 'email';
+            $alumni->first_name = 'First';
+            $alumni->last_name = 'Last';
+            $alumni->phone = '0000000000';
+            $alumni->major = 'Major';
+            $alumni->position = 'Position';
+
             $user = $this->ion_auth->user($this->input->post('transfer'))->row();
 
-            $alumni = new Alumni_model();
+            $user->rank = '2nd Lieutenant';
             $alumni->rank = $user->rank;
             $alumni->email = $user->email;
             $alumni->first_name = $user->first_name;
             $alumni->last_name = $user->last_name;
-            $alumni->phone = $user->phone;
-            $alumni->major = $user->major;
-            $alumni->position = $user->position;
+            if(!$user->phone = ''){
+                $alumni->phone = $user->phone;
+            }
+            if(!$user->major = ''){
+                $alumni->major = $user->major;
+
+            }
+            if(!$user->position = ''){
+                $alumni->position = $user->position;
+
+            }
             $alumni->image = $user->image;
             $alumni->save();
 
