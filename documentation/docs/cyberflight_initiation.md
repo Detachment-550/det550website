@@ -2,7 +2,7 @@
 
 #### In order to first begin we must first download a few things
 
- - [PHPStorm](https://windows.php.net/download/) - This is the development enviornment we will use to edit the website code. 
+ - [PHPStorm](https://www.jetbrains.com/phpstorm/download/#section=windows) - This is the development enviornment we will use to edit the website code. 
  - [MySQL](https://dev.mysql.com/downloads/installer/)
  - [Github](https://github.com/)
  - [FileZilla](https://filezilla-project.org/) - This is a tool for sending your files to the live site.
@@ -94,7 +94,7 @@ Now your windows environment should be ready to develop! I highly recommend usin
 #### General
 ```
 Protocol: SFTP - SSH File Transfer Protocol
-Host: 107.180.9.193
+Host: Det550.com
 Logon Type: Normal
 User: g7afzsg72ror
 Password: F@lcons550

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a10f04bf-3585-4a00-af03-7007ec7ae3a9" name="Default Changelist" comment="Announcement search feature (update 3)">
+    <list default="true" id="a10f04bf-3585-4a00-af03-7007ec7ae3a9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Announcement.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Announcement.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/announcement/announcements.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/announcement/announcements.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -228,7 +230,28 @@
       <option name="project" value="LOCAL" />
       <updated>1587581964482</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Documentation fix">
+      <created>1587597555156</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1587597555156</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Documentation fix">
+      <created>1587597965444</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1587597965444</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Documentation fix">
+      <created>1587598048894</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1587598048894</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -244,21 +267,22 @@
     <MESSAGE value="Added announcement search feature to website (updated)" />
     <MESSAGE value="Added announcement search feature to website (updated 2)" />
     <MESSAGE value="Announcement search feature (update 3)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Announcement search feature (update 3)" />
+    <MESSAGE value="Documentation fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Documentation fix" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="307" y="0" key="CommitChangelistDialog2" timestamp="1586992335144">
+    <state x="348" y="0" key="CommitChangelistDialog2" timestamp="1587598047322">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="307" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1586992335144" />
+    <state x="348" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1587598047322" />
     <state x="606" y="329" key="VCS.ChangelistChooser" timestamp="1586463337007">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="606" y="329" key="VCS.ChangelistChooser/0.0.1536.824@0.0.1536.824" timestamp="1586463337007" />
-    <state x="361" y="146" key="Vcs.Push.Dialog.v2" timestamp="1587582026359">
+    <state x="361" y="146" key="Vcs.Push.Dialog.v2" timestamp="1587597565300">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="146" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1587582026359" />
+    <state x="361" y="146" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1587597565300" />
     <state x="578" y="330" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586297933803">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

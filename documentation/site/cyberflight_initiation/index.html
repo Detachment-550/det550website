@@ -1,0 +1,668 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="This site is an attendance and personel tracking system for AFROTC Detachment 550. This also functions as a communication automation system.">
+      
+      
+      
+        <meta name="author" content="Joseph Messare">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1, mkdocs-material-5.1.0">
+    
+    
+      
+        <title>Cyber Flight Initiation - Det 550 Web Application</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.89dc9fe3.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#welcome-to-det550s-cyber-flight" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href=".." title="Det 550 Web Application" class="md-header-nav__button md-logo" aria-label="Det 550 Web Application">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,8A3,3 0 0,0 15,5A3,3 0 0,0 12,2A3,3 0 0,0 9,5A3,3 0 0,0 12,8M12,11.54C9.64,9.35 6.5,8 3,8V19C6.5,19 9.64,20.35 12,22.54C14.36,20.35 17.5,19 21,19V8C17.5,8 14.36,9.35 12,11.54Z" /></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" /></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Det 550 Web Application
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Cyber Flight Initiation
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" /></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" /></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/jmessare46/det550website/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Det 550 Web Application" class="md-nav__button md-logo" aria-label="Det 550 Web Application">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,8A3,3 0 0,0 15,5A3,3 0 0,0 12,2A3,3 0 0,0 9,5A3,3 0 0,0 12,8M12,11.54C9.64,9.35 6.5,8 3,8V19C6.5,19 9.64,20.35 12,22.54C14.36,20.35 17.5,19 21,19V8C17.5,8 14.36,9.35 12,11.54Z" /></svg>
+
+    </a>
+    Det 550 Web Application
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/jmessare46/det550website/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../installation/" title="Installation" class="md-nav__link">
+      Installation
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../attendance/" title="Attendance" class="md-nav__link">
+      Attendance
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../profile/" title="Profile" class="md-nav__link">
+      Profile
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../directory/" title="Directory" class="md-nav__link">
+      Directory
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../announcements/" title="Announcements" class="md-nav__link">
+      Announcements
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../wiki/" title="Wiki" class="md-nav__link">
+      Wiki
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../email/" title="Email" class="md-nav__link">
+      Email
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../admin/" title="Administrator" class="md-nav__link">
+      Administrator
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../alumni/" title="Alumni" class="md-nav__link">
+      Alumni
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Cyber Flight Initiation
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z" /></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Cyber Flight Initiation" class="md-nav__link md-nav__link--active">
+      Cyber Flight Initiation
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#welcome-to-det550s-cyber-flight" class="md-nav__link">
+    Welcome to Det550's Cyber Flight!
+  </a>
+  
+    <nav class="md-nav" aria-label="Welcome to Det550's Cyber Flight!">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#xampp-set-up" class="md-nav__link">
+    XAMPP Set Up
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phpstorm-setup" class="md-nav__link">
+    PHPStorm Setup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pushing-changes-to-det550com-with-filezilla" class="md-nav__link">
+    Pushing Changes to Det550.com with FileZilla
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mysql" class="md-nav__link">
+    MySQL
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../" title="Return to Site" class="md-nav__link">
+      Return to Site
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#welcome-to-det550s-cyber-flight" class="md-nav__link">
+    Welcome to Det550's Cyber Flight!
+  </a>
+  
+    <nav class="md-nav" aria-label="Welcome to Det550's Cyber Flight!">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#xampp-set-up" class="md-nav__link">
+    XAMPP Set Up
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phpstorm-setup" class="md-nav__link">
+    PHPStorm Setup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pushing-changes-to-det550com-with-filezilla" class="md-nav__link">
+    Pushing Changes to Det550.com with FileZilla
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mysql" class="md-nav__link">
+    MySQL
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/jmessare46/det550website/tree/master/documentation/docs/cyberflight_initiation.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                  <h1>Cyber Flight Initiation</h1>
+                
+                <h2 id="welcome-to-det550s-cyber-flight">Welcome to Det550's Cyber Flight!<a class="headerlink" href="#welcome-to-det550s-cyber-flight" title="Permanent link">&para;</a></h2>
+<h4>In order to first begin we must first download a few things</h4>
+<ul>
+<li><a href="https://windows.php.net/download/">PHPStorm</a> - This is the development enviornment we will use to edit the website code. </li>
+<li><a href="https://dev.mysql.com/downloads/installer/">MySQL</a></li>
+<li><a href="https://github.com/">Github</a></li>
+<li><a href="https://filezilla-project.org/">FileZilla</a> - This is a tool for sending your files to the live site.</li>
+<li><a href="https://www.apachefriends.org/index.html">XAMPP</a> - This is Voodoo magic that will make everything work somehow. TTP.</li>
+</ul>
+<h3 id="xampp-set-up">XAMPP Set Up<a class="headerlink" href="#xampp-set-up" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Start Apache  -To run LocalHost only-</li>
+<li>Open Files</li>
+<li>Open htdocs</li>
+<li>Copy and paste your repository into htdocs folder</li>
+<li>Delete other stuff</li>
+<li>open config.php inside htdocs with PHPStorm</li>
+<li>Edit out ':8080' from "localhost:8080"</li>
+<li>Open application tab in PHPStorm</li>
+<li>Delete ".htaccess"</li>
+</ol>
+<h3 id="phpstorm-setup">PHPStorm Setup<a class="headerlink" href="#phpstorm-setup" title="Permanent link">&para;</a></h3>
+<h4>Local PHP Configuration</h4>
+<ol>
+<li>Download the latest version of php at the following link: <a href="https://windows.php.net/download/">PHP Download</a></li>
+<li>Extract the zip folder to a folder where you'd like to store PHP. </li>
+<li>Go in this folder and find the file titled 'php.ini - development' and create a new document in the same directory called 
+php.ini. This will be the configuration settings file of your local PHP environment.</li>
+<li>Edit this file and uncomment the following line:
+<div class="highlight"><pre><span></span><code><span class="x">extension_dir = &quot;ext&quot;</span>
+</code></pre></div>
+this allows the computer to find the extensions 
+like mysqli that you will need.</li>
+<li>You must then find the line: 
+<div class="highlight"><pre><span></span><code><span class="x">;extension=mysqli</span>
+</code></pre></div>
+Uncomment it to allow php to use that extension. (To uncomment remove the ';')</li>
+<li>Now if you were to attempt to run the site you will most likely get the following error: </li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="x">Message: mysqli::real_connect(): The server requested authentication method unknown to the client [caching_sha2_password]</span>
+</code></pre></div>
+
+<p>To fix this use one of the following sql commands under your schema shelterenterprise:</p>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span> <span class="k">USER</span> <span class="s1">&#39;mysqlUsername&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span> 
+<span class="n">IDENTIFIED</span> <span class="k">WITH</span> <span class="n">mysql_native_password</span> 
+<span class="k">BY</span> <span class="s1">&#39;mysqlUsernamePassword&#39;</span><span class="p">;</span>
+</code></pre></div>
+
+<p>or if you are creating a user for the database:</p>
+<div class="highlight"><pre><span></span><code> <span class="k">CREATE</span> <span class="k">USER</span> <span class="s1">&#39;jeffrey&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span> 
+ <span class="n">IDENTIFIED</span> <span class="k">WITH</span> <span class="n">mysql_native_password</span> 
+ <span class="k">BY</span> <span class="s1">&#39;password&#39;</span><span class="p">;</span>
+</code></pre></div>
+
+<p>To run your locally hosted site run the following in your terminal. 
+Note: you can use any port you wish to that is not already in use. Using port 8040 is not required. If you do choose to 
+use a different port just update the application/config/config.php file accordingly.</p>
+<div class="highlight"><pre><span></span><code>&quot;C:\Path to your php exe\php.exe&quot; -S localhost:8040 -t C:\Path to the project folder\shelterenterprises
+</code></pre></div>
+
+<p>Now your windows environment should be ready to develop! I highly recommend using PHP Storm for your IDE.</p>
+<h4>Setting up your repository</h4>
+<ol>
+<li>Click on "Get from Version Control"</li>
+<li>Click on Github (or log in if it asks you to do so)</li>
+<li>Select the current master branch</li>
+<li>Directory should look for:<div class="codehilite"><pre><span></span><code><span class="c">C:\xampp\htdocs</span>
+</code></pre></div>
+
+
+</li>
+</ol>
+<h3 id="pushing-changes-to-det550com-with-filezilla">Pushing Changes to Det550.com with FileZilla<a class="headerlink" href="#pushing-changes-to-det550com-with-filezilla" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Open FileZilla</li>
+<li>Click on "Open the Site Manager" button in the top left corner</li>
+</ul>
+<h4>General</h4>
+<div class="highlight"><pre><span></span><code>Protocol: SFTP - SSH File Transfer Protocol
+Host: 107.180.9.193
+Logon Type: Normal
+User: g7afzsg72ror
+Password: F@lcons550
+</code></pre></div>
+
+<h4>Advanced</h4>
+<div class="highlight"><pre><span></span><code>Server type: Default
+Default local directory: C:\xampp2\htdocs\
+Default remote directory: /home/g7afzsg72ror/public_html
+Use synchronized browsing
+Use Directory comparison
+No server time offset
+</code></pre></div>
+
+<h4>Transfer Settings</h4>
+<div class="highlight"><pre><span></span><code>DO NOT Limit number of simultaneous connections
+Maximum number of connections should be set to 1
+</code></pre></div>
+
+<h4>Charset</h4>
+<div class="highlight"><pre><span></span><code>Autodetect
+</code></pre></div>
+
+<h4>How to Use</h4>
+<ul>
+<li>Click Connect after opening the Site Manager</li>
+<li>Drag only the files you uploaded to the main branch of the website over to the server side</li>
+<li>Don't touch anything else</li>
+</ul>
+<h3 id="mysql">MySQL<a class="headerlink" href="#mysql" title="Permanent link">&para;</a></h3>
+<ol>
+<li>First install MYSQL for windows community edition at the following link: 
+<a href="https://dev.mysql.com/downloads/installer/">Windows MySQL Installer</a></li>
+<li>Run through the installation process and remember what you set your root password to because you will need it later.</li>
+<li>Go into the project and edit the following file application/config/database.php.</li>
+<li>In this file fill out the following information according to what you configured in the installation of your version 
+of MYSQL.</li>
+<li>At this point you will need to change the way the database is configured for authentication. Use the following 
+command with your username and password for the database user who will access the shelterenterprise database TODO Find command.</li>
+<li>Then copy the schema located in the repository sql/shelterenterprises.sql and run that code under a schema titled 
+shelterenterprise. This will structure your database for the website.</li>
+</ol>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../alumni/" title="Alumni" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Alumni
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.36cbf620.min.js"></script>
+      <script src="../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.7f7c8775.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
