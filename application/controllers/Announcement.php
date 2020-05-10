@@ -119,34 +119,31 @@ class Announcement extends CI_Controller{
     }
 
     /**
-     * @param int $page
      *
      * Searches through specified announcement data and sends to user
      */
-    function search($page = 0){
+    function search(){
 
         $data['title'] = 'Announcements';
 
         $search_field = $this->input->post('post_select');
+        $post_value = strtolower($this->input->post('post_value'));
         if($search_field === 'title')
         {
-            $post_title = strtoupper($this->input->post('post_value'));
             $data["announcements"] = Announcement_model::with('acknowledgements')
-                ->where(strtoupper('title'), 'like', '%' . $post_title . '%')
+                ->whereRaw("LOWER(title) LIKE '%" . $post_value . "%'")
                 ->orderBy('created_at','desc')->get();
         }
         elseif($search_field === 'subject')
         {
-            $post_subject = ucwords($this->input->post('post_value'));
             $data["announcements"] = Announcement_model::with('acknowledgements')
-                ->where('subject', 'like', '%' . $post_subject . '%')
+                ->whereRaw("LOWER(subject) LIKE '%" . $post_value . "%'")
                 ->orderBy('created_at','desc')->get();
         }
         elseif($search_field === 'body')
         {
-            $post_body = ucfirst($this->input->post('post_value'));
             $data["announcements"] = Announcement_model::with('acknowledgements')
-                ->where('body', 'like', '%' . $post_body . '%')
+                ->whereRaw("LOWER(body) LIKE '%" . $post_value . "%'")
                 ->orderBy('created_at','desc')->get();
         }
         else{
@@ -156,6 +153,8 @@ class Announcement extends CI_Controller{
 
         $data["links"] = $this->pagination->create_links();
         $data['ackposts'] = Acknowledge_post_model::all();
+        $data['post_value'] = $post_value;
+        $data['post_select'] = $search_field;
 
         $this->load->view('templates/header', $data);
         $this->load->view('announcement/announcements');
