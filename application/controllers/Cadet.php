@@ -561,13 +561,13 @@ class Cadet extends CI_Controller{
         $user = $this->ion_auth->user()->row();
 
         $config['upload_path']      = './images/';
-        $config['allowed_types']    = 'pdf|jpg|png';
+        $config['allowed_types']    = 'pdf|jpg|png|jpeg';
         $config['max_size']         = 0;
         $config['max_width']        = 0;
         $config['max_height']       = 0;
         $config['file_name']        = 'orgchart';
 
-        // If old profile picture exists delete it
+        // If old wing structure picture exists delete it
         if(is_file('./images/orgchart.pdf'))
         {
             unlink('./images/orgchart.pdf');
@@ -627,7 +627,7 @@ class Cadet extends CI_Controller{
         }
         else
         {
-            $data['picture_location'] = ' ';
+            $data['picture_location'] = '';
         }
 
         $this->load->view('templates/header', $data);
