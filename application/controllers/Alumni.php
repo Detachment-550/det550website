@@ -34,14 +34,14 @@ class Alumni extends CI_Controller{
             $alumni->email = $user->email;
             $alumni->first_name = $user->first_name;
             $alumni->last_name = $user->last_name;
-            if(!$user->phone = ''){
+            if(!$user->phone == ''){
                 $alumni->phone = $user->phone;
             }
-            if(!$user->major = ''){
+            if(!$user->major == ''){
                 $alumni->major = $user->major;
 
             }
-            if(!$user->position = ''){
+            if(!$user->position == ''){
                 $alumni->position = $user->position;
 
             }
