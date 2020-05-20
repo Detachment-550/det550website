@@ -576,9 +576,9 @@ class Cadet extends CI_Controller{
         {
             unlink('./images/orgchart.jpg');
         }
-        else if(is_file('./images/orgchart.png'))
+        else if(is_file('./images/orgchart.PNG'))
         {
-            unlink('./images/orgchart.png');
+            unlink('./images/orgchart.PNG');
         }
         else if(is_file('./images/orgchart.jpeg'))
         {
