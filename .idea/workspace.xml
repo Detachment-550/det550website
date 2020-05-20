@@ -162,7 +162,7 @@
       <workItem from="1586546638894" duration="825000" />
       <workItem from="1586920459293" duration="96000" />
       <workItem from="1586992130598" duration="237000" />
-      <workItem from="1589996647094" duration="1649000" />
+      <workItem from="1589996647094" duration="2453000" />
     </task>
     <task id="LOCAL-00001" summary="fixed messare's goof.">
       <created>1567723452959</created>
@@ -276,7 +276,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589997750220</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="wing image fix">
+      <created>1589998332544</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1589998332544</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -298,10 +305,26 @@
     <option name="LAST_COMMIT_MESSAGE" value="wing image fix" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="348" y="0" key="CommitChangelistDialog2" timestamp="1589997749499">
+    <state x="348" y="0" key="CommitChangelistDialog2" timestamp="1589998331793">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="348" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1589997749499" />
+    <state x="348" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1589998331793" />
+    <state width="1491" height="210" key="GridCell.Tab.0.bottom" timestamp="1589998335275">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1491" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589998335275" />
+    <state width="1491" height="210" key="GridCell.Tab.0.center" timestamp="1589998335275">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1491" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589998335275" />
+    <state width="1491" height="210" key="GridCell.Tab.0.left" timestamp="1589998335275">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1491" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589998335275" />
+    <state width="1491" height="210" key="GridCell.Tab.0.right" timestamp="1589998335275">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1491" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589998335275" />
     <state x="606" y="329" key="VCS.ChangelistChooser" timestamp="1586463337007">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
