@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a10f04bf-3585-4a00-af03-7007ec7ae3a9" name="Default Changelist" comment="" />
+    <list default="true" id="a10f04bf-3585-4a00-af03-7007ec7ae3a9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/application/controllers/Cadet.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Cadet.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/wingstructure.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/wingstructure.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -159,6 +162,7 @@
       <workItem from="1586546638894" duration="825000" />
       <workItem from="1586920459293" duration="96000" />
       <workItem from="1586992130598" duration="237000" />
+      <workItem from="1589996647094" duration="2453000" />
     </task>
     <task id="LOCAL-00001" summary="fixed messare's goof.">
       <created>1567723452959</created>
@@ -265,7 +269,21 @@
       <option name="project" value="LOCAL" />
       <updated>1587674141669</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="wing image fix">
+      <created>1589997750220</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1589997750220</updated>
+    </task>
+    <task id="LOCAL-00017" summary="wing image fix">
+      <created>1589998332544</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1589998332544</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -283,25 +301,50 @@
     <MESSAGE value="Announcement search feature (update 3)" />
     <MESSAGE value="Documentation fix" />
     <MESSAGE value="Completed announcement search feature and files that weren't committed when doing documentation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Completed announcement search feature and files that weren't committed when doing documentation" />
+    <MESSAGE value="wing image fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="wing image fix" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="348" y="0" key="CommitChangelistDialog2" timestamp="1587674140622">
+    <state x="348" y="0" key="CommitChangelistDialog2" timestamp="1590091336426">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="348" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1587674140622" />
+    <state x="348" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1590091336426" />
+    <state width="1491" height="210" key="GridCell.Tab.0.bottom" timestamp="1589998335275">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1491" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589998335275" />
+    <state width="1491" height="210" key="GridCell.Tab.0.center" timestamp="1589998335275">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1491" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589998335275" />
+    <state width="1491" height="210" key="GridCell.Tab.0.left" timestamp="1589998335275">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1491" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589998335275" />
+    <state width="1491" height="210" key="GridCell.Tab.0.right" timestamp="1589998335275">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1491" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589998335275" />
+    <state x="482" y="129" key="MultipleFileMergeDialog" timestamp="1590091330403">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="482" y="129" key="MultipleFileMergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1590091330403" />
     <state x="606" y="329" key="VCS.ChangelistChooser" timestamp="1586463337007">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="606" y="329" key="VCS.ChangelistChooser/0.0.1536.824@0.0.1536.824" timestamp="1586463337007" />
-    <state x="361" y="146" key="Vcs.Push.Dialog.v2" timestamp="1589999515375">
+    <state x="361" y="146" key="Vcs.Push.Dialog.v2" timestamp="1590091343096">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="146" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1589999515375" />
+    <state x="361" y="146" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1590091343096" />
     <state x="578" y="330" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586297933803">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="578" y="330" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1586297933803" />
+    <state x="550" y="126" key="git4idea.branch.GitSmartOperationDialog" timestamp="1590091325335">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="550" y="126" key="git4idea.branch.GitSmartOperationDialog/0.0.1536.824@0.0.1536.824" timestamp="1590091325335" />
     <state x="477" y="204" key="git4idea.merge.GitPullDialog" timestamp="1586097802970">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
