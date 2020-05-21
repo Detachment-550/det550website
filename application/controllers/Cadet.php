@@ -561,7 +561,7 @@ class Cadet extends CI_Controller{
         $config['upload_path']      = './images/';
         $config['allowed_types']    = 'pdf|jpg|png|jpeg';
         $config['max_size']         = 10000;
-        $config['max_width']        = 5000;
+        $config['max_width']        = 8000;
         $config['max_height']       = 5000;
         $config['file_name']        = 'wingchart';
 
