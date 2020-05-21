@@ -576,9 +576,9 @@ class Cadet extends CI_Controller{
         {
             unlink('./images/wingchart.jpg');
         }
-        else if(is_file('./images/wingchart.PNG'))
+        else if(is_file('./images/wingchart.png'))
         {
-            unlink('./images/wingchart.PNG');
+            unlink('./images/wingchart.png');
         }
         else if(is_file('./images/wingchart.jpeg'))
         {
@@ -617,9 +617,9 @@ class Cadet extends CI_Controller{
         {
             $data['picture_locate'] = base_url("images/wingchart.jpg");
         }
-        else if(is_file('./images/wingchart.PNG'))
+        else if(is_file('./images/wingchart.png'))
         {
-            $data['picture_locate'] = base_url("images/wingchart.PNG");
+            $data['picture_locate'] = base_url("images/wingchart.png");
         }
         else if(is_file('./images/wingchart.jpeg'))
         {

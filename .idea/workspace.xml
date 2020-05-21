@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a10f04bf-3585-4a00-af03-7007ec7ae3a9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/controllers/Cadet.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Cadet.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/wingstructure.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/wingstructure.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -283,7 +283,21 @@
       <option name="project" value="LOCAL" />
       <updated>1589998332544</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="wing image fix">
+      <created>1590091200871</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1590091200871</updated>
+    </task>
+    <task id="LOCAL-00019" summary="wing image fix">
+      <created>1590091422531</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1590091422531</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -305,10 +319,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="wing image fix" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="348" y="0" key="CommitChangelistDialog2" timestamp="1590091336426">
+    <state x="348" y="0" key="CommitChangelistDialog2" timestamp="1590091421787">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="348" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1590091336426" />
+    <state x="348" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1590091421787" />
     <state width="1491" height="210" key="GridCell.Tab.0.bottom" timestamp="1589998335275">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -333,10 +347,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="606" y="329" key="VCS.ChangelistChooser/0.0.1536.824@0.0.1536.824" timestamp="1586463337007" />
-    <state x="361" y="146" key="Vcs.Push.Dialog.v2" timestamp="1590091343096">
+    <state x="361" y="146" key="Vcs.Push.Dialog.v2" timestamp="1590091432365">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="146" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1590091343096" />
+    <state x="361" y="146" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1590091432365" />
     <state x="578" y="330" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586297933803">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
