@@ -11,12 +11,13 @@
         <img class="card-img-top" alt="Wing Structure picture" src='<?php
         if(isset($picture_locate))
         {
-        echo $picture_locate;
+            echo $picture_locate;
         }
         else {
             echo 'No image defined';
         }
         ?>'><br><br>
+
         </form>
     </div>
 </div>
