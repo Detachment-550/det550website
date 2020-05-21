@@ -557,8 +557,6 @@ class Cadet extends CI_Controller{
 
     function uploadwingpic()
     {
-//        TODO: Fix this so instead of manipulating a name the file name is stored on the cadet's profile
-        $user = $this->ion_auth->user()->row();
 
         $config['upload_path']      = './images/';
         $config['allowed_types']    = 'pdf|jpg|png|jpeg';
