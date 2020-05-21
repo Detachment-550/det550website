@@ -560,27 +560,27 @@ class Cadet extends CI_Controller{
 
         $config['upload_path']      = './images/';
         $config['allowed_types']    = 'pdf|jpg|png|jpeg';
-        $config['max_size']         = 0;
-        $config['max_width']        = 0;
-        $config['max_height']       = 0;
-        $config['file_name']        = 'orgchart';
+        $config['max_size']         = 10000;
+        $config['max_width']        = 5000;
+        $config['max_height']       = 5000;
+        $config['file_name']        = 'wingchart';
 
         // If old wing structure picture exists delete it
-        if(is_file('./images/orgchart.pdf'))
+        if(is_file('./images/wingchart.pdf'))
         {
-            unlink('./images/orgchart.pdf');
+            unlink('./images/wingchart.pdf');
         }
-        else if(is_file('./images/orgchart.jpg'))
+        else if(is_file('./images/wingchart.jpg'))
         {
-            unlink('./images/orgchart.jpg');
+            unlink('./images/wingchart.jpg');
         }
-        else if(is_file('./images/orgchart.PNG'))
+        else if(is_file('./images/wingchart.PNG'))
         {
-            unlink('./images/orgchart.PNG');
+            unlink('./images/wingchart.PNG');
         }
-        else if(is_file('./images/orgchart.jpeg'))
+        else if(is_file('./images/wingchart.jpeg'))
         {
-            unlink('./images/orgchart.jpeg');
+            unlink('./images/wingchart.jpeg');
         }
 
         // Uploads image
@@ -607,25 +607,25 @@ class Cadet extends CI_Controller{
         $data['title'] = 'Cadet Wing Structure';
 
         //passes the "orgchart" picture file name to the view if it exists.
-        if(is_file('./images/orgchart.pdf'))
+        if(is_file('./images/wingchart.pdf'))
         {
-            $data['picture_location'] = base_url("images/orgchart.pdf");
+            $data['picture_locate'] = base_url("images/wingchart.pdf");
         }
-        else if(is_file('./images/orgchart.jpg'))
+        else if(is_file('./images/wingchart.jpg'))
         {
-            $data['picture_location'] = base_url("images/orgchart.jpg");
+            $data['picture_locate'] = base_url("images/wingchart.jpg");
         }
-        else if(is_file('./images/orgchart.PNG'))
+        else if(is_file('./images/wingchart.PNG'))
         {
-            $data['picture_location'] = base_url("images/orgchart.PNG");
+            $data['picture_locate'] = base_url("images/wingchart.PNG");
         }
-        else if(is_file('./images/orgchart.jpeg'))
+        else if(is_file('./images/wingchart.jpeg'))
         {
-            $data['picture_location'] = base_url("images/orgchart.jpeg");
+            $data['picture_locate'] = base_url("images/wingchart.jpeg");
         }
         else
         {
-            $data['picture_location'] = '';
+            $data['picture_locate'] = '';
         }
 
         $this->load->view('templates/header', $data);
