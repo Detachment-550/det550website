@@ -8,7 +8,15 @@
         <?php echo form_open_multipart('cadet/uploadwingpic'); ?>
         <input type="file" name="wingpicture" required><br><br>
         <button class="btn btn-primary" type="submit" name="submit">Upload Picture</button><br><br>
-        <img class="card-img-top" alt="Wing Structure picture" src='<?php echo $picture_location; ?>'><br><br>
+        <img class="card-img-top" alt="Wing Structure picture" src='<?php
+        if(isset($picture_locate))
+        {
+            echo $picture_locate;
+        }
+        else {
+            echo 'No image defined';
+        }
+        ?>'><br><br>
 
         </form>
     </div>
